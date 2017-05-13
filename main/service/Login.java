@@ -9,4 +9,6 @@ import javax.jws.soap.SOAPBinding.Style;
 @SOAPBinding(style = Style.RPC)
 public interface Login {
 	@WebMethod String authenticateUser(String name, String password);
+//Kommentar
+//Neuer Quellcode
 }
