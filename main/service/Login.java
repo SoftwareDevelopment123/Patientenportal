@@ -11,5 +11,5 @@ public interface Login {
 	@WebMethod String authenticateUser(String name, String password);
 	
 	
-	//Merge-Test 2
+	//Merge-Test neu
 }
