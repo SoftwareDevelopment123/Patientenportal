@@ -24,7 +24,5 @@ public class LoginUtil {
 	
 	public Map<String, String> getCombination() {
 		return combination;
-
-	//Neuer Quellcode
 	}
 }
