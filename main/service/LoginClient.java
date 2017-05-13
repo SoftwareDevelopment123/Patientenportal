@@ -14,7 +14,7 @@ public class LoginClient {
                 //Qualifizierter Name des Service
                 //Erstes Argument ist die Service URL
                 //Zweites Argument ist der Service-Name, der in der WSDL-Datei angegeben wird
-		QName qname = new QName("http://login.wiki/", "LoginImplService");
+		QName qname = new QName("http://service/", "LoginImplService");
                 // Erstelle einen Service und extrahiere das Endpoint-Interface, bzw. den Service-Port
 		Service service = Service.create(url, qname);
 		
