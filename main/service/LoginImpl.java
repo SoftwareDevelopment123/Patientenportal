@@ -2,7 +2,7 @@ package service;
 
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "wiki.login.Login")
+@WebService(endpointInterface = "service.Login")
 public class LoginImpl implements Login {
 	
 	@Override
