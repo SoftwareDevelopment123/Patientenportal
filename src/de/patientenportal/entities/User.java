@@ -1,8 +1,9 @@
-package entities;
+package de.patientenportal.entities;
 // Generated 15.05.2017 03:00:21 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "User", catalog = "patientenportal")
 public class User implements java.io.Serializable {
 
+	@GeneratedValue
 	private int user_id;
 	private String username;
 	private String password;

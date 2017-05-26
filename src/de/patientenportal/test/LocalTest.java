@@ -1,27 +1,27 @@
-package test;
+package de.patientenportal.test;
 
-import dao.UserDAO;
-import entities.User;
+import de.patientenportal.DAO.UserDAO;
+import de.patientenportal.entities.User;
 
 public class LocalTest {
 
 	public static void main(String[] args) throws Exception {
 	
-		/*//User anlegen
+		//User anlegen
 		User neu = new User();
 			neu.setUsername("staps");
 			neu.setPassword("pass");
 			neu.setEmail("stap.staptp@mustermail.com");
 			neu.setLastname("Muhu");
 			neu.setFirstname("Staps");
-		UserDAO.add(neu);*/
+		UserDAO.add(neu);
 		
 		//User löschen
 		/*int user_del = 3;
 		UserDAO.delete(user_del);*/
 		
 		//User aufrufen
-		System.out.println("Test starting...");
+/*		System.out.println("Test starting...");
 
 			for (int i=1; i<15; i++){
 		User user = UserDAO.getUser(i);						
@@ -40,6 +40,6 @@ public class LocalTest {
 		System.out.println("Email:    " + email);
 		System.out.println("Lastname: " + lastname);
 		System.out.println("Firstname " + firstname);}
-			}
+			}*/
 	}
 }

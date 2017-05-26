@@ -1,11 +1,12 @@
-package dao;
+package de.patientenportal.DAO;
 
 import java.io.Serializable;
 import org.hibernate.Session;
 
-import entities.*;
+import de.patientenportal.entities.*;
 
 // funktioniert noch nicht so richtig ...
+//
 
 @SuppressWarnings("unused")
 public class DAO <T, PK extends Serializable>{

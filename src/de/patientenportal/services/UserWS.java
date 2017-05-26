@@ -4,7 +4,7 @@
 
 
 
-package services;
+package de.patientenportal.services;
 
 //import java.util.List;
 import javax.jws.WebMethod;
@@ -13,7 +13,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import entities.User;
+import de.patientenportal.entities.User;
 
 @WebService
 @SOAPBinding(style = Style.RPC)

@@ -1,11 +1,10 @@
-package test;
+package de.patientenportal.test;
 
 import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-
-import services.UserWS;
+import de.patientenportal.services.UserWS;
 
 
 public class UserTest {

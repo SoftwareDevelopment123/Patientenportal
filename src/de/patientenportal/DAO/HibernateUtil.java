@@ -1,4 +1,4 @@
-package dao;
+package de.patientenportal.DAO;
 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;

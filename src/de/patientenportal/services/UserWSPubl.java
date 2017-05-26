@@ -1,7 +1,8 @@
-package services;
+package de.patientenportal.services;
 
 import javax.xml.ws.Endpoint;
-import services.UserWSImpl;
+
+import de.patientenportal.services.UserWSImpl;
 
 public class UserWSPubl {
 

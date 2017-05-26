@@ -1,4 +1,4 @@
-package test;
+package de.patientenportal.test;
 
 
 import java.sql.Connection;

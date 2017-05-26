@@ -1,11 +1,11 @@
-package services;
+package de.patientenportal.services;
 
 //import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 
-import dao.UserDAO;
-import entities.User;
+import de.patientenportal.DAO.UserDAO;
+import de.patientenportal.entities.User;
 
 @WebService (endpointInterface = "services.UserWS")
 public class UserWSImpl implements UserWS {
