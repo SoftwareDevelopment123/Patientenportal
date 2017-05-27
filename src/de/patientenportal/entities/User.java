@@ -24,7 +24,7 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String lastname;
 	private String firstname;
-	//private	Doctor doctor;
+	private	Doctor doctor;
 	
 	public User() {
 	}
@@ -33,7 +33,7 @@ public class User implements java.io.Serializable {
 		this.user_id = userId;
 	}
 
-	/*public User(int userId, String username, String password, String email, String lastname, String firstname, Doctor doctor) {
+	public User(int userId, String username, String password, String email, String lastname, String firstname, Doctor doctor) {
 		this.user_id = userId;
 		this.username = username;
 		this.password = password;
@@ -41,9 +41,9 @@ public class User implements java.io.Serializable {
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.doctor = doctor;
-	}*/
+	}
 	
-	/*@OneToOne
+	@OneToOne
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -51,7 +51,7 @@ public class User implements java.io.Serializable {
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
-*/
+
 	@Id
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	public int getUserId() {

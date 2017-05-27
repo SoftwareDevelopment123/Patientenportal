@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Doctor", catalog = "patientenportal")
-public class Doctor extends User {
+public class Doctor {
 
 	@GeneratedValue
 	private int doctor_id;
