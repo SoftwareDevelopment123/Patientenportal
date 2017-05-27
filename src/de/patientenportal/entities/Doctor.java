@@ -19,8 +19,7 @@ public class Doctor extends User {
 	}
 
 	//Eigenschaften
-	public Doctor(int doctorId, String specialization) {
-		this.doctor_id = doctorId;
+	public Doctor(String specialization) {
 		this.specialization = specialization;
 	}
 
