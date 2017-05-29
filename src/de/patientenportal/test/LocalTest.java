@@ -1,7 +1,7 @@
 package de.patientenportal.test;
 
-import de.patientenportal.DAO.UserDAO;
 import de.patientenportal.entities.User;
+import de.patientenportal.persistence.UserDAO;
 
 public class LocalTest {
 

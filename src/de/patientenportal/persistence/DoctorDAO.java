@@ -1,4 +1,4 @@
-package de.patientenportal.DAO;
+package de.patientenportal.persistence;
 
 import org.hibernate.Session;
 

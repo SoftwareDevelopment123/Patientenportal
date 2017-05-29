@@ -1,12 +1,12 @@
-package de.patientenportal.DAO;
+package de.patientenportal.persistence;
 
 
 //import java.util.Iterator;
 //import java.util.List;
 import org.hibernate.Session;
 
-import de.patientenportal.DAO.HibernateUtil;
 import de.patientenportal.entities.User;
+import de.patientenportal.persistence.HibernateUtil;
 
 public class UserDAO {
 

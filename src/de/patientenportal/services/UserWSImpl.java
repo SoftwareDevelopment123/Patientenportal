@@ -4,8 +4,8 @@ package de.patientenportal.services;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 
-import de.patientenportal.DAO.UserDAO;
 import de.patientenportal.entities.User;
+import de.patientenportal.persistence.UserDAO;
 
 @WebService (endpointInterface = "services.UserWS")
 public class UserWSImpl implements UserWS {
