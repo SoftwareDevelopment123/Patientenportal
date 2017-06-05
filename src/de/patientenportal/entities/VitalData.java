@@ -5,24 +5,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
 public class VitalData  {
 	
-
+	
+	
 	private int vitalDataID;
 	private String timestamp;
 	private Double value;
 	private VitalDataType vitalDataType;
-	private PatientCase patientCase;
+	
 	
 
 	
@@ -30,7 +29,6 @@ public class VitalData  {
 	public VitalData(){
 	}
 	//Konstruktor
-	
 	public VitalData(String timestamp,Double value,VitalDataType vitalDataType){
 		this.timestamp = timestamp;
 		this.value = value;
@@ -38,10 +36,9 @@ public class VitalData  {
 	}
 	 // getters and setters...
 	
-	
-
 	@Id
-	@GeneratedValue //(strategy=GenerationType.AUTO)
+	@GenericGenerator(name = "vitalData", strategy = "increment")
+	@GeneratedValue(generator = "vitalData")
 	@Column(name = "VitalDataID", unique = true, nullable = false)
 	public int getVitalDataID() {
 		return vitalDataID;
@@ -72,16 +69,6 @@ public class VitalData  {
 	}
 	public void setVitalDataType(VitalDataType vitalDataType) {
 		this.vitalDataType = vitalDataType;
-	}
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="patientCase")
-	public PatientCase getPatientCase() {
-		return patientCase;
-	}
-
-	public void setPatientCase(PatientCase patientCase) {
-		this.patientCase = patientCase;
 	}
 	
 	

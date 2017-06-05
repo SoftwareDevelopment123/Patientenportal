@@ -23,9 +23,14 @@ public class PatienCaseVitalDataTest {
 		//vitalDatas.add(new VitalData("13:30 Uhr,05.06.2017",6.5, VitalDataType.BLOODSUGAR));
 		//vitalDatas.add(new VitalData("13:30 Uhr,05.06.2017",86.5, VitalDataType.WEIGHT));
 		
-		PatientCase patientcase = new PatientCase("Kreuzbandriss",true,vitalDatas);
+		PatientCase patientcase = new PatientCase("Kreuzbandriss",true);
+		PatientCase patientcase2 = new PatientCase("Mittelohrentzündung",true);
+		
+		patientcase.setVitaldatas(vitalDatas);
+		patientcase2.setVitaldatas(vitalDatas);
 		
 		//VitalDataDAO.add(vitalData);
 		PatientCaseDAO.add(patientcase);
+		PatientCaseDAO.add(patientcase2);
 }
 }
