@@ -6,21 +6,25 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "PatientCase", catalog = "patientenportal")
+@PrimaryKeyJoinColumn(name="personid") 
 public class PatientCase {
 
-	@GeneratedValue
+	
 	private int caseID;
 	private String description;
 	private boolean status;
-	private Set<VitalData> vitaldatas = new HashSet<VitalData>(0);
+	private Set<VitalData> vitaldatas = new HashSet<VitalData>();
 	
 	//Standardkosntruktor
 	public PatientCase(){
@@ -34,6 +38,7 @@ public class PatientCase {
 	}
 	// Getter und Setter
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "CaseID", unique = true, nullable = false)
 	public int getCaseID() {
 		return caseID;
@@ -59,8 +64,8 @@ public class PatientCase {
 	
 	
 	
-	@OneToMany (cascade = CascadeType.ALL)
-	@JoinTable(name = "PatienCase_VitalData")
+	@OneToMany (fetch=FetchType.LAZY, mappedBy="patientCase", cascade = CascadeType.ALL)
+	//@JoinTable(name = "PatienCase_VitalData")
 	public Set<VitalData> getVitaldatas() {
 		return vitaldatas;
 	}
