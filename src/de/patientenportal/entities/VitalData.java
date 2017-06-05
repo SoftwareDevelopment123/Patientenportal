@@ -1,5 +1,6 @@
 package de.patientenportal.entities;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,13 +11,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
-public class VitalData {
+public class VitalData  {
 	
 	@GeneratedValue
 	private int vitalDataID;
 	private String timestamp;
 	private Double value;
 	private VitalDataType vitalDataType;
+	
+	
+
 	
 	//Standardkonstruktor
 	public VitalData(){
@@ -53,7 +57,7 @@ public class VitalData {
 	public void setValue(Double value) {
 		this.value = value;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	public VitalDataType getVitalDataType() {
 		return vitalDataType;

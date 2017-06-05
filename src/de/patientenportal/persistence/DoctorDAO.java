@@ -6,7 +6,7 @@ import de.patientenportal.entities.Doctor;
 
 
 public class DoctorDAO {
-	// User hinzufügen
+	// Doktor hinzufügen
 		public static void add(Doctor doctor) {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 

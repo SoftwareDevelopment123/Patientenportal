@@ -21,6 +21,6 @@
 	  <mapping class="de.patientenportal.entities.User"/>
 	<mapping class="de.patientenportal.entities.Doctor"/>
 	<mapping class="de.patientenportal.entities.VitalData"/>
-	
+	<mapping class="de.patientenportal.entities.PatientCase"/>
  </session-factory>
 </hibernate-configuration>
