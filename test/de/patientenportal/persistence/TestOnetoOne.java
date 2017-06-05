@@ -1,4 +1,6 @@
-package de.patientenportal.test;
+package de.patientenportal.persistence;
+
+import org.junit.Test;
 
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.User;
@@ -7,7 +9,10 @@ import de.patientenportal.persistence.UserDAO;
 
 public class TestOnetoOne {
 
-	public static void main(String[] args) throws Exception {
+
+	@Test
+	public  void test() throws Exception {
+		
 		
 		//User anlegen
 		Doctor doctor = new Doctor("Hautarzt");
