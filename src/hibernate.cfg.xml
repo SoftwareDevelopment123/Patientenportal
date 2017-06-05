@@ -20,6 +20,7 @@
 	  <!-- Auflistung der gemappten Klassen -->
 	  <mapping class="de.patientenportal.entities.User"/>
 	<mapping class="de.patientenportal.entities.Doctor"/>
+	<mapping class="de.patientenportal.entities.VitalData"/>
 	
  </session-factory>
 </hibernate-configuration>
