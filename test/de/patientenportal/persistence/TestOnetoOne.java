@@ -3,7 +3,7 @@ package de.patientenportal.persistence;
 import org.junit.Test;
 
 import de.patientenportal.entities.*;
-//import de.patientenportal.persistence.*;
+import de.patientenportal.persistence.*;
 
 
 public class TestOnetoOne {

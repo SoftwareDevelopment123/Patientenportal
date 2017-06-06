@@ -92,6 +92,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.firstname = firstname;
 	}
 
+	@Column(name = "BIRTHDATE", length = 15)
 	public String getBirthdate() {
 		return birthdate;
 	}
@@ -100,6 +101,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.birthdate = birthdate;
 	}
 
+	@Column(name = "GENDER", length = 10)
 	public String getGender() {
 		return gender;
 	}
@@ -108,7 +110,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.gender = gender;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -117,7 +119,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.doctor = doctor;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
 	public Patient getPatient() {
 		return patient;
 	}
@@ -126,7 +128,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.patient = patient;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
 	public Relative getRelative() {
 		return relative;
 	}
@@ -135,7 +137,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.relative = relative;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
 	public Address getAddress() {
 		return address;
 	}
@@ -144,7 +146,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.address = address;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
 	public Contact getContact() {
 		return contact;
 	}

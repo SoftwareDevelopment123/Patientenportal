@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "Doctor", catalog = "patientenportal")
 public class Doctor {
 
-	@GeneratedValue
 	private int doctorID;
 	private String specialization;
 	//private Office office;			Verknüpfung fehlt noch

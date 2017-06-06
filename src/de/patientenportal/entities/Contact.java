@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "Contact", catalog = "patientenportal")
 public class Contact {
 
-	@GeneratedValue
 	private int contactID;
 	private int phone;
 	private int mobile;

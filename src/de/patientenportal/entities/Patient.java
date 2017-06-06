@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "Patient", catalog = "patientenportal")
 public class Patient {
 
-	@GeneratedValue
 	private int patientID;
 	private String bloodtype;
 	//private Insurance insurance;			Verknüpfung fehlt noch

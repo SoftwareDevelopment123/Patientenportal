@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "Address", catalog = "patientenportal")
 public class Address {
 
-	@GeneratedValue
 	private int addressID;
 	private int postalCode;
 	private String street;
@@ -25,7 +24,6 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	
 	@Column(name = "ADDRESS_ID", unique = true, nullable = false)
 	public int getAddressID() {
 		return addressID;
