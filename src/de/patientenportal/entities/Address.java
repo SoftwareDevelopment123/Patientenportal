@@ -17,7 +17,7 @@ public class Address {
 	private int addressID;
 	private int postalCode;
 	private String street;
-	private int number;
+	private String number;
 	private String city;
 	
 	public Address() {
@@ -54,11 +54,11 @@ public class Address {
 	}
 
 	@Column(name = "NUMBER", length = 6)
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 

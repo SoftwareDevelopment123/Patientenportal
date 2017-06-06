@@ -1,6 +1,6 @@
 package de.patientenportal.persistence;
 
-import org.hibernate.HibernateException;
+//import org.hibernate.HibernateException;
 import java.util.List;
 import org.hibernate.Session;
 import de.patientenportal.entities.User;
@@ -99,6 +99,7 @@ public class UserDAO {
 	}		
 	
 	
+	@SuppressWarnings("unchecked")
 	public static List<User> getAllUsers(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 	    	 
