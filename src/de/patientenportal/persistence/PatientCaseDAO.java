@@ -41,9 +41,13 @@ public class PatientCaseDAO {
 		session.beginTransaction();
 		
 		PatientCase casetoupdate = session.get(PatientCase.class, caseID);
+		
 		casetoupdate.setVitaldatas(vitaldata);		
-
+		session.saveOrUpdate(casetoupdate);
+		
 		session.getTransaction().commit();
+		
+		//session.saveOrUpdate(casetoupdate);
 			
 		session.close();
 		

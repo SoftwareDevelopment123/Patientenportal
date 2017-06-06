@@ -65,7 +65,7 @@ public class PatientCase {
 	
 	
 	
-	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name="vitaldata_fk")
 	//@JoinTable(name = "PatienCase_VitalData")
 	public Set<VitalData> getVitaldatas() {
