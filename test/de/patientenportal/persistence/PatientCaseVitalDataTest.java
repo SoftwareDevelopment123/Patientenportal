@@ -1,6 +1,7 @@
 package de.patientenportal.persistence;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Test;
@@ -38,6 +39,29 @@ public class PatientCaseVitalDataTest {
 		//VitalDataDAO.add(vitalData);
 		PatientCaseDAO.add(patientcase);
 		PatientCaseDAO.add(patientcase2);
+		
+		Set <VitalData> vitaldata = PatientCaseDAO.getCase(2).getVitaldatas();
+		
+		Iterator<VitalData> it = vitaldata.iterator();
+		while(it.hasNext()){
+			VitalData element = it.next();
+
+
+			System.out.println(element.getVitalDataID());
+			System.out.println(element.getTimestamp());
+			
+			if(element.getVitalDataID() == 4){
+				it.remove();
+				System.out.println("Eintrag " + 4 + " wird gelöscht");
+
+			}			
+			
+		int caseID = 2;
+		PatientCaseDAO.updateVitalData(caseID, vitaldata);
+			
+		}
+				
+		
 		
 		//Vitaldaten abfragen
 }

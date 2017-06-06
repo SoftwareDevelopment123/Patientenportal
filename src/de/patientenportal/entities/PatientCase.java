@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -64,7 +65,7 @@ public class PatientCase {
 	
 	
 	
-	@OneToMany (cascade = CascadeType.ALL)
+	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="vitaldata_fk")
 	//@JoinTable(name = "PatienCase_VitalData")
 	public Set<VitalData> getVitaldatas() {
