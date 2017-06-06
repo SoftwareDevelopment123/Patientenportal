@@ -28,6 +28,9 @@ public class User /*implements java.io.Serializable*/ {
 	private	Doctor doctor;
 	private	Patient patient;
 	private	Relative relative;
+	private Address address;
+	private Contact contact;
+
 	
 	public User() {
 	}
@@ -130,6 +133,24 @@ public class User /*implements java.io.Serializable*/ {
 
 	public void setRelative(Relative relative) {
 		this.relative = relative;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 	
 }

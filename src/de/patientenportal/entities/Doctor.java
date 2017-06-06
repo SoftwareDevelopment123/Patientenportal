@@ -16,6 +16,9 @@ public class Doctor {
 	@GeneratedValue
 	private int doctorID;
 	private String specialization;
+	//private Office office;			Verknüpfung fehlt noch
+	//private List <Case> cases;		Verknüpfung fehlt noch
+	//Rückverknüpfung zum User			Verknüpfung fehlt noch
 	
 	public Doctor() {
 	}

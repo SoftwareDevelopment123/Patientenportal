@@ -16,7 +16,11 @@ public class Patient {
 	@GeneratedValue
 	private int patientID;
 	private String bloodtype;
-	//private Insurance insurance;
+	//private Insurance insurance;			Verknüpfung fehlt noch
+	//private List <Relative> relatives;	Verknüpfung fehlt noch
+	//private List <Case> cases;			Verknüpfung fehlt noch
+	//private List <MDoc> Mdoc;				Verknüpfung fehlt noch
+	//Rückverknüpfung zum User			 	Verknüpfung fehlt noch
 	
 	public Patient() {
 	}

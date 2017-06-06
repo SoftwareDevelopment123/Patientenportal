@@ -1,5 +1,74 @@
 package de.patientenportal.entities;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "Address", catalog = "patientenportal")
 public class Address {
+
+	@GeneratedValue
+	private int addressID;
+	private int postalCode;
+	private String street;
+	private int number;
+	private String city;
+	
+	public Address() {
+	}
+
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	
+	@Column(name = "ADDRESS_ID", unique = true, nullable = false)
+	public int getAddressID() {
+		return addressID;
+	}
+
+	public void setAddressID(int addressID) {
+		this.addressID = addressID;
+	}
+
+	@Column(name = "POSTALCODE", length = 8)
+	public int getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(int postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	@Column(name = "STREET", length = 60)
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	@Column(name = "NUMBER", length = 6)
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	@Column(name = "CITY", length = 60)
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 }
