@@ -7,11 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 //import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "User", catalog = "patientenportal")
+@Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
 public class User /*implements java.io.Serializable*/ {
 
 	@GeneratedValue
