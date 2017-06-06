@@ -1,5 +1,7 @@
 package de.patientenportal.entities;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,6 +34,7 @@ public class User /*implements java.io.Serializable*/ {
 	}
 	
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	public int getUserId() {
