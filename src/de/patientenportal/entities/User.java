@@ -17,8 +17,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
 public class User /*implements java.io.Serializable*/ {
 
-	@GeneratedValue
-	private int user_id;
+	private int userID;
 	private String username;
 	private String password;
 	private String email;
@@ -38,11 +37,11 @@ public class User /*implements java.io.Serializable*/ {
 	
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	public int getUserId() {
-		return this.user_id;
+		return this.userID;
 	}
 
-	public void setUserId(int userId) {
-		this.user_id = userId;
+	public void setUserId(int userID) {
+		this.userID = userID;
 	}
 
 	@Column(name = "USERNAME", length = 45, unique = true, nullable = false)

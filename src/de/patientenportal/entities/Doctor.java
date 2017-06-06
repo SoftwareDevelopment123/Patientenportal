@@ -1,5 +1,7 @@
 package de.patientenportal.entities;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,33 +14,28 @@ import javax.persistence.Table;
 public class Doctor {
 
 	@GeneratedValue
-	private int doctor_id;
+	private int doctorID;
 	private String specialization;
 	
 	public Doctor() {
 	}
 
-	//Eigenschaften
-	public Doctor(String specialization) {
-		this.specialization = specialization;
-	}
-
 	@Id
-	@Column(name = "DoctorId", unique = true, nullable = false)
+	@GeneratedValue(strategy = IDENTITY)
+	
+	@Column(name = "DOCTOR_ID", unique = true, nullable = false)
 	public int getDoctor_id() {
-		return doctor_id;
+		return doctorID;
 	}
 
-
-	public void setDoctor_id(int doctor_id) {
-		this.doctor_id = doctor_id;
+	public void setDoctor_id(int doctorID) {
+		this.doctorID = doctorID;
 	}
 
-	@Column(name = "specialization", length = 45)
+	@Column(name = "SPECIALIZATION", length = 45)
 	public String getSpecialization() {
 		return specialization;
 	}
-
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
