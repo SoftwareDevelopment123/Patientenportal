@@ -23,7 +23,7 @@ public interface UserWS {
 //	public List<User> getAllusers();
 	
 	@WebMethod
-	public User getUser(@WebParam (name="User-ID")int user_id);
+	public User getUser(@WebParam (name="User-ID")int user_id) throws Exception;
 	
 //	@WebMethod
 //	public boolean checkUsername(String username);

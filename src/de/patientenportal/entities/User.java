@@ -1,7 +1,5 @@
 package de.patientenportal.entities;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.CascadeType;
+import static javax.persistence.GenerationType.IDENTITY;
 
-//import org.hibernate.annotations.CascadeType;
+//import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
@@ -27,7 +27,7 @@ public class User /*implements java.io.Serializable*/ {
 	private String gender;	
 	private	Doctor doctor;
 	private	Patient patient;
-	private	Relative relative;
+//	private	Relative relative;			// Relative noch nicht angelegt
 	private Address address;
 	private Contact contact;
 
@@ -37,6 +37,8 @@ public class User /*implements java.io.Serializable*/ {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	//@GenericGenerator(name = "user", strategy = "increment")
+	//@GeneratedValue(generator = "user")
 	
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	public int getUserId() {
@@ -110,7 +112,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.gender = gender;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -119,7 +121,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.doctor = doctor;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	public Patient getPatient() {
 		return patient;
 	}
@@ -128,16 +130,16 @@ public class User /*implements java.io.Serializable*/ {
 		this.patient = patient;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
+/*	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	public Relative getRelative() {
 		return relative;
 	}
 
 	public void setRelative(Relative relative) {
 		this.relative = relative;
-	}
+	}*/
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	public Address getAddress() {
 		return address;
 	}
@@ -146,7 +148,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.address = address;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "User")
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	public Contact getContact() {
 		return contact;
 	}

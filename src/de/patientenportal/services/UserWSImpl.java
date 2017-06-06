@@ -18,7 +18,7 @@ public class UserWSImpl implements UserWS {
 //	}
 
 	@Transactional
-	public User getUser(int user_id) {
+	public User getUser(int user_id) throws Exception {
 		return UserDAO.getUser(user_id);
 	}
 

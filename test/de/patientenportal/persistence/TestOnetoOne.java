@@ -3,7 +3,7 @@ package de.patientenportal.persistence;
 import org.junit.Test;
 
 import de.patientenportal.entities.*;
-import de.patientenportal.persistence.*;
+//import de.patientenportal.persistence.*;
 
 
 public class TestOnetoOne {
@@ -16,7 +16,7 @@ public class TestOnetoOne {
 			neu.setUsername("staps");
 			neu.setPassword("pass");
 			neu.setEmail("stap.staptp@mustermail.com");
-			neu.setLastname("Muhu");
+			neu.setLastname("Stupser");
 			neu.setFirstname("Staps");
 			neu.setBirthdate("01.01.1992");
 			neu.setGender("male");
@@ -41,8 +41,7 @@ public class TestOnetoOne {
 		
 		//User in der Datenbank speichern
 		UserDAO.add(neu);
-		
-			
+					
 		/*User user = UserDAO.getUser(0);						
 		
 		if (user==null) {

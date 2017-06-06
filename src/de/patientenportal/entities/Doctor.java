@@ -1,12 +1,12 @@
 package de.patientenportal.entities;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import static javax.persistence.GenerationType.IDENTITY;
+//import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -24,6 +24,8 @@ public class Doctor {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	//@GenericGenerator(name = "doctor", strategy = "increment")
+	//@GeneratedValue(generator = "doctor")
 	
 	@Column(name = "DOCTOR_ID", unique = true, nullable = false)
 	public int getDoctor_id() {
