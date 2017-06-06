@@ -2,6 +2,7 @@ package de.patientenportal.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -40,7 +41,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.user_id = userId;
 	}
 
-	@Column(name = "USERNAME", length = 45)
+	@Column(name = "USERNAME", length = 45, unique = true, nullable = false)
 	public String getUsername() {
 		return this.username;
 	}
@@ -49,7 +50,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.username = username;
 	}
 
-	@Column(name = "PASSWORD", length = 45)
+	@Column(name = "PASSWORD", length = 45, nullable = false)
 	public String getPassword() {
 		return this.password;
 	}
@@ -101,7 +102,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.gender = gender;
 	}
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -110,7 +111,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.doctor = doctor;
 	}
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
 	public Patient getPatient() {
 		return patient;
 	}
@@ -119,7 +120,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.patient = patient;
 	}
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
 	public Relative getRelative() {
 		return relative;
 	}
