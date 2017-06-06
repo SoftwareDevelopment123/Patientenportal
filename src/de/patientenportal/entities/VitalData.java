@@ -39,6 +39,7 @@ public class VitalData  {
 	@Id
 	@GenericGenerator(name = "vitalData", strategy = "increment")
 	@GeneratedValue(generator = "vitalData")
+	
 	@Column(name = "VitalDataID", unique = true, nullable = false)
 	public int getVitalDataID() {
 		return vitalDataID;

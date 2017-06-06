@@ -36,18 +36,20 @@ public class PatientCaseDAO {
 		return patientcase;
 	}
 
-	public static void updateVitalData(int caseID, Set<VitalData> vitaldata) {
+	public static void updateVitalData(PatientCase casetoupdate) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		PatientCase casetoupdate = session.get(PatientCase.class, caseID);
+		int caseID = casetoupdate.getCaseID();
+		Set <VitalData> vdata = casetoupdate.getVitaldatas();
 		
-		casetoupdate.setVitaldatas(vitaldata);		
+		PatientCase updatedcase = session.get(PatientCase.class, caseID);
+		
+		updatedcase.setVitaldatas(vdata);	
+		
 		session.saveOrUpdate(casetoupdate);
 		
 		session.getTransaction().commit();
-		
-		//session.saveOrUpdate(casetoupdate);
 			
 		session.close();
 		

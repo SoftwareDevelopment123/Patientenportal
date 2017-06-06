@@ -41,7 +41,7 @@ public class PatientCaseVitalDataTest {
 		PatientCaseDAO.add(patientcase2);
 		
 		Set <VitalData> vitaldata = PatientCaseDAO.getCase(2).getVitaldatas();
-		
+				
 		Iterator<VitalData> it = vitaldata.iterator();
 		while(it.hasNext()){
 			VitalData element = it.next();
@@ -57,7 +57,12 @@ public class PatientCaseVitalDataTest {
 			}			
 			
 		int caseID = 2;
-		PatientCaseDAO.updateVitalData(caseID, vitaldata);
+		PatientCase casetoupdate = new PatientCase();
+		
+		casetoupdate.setCaseID(caseID);
+		casetoupdate.setVitaldatas(vitaldata);
+		
+		PatientCaseDAO.updateVitalData(casetoupdate);
 			
 		}
 				
