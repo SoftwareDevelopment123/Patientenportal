@@ -55,19 +55,16 @@ public class PatientCaseVitalDataTest {
 				System.out.println("Eintrag " + 4 + " wird gelöscht");
 
 			}			
-			
-		int caseID = 2;
+		}
+		/*int caseID = 2;
 		PatientCase casetoupdate = new PatientCase();
 		
 		casetoupdate.setCaseID(caseID);
 		casetoupdate.setVitaldatas(vitaldata);
 		
-		PatientCaseDAO.updateVitalData(casetoupdate);
-			
-		}
+		PatientCaseDAO.updateVitalData(casetoupdate);*/
+	
 				
-		
-		
-		//Vitaldaten abfragen
-}
+	
+		}
 }

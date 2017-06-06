@@ -1,5 +1,7 @@
 package de.patientenportal.entities;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,8 +40,11 @@ public class PatientCase {
 	}
 	// Getter und Setter
 	@Id
+//	@GeneratedValue(strategy = IDENTITY)
 	@GenericGenerator(name = "case", strategy = "increment")
 	@GeneratedValue(generator = "case")
+	
+	
 	@Column(name = "CaseID", unique = true, nullable = false)
 	public int getCaseID() {
 		return caseID;
@@ -65,7 +70,7 @@ public class PatientCase {
 	
 	
 	
-	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="vitaldata_fk")
 	//@JoinTable(name = "PatienCase_VitalData")
 	public Set<VitalData> getVitaldatas() {

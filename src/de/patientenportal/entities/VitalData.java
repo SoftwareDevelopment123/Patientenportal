@@ -1,6 +1,8 @@
 package de.patientenportal.entities;
 
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,6 +39,7 @@ public class VitalData  {
 	 // getters and setters...
 	
 	@Id
+//	@GeneratedValue(strategy = IDENTITY)
 	@GenericGenerator(name = "vitalData", strategy = "increment")
 	@GeneratedValue(generator = "vitalData")
 	
