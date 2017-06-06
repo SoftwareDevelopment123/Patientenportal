@@ -1,7 +1,6 @@
 package de.patientenportal.persistence;
 
 import org.junit.Test;
-
 import de.patientenportal.entities.*;
 //import de.patientenportal.persistence.*;
 
@@ -42,24 +41,41 @@ public class TestOnetoOne {
 		//User in der Datenbank speichern
 		UserDAO.add(neu);
 					
-		/*User user = UserDAO.getUser(0);						
+		User user = UserDAO.getUser(1);						
 		
 		if (user==null) {
 		}
-		else{
-		String username = user.getUsername();
-		String password = user.getPassword();
-		String email = user.getEmail();
-		String lastname = user.getLastname();
-		String firstname = user.getFirstname();
-		Doctor doctor2 = user.getDoctor();
+		else{	
+		System.out.println("-------Test-Abfrage--------");
+		System.out.println("----------User "+user.getUserId()+"-----------");
+		System.out.println("---------------------------");
+		System.out.println("Username  " + user.getUsername());
+		System.out.println("Password  " + user.getPassword());
+		System.out.println("Email     " + user.getEmail());
+		System.out.println("Lastname  " + user.getLastname());
+		System.out.println("Firstname " + user.getFirstname());
+		System.out.println("Birthdate " + user.getBirthdate());
+		System.out.println("Gender    " + user.getGender());
+		System.out.println("----------Contact----------");
+		System.out.println("ContactID " + user.getContact().getContactID());
 		
-		System.out.println("Username: " + username);
-		System.out.println("Password: " + password);
-		System.out.println("Email:    " + email);
-		System.out.println("Lastname: " + lastname);
-		System.out.println("Firstname " + firstname);
-		System.out.println("Doctor " + doctor2.getSpecialization());}*/
-			
+		// Hier kommt nichts weil LAZY eingestellt ist
+		/*System.out.println("E-Mail    " + user.getContact().getEmail());
+		System.out.println("Mobile    " + user.getContact().getMobile());
+		System.out.println("Phone     " + user.getContact().getPhone());*/
+		
+		System.out.println("----------Address----------");
+		System.out.println("AddressID " + user.getAddress().getAddressID());
+		
+		// Hier kommt nichts weil LAZY eingestellt ist
+		System.out.println("City      " + user.getAddress().getPostalCode() + " " + user.getAddress().getCity());
+		System.out.println("Adress    " + user.getAddress().getStreet() + " " + user.getAddress().getNumber());
+		
+		System.out.println("----------Patient----------");
+		System.out.println("PatientID " + user.getPatient().getPatientID());
+		
+		// Hier kommt nichts weil LAZY eingestellt ist	
+		//System.out.println("Bloodtype " + user.getPatient().getBloodtype());*/
+		}
 	}
 }

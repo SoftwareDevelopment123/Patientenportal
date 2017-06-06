@@ -139,7 +139,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.relative = relative;
 	}*/
 
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Address getAddress() {
 		return address;
 	}
