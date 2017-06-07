@@ -2,10 +2,14 @@ package de.patientenportal.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.CascadeType;
 
 
 @Entity
@@ -15,9 +19,9 @@ public class Office {
 	
 	private int officeID;
 	private String name;
+	private Contact contact;	//Rück zu Office fehlt
+	private Address address;	//Rück zu Office fehlt
 	//Verknüpfung zu private Doctor doctor;
-	//Verknüpfung zu private Contact contact;
-	//VErknüpfung zu private Address address;
 	
 	public Office(){
 	}
@@ -40,6 +44,24 @@ public class Office {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 
