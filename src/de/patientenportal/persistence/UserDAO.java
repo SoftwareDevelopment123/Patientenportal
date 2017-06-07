@@ -58,11 +58,8 @@ public class UserDAO {
 			String firstname = updateduser.getFirstname();
 			String birthdate = updateduser.getBirthdate();
 			String gender = updateduser.getGender();
-			
-			Doctor doctor = updateduser.getDoctor();
-			//Patient patient = updateduser.getPatient();
-			//Relative
-			//Address address = updateduser.getAddress();
+
+			Address address = updateduser.getAddress();
 			//Contact contact = updateduser.getContact();
 
 			System.out.println("Updating User /w ID "+ id +" ... Please calm your tits ...");
@@ -79,13 +76,15 @@ public class UserDAO {
 				if(birthdate!=null)	{usertoupdate.setBirthdate(birthdate);}				
 				if(gender!=null)	{usertoupdate.setGender(gender);}
 			
-				if(doctor!=null){
-					Doctor newdoctor = new Doctor();
-					String spec = doctor.getSpecialization();
+				if(address!=null){
+					Address newaddress = new Address();
+					String city = address.getCity();
+					String pcode = address.getPostalCode();
 					
-					if(spec!=null){newdoctor.setSpecialization(spec);}
+					if(city!=null){newaddress.setCity(city);}
+					if(pcode!=null){newaddress.setPostalCode(pcode);}
 					
-					usertoupdate.setDoctor(newdoctor);
+					usertoupdate.setAddress(newaddress);
 				}
 				
 			session.getTransaction().commit();

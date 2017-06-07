@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 //import org.hibernate.annotations.GenericGenerator;
@@ -17,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Address {
 
 	private int addressID;
-	private int postalCode;
+	private String postalCode;
 	private String street;
 	private String number;
 	private String city;
@@ -40,11 +39,11 @@ public class Address {
 	}
 
 	@Column(name = "POSTALCODE", length = 8)
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
 
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 

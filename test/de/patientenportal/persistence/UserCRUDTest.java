@@ -22,7 +22,7 @@ public class UserCRUDTest {
 		Address neuA = new Address();
 			neuA.setCity("Stapshausen");
 			neuA.setNumber("1a");
-			neuA.setPostalCode(01234);
+			neuA.setPostalCode("01234");
 			neuA.setStreet("Superstrasse");
 			
 		Contact neuC = new Contact();
@@ -64,7 +64,7 @@ public class UserCRUDTest {
 		
 		Assert.assertEquals("Stapshausen", user.getAddress().getCity());
 		Assert.assertEquals("1a", user.getAddress().getNumber());
-		Assert.assertEquals(01234, user.getAddress().getPostalCode());
+		Assert.assertEquals("01234", user.getAddress().getPostalCode());
 		Assert.assertEquals("Superstrasse", user.getAddress().getStreet());
 		
 		Assert.assertEquals("anderemail.als@oben.com", user.getContact().getEmail());
@@ -80,18 +80,36 @@ public class UserCRUDTest {
 		userupdate.setUserId(1);
 		userupdate.setLastname("Newname+");
 		
+			//Update erfolgreich?
 		String feedback = UserDAO.update(userupdate);
 		Assert.assertEquals("success", feedback);
 		
 		User user2 = UserDAO.getUser(1);
 		Assert.assertEquals("Newname+", user2.getLastname());
+
+		//Update-Fehlermeldung-Test
+		User userupdateF = new User();
+		userupdateF.setBirthdate("01.01.0001"); //ID fehlt
+		
+		String feedbackF = UserDAO.update(userupdateF);
+		Assert.assertEquals("noID", feedbackF);
+				
+		//Update-Test-Adressänderung
+		User userupdateA = new User();
+		Address address = new Address();
+		address.setCity("Neustadt");
+		userupdateA.setUserId(1);
+		userupdateA.setAddress(address);
+
+		UserDAO.update(userupdateA);
+		
+	
+		
+		//Delete-Test
+		
+		
 		
 		System.out.println("Relative ist Bidirektional mit UserID " + user.getRelative().getUser().getUserId());
-		
-		//Delete fehlt noch
-		
-		
-		
 	}
 
 }

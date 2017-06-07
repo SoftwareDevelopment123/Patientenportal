@@ -14,12 +14,14 @@ Fortschrittsstand:
 - Entities (User, Doctor, Patient, Address, Contact) angelegt, fehlende Verknüpfungen sind auskommentiert
 
 07.06. (Jan/Stefan)
-- UserCRUDTest neu (Kompletter Unit-Test des UserDAOs avisiert)
+- UserCRUDTest angelegt (Kompletter Unit-Test des UserDAOs avisiert)
+- Entities (Relative, Office, Insurance) angelegt, fehlende Verknüpfungen sind auskommentiert
+
 
 To-Do
-- Relative anlegen
 - UserDAO vervollständigen (versch. Methodennamen für die getUserx-Methoden // "userID" überall anpassen)
-- Case aktualisieren
+- Case-Entity und Vitaldata-Entity an die Struktur der funktionierenden Entities anpassen
+- DAOs für Address und Contact anlegen
 
 
 

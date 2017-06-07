@@ -23,7 +23,7 @@ public class TestOnetoOne {
 		Address neuA = new Address();
 			neuA.setCity("Stapshausen");
 			neuA.setNumber("1a");
-			neuA.setPostalCode(01234);
+			neuA.setPostalCode("01234");
 			neuA.setStreet("Superstrasse");
 			
 		Contact neuC = new Contact();
