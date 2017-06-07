@@ -35,7 +35,7 @@ public class UserDAO {
 		return user;
 	}
 	
-
+	// Userdaten ändern
 	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
@@ -69,9 +69,61 @@ public class UserDAO {
 		else {
 			return "noID";
 		}
-
 	}		
 	
+	// Adressdaten ändern
+	public static String updateAddress(Address updatedaddress){
+		int id = updatedaddress.getAddressID();
+		if(id!=0){
+			
+			String postalCode = updatedaddress.getPostalCode();
+			String street = updatedaddress.getStreet();
+			String number = updatedaddress.getNumber();
+			String city = updatedaddress.getCity();
+					
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();				
+			Address addresstoupdate = session.get(Address.class, id);
+			
+				if(postalCode!=null)	{addresstoupdate.setPostalCode(postalCode);}
+				if(street!=null)		{addresstoupdate.setStreet(street);}
+				if(number!=null)		{addresstoupdate.setNumber(number);}
+				if(city!=null)			{addresstoupdate.setCity(city);}				
+
+			session.getTransaction().commit();
+			session.close();
+			return "success";
+		}
+		else {
+			return "noID";
+		}
+	}		
+	
+	// Kontaktdaten ändern
+	public static String updateContact(Contact updatedcontact){
+		int id = updatedcontact.getContactID();
+		if(id!=0){
+			
+			String phone = updatedcontact.getPhone();
+			String mobile = updatedcontact.getMobile();
+			String email = updatedcontact.getEmail();
+								
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();				
+			Contact contacttoupdate = session.get(Contact.class, id);
+
+				if(phone!=null)		{contacttoupdate.setPhone(phone);}
+				if(mobile!=null)	{contacttoupdate.setMobile(mobile);}
+				if(email!=null)		{contacttoupdate.setEmail(email);}
+
+			session.getTransaction().commit();
+			session.close();
+			return "success";
+		}
+		else {
+			return "noID";
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static List<User> getAllUsers(){

@@ -74,13 +74,15 @@ public class UserCRUDTest {
 		Assert.assertEquals("ABC", user.getPatient().getBloodtype());
 		
 		Assert.assertEquals("Kardiologe", user.getDoctor().getSpecialization());
-			
-		//Update-Test
+		
+		//Bidirektionaler Zugriff-Relative-Test
+		Assert.assertEquals(1, user.getRelative().getUser().getUserId());
+		
+		//User-Update-Test
 		User userupdate = new User();
 		userupdate.setUserId(1);
 		userupdate.setLastname("Newname+");
 		
-		//Update erfolgreich?
 		String feedback = UserDAO.updateUser(userupdate);
 		Assert.assertEquals("success", feedback);
 		
@@ -93,13 +95,38 @@ public class UserCRUDTest {
 		
 		String feedbackF = UserDAO.updateUser(userupdateF);
 		Assert.assertEquals("noID", feedbackF);
-
+		
+		//Address-Update-Test
+		int addressID = UserDAO.getUser(1).getAddress().getAddressID();
+		Address addressupdate = new Address();
+		addressupdate.setAddressID(addressID);
+		addressupdate.setCity("NewCity");
+		addressupdate.setPostalCode("464646");		
+		UserDAO.updateAddress(addressupdate);
+		
+		User user3 = UserDAO.getUser(1);
+		Assert.assertEquals("NewCity", user3.getAddress().getCity());
+		Assert.assertEquals("464646", user3.getAddress().getPostalCode());
+		
+		//Kontakt-Update-Test
+		int contactID = UserDAO.getUser(1).getContact().getContactID();
+		Contact contactupdate = new Contact();
+		contactupdate.setContactID(contactID);
+		contactupdate.setEmail("NeueMail@newnew.com");
+		contactupdate.setMobile("01175/3737212");
+		UserDAO.updateContact(contactupdate);
+		
+		User user4 = UserDAO.getUser(1);
+		Assert.assertEquals("NeueMail@newnew.com", user4.getContact().getEmail());
+		Assert.assertEquals("01175/3737212", user4.getContact().getMobile());
+		
 		//Delete-Test
 		String feedbackD = UserDAO.deleteUser(1);
 		User deleted = UserDAO.getUser(1);
 		Assert.assertEquals("success", feedbackD);
-		Assert.assertEquals(null, deleted);		
+		Assert.assertEquals(null, deleted);	
 
+	
 		//Cascade-Delete-Test
 		//Hier vllt noch Abfragen in die anderen Tabellen (Doctor ...), ob die Einträge dort gelöscht sind
 		//Test ist nicht zwingend erforderlicht ist manuell überprüfbar
