@@ -32,14 +32,20 @@ public class UserCRUDTest {
 			
 		Patient neuP = new Patient();
 			neuP.setBloodtype("ABC");
+			//neuP.setUser(neu);
 			
 		Doctor neuD = new Doctor();
 			neuD.setSpecialization("Kardiologe");
+			//neuD.setUser(neu);
 			
+		Relative neuR = new Relative();
+			neuR.setUser(neu);
+
 			neu.setAddress(neuA);
 			neu.setContact(neuC);
 			neu.setPatient(neuP);
 			neu.setDoctor(neuD);
+			neu.setRelative(neuR);
 				
 		//User in der Datenbank speichern
 		UserDAO.add(neu);
@@ -68,7 +74,7 @@ public class UserCRUDTest {
 		Assert.assertEquals("ABC", user.getPatient().getBloodtype());
 		
 		Assert.assertEquals("Kardiologe", user.getDoctor().getSpecialization());
-		
+			
 		//Update-Test
 		User userupdate = new User();
 		userupdate.setUserId(1);
@@ -80,9 +86,9 @@ public class UserCRUDTest {
 		User user2 = UserDAO.getUser(1);
 		Assert.assertEquals("Newname+", user2.getLastname());
 		
+		System.out.println("Relative ist Bidirektional mit UserID " + user.getRelative().getUser().getUserId());
 		
-		
-		//Update und Delete fehlt noch
+		//Delete fehlt noch
 		
 		
 		

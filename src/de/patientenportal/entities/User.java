@@ -27,7 +27,7 @@ public class User /*implements java.io.Serializable*/ {
 	private String gender;	
 	private	Doctor doctor;
 	private	Patient patient;
-//	private	Relative relative;			// Relative noch nicht angelegt
+	private	Relative relative;
 	private Address address;
 	private Contact contact;
 
@@ -130,14 +130,14 @@ public class User /*implements java.io.Serializable*/ {
 		this.patient = patient;
 	}
 
-/*	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Relative getRelative() {
 		return relative;
 	}
 
 	public void setRelative(Relative relative) {
 		this.relative = relative;
-	}*/
+	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Address getAddress() {
