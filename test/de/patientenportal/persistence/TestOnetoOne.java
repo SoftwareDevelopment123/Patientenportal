@@ -39,7 +39,7 @@ public class TestOnetoOne {
 			neu.setPatient(neuP);
 		
 		//User in der Datenbank speichern
-		UserDAO.add(neu);
+		RegistrationDAO.createUser(neu);
 		
 		//User abrufen
 		User user = UserDAO.getUser(1);						
