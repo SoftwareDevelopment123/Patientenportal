@@ -11,10 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
-//import java.util.HashSet;
-//import java.util.List;
-import java.util.Set;
 
 //import org.hibernate.annotations.GenericGenerator;
 
@@ -27,8 +25,7 @@ public class Case {
 	private String description;
 	private boolean status;
 	//Verknüpfung Rechte
-	//private List<VitalData> vitaldata;	//Verknüpfung Vitaldata
-	private Set<VitalData> vitaldata;		// = new HashSet<VitalData>(0);
+	private List<VitalData> vitaldata;
 	//Verknüpfung Medication
 	//Verknüpfung InstructionMaterial
 	//Verknüpfung MDoc
@@ -74,23 +71,13 @@ public class Case {
 		this.status = status;
 	}
 
-/*	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="vitaldata_fk")
 	public List<VitalData> getVitaldata() {
 		return vitaldata;
 	}
 	public void setVitaldata(List<VitalData> vitaldata) {
 		this.vitaldata = vitaldata;
-	}*/
-	
-	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="vitaldata_fk")
-	public Set<VitalData> getVitaldata() {
-		return vitaldata;
 	}
-
-	public void setVitaldata(Set<VitalData> vitaldata) {
-		this.vitaldata = vitaldata;
-	}
-	
+		
 }

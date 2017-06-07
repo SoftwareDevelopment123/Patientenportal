@@ -1,13 +1,8 @@
 package de.patientenportal.persistence;
 
-/*import java.util.List;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Arrays;
-import org.hibernate.Hibernate;*/
-
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Iterator;
 import org.junit.*;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
@@ -28,17 +23,9 @@ public class CaseCRUDTest {
 				VitalData vitaldata3 = new VitalData("abend",6.5,VitalDataType.BLOODSUGAR);
 				VitalData vitaldata4 = new VitalData("früh",86.0,VitalDataType.WEIGHT);
 				VitalData vitaldata5 = new VitalData("abend",70.0,VitalDataType.HEARTRATE);
-		
-				Set<VitalData> vdata = new HashSet<VitalData>();
-					vdata.add(vitaldata1);
-					vdata.add(vitaldata2);
-					vdata.add(vitaldata3);
-					vdata.add(vitaldata4);
-					vdata.add(vitaldata5);
-			newcase.setVitaldata(vdata);		
 					
-/*				List<VitalData> vitaldatas = Arrays.asList(vitaldata1, vitaldata2, vitaldata3, vitaldata4, vitaldata5);
-			newcase.setVitaldata(vitaldatas);*/
+				List<VitalData> vitaldatas = Arrays.asList(vitaldata1, vitaldata2, vitaldata3, vitaldata4, vitaldata5);
+			newcase.setVitaldata(vitaldatas);
 			
 		String response = CaseDAO.createCase(newcase);
 			Assert.assertEquals("success", response);
@@ -46,27 +33,15 @@ public class CaseCRUDTest {
 		Case getcase = CaseDAO.getCase(1);
 			Assert.assertEquals("Kreuzbandriss", getcase.getTitle());
 			Assert.assertEquals("Hier könnte ihre Werbung stehen!", getcase.getDescription());
-			Assert.assertEquals(true, getcase.isStatus());
-			
-		Set<VitalData> getvitaldata = getcase.getVitaldata();
-			
-		Iterator<VitalData> iterator = getvitaldata.iterator();
-		while(iterator.hasNext()) {
-			VitalData vd = iterator.next();
-			System.out.println(vd.getVitalDataID() + " " + vd.getTimestamp() + " " + vd.getVitalDataType() + ": " + vd.getValue());
-		}
-			
+			Assert.assertEquals(true, getcase.isStatus());		
 
-		/*List<VitalData> getvitaldatas= getcase.getVitaldata();
-		System.out.println(getvitaldatas.get(0).getVitalDataID());*/
+		List<VitalData> getvitaldatas= getcase.getVitaldata();
 		
-		/*VitalData vd;
 		for ( ListIterator<VitalData> it = getvitaldatas.listIterator(); it.hasNext(); ){
-			vd = it.next();
-			System.out.println(vd.getVitalDataID());
-			//System.out.println(vd.getVitalDataID() + " " + vd.getTimestamp() + " " + vd.getVitalDataType() + ": " + vd.getValue());
-			//System.out.println();
-		}*/
+			VitalData vd = it.next();
+			System.out.println(vd.getVitalDataID() + " " + vd.getTimestamp() + " " + vd.getVitalDataType() + ": " + vd.getValue());
+			System.out.println();
+		}
 	}
 		
 	
