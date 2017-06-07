@@ -1,4 +1,4 @@
-package de.patientenportal.persistence;
+package smalltests;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,6 +9,7 @@ import org.junit.Test;
 import de.patientenportal.entities.PatientCase;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;
+import de.patientenportal.persistence.PatientCaseDAO;
 
 
 

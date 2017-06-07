@@ -1,8 +1,10 @@
-package de.patientenportal.persistence;
+package smalltests;
 
 import org.junit.Test;
 import de.patientenportal.entities.*;
 //import de.patientenportal.persistence.*;
+import de.patientenportal.persistence.RegistrationDAO;
+import de.patientenportal.persistence.UserDAO;
 
 public class TestOnetoOne {
 
