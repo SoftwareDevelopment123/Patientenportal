@@ -1,10 +1,12 @@
 package de.patientenportal.persistence;
 
 //import org.hibernate.HibernateException;
+//import javax.transaction.Transactional;
 import java.util.List;
 import org.hibernate.Session;
 import de.patientenportal.entities.*;
 
+//@Transactional
 public class UserDAO {
 	
 	// User abrufen

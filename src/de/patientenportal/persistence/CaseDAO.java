@@ -1,8 +1,11 @@
 package de.patientenportal.persistence;
 
+//import javax.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 
+//@Transactional
 public class CaseDAO {
 
 	// Fall abrufen
@@ -12,6 +15,7 @@ public class CaseDAO {
 			
 		session.beginTransaction();
 		getcase = (Case)session.get(Case.class, caseID);	
+		Hibernate.initialize(getcase.getVitaldata());
 		session.getTransaction().commit();
 				
 		session.close();
