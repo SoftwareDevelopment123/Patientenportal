@@ -126,9 +126,9 @@ public class UserCRUDTest {
 		Assert.assertEquals("success", feedbackD);
 		Assert.assertEquals(null, deleted);	
 
-	
 		//Cascade-Delete-Test
 		//Hier vllt noch Abfragen in die anderen Tabellen (Doctor ...), ob die Einträge dort gelöscht sind
 		//Test ist nicht zwingend erforderlicht ist manuell überprüfbar
+
 	}
 }

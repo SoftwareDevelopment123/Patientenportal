@@ -7,20 +7,7 @@ import de.patientenportal.entities.*;
 import de.patientenportal.persistence.HibernateUtil;
 
 public class UserDAO {
-
-	// User löschen
-	public static String deleteUser(int user_id){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
-		User user = (User)session.get(User.class, user_id);
-		session.delete(user);
-		session.getTransaction().commit();
-		
-		session.close();
-		return "success";
-	}
-		
+	
 	// User über ID finden
 	public static User getUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -125,6 +112,20 @@ public class UserDAO {
 		}
 	}
 	
+	// User löschen
+	public static String deleteUser(int user_id){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		User user = (User)session.get(User.class, user_id);
+		session.delete(user);
+		session.getTransaction().commit();
+		
+		session.close();
+		return "success";
+	}
+	
+	// Alle User ausgeben -- nur testweise hier drin, kann in ein AdminDAO
 	@SuppressWarnings("unchecked")
 	public static List<User> getAllUsers(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -137,5 +138,4 @@ public class UserDAO {
 	    return users;
 	}
 	
-
 }

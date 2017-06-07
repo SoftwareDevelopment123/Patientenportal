@@ -18,13 +18,11 @@ Fortschrittsstand:
 - Bidirektional-Test angelegt (funktioniert alles)
 - RegistrationDAO angelegt für Actor-Create-Methoden
 - Entities (Relative, Office, Insurance) angelegt, fehlende Verknüpfungen sind auskommentiert
-- UserDAO erweitert (UpdateAddress, UpdateContact)
-
+- UserDAO fertig (UpdateAddress, UpdateContact hinzugefügt)
+- UserCRUDTest fertig (funktioniert alles)
 
 To-Do
-- UserDAO vervollständigen (versch. Methodennamen für die getUserx-Methoden // "userID" überall anpassen)
-
-- ActorDAOs anlegen (siehe DAO Klassendiagramm und UserDAO) -- Jan
+- ActorDAOs anlegen und RegistrationDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
 
 - Case-Entity und Vitaldata-Entity an die Struktur der funktionierenden Entities anpassen --> Testen
 - ManytoMany-Verknüpfung ausprobieren
@@ -42,3 +40,5 @@ Anmerkungen
 - EAGER für OnetoOne, Lazy für große Abfragen !!!
 
 - Idee: SaveOrUpdate-Funktion (ausprobieren, testen)
+
+- versch. Methodennamen für die getUserx-Methoden werden nicht mehr gebraucht, da bidirektionaler Zugriff funktioniert

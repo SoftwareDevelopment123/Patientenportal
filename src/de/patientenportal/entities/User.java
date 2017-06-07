@@ -35,6 +35,10 @@ public class User /*implements java.io.Serializable*/ {
 	public User() {
 	}
 	
+	public User(String username, String password, String firstname, String lastname){
+	}
+	
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	//@GenericGenerator(name = "user", strategy = "increment")
