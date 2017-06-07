@@ -21,8 +21,10 @@ Fortschrittsstand:
 - UserDAO fertig (UpdateAddress, UpdateContact hinzugefügt)
 - UserCRUDTest fertig (funktioniert alles)
 
+
+
 To-Do
-- ActorDAOs anlegen und RegistrationDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
+- ActorDAOs und OfficeDAO anlegen, RegistrationDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
 
 - Case-Entity und Vitaldata-Entity an die Struktur der funktionierenden Entities anpassen --> Testen
 - ManytoMany-Verknüpfung ausprobieren
@@ -32,13 +34,9 @@ To-Do
 
 
 
-
 Anmerkungen
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
 - Boolean-Ausgabe testen (true/false oder 1/0)
-
 - EAGER für OnetoOne, Lazy für große Abfragen !!!
-
 - Idee: SaveOrUpdate-Funktion (ausprobieren, testen)
-
 - versch. Methodennamen für die getUserx-Methoden werden nicht mehr gebraucht, da bidirektionaler Zugriff funktioniert
