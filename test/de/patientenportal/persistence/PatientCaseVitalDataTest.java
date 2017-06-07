@@ -40,8 +40,8 @@ public class PatientCaseVitalDataTest {
 		PatientCaseDAO.add(patientcase);
 		PatientCaseDAO.add(patientcase2);
 		
-		Set <VitalData> vitaldata = PatientCaseDAO.getCase(2).getVitaldatas();
-				
+		Set <VitalData> vitaldata = PatientCaseDAO.getCase(2).getVitaldatas();		
+		
 		Iterator<VitalData> it = vitaldata.iterator();
 		while(it.hasNext()){
 			VitalData element = it.next();

@@ -15,12 +15,11 @@ public class CaseDAO {
 		session.getTransaction().commit();
 				
 		session.close();
-			
 		return getcase;
 		}
 	
 	// Fall anlegen
-	public static void add(Case newcase) {
+	public static String createCase(Case newcase) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
@@ -28,7 +27,20 @@ public class CaseDAO {
 		session.getTransaction().commit();
 			
 		session.close();
+		return "success";
 		}
 	
+	// User löschen
+	public static String deleteCase(int caseID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		Case removecase = (Case)session.get(Case.class, caseID);
+		session.delete(removecase);
+		session.getTransaction().commit();
+			
+		session.close();
+		return "success";
+	}
 	
 }
