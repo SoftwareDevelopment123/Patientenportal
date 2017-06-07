@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 //import org.hibernate.annotations.GenericGenerator;
@@ -15,6 +16,7 @@ public class Patient {
 
 	private int patientID;
 	private String bloodtype;
+	private User user;
 	//private Insurance insurance;			Verknüpfung fehlt noch
 	//private List <Relative> relatives;	Verknüpfung fehlt noch
 	//private List <Case> cases;			Verknüpfung fehlt noch
@@ -45,6 +47,15 @@ public class Patient {
 
 	public void setBloodtype(String bloodtype) {
 		this.bloodtype = bloodtype;
+	}
+
+	@OneToOne(targetEntity = User.class)
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }
