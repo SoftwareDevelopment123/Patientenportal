@@ -8,7 +8,7 @@ import de.patientenportal.persistence.HibernateUtil;
 
 public class UserDAO {
 	
-	// User über ID finden
+	// User abrufen
 	public static User getUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		User user = new User();
