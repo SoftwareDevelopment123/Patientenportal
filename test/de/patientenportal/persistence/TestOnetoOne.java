@@ -4,7 +4,6 @@ import org.junit.Test;
 import de.patientenportal.entities.*;
 //import de.patientenportal.persistence.*;
 
-
 public class TestOnetoOne {
 
 	@Test
@@ -29,8 +28,8 @@ public class TestOnetoOne {
 			
 		Contact neuC = new Contact();
 			neuC.setEmail("anderemail.als@oben.com");
-			neuC.setMobile(01731234567);
-			neuC.setPhone(03512646152);
+			neuC.setMobile("01731234567");
+			neuC.setPhone("03512646152");
 			
 		Patient neuP = new Patient();
 			neuP.setBloodtype("ABC");

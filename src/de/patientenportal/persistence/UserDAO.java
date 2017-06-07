@@ -9,7 +9,7 @@ import de.patientenportal.persistence.HibernateUtil;
 public class UserDAO {
 
 	// User hinzufügen
-	public static void add(User user) throws Exception{
+	public static void add(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
@@ -20,7 +20,7 @@ public class UserDAO {
 	}
 
 	// User löschen
-	public static void delete(int user_id) throws Exception{
+	public static void delete(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
@@ -32,7 +32,7 @@ public class UserDAO {
 	}
 		
 	// User über ID finden
-	public static User getUser(int user_id) throws Exception{
+	public static User getUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		User user = new User();
 			
@@ -46,7 +46,7 @@ public class UserDAO {
 	}
 	
 
-	public static void update(User updateduser) throws Exception{
+	public static void update(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
 			

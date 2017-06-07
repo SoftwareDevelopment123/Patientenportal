@@ -16,8 +16,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Contact {
 
 	private int contactID;
-	private int phone;
-	private int mobile;
+	private String phone;
+	private String mobile;
 	private String email;
 	
 	public Contact() {
@@ -38,20 +38,20 @@ public class Contact {
 	}
 
 	@Column(name = "PHONE", length = 15)
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
 	@Column(name = "MOBILE", length = 15)
-	public int getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(int mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
