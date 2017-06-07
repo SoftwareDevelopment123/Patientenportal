@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 //import org.hibernate.annotations.GenericGenerator;
@@ -15,6 +16,7 @@ public class Doctor {
 
 	private int doctorID;
 	private String specialization;
+	private User user;
 	//private Office office;			Verknüpfung fehlt noch
 	//private List <Case> cases;		Verknüpfung fehlt noch
 	//Rückverknüpfung zum User			Verknüpfung fehlt noch
@@ -43,6 +45,15 @@ public class Doctor {
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
+	}
+
+	@OneToOne(targetEntity = User.class)
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	
