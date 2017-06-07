@@ -19,8 +19,8 @@ public class Office {
 	
 	private int officeID;
 	private String name;
-	private Contact contact;
-	private Address address;
+	private Contact contact;	//Rück zu Office fehlt
+	private Address address;	//Rück zu Office fehlt
 	//Verknüpfung zu private Doctor doctor;
 	
 	public Office(){
