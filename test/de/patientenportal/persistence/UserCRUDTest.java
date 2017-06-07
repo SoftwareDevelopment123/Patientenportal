@@ -48,7 +48,7 @@ public class UserCRUDTest {
 			neu.setRelative(neuR);
 				
 		//User in der Datenbank speichern
-		UserDAO.add(neu);
+		RegistrationDAO.createUser(neu);
 		
 		//User aus der Datenbank abrufen
 		User user = UserDAO.getUser(1);
@@ -80,7 +80,7 @@ public class UserCRUDTest {
 		userupdate.setUserId(1);
 		userupdate.setLastname("Newname+");
 		
-			//Update erfolgreich?
+		//Update erfolgreich?
 		String feedback = UserDAO.update(userupdate);
 		Assert.assertEquals("success", feedback);
 		

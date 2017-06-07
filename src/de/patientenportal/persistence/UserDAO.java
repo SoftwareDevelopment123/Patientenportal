@@ -8,17 +8,6 @@ import de.patientenportal.persistence.HibernateUtil;
 
 public class UserDAO {
 
-	// User hinzufügen
-	public static void add(User user){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		session.beginTransaction();
-		session.save(user);
-		session.getTransaction().commit();
-		
-		session.close();
-	}
-
 	// User löschen
 	public static void delete(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -59,13 +48,9 @@ public class UserDAO {
 			String birthdate = updateduser.getBirthdate();
 			String gender = updateduser.getGender();
 
-			Address address = updateduser.getAddress();
-			//Contact contact = updateduser.getContact();
-
 			System.out.println("Updating User /w ID "+ id +" ... Please calm your tits ...");
 			
-			session.beginTransaction();
-						
+			session.beginTransaction();				
 			User usertoupdate = session.get(User.class, id);
 				
 				if(username!=null)	{usertoupdate.setUsername(username);}
@@ -75,18 +60,7 @@ public class UserDAO {
 				if(firstname!=null)	{usertoupdate.setFirstname(firstname);}				
 				if(birthdate!=null)	{usertoupdate.setBirthdate(birthdate);}				
 				if(gender!=null)	{usertoupdate.setGender(gender);}
-			
-				if(address!=null){
-					Address newaddress = new Address();
-					String city = address.getCity();
-					String pcode = address.getPostalCode();
-					
-					if(city!=null){newaddress.setCity(city);}
-					if(pcode!=null){newaddress.setPostalCode(pcode);}
-					
-					usertoupdate.setAddress(newaddress);
-				}
-				
+							
 			session.getTransaction().commit();
 			session.close();
 			return "success";

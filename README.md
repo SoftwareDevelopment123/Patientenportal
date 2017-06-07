@@ -15,6 +15,7 @@ Fortschrittsstand:
 
 07.06. (Jan/Stefan)
 - UserCRUDTest angelegt (Kompletter Unit-Test des UserDAOs avisiert)
+- RegistrationDAO angelegt für Actor-Create-Methoden
 - Entities (Relative, Office, Insurance) angelegt, fehlende Verknüpfungen sind auskommentiert
 
 
