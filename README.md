@@ -24,6 +24,8 @@ Fortschrittsstand:
 
 - Entities (Case) angelegt, fehlende Verknüpfungen sind auskommentiert
 - CaseCRUDTest angelegt (Kompletter Unit-Test des CaseDAOs avisiert)
+- Testing-Suite eingerichtet (Test können jetzt alle zusammen laufen)
+- Ordner-Struktur geändert (vor allem bei Tests) / kleine Tests zum "Probieren" kommen jetzz in die "Spielwiese"
 
 
 To-Do
