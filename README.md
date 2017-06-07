@@ -29,7 +29,7 @@ To-Do
 - Case-Entity und Vitaldata-Entity an die Struktur der funktionierenden Entities anpassen --> Testen
 - ManytoMany-Verknüpfung ausprobieren
 
-
+- Unit-Test in einzelne Methoden aufteilen (?)
 
 
 
