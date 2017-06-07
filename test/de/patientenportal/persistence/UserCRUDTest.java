@@ -99,6 +99,8 @@ public class UserCRUDTest {
 		User deleted = UserDAO.getUser(1);
 		Assert.assertEquals(null, deleted);		
 
+		//Cascade-Delete-Test
+		//Hier vllt noch Abfragen in die anderen Tabellen (Doctor ...), ob die Einträge dort gelöscht sind
+		//Test ist nicht zwingend erforderlicht ist manuell überprüfbar
 	}
-
 }
