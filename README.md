@@ -13,3 +13,22 @@ Fortschrittsstand:
 06.06. (Stefan)
 - Entities (User, Doctor, Patient, Address, Contact) angelegt, fehlende Verknüpfungen sind auskommentiert
 
+07.06. (Jan/Stefan)
+
+
+To-Do
+- Relative anlegen
+- UserDAO vervollständigen (versch. Methodennamen für die getUserx-Methoden // "userID" überall anpassen)
+- Case aktualisieren
+
+
+
+
+
+
+
+Anmerkungen
+- Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
+- Boolean-Ausgabe testen (true/false oder 1/0)
+
+- EAGER für OnetoOne, Lazy für große Abfragen !!!

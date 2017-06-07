@@ -12,6 +12,7 @@ public class TestOnetoOne {
 		
 		//User anlegen (Patient)
 		User neu = new User();
+		
 			neu.setUsername("staps");
 			neu.setPassword("pass");
 			neu.setEmail("stap.staptp@mustermail.com");
@@ -40,7 +41,8 @@ public class TestOnetoOne {
 		
 		//User in der Datenbank speichern
 		UserDAO.add(neu);
-					
+		
+		//User abrufen
 		User user = UserDAO.getUser(1);						
 		
 		if (user==null) {
@@ -60,22 +62,23 @@ public class TestOnetoOne {
 		System.out.println("ContactID " + user.getContact().getContactID());
 		
 		// Hier kommt nichts weil LAZY eingestellt ist
-		/*System.out.println("E-Mail    " + user.getContact().getEmail());
+		System.out.println("E-Mail    " + user.getContact().getEmail());
 		System.out.println("Mobile    " + user.getContact().getMobile());
-		System.out.println("Phone     " + user.getContact().getPhone());*/
+		System.out.println("Phone     " + user.getContact().getPhone());
 		
 		System.out.println("----------Address----------");
 		System.out.println("AddressID " + user.getAddress().getAddressID());
+
 		
-		// Hier kommt nichts weil LAZY eingestellt ist
+		//Hier wird das Objekt befüllt, weil EAGER eingestellt ist
 		System.out.println("City      " + user.getAddress().getPostalCode() + " " + user.getAddress().getCity());
-		System.out.println("Adress    " + user.getAddress().getStreet() + " " + user.getAddress().getNumber());
+		System.out.println("Address   " + user.getAddress().getStreet() + " " + user.getAddress().getNumber());
 		
 		System.out.println("----------Patient----------");
 		System.out.println("PatientID " + user.getPatient().getPatientID());
 		
 		// Hier kommt nichts weil LAZY eingestellt ist	
-		//System.out.println("Bloodtype " + user.getPatient().getBloodtype());*/
+		System.out.println("Bloodtype " + user.getPatient().getBloodtype());
 		}
 	}
 }

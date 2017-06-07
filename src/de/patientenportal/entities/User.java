@@ -112,7 +112,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.gender = gender;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -121,7 +121,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.doctor = doctor;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Patient getPatient() {
 		return patient;
 	}
@@ -130,7 +130,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.patient = patient;
 	}
 
-/*	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+/*	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Relative getRelative() {
 		return relative;
 	}
@@ -148,7 +148,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.address = address;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Contact getContact() {
 		return contact;
 	}

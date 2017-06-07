@@ -30,7 +30,7 @@ public class UserDAO {
 		
 		session.close();
 	}
-	
+		
 	// User über ID finden
 	public static User getUser(int user_id) throws Exception{
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -41,7 +41,7 @@ public class UserDAO {
 		session.getTransaction().commit();
 
 		session.close();
-
+		
 		return user;
 	}
 	
