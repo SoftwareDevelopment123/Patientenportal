@@ -1,14 +1,12 @@
 package de.patientenportal.persistence;
 
 import java.util.Set;
-
 import org.hibernate.Session;
-
 import de.patientenportal.entities.PatientCase;
 import de.patientenportal.entities.VitalData;
 
-
 public class PatientCaseDAO {
+	
 	// Fall hinzufügen
 	public static void add(PatientCase patientCase) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -25,10 +23,7 @@ public class PatientCaseDAO {
 		PatientCase patientcase = new PatientCase();
 		
 		session.beginTransaction();
-		
-		patientcase = (PatientCase)session.get(PatientCase.class, caseID);
-				
-		
+		patientcase = (PatientCase)session.get(PatientCase.class, caseID);	
 		session.getTransaction().commit();
 			
 		session.close();
