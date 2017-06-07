@@ -49,8 +49,7 @@ public class BidirektionaleOneToOnebeiPatient {
 			neu.setRelative(neuR);
 			
 		//User in der Datenbank speichern
-		UserDAO.add(neu);
-		
+		RegistrationDAO.createUser(neu);
 		//User aus der Datenbank abrufen
 				User user = UserDAO.getUser(1);
 				
