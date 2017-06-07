@@ -68,6 +68,8 @@ public class UserCRUDTest {
 		Assert.assertEquals("ABC", user.getPatient().getBloodtype());
 		
 		Assert.assertEquals("Kardiologe", user.getDoctor().getSpecialization());
+		
+		//Update und Delete fehlt noch
 	}
 
 }
