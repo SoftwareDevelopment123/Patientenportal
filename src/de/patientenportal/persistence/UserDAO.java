@@ -57,7 +57,7 @@ public class UserDAO {
 			String lastname = updateduser.getLastname();
 			String firstname = updateduser.getFirstname();
 			String x = updateduser.getBirthdate();
-			String y = updateduser.getGender()
+			String y = updateduser.getGender();
 
 			
 			System.out.println("User mit Id "+id+" wird geändert...Please calm your tits");
