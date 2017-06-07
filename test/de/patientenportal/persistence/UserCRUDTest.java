@@ -72,12 +72,13 @@ public class UserCRUDTest {
 		//Update-Test
 		User userupdate = new User();
 		userupdate.setUserId(1);
-		userupdate.setLastname("Newname");
+		userupdate.setLastname("Newname+");
 		
-		UserDAO.update(userupdate);
+		String feedback = UserDAO.update(userupdate);
+		Assert.assertEquals("success", feedback);
+		
 		User user2 = UserDAO.getUser(1);
-		
-		Assert.assertEquals("Newname", user2.getLastname());
+		Assert.assertEquals("Newname+", user2.getLastname());
 		
 		
 		

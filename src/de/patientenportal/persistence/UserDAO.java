@@ -3,7 +3,7 @@ package de.patientenportal.persistence;
 //import org.hibernate.HibernateException;
 import java.util.List;
 import org.hibernate.Session;
-import de.patientenportal.entities.User;
+import de.patientenportal.entities.*;
 import de.patientenportal.persistence.HibernateUtil;
 
 public class UserDAO {
@@ -56,36 +56,38 @@ public class UserDAO {
 			String email = updateduser.getEmail();
 			String lastname = updateduser.getLastname();
 			String firstname = updateduser.getFirstname();
-			String x = updateduser.getBirthdate();
-			String y = updateduser.getGender();
-
+			String birthdate = updateduser.getBirthdate();
+			String gender = updateduser.getGender();
 			
-			System.out.println("User mit Id "+id+" wird geändert...Please calm your tits");
+			Doctor doctor = updateduser.getDoctor();
+			//Patient patient = updateduser.getPatient();
+			//Relative
+			//Address address = updateduser.getAddress();
+			//Contact contact = updateduser.getContact();
+
+			System.out.println("Updating User /w ID "+ id +" ... Please calm your tits ...");
 			
 			session.beginTransaction();
 						
 			User usertoupdate = session.get(User.class, id);
 				
-				if(username!=null && !(username.equals(usertoupdate.getUsername()))){
-					usertoupdate.setUsername(username);
-					System.out.println("Username geändert zu: " + username);}
+				if(username!=null)	{usertoupdate.setUsername(username);}
+				if(password!=null)	{usertoupdate.setPassword(password);}
+				if(email!=null)		{usertoupdate.setEmail(email);}
+				if(lastname!=null)	{usertoupdate.setLastname(lastname);}
+				if(firstname!=null)	{usertoupdate.setFirstname(firstname);}				
+				if(birthdate!=null)	{usertoupdate.setBirthdate(birthdate);}				
+				if(gender!=null)	{usertoupdate.setGender(gender);}
 			
-				if(email!=null && !(password.equals(usertoupdate.getPassword()))){
-					usertoupdate.setEmail(email);
-					System.out.println("Email geändert zu:    " + email);}
-			
-				if(password!=null && !(email.equals(usertoupdate.getEmail()))){
-					usertoupdate.setPassword(password);
-					System.out.println("Passwort geändert zu: ******");}
+				if(doctor!=null){
+					Doctor newdoctor = new Doctor();
+					String spec = doctor.getSpecialization();
+					
+					if(spec!=null){newdoctor.setSpecialization(spec);}
+					
+					usertoupdate.setDoctor(newdoctor);
+				}
 				
-				if(lastname!=null && !(lastname.equals(usertoupdate.getLastname()))){
-					usertoupdate.setLastname(lastname);
-					System.out.println("Nachname geändert zu: " + lastname);}
-				
-				if(firstname!=null && !(firstname.equals(usertoupdate.getFirstname()))){
-					usertoupdate.setFirstname(firstname);
-					System.out.println("Vorname geändert zu:  " + firstname);}
-			
 			session.getTransaction().commit();
 			session.close();
 			return "success";
