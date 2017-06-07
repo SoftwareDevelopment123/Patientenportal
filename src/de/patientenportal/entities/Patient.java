@@ -21,7 +21,6 @@ public class Patient {
 	//private List <Relative> relatives;	Verknüpfung fehlt noch
 	//private List <Case> cases;			Verknüpfung fehlt noch
 	//private List <MDoc> Mdoc;				Verknüpfung fehlt noch
-	//Rückverknüpfung zum User			 	Verknüpfung fehlt noch
 	
 	public Patient() {
 	}

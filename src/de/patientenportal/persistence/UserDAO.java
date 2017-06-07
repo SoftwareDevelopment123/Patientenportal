@@ -9,7 +9,7 @@ import de.patientenportal.persistence.HibernateUtil;
 public class UserDAO {
 
 	// User löschen
-	public static void delete(int user_id){
+	public static String deleteUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
@@ -18,6 +18,7 @@ public class UserDAO {
 		session.getTransaction().commit();
 		
 		session.close();
+		return "success";
 	}
 		
 	// User über ID finden
@@ -35,11 +36,10 @@ public class UserDAO {
 	}
 	
 
-	public static String update(User updateduser){
+	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
 			
-			Session session = HibernateUtil.getSessionFactory().openSession();
 			String username = updateduser.getUsername();
 			String password = updateduser.getPassword();
 			String email = updateduser.getEmail();
@@ -50,6 +50,7 @@ public class UserDAO {
 
 			System.out.println("Updating User /w ID "+ id +" ... Please calm your tits ...");
 			
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
 			User usertoupdate = session.get(User.class, id);
 				

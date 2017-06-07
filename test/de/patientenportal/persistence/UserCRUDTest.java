@@ -81,7 +81,7 @@ public class UserCRUDTest {
 		userupdate.setLastname("Newname+");
 		
 		//Update erfolgreich?
-		String feedback = UserDAO.update(userupdate);
+		String feedback = UserDAO.updateUser(userupdate);
 		Assert.assertEquals("success", feedback);
 		
 		User user2 = UserDAO.getUser(1);
@@ -91,12 +91,13 @@ public class UserCRUDTest {
 		User userupdateF = new User();
 		userupdateF.setBirthdate("01.01.0001"); //ID fehlt
 		
-		String feedbackF = UserDAO.update(userupdateF);
+		String feedbackF = UserDAO.updateUser(userupdateF);
 		Assert.assertEquals("noID", feedbackF);
 
 		//Delete-Test
-		UserDAO.delete(1);
+		String feedbackD = UserDAO.deleteUser(1);
 		User deleted = UserDAO.getUser(1);
+		Assert.assertEquals("success", feedbackD);
 		Assert.assertEquals(null, deleted);		
 
 		//Cascade-Delete-Test

@@ -19,7 +19,6 @@ public class Doctor {
 	private User user;
 	//private Office office;			Verknüpfung fehlt noch
 	//private List <Case> cases;		Verknüpfung fehlt noch
-	//Rückverknüpfung zum User			Verknüpfung fehlt noch
 	
 	public Doctor() {
 	}

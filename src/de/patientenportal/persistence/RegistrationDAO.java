@@ -6,7 +6,7 @@ import de.patientenportal.entities.*;
 public class RegistrationDAO {
 
 	// User hinzufügen
-	public static void createUser(User user){
+	public static String createUser(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
@@ -14,6 +14,7 @@ public class RegistrationDAO {
 		session.getTransaction().commit();
 			
 		session.close();
+		return "success";
 	}
 
 }
