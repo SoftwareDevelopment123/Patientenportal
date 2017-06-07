@@ -93,23 +93,12 @@ public class UserCRUDTest {
 		
 		String feedbackF = UserDAO.update(userupdateF);
 		Assert.assertEquals("noID", feedbackF);
-				
-		//Update-Test-Adressänderung
-		User userupdateA = new User();
-		Address address = new Address();
-		address.setCity("Neustadt");
-		userupdateA.setUserId(1);
-		userupdateA.setAddress(address);
 
-		UserDAO.update(userupdateA);
-		
-	
-		
 		//Delete-Test
-		
-		
-		
-		System.out.println("Relative ist Bidirektional mit UserID " + user.getRelative().getUser().getUserId());
+		UserDAO.delete(1);
+		User deleted = UserDAO.getUser(1);
+		Assert.assertEquals(null, deleted);		
+
 	}
 
 }
