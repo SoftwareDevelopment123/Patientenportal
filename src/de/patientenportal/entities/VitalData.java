@@ -1,8 +1,6 @@
 package de.patientenportal.entities;
 
-
 import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,39 +8,34 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
+//import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
 public class VitalData  {
 	
-	
-	
+
 	private int vitalDataID;
 	private String timestamp;
 	private Double value;
 	private VitalDataType vitalDataType;
-	
-	
 
-	
 	//Standardkonstruktor
 	public VitalData(){
 	}
+	
 	//Konstruktor
 	public VitalData(String timestamp,Double value,VitalDataType vitalDataType){
 		this.timestamp = timestamp;
 		this.value = value;
 		this.vitalDataType =vitalDataType;
 	}
-	 // getters and setters...
+
 	
 	@Id
-//	@GeneratedValue(strategy = IDENTITY)
-	@GenericGenerator(name = "vitalData", strategy = "increment")
-	@GeneratedValue(generator = "vitalData")
-	
+	@GeneratedValue(strategy = IDENTITY)
+	//@GenericGenerator(name = "vitalData", strategy = "increment")
+	//@GeneratedValue(generator = "vitalData")
 	@Column(name = "VitalDataID", unique = true, nullable = false)
 	public int getVitalDataID() {
 		return vitalDataID;
@@ -74,7 +67,5 @@ public class VitalData  {
 	public void setVitalDataType(VitalDataType vitalDataType) {
 		this.vitalDataType = vitalDataType;
 	}
-	
-	
-	
+
 }
