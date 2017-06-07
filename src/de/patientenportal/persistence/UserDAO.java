@@ -46,7 +46,7 @@ public class UserDAO {
 	}
 	
 
-	public static void update(User updateduser){
+	public static String update(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
 			
@@ -56,16 +56,15 @@ public class UserDAO {
 			String email = updateduser.getEmail();
 			String lastname = updateduser.getLastname();
 			String firstname = updateduser.getFirstname();
+			String x = updateduser.getBirthdate();
+			String y = updateduser.getGender()
+
 			
 			System.out.println("User mit Id "+id+" wird geändert...Please calm your tits");
 			
 			session.beginTransaction();
 						
 			User usertoupdate = session.get(User.class, id);
-										
-			if(updateduser.equals(usertoupdate) == true){				//funktioniert noch nicht
-				System.out.println("Keine Veränderung der Daten.");
-			} else {
 				
 				if(username!=null && !(username.equals(usertoupdate.getUsername()))){
 					usertoupdate.setUsername(username);
@@ -89,11 +88,10 @@ public class UserDAO {
 			
 			session.getTransaction().commit();
 			session.close();
-			System.out.println("... Daten erfolgreich geändert.");
-			}
+			return "success";
 		}
 		else {
-			System.out.println("Keine ID angegeben.");
+			return "noID";
 		}
 
 	}		

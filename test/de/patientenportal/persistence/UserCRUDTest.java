@@ -69,7 +69,22 @@ public class UserCRUDTest {
 		
 		Assert.assertEquals("Kardiologe", user.getDoctor().getSpecialization());
 		
+		//Update-Test
+		User userupdate = new User();
+		userupdate.setUserId(1);
+		userupdate.setLastname("Newname");
+		
+		UserDAO.update(userupdate);
+		User user2 = UserDAO.getUser(1);
+		
+		Assert.assertEquals("Newname", user2.getLastname());
+		
+		
+		
 		//Update und Delete fehlt noch
+		
+		
+		
 	}
 
 }

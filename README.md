@@ -14,7 +14,7 @@ Fortschrittsstand:
 - Entities (User, Doctor, Patient, Address, Contact) angelegt, fehlende Verknüpfungen sind auskommentiert
 
 07.06. (Jan/Stefan)
-
+- UserCRUDTest neu (Kompletter Unit-Test des UserDAOs avisiert)
 
 To-Do
 - Relative anlegen
