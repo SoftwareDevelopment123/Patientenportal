@@ -35,6 +35,10 @@ public class Case {
 	public Case(){	
 	}
 	
+	public Case(String title) {
+		this.title = title;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	//@GenericGenerator(name = "user", strategy = "increment")

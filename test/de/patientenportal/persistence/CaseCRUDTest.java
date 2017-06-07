@@ -11,8 +11,8 @@ import de.patientenportal.entities.VitalDataType;
 public class CaseCRUDTest {
 	
 	@Test
-	public void createCase() {
-		
+	public void main() {
+		// Case anlegen
 		Case newcase = new Case();
 			newcase.setTitle("Kreuzbandriss");
 			newcase.setDescription("Hier könnte ihre Werbung stehen!");
@@ -26,33 +26,57 @@ public class CaseCRUDTest {
 					
 				List<VitalData> vitaldatas = Arrays.asList(vitaldata1, vitaldata2, vitaldata3, vitaldata4, vitaldata5);
 			newcase.setVitaldata(vitaldatas);
-			
-		String response = CaseDAO.createCase(newcase);
-			Assert.assertEquals("success", response);
-
+	
+			String responseC = CaseDAO.createCase(newcase);
+				Assert.assertEquals("success", responseC);
+				
+		// Case abrufen
 		Case getcase = CaseDAO.getCase(1);
 			Assert.assertEquals("Kreuzbandriss", getcase.getTitle());
 			Assert.assertEquals("Hier könnte ihre Werbung stehen!", getcase.getDescription());
 			Assert.assertEquals(true, getcase.isStatus());		
 
-		List<VitalData> getvitaldatas= getcase.getVitaldata();
-		
-		for ( ListIterator<VitalData> it = getvitaldatas.listIterator(); it.hasNext(); ){
-			VitalData vd = it.next();
-			System.out.println(vd.getVitalDataID() + " " + vd.getTimestamp() + " " + vd.getVitalDataType() + ": " + vd.getValue());
-			System.out.println();
-		}
-	}
-		
-	
-	
-	/*@Test
-	public void deleteCase() {
-
+			List<VitalData> getvitaldatas= getcase.getVitaldata();
+			for ( ListIterator<VitalData> it = getvitaldatas.listIterator(); it.hasNext(); ){
+				VitalData vd = it.next();			
+				System.out.println(vd.getVitalDataID() + " " + vd.getTimestamp() + " " + vd.getVitalDataType() + ": " + vd.getValue());
+				System.out.println();
+			}
 				
+			VitalData getvdata1 = getvitaldatas.get(0);
+				Assert.assertEquals("früh", getvdata1.getTimestamp());
+				Assert.assertEquals(4.5, getvdata1.getValue(), 0);
+				Assert.assertEquals(VitalDataType.BLOODSUGAR, getvdata1.getVitalDataType());	
+				
+		// Case updaten
+		Case casetoupdate = new Case ();
+			casetoupdate.setCaseID(1);
+			casetoupdate.setTitle("Herzoperation");
+			
+			String responseU = CaseDAO.updateCase(casetoupdate);
+				Assert.assertEquals("success", responseU);
+			
+			Case getcaseU = CaseDAO.getCase(1);
+				Assert.assertEquals("Herzoperation", getcaseU.getTitle());
+			
+		// Case löschen
+		String responseD = CaseDAO.deleteCase(1);
+			Assert.assertEquals("success", responseD);
+			
+		Case deletedcase = CaseDAO.getCase(1);
+			Assert.assertNull(deletedcase);
+	}
+			
+	/*@Test (expected = java.lang.NullPointerException.class)
+	public void deleteCase() {
+		Case newcase = new Case("Wird eh gleich gelöscht");
+		CaseDAO.createCase(newcase);
 		
+		String response = CaseDAO.deleteCase(1);
+			Assert.assertEquals("success", response);
+		CaseDAO.getCase(1);
 	}*/
-	
+		
 		/*Set <VitalData> vitaldata = PatientCaseDAO.getCase(2).getVitaldatas();
 				
 		Iterator<VitalData> it = vitaldata.iterator();

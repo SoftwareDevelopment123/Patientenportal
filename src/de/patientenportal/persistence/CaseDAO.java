@@ -15,11 +15,40 @@ public class CaseDAO {
 			
 		session.beginTransaction();
 		getcase = (Case)session.get(Case.class, caseID);	
-		Hibernate.initialize(getcase.getVitaldata());
+		
+		if (getcase != null){
+		Hibernate.initialize(getcase.getVitaldata());			// LAZY-HIBERNATE-MAGIC
+		}
 		session.getTransaction().commit();
 				
 		session.close();
 		return getcase;
+		}
+	
+	// Falldaten ändern
+		public static String updateCase(Case updatedcase){
+			int id = updatedcase.getCaseID();
+			if(id!=0){
+				
+				String title = updatedcase.getTitle();
+				String descr = updatedcase.getDescription();
+				//boolean status = updatedcase.isStatus();
+				
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();				
+				Case casetoupdate = session.get(Case.class, id);
+					
+					if(title!=null)		{casetoupdate.setTitle(title);}
+					if(descr!=null)		{casetoupdate.setDescription(descr);}
+					//if(status!=null)	{casetoupdate.setStatus(status);} 			// Das hier soll ja in einen eigenen Befehl
+
+				session.getTransaction().commit();
+				session.close();
+				return "success";
+			}
+			else {
+				return "noID";
+			}
 		}
 	
 	// Fall anlegen
@@ -34,7 +63,7 @@ public class CaseDAO {
 		return "success";
 		}
 	
-	// User löschen
+	// Fall löschen
 	public static String deleteCase(int caseID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
