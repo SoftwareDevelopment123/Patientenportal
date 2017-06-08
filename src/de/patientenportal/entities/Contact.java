@@ -55,7 +55,7 @@ public class Contact {
 		this.mobile = mobile;
 	}
 
-	@Column(name = "EMAIL", length = 30)
+	@Column(name = "EMAIL", length = 60)
 	public String getEmail() {
 		return email;
 	}

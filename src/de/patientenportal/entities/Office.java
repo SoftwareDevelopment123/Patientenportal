@@ -25,7 +25,7 @@ public class Office {
 	private String name;
 	private Contact contact;
 	private Address address;
-	private List<Doctor> doctor;
+	private List<Doctor> doctors;
 	
 	public Office(){
 	}
@@ -66,11 +66,11 @@ public class Office {
 
 	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="doctor_fk")
-	public List<Doctor> getDoctor() {
-		return doctor;
+	public List<Doctor> getDoctors() {
+		return doctors;
 	}
-	public void setDoctor(List<Doctor> doctor) {
-		this.doctor = doctor;
+	public void setDoctors(List<Doctor> doctors) {
+		this.doctors = doctors;
 	}
 	
 }
