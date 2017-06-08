@@ -60,14 +60,14 @@ public class DoctorOfficeCRUDTest {
 				doctors.add(D1);
 				doctors.add(D2);
 			emptyoffice.setName("Zaaahnarztpraxis");
-			//emptyoffice.getContact().setMobile("911");
+			//emptyoffice.getContact().setMobile("911");									// Flush-Fehler!!
 		String feedbackUO = OfficeDAO.updateOffice(emptyoffice);
 			Assert.assertEquals("success", feedbackUO);
 					
 		//Doktoren und geänderte Daten abrufen
 		Office fulloffice = OfficeDAO.getOffice(1);
 				Assert.assertEquals("Zaaahnarztpraxis", fulloffice.getName());
-				//Assert.assertEquals("991", fulloffice.getContact().getMobile());
+				//Assert.assertEquals("991", fulloffice.getContact().getMobile());			// Flush-Fehler!!
 			List<Doctor> fulldoctors = fulloffice.getDoctors();
 				Assert.assertEquals("Zahnarzt", fulldoctors.get(0).getSpecialization());
 				Assert.assertEquals("Kieferorthopäde", fulldoctors.get(1).getSpecialization());

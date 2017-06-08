@@ -34,8 +34,8 @@ public class OfficeDAO {
 				
 			String name = updatedoffice.getName();
 			List<Doctor> doctors = updatedoffice.getDoctors();
-			Contact contact = updatedoffice.getContact();
-			Address address = updatedoffice.getAddress();
+			//Contact contact = updatedoffice.getContact();						//Flush-Fehler
+			//Address address = updatedoffice.getAddress();						//Flush-Fehler
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
@@ -43,8 +43,8 @@ public class OfficeDAO {
 					
 				if(name!=null)		{officetoupdate.setName(name);}
 				if(doctors!=null)	{officetoupdate.setDoctors(doctors);}
-				if(contact!=null)	{officetoupdate.setContact(contact);}
-				if(address!=null)	{officetoupdate.setAddress(address);}
+				//if(contact!=null)	{officetoupdate.setContact(contact);}		//Flush-Fehler
+				//if(address!=null)	{officetoupdate.setAddress(address);}		//Flush-Fehler
 			
 			session.getTransaction().commit();
 			session.close();
