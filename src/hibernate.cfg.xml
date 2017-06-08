@@ -30,6 +30,7 @@
   <mapping class="de.patientenportal.entities.Relative"/>
   <mapping class="de.patientenportal.entities.Patient"/>
   <mapping class="de.patientenportal.entities.Case"/>
+  <mapping class="de.patientenportal.entities.Office"/>
 <!--  <mapping class="de.patientenportal.entities.PatientCase"/> -->
 
  </session-factory>

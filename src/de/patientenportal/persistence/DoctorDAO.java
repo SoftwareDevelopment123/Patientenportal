@@ -1,19 +1,21 @@
 package de.patientenportal.persistence;
 
 import org.hibernate.Session;
-
 import de.patientenportal.entities.Doctor;
 
-
 public class DoctorDAO {
-	// Doktor hinzufügen
-		public static void add(Doctor doctor) {
-			Session session = HibernateUtil.getSessionFactory().openSession();
-
-			session.beginTransaction();
-			session.save(doctor);
-			session.getTransaction().commit();
+	
+	// Doktor abrufen
+	public static Doctor getDoctor(int doctorID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Doctor doctor = new Doctor();
+				
+		session.beginTransaction();		
+		doctor = (Doctor)session.get(Doctor.class, doctorID);
+		session.getTransaction().commit();
+	
+		session.close();
 			
-			session.close();
-		}
+		return doctor;
+	}
 }
