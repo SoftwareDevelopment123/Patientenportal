@@ -55,3 +55,8 @@ Anmerkungen
 	
 - Die if (xxx =! null) - Logik in der Persistenzschicht kann weg, wenn wir immer das Prinzip nutzen, was den Flush-Error vermeidet
 	- die if-Logik kann dann in die Service-Schicht, wo sie ja eigentlich "hingehört"
+	
+- Das gleiche Prinzip kann man vllt auch bei dem Schreiben von Adreessen über das Office angewendet werden (funktioniert noch nicht)
+	- Dadurch sparen wir uns die getrennten Address- und ContactDAOs
+	- stattdessen nehmen wir das bestehende Objekt aus der Abfrage und ändern nur den gewünschten Wert
+	- z.B. office.getContact().setMail("neue Mail");

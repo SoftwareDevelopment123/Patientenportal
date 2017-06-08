@@ -5,6 +5,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Office;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.Contact;
+import de.patientenportal.entities.Address;
 
 public class OfficeDAO {
 
@@ -32,6 +34,8 @@ public class OfficeDAO {
 				
 			String name = updatedoffice.getName();
 			List<Doctor> doctors = updatedoffice.getDoctors();
+			Contact contact = updatedoffice.getContact();
+			Address address = updatedoffice.getAddress();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
@@ -39,6 +43,8 @@ public class OfficeDAO {
 					
 				if(name!=null)		{officetoupdate.setName(name);}
 				if(doctors!=null)	{officetoupdate.setDoctors(doctors);}
+				if(contact!=null)	{officetoupdate.setContact(contact);}
+				if(address!=null)	{officetoupdate.setAddress(address);}
 			
 			session.getTransaction().commit();
 			session.close();

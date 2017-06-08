@@ -1,8 +1,6 @@
 package de.patientenportal.persistence;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import de.patientenportal.entities.*;
@@ -62,19 +60,32 @@ public class DoctorOfficeCRUDTest {
 				doctors.add(D1);
 				doctors.add(D2);
 			emptyoffice.setName("Zaaahnarztpraxis");
+			//emptyoffice.getContact().setMobile("911");
 		String feedbackUO = OfficeDAO.updateOffice(emptyoffice);
 			Assert.assertEquals("success", feedbackUO);
 					
-		//Doktoren und geänderter Name abrufen
+		//Doktoren und geänderte Daten abrufen
 		Office fulloffice = OfficeDAO.getOffice(1);
 				Assert.assertEquals("Zaaahnarztpraxis", fulloffice.getName());
+				//Assert.assertEquals("991", fulloffice.getContact().getMobile());
 			List<Doctor> fulldoctors = fulloffice.getDoctors();
 				Assert.assertEquals("Zahnarzt", fulldoctors.get(0).getSpecialization());
 				Assert.assertEquals("Kieferorthopäde", fulldoctors.get(1).getSpecialization());
 		
-		System.out.println(fulldoctors.size());
-		System.out.println("Doktor 1 " + fulldoctors.get(0).getSpecialization());
-		System.out.println("Doktor 2 " + fulldoctors.get(1).getSpecialization());
+		//Zusätzlicher Test - Über Office Arzt ändern (wie reagiert die DB)	
+		fulldoctors.get(1).setSpecialization("Test");
+		OfficeDAO.updateOffice(fulloffice);
+			Assert.assertEquals("Test", DoctorDAO.getDoctor(2).getSpecialization());
+
+		//Nachträglicher Userinput-Test (unabhängige Doktor-Entity bis zur Registrierung)
+		/*User newuser = new User();
+			newuser.setUsername("newuser");
+			newuser.setPassword("newpass");
+			newuser.setFirstname("New");
+			newuser.setLastname("User");
+			newuser.setDoctor(D1);
+		String feedbackCU = RegistrationDAO.createUser(newuser);
+			Assert.assertEquals("success", feedbackCU);*/
 		
 	}	
 }
