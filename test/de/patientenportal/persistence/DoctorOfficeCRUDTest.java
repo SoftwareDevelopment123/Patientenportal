@@ -43,9 +43,11 @@ public class DoctorOfficeCRUDTest {
 			neuD2.setSpecialization("Kieferorthopäde");
 			neuD2.setOffice(newoffice);
 		
-		RegistrationDAO.createDoctor(neuD1);
-		RegistrationDAO.createDoctor(neuD2);
-			
+		String feedbackCD1 = RegistrationDAO.createDoctor(neuD1);
+		String feedbackCD2 = RegistrationDAO.createDoctor(neuD2);
+			Assert.assertEquals("success", feedbackCD1);
+			Assert.assertEquals("success", feedbackCD2);
+		
 		//Doktor und Office über Doktor (bidirektional) abrufen
 		Doctor D1 = DoctorDAO.getDoctor(1);
 			Assert.assertEquals("Zahnarzt", D1.getSpecialization());
@@ -78,14 +80,19 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("Test", DoctorDAO.getDoctor(2).getSpecialization());
 
 		//Nachträglicher Userinput-Test (unabhängige Doktor-Entity bis zur Registrierung)
-		/*User newuser = new User();
+		User newuser = new User();
 			newuser.setUsername("newuser");
 			newuser.setPassword("newpass");
 			newuser.setFirstname("New");
 			newuser.setLastname("User");
 			newuser.setDoctor(D1);
-		String feedbackCU = RegistrationDAO.createUser(newuser);
-			Assert.assertEquals("success", feedbackCU);*/
+	
+			D1.setUser(newuser);
+		
+		String feedbackCU  = RegistrationDAO.createUser(newuser);
+		String feedbackUD = DoctorDAO.updateDoctor(D1);
+			Assert.assertEquals("success", feedbackCU);
+			Assert.assertEquals("success", feedbackUD);
 		
 	}	
 }
