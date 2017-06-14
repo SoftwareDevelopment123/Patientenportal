@@ -30,4 +30,28 @@ public class RegistrationDAO {
 		return "success";
 	}
 	
+	// Patient hinzufügen
+	public static String createPatient(Patient patient) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		session.save(patient);
+		session.getTransaction().commit();
+					
+		session.close();
+		return "success";
+	}
+		
+	// Relative hinzufügen
+	public static String createRelative(Relative relative) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		session.save(relative);
+		session.getTransaction().commit();
+					
+		session.close();
+		return "success";
+	}
+	
 }

@@ -4,9 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
 @Entity
 @Table(name = "Relative", catalog = "patientenportal")
@@ -14,8 +17,7 @@ public class Relative {
 	
 	private int relativeID;
 	private User user;
-	//Verknüpfung zu private Patient patient
-	
+	private List<Patient> patients;
 	
 	public Relative(){
 	}
@@ -37,5 +39,15 @@ public class Relative {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	@ManyToMany(mappedBy="relatives")
+	public List<Patient> getPatients() {
+		return patients;
+	}
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
+	
+
 
 }
