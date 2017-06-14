@@ -56,7 +56,6 @@ public class OfficeDAO {
 		}
 	}
 	
-	
 	// Office hinzufügen
 	public static String createOffice(Office office){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -82,6 +81,4 @@ public class OfficeDAO {
 		return "success";
 	}
 
-	
-	
 }

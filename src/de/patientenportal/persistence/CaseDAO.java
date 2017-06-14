@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
+import de.patientenportal.entities.Rights;
 
 //@Transactional
 public class CaseDAO {
@@ -19,7 +20,8 @@ public class CaseDAO {
 		getcase = (Case)session.get(Case.class, caseID);	
 		
 		if (getcase != null){
-			Hibernate.initialize(getcase.getVitaldata());			// LAZY-HIBERNATE-MAGIC
+			Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
+			Hibernate.initialize(getcase.getRights());
 		}
 		session.getTransaction().commit();
 				
@@ -28,32 +30,34 @@ public class CaseDAO {
 		}
 	
 	// Falldaten ändern
-		public static String updateCase(Case updatedcase){
-			int id = updatedcase.getCaseID();
-			if(id!=0){
+	public static String updateCase(Case updatedcase){
+		int id = updatedcase.getCaseID();
+		if(id!=0){
 				
-				String title = updatedcase.getTitle();
-				String descr = updatedcase.getDescription();
-				//boolean status = updatedcase.isStatus();
-				List <VitalData> vital = updatedcase.getVitaldata();
+			String title = updatedcase.getTitle();
+			String descr = updatedcase.getDescription();
+			boolean status = updatedcase.isStatus();
+			List <VitalData> vital = updatedcase.getVitaldata();
+			List <Rights> rights = updatedcase.getRights();
 				
-				Session session = HibernateUtil.getSessionFactory().openSession();
-				session.beginTransaction();				
-				Case casetoupdate = session.get(Case.class, id);
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();				
+			Case casetoupdate = session.get(Case.class, id);
 					
-					if(title!=null)		{casetoupdate.setTitle(title);}
-					if(descr!=null)		{casetoupdate.setDescription(descr);}
-					//if(status!=null)	{casetoupdate.setStatus(status);} 			// Das hier soll ja in einen eigenen Befehl
-					casetoupdate.setVitaldata(vital);
-					
-				session.getTransaction().commit();
-				session.close();
-				return "success";
-			}
-			else {
-				return "noID";
-			}
+				casetoupdate.setTitle(title);
+				casetoupdate.setDescription(descr);
+				casetoupdate.setStatus(status);
+				casetoupdate.setVitaldata(vital);
+				casetoupdate.setRights(rights);
+				
+			session.getTransaction().commit();
+			session.close();
+			return "success";
 		}
+		else {
+			return "noID";
+		}
+	}
 	
 	// Fall anlegen
 	public static String createCase(Case newcase) {
