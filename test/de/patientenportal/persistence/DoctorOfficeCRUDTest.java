@@ -17,6 +17,14 @@ public class DoctorOfficeCRUDTest {
 		// Office anlegen
 		Office neuO = new Office();
 			neuO.setName("Zahnarztpraxis");
+			
+		Address addressOffice = new Address();
+		addressOffice.setCity("Officecity");
+		addressOffice.setNumber("3A");
+		addressOffice.setPostalCode("19230");
+		addressOffice.setStreet("Officestraﬂe");
+			
+			neuO.setAddress(addressOffice);
 	
 		Contact officeContact = new Contact();
 			officeContact.setEmail("officemail.dentist@googlemail.com");
@@ -33,7 +41,8 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("Zahnarztpraxis", newoffice.getName());
 			Assert.assertEquals("officemail.dentist@googlemail.com", newoffice.getContact().getEmail());
 			Assert.assertEquals("0123456789", newoffice.getContact().getPhone());
-			Assert.assertEquals("112", newoffice.getContact().getMobile());
+			//Assert.assertEquals("112", newoffice.getContact().getMobile());
+			Assert.assertEquals("Officestraﬂe", newoffice.getAddress().getStreet());
 		
 		// Doktoren anlegen Office hinterlegen
 		Doctor neuD1 = new Doctor();
@@ -93,6 +102,17 @@ public class DoctorOfficeCRUDTest {
 		String feedbackUD = DoctorDAO.updateDoctor(D1);
 			Assert.assertEquals("success", feedbackCU);
 			Assert.assertEquals("success", feedbackUD);
-		
+			
+			//DeleteOffice-Test
+			String feedbackDO = OfficeDAO.deleteOffice(1);
+			Office deletedO = OfficeDAO.getOffice(1);
+				Assert.assertEquals("success",feedbackDO);
+				Assert.assertEquals(null, deletedO);
+				
+			//DeleteDoctor-Test
+			String feedbackDD = DoctorDAO.deleteDoktor(1);
+			Doctor deletedD = DoctorDAO.getDoctor(1);
+				Assert.assertEquals("success", feedbackDD);
+				Assert.assertEquals(null, deletedD);
 	}	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Office;
+import de.patientenportal.entities.User;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Address;
@@ -68,7 +69,19 @@ public class OfficeDAO {
 		return "success";
 	}
 	
-	
+	//Office löschen
+	public static String deleteOffice(int office_id){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		Office officeD = (Office)session.get(Office.class, office_id);
+		session.delete(officeD);
+		session.getTransaction().commit();
+		
+		session.close();
+		return "success";
+	}
+
 	
 	
 }
