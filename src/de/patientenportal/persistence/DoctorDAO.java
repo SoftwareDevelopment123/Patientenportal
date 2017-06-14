@@ -52,5 +52,17 @@ public class DoctorDAO {
 			return "noID";
 		}
 	}
+	//Doktordaten löschen
+	public static String deleteDoktor(int doctor_id){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		Doctor doctor = (Doctor)session.get(Doctor.class, doctor_id);
+		session.delete(doctor);
+		session.getTransaction().commit();
+		
+		session.close();
+		return "success";
+	}
 	
 }

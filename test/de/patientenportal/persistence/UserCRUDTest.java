@@ -46,7 +46,7 @@ public class UserCRUDTest {
 			neu.setPatient(neuP);
 			neu.setDoctor(neuD);
 			neu.setRelative(neuR);
-				
+			
 		//User in der Datenbank speichern
 		RegistrationDAO.createUser(neu);
 		
@@ -121,10 +121,10 @@ public class UserCRUDTest {
 			Assert.assertEquals("01175/3737212", user4.getContact().getMobile());
 		
 		//Delete-Test
-		String feedbackD = UserDAO.deleteUser(1);
-		User deleted = UserDAO.getUser(1);
-			Assert.assertEquals("success", feedbackD);
-			Assert.assertEquals(null, deleted);	
+		String feedbackDU = UserDAO.deleteUser(1);
+		User deletedU = UserDAO.getUser(1);
+			Assert.assertEquals("success", feedbackDU);
+			Assert.assertEquals(null, deletedU);	
 
 		//Cascade-Delete-Test
 		//Hier vllt noch Abfragen in die anderen Tabellen (Doctor ...), ob die Einträge dort gelöscht sind
