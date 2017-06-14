@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -47,7 +46,5 @@ public class Relative {
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
 	}
-	
-
 
 }
