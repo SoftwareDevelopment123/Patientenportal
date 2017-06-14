@@ -24,11 +24,11 @@ public class Case {
 	private String title;
 	private String description;
 	private boolean status;
-	private Rights rights;						//noch nicht implementiert
 	private List<VitalData> vitaldata;
-	private Medication medication;				//noch nicht implementiert
-	private InstructionDoc idoc;				//noch nicht implementiert
-	private MedicalDoc mdoc;					//noch nicht implementiert
+	private List<Rights> rights;					//noch nicht implementiert
+	private List<Medication> medication;			//noch nicht implementiert
+	private List<InstructionDoc> idoc;				//noch nicht implementiert
+	private List<MedicalDoc> mdoc;					//noch nicht implementiert
 	
 	//Verknüpfung Doctor
 	//Verknüpfung Patient
@@ -42,8 +42,6 @@ public class Case {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	//@GenericGenerator(name = "user", strategy = "increment")
-	//@GeneratedValue(generator = "user")
 	@Column(name = "CASE_ID", unique = true, nullable = false)
 	public int getCaseID() {
 		return caseID;
@@ -84,5 +82,37 @@ public class Case {
 	public void setVitaldata(List<VitalData> vitaldata) {
 		this.vitaldata = vitaldata;
 	}
-		
+
+	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="case_fk")
+	public List<Rights> getRights() {
+		return rights;
+	}
+	public void setRights(List<Rights> rights) {
+		this.rights = rights;
+	}
+
+	public List<Medication> getMedication() {
+		return medication;
+	}
+	public void setMedication(List<Medication> medication) {
+		this.medication = medication;
+	}
+
+	public List<InstructionDoc> getIdoc() {
+		return idoc;
+	}
+	public void setIdoc(List<InstructionDoc> idoc) {
+		this.idoc = idoc;
+	}
+
+	public List<MedicalDoc> getMdoc() {
+		return mdoc;
+	}
+	public void setMdoc(List<MedicalDoc> mdoc) {
+		this.mdoc = mdoc;
+	}
+	
+
+	
 }
