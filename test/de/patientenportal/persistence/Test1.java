@@ -10,6 +10,7 @@ public class Test1 {
 			
 			User user1 = new User();
 			 user1.setUsername("Mööp");
+			 user1.setPassword("12345");
 			 user1.setFirstname("Test 1");
 			 user1.setLastname("Test 23");
 			

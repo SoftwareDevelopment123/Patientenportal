@@ -25,12 +25,12 @@ public class User /*implements java.io.Serializable*/ {
 	private String firstname;
 	private String birthdate;
 	private String gender;	
-/*	private	Doctor doctor;
+	private	Doctor doctor;
 	private	Patient patient;
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-*/
+
 	
 	public User() {
 	}
@@ -119,7 +119,7 @@ public class User /*implements java.io.Serializable*/ {
 		this.gender = gender;
 	}
 	
-/*	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -162,6 +162,6 @@ public class User /*implements java.io.Serializable*/ {
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
-	}*/
-	
+	}
+
 }

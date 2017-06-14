@@ -8,7 +8,7 @@
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/patientenportal</property>
   <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
   
   <!--  <property name="hibernate.connection.isolation">2</property>
   <property name="hibernate.current_session_context_class">thread</property>
@@ -23,14 +23,14 @@
   
   <!-- Auflistung der gemappten Klassen -->
   <mapping class="de.patientenportal.entities.User"/>
-<!--  <mapping class="de.patientenportal.entities.Doctor"/>
+  <mapping class="de.patientenportal.entities.Doctor"/>
   <mapping class="de.patientenportal.entities.VitalData"/>
   <mapping class="de.patientenportal.entities.Address"/>
   <mapping class="de.patientenportal.entities.Contact"/>
   <mapping class="de.patientenportal.entities.Relative"/>
   <mapping class="de.patientenportal.entities.Patient"/>
   <mapping class="de.patientenportal.entities.Case"/>
-  <mapping class="de.patientenportal.entities.Office"/> -->
+  <mapping class="de.patientenportal.entities.Office"/>
 <!--  <mapping class="de.patientenportal.entities.PatientCase"/> -->
 
  </session-factory>
