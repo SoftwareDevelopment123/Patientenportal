@@ -17,7 +17,7 @@ public class CaseDAO {
 		getcase = (Case)session.get(Case.class, caseID);	
 		
 		if (getcase != null){
-		Hibernate.initialize(getcase.getVitaldata());			// LAZY-HIBERNATE-MAGIC
+			Hibernate.initialize(getcase.getVitaldata());			// LAZY-HIBERNATE-MAGIC
 		}
 		session.getTransaction().commit();
 				

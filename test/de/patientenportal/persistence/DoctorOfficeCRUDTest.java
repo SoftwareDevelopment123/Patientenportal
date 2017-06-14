@@ -42,7 +42,7 @@ public class DoctorOfficeCRUDTest {
 		Doctor neuD2 = new Doctor();
 			neuD2.setSpecialization("Kieferorthopäde");
 			neuD2.setOffice(newoffice);
-		
+			
 		String feedbackCD1 = RegistrationDAO.createDoctor(neuD1);
 		String feedbackCD2 = RegistrationDAO.createDoctor(neuD2);
 			Assert.assertEquals("success", feedbackCD1);
@@ -69,7 +69,7 @@ public class DoctorOfficeCRUDTest {
 		//Doktoren und geänderte Daten abrufen
 		Office fulloffice = OfficeDAO.getOffice(1);
 				Assert.assertEquals("Zaaahnarztpraxis", fulloffice.getName());
-				//Assert.assertEquals("991", fulloffice.getContact().getMobile());			// Flush-Fehler!!
+				//Assert.assertEquals("911", fulloffice.getContact().getMobile());			// Flush-Fehler!!
 			List<Doctor> fulldoctors = fulloffice.getDoctors();
 				Assert.assertEquals("Zahnarzt", fulldoctors.get(0).getSpecialization());
 				Assert.assertEquals("Kieferorthopäde", fulldoctors.get(1).getSpecialization());
