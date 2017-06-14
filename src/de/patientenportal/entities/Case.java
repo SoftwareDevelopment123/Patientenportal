@@ -26,9 +26,9 @@ public class Case {
 	private boolean status;
 	private List<VitalData> vitaldata;
 	private List<Rights> rights;					//noch nicht implementiert
-	private List<Medication> medication;			//noch nicht implementiert
-	private List<InstructionDoc> idoc;				//noch nicht implementiert
-	private List<MedicalDoc> mdoc;					//noch nicht implementiert
+	//private List<Medication> medication;			//noch nicht implementiert
+	//private List<InstructionDoc> idoc;				//noch nicht implementiert
+	//private List<MedicalDoc> mdoc;					//noch nicht implementiert
 	
 	//Verknüpfung Doctor
 	//Verknüpfung Patient
@@ -92,7 +92,7 @@ public class Case {
 		this.rights = rights;
 	}
 
-	public List<Medication> getMedication() {
+/*	public List<Medication> getMedication() {
 		return medication;
 	}
 	public void setMedication(List<Medication> medication) {
@@ -111,8 +111,6 @@ public class Case {
 	}
 	public void setMdoc(List<MedicalDoc> mdoc) {
 		this.mdoc = mdoc;
-	}
-	
-
+	}*/
 	
 }

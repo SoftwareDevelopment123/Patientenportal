@@ -13,7 +13,8 @@ public class CaseCRUDTest {
 	
 	@Test
 	public void main() {
-		// Case anlegen
+		
+		// Case anlegen (inkl. Vitaldata)
 		Case newcase = new Case();
 			newcase.setTitle("Kreuzbandriss");
 			newcase.setDescription("Hier könnte ihre Werbung stehen!");
