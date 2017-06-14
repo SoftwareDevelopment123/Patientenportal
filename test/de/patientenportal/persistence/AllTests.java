@@ -7,7 +7,9 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 		CaseCRUDTest.class,
-		UserCRUDTest.class })
+		UserCRUDTest.class,
+		DoctorOfficeCRUDTest.class,
+		PatientRelativeCRUDTest.class})
 
 public class AllTests {
 
