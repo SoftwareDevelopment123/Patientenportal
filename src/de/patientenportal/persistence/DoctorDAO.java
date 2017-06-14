@@ -40,9 +40,9 @@ public class DoctorDAO {
 			session.beginTransaction();				
 			Doctor doctortoupdate = session.get(Doctor.class, id);
 						
-				if(specialization!=null)	{doctortoupdate.setSpecialization(specialization);}
-				if(user!=null)				{doctortoupdate.setUser(user);}
-				if(office!=null)			{doctortoupdate.setOffice(office);}
+				doctortoupdate.setSpecialization(specialization);
+				doctortoupdate.setUser(user);
+				doctortoupdate.setOffice(office);
 
 			session.getTransaction().commit();
 			session.close();
@@ -53,6 +53,9 @@ public class DoctorDAO {
 		}
 	}
 	//Doktordaten löschen
+	//Info - Rückwärtskaskadierung ist nicht bei allen Verknüpfungen eingestellt
+	//Bevor der Eintrag gelöscht werden kann, müssen diese Verknüfungen entfernt werden
+	
 	public static String deleteDoktor(int doctor_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 

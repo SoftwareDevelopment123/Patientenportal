@@ -83,10 +83,10 @@ public class DoctorOfficeCRUDTest {
 				Assert.assertEquals("Zahnarzt", fulldoctors.get(0).getSpecialization());
 				Assert.assertEquals("Kieferorthopäde", fulldoctors.get(1).getSpecialization());
 		
-		//Zusätzlicher Test - Über Office Arzt ändern (wie reagiert die DB)	
+/*		//Zusätzlicher Test - Über Office Arzt ändern (wie reagiert die DB)	
 		fulldoctors.get(1).setSpecialization("Test");
 		OfficeDAO.updateOffice(fulloffice);
-			Assert.assertEquals("Test", DoctorDAO.getDoctor(2).getSpecialization());
+			Assert.assertEquals("Test", DoctorDAO.getDoctor(2).getSpecialization());*/
 
 		//Nachträglicher Userinput-Test (unabhängige Doktor-Entity bis zur Registrierung)
 		User newuser = new User();
@@ -103,16 +103,41 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("success", feedbackCU);
 			Assert.assertEquals("success", feedbackUD);
 			
+			//DeleteDoctor-Test
+			//Info - Rückwärtskaskadierung ist hier nicht eingestellt! Muss auch so sein
+			//Deswegen muss die Doktor-User-Verknüfung entfernt werden, bevor man den Doktor 1 löschen kann
+			
+			
+			Doctor doc1 = DoctorDAO.getDoctor(1);
+				doc1.setUser(null);
+			DoctorDAO.updateDoctor(doc1);
+		
+			/*String feedbackDD1 = DoctorDAO.deleteDoktor(1);
+			String feedbackDD2 = DoctorDAO.deleteDoktor(2);
+				Assert.assertEquals("success", feedbackDD1);
+				Assert.assertEquals("success", feedbackDD2);
+				
+				Doctor deletedD1 = DoctorDAO.getDoctor(1);
+				Doctor deletedD2 = DoctorDAO.getDoctor(2);
+				
+				Assert.assertNull(deletedD1);
+				Assert.assertNull(deletedD2);*/
+			
 			//DeleteOffice-Test
+			
+			Doctor d1 = DoctorDAO.getDoctor(1);
+				d1.setOffice(null);
+			DoctorDAO.updateDoctor(d1);
+			
+			Doctor d2 = DoctorDAO.getDoctor(2);
+				d2.setOffice(null);
+			DoctorDAO.updateDoctor(d2);
+				
 			String feedbackDO = OfficeDAO.deleteOffice(1);
 			Office deletedO = OfficeDAO.getOffice(1);
 				Assert.assertEquals("success",feedbackDO);
 				Assert.assertEquals(null, deletedO);
-				
-			//DeleteDoctor-Test
-			String feedbackDD = DoctorDAO.deleteDoktor(1);
-			Doctor deletedD = DoctorDAO.getDoctor(1);
-				Assert.assertEquals("success", feedbackDD);
-				Assert.assertEquals(null, deletedD);
+			
+			
 	}	
 }

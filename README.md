@@ -60,3 +60,7 @@ Anmerkungen
 	- Dadurch sparen wir uns die getrennten Address- und ContactDAOs
 	- stattdessen nehmen wir das bestehende Objekt aus der Abfrage und ändern nur den gewünschten Wert
 	- z.B. office.getContact().setMail("neue Mail");
+	
+	
+Logik für die Service-Schicht
+- Verknüpfungen löschen bei delete

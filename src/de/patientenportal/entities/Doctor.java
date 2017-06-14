@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
 //import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CascadeType;
+
 @Entity
 @Table(name = "Doctor", catalog = "patientenportal")
 public class Doctor {
@@ -55,7 +57,7 @@ public class Doctor {
 	}
 	
 	@ManyToOne (targetEntity = Office.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="office_fk")
+	@JoinColumn(name="doctor_office_fk")
 	public Office getOffice() {
 		return office;
 	}

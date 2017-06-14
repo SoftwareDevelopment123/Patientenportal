@@ -64,8 +64,8 @@ public class Office {
 		this.address = address;
 	}
 
-	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="doctor_fk")									//wahrscheinlich nicht benötigt
+	@OneToMany (fetch = FetchType.LAZY/*, cascade = CascadeType.ALL*/)
+	@JoinColumn(name="office_doctor_fk")										//wahrscheinlich nicht benötigt
 	public List<Doctor> getDoctors() {
 		return doctors;
 	}
