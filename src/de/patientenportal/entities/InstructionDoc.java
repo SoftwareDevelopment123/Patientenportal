@@ -1,5 +1,5 @@
 package de.patientenportal.entities;
 
-public class InstructionMaterial {
+public class InstructionDoc {
 
 }

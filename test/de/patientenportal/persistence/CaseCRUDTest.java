@@ -8,6 +8,7 @@ import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;
 
+@SuppressWarnings("unused")
 public class CaseCRUDTest {
 	
 	@Test
@@ -37,20 +38,20 @@ public class CaseCRUDTest {
 			Assert.assertEquals(true, getcase.isStatus());		
 
 			List<VitalData> getvitaldatas= getcase.getVitaldata();
-			for ( ListIterator<VitalData> it = getvitaldatas.listIterator(); it.hasNext(); ){
+			
+			/*for ( ListIterator<VitalData> it = getvitaldatas.listIterator(); it.hasNext(); ){
 				VitalData vd = it.next();			
 				System.out.println(vd.getVitalDataID() + " " + vd.getTimestamp() + " " + vd.getVitalDataType() + ": " + vd.getValue());
 				System.out.println();
-			}
+			}*/
 				
 			VitalData getvdata1 = getvitaldatas.get(0);
 				Assert.assertEquals("früh", getvdata1.getTimestamp());
 				Assert.assertEquals(4.5, getvdata1.getValue(), 0);
 				Assert.assertEquals(VitalDataType.BLOODSUGAR, getvdata1.getVitalDataType());	
 				
-		// Case updaten
-		Case casetoupdate = new Case ();
-			casetoupdate.setCaseID(1);
+		// Case updaten			
+		Case casetoupdate = CaseDAO.getCase(1);
 			casetoupdate.setTitle("Herzoperation");
 			
 			String responseU = CaseDAO.updateCase(casetoupdate);
@@ -59,6 +60,14 @@ public class CaseCRUDTest {
 			Case getcaseU = CaseDAO.getCase(1);
 				Assert.assertEquals("Herzoperation", getcaseU.getTitle());
 			
+		// Case updaten (Vitaldata ändern) soll ja wsl eh in ein eigenes DAO/WS
+		Case vdchange = CaseDAO.getCase(1);
+			vdchange.getVitaldata().get(3).setTimestamp("nachts");
+			//vdchange.getVitaldata().remove(4);							//macht keinen Sinn da nur die Zuordnung entfernt wird
+			
+			String responseU2 = CaseDAO.updateCase(vdchange);
+				Assert.assertEquals("success", responseU2);
+			
 		// Case löschen
 		String responseD = CaseDAO.deleteCase(1);
 			Assert.assertEquals("success", responseD);
@@ -66,39 +75,5 @@ public class CaseCRUDTest {
 		Case deletedcase = CaseDAO.getCase(1);
 			Assert.assertNull(deletedcase);
 	}
-			
-	/*@Test (expected = java.lang.NullPointerException.class)
-	public void deleteCase() {
-		Case newcase = new Case("Wird eh gleich gelöscht");
-		CaseDAO.createCase(newcase);
-		
-		String response = CaseDAO.deleteCase(1);
-			Assert.assertEquals("success", response);
-		CaseDAO.getCase(1);
-	}*/
-		
-		/*Set <VitalData> vitaldata = PatientCaseDAO.getCase(2).getVitaldatas();
-				
-		Iterator<VitalData> it = vitaldata.iterator();
-		while(it.hasNext()){
-			VitalData element = it.next();
-
-
-			System.out.println(element.getVitalDataID());
-			System.out.println(element.getTimestamp());
-			
-			if(element.getVitalDataID() == 4){
-				it.remove();
-				System.out.println("Eintrag " + 4 + " wird gelöscht");
-
-			}			
-		}*/
-		/*int caseID = 2;
-		PatientCase casetoupdate = new PatientCase();
-		
-		casetoupdate.setCaseID(caseID);
-		casetoupdate.setVitaldatas(vitaldata);
-		
-		PatientCaseDAO.updateVitalData(casetoupdate);*/
 
 }

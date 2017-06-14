@@ -1,5 +1,5 @@
 package de.patientenportal.entities;
 
-public class MDoc {
+public class MedicalDoc {
 
 }

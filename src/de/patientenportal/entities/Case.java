@@ -24,11 +24,12 @@ public class Case {
 	private String title;
 	private String description;
 	private boolean status;
-	//Verknüpfung Rechte
+	private Rights rights;						//noch nicht implementiert
 	private List<VitalData> vitaldata;
-	//Verknüpfung Medication
-	//Verknüpfung InstructionMaterial
-	//Verknüpfung MDoc
+	private Medication medication;				//noch nicht implementiert
+	private InstructionDoc idoc;				//noch nicht implementiert
+	private MedicalDoc mdoc;					//noch nicht implementiert
+	
 	//Verknüpfung Doctor
 	//Verknüpfung Patient
 	
@@ -76,7 +77,7 @@ public class Case {
 	}
 
 	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="vitaldata_fk")
+	@JoinColumn(name="case_fk")
 	public List<VitalData> getVitaldata() {
 		return vitaldata;
 	}

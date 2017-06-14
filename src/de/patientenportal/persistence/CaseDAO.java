@@ -1,9 +1,11 @@
 package de.patientenportal.persistence;
 
+import java.util.List;
 //import javax.transaction.Transactional;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
+import de.patientenportal.entities.VitalData;
 
 //@Transactional
 public class CaseDAO {
@@ -33,6 +35,7 @@ public class CaseDAO {
 				String title = updatedcase.getTitle();
 				String descr = updatedcase.getDescription();
 				//boolean status = updatedcase.isStatus();
+				List <VitalData> vital = updatedcase.getVitaldata();
 				
 				Session session = HibernateUtil.getSessionFactory().openSession();
 				session.beginTransaction();				
@@ -41,7 +44,8 @@ public class CaseDAO {
 					if(title!=null)		{casetoupdate.setTitle(title);}
 					if(descr!=null)		{casetoupdate.setDescription(descr);}
 					//if(status!=null)	{casetoupdate.setStatus(status);} 			// Das hier soll ja in einen eigenen Befehl
-
+					casetoupdate.setVitaldata(vital);
+					
 				session.getTransaction().commit();
 				session.close();
 				return "success";
