@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,17 +14,17 @@ import javax.persistence.Table;
 public class Rights {
 
 	private int rightID;
-	private int doctorID;
-	private int relativeID;
+	private Doctor doctor;
+	private Relative relative;
 	private boolean rRight;
 	private boolean wRight;
 	
 	public Rights(){
 	}
 	
-	public Rights(int doctorID, int relativeID, boolean rRight, boolean wRight){
-		this.doctorID = doctorID;
-		this.relativeID = relativeID;
+	public Rights(Doctor doctor, Relative relative, boolean rRight, boolean wRight){
+		this.doctor = doctor;
+		this.relative = relative;
 		this.wRight = wRight;
 		this.rRight = rRight;
 	}
@@ -38,18 +39,20 @@ public class Rights {
 		this.rightID = rightID;
 	}
 
-	public int getDoctorID() {
-		return doctorID;
+	@OneToOne
+	public Doctor getDoctor() {
+		return doctor;
 	}
-	public void setDoctorID(int doctorID) {
-		this.doctorID = doctorID;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
-	public int getRelativeID() {
-		return relativeID;
+	@OneToOne
+	public Relative getRelative() {
+		return relative;
 	}
-	public void setRelativeID(int relativeID) {
-		this.relativeID = relativeID;
+	public void setRelative(Relative relative) {
+		this.relative = relative;
 	}
 
 	public boolean isrRight() {

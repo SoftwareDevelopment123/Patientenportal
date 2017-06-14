@@ -15,6 +15,7 @@ import java.util.List;
 public class Relative {
 	
 	private int relativeID;
+	//Verwandschaftsgrad einfügen?
 	private User user;
 	private List<Patient> patients;
 	

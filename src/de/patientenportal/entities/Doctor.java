@@ -24,6 +24,10 @@ public class Doctor {
 	
 	public Doctor() {
 	}
+	
+	public Doctor(String spec) {
+		this.specialization = spec;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
