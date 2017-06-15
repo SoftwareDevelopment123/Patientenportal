@@ -5,8 +5,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Office;
 import de.patientenportal.entities.Doctor;
-import de.patientenportal.entities.Contact;
-import de.patientenportal.entities.Address;
 
 public class OfficeDAO {
 
@@ -32,23 +30,16 @@ public class OfficeDAO {
 		int id = updatedoffice.getOfficeID();
 		if(id!=0){
 			
+			String name = updatedoffice.getName();
+			List<Doctor> doctors = updatedoffice.getDoctors();
+			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			try{
-			String name = updatedoffice.getName();
-			List<Doctor> doctors = updatedoffice.getDoctors();
-			//Contact contact = updatedoffice.getContact();						//Flush-Fehler
-			//Address address = updatedoffice.getAddress();						//Flush-Fehler
-
-			
 			session.beginTransaction();				
 			Office officetoupdate = session.get(Office.class, id);
-					
-				if(name!=null)		{officetoupdate.setName(name);}
-				if(doctors!=null)	{officetoupdate.setDoctors(doctors);}
-				//if(contact!=null)	{officetoupdate.setContact(contact);}		//Flush-Fehler
-				//if(address!=null)	{officetoupdate.setAddress(address);}		//Flush-Fehler
-			
+				officetoupdate.setName(name);
+				officetoupdate.setDoctors(doctors);
 			session.getTransaction().commit();
 			
 			} catch(Exception e) {
@@ -70,11 +61,18 @@ public class OfficeDAO {
 	public static String createOffice(Office office){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try{
 		session.beginTransaction();
 		session.save(office);
 		session.getTransaction().commit();
-				
-		session.close();
+		
+		} catch(Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+			
+		} finally{
+			session.close();
+		}	
 		return "success";
 	}
 	
@@ -82,12 +80,19 @@ public class OfficeDAO {
 	public static String deleteOffice(int office_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try{
 		session.beginTransaction();
 		Office officeD = (Office)session.get(Office.class, office_id);
 		session.delete(officeD);
 		session.getTransaction().commit();
 		
-		session.close();
+		} catch(Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+			
+		} finally{
+			session.close();
+		}
 		return "success";
 	}
 

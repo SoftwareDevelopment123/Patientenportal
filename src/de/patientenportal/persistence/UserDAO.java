@@ -1,12 +1,9 @@
 package de.patientenportal.persistence;
 
-//import org.hibernate.HibernateException;
-//import javax.transaction.Transactional;
 import java.util.List;
 import org.hibernate.Session;
 import de.patientenportal.entities.*;
 
-//@Transactional
 public class UserDAO {
 	
 	// User abrufen
@@ -19,7 +16,6 @@ public class UserDAO {
 		session.getTransaction().commit();
 
 		session.close();
-		
 		return user;
 	}
 	
@@ -36,23 +32,29 @@ public class UserDAO {
 			String birthdate = updateduser.getBirthdate();
 			String gender = updateduser.getGender();
 
-			System.out.println("Updating User /w ID "+ id +" ... Please calm your tits ...");
-			
+			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			try{
 			session.beginTransaction();				
 			User usertoupdate = session.get(User.class, id);
-				
-				if(username!=null)	{usertoupdate.setUsername(username);}
-				if(password!=null)	{usertoupdate.setPassword(password);}
-				if(email!=null)		{usertoupdate.setEmail(email);}
-				if(lastname!=null)	{usertoupdate.setLastname(lastname);}
-				if(firstname!=null)	{usertoupdate.setFirstname(firstname);}				
-				if(birthdate!=null)	{usertoupdate.setBirthdate(birthdate);}				
-				if(gender!=null)	{usertoupdate.setGender(gender);}
-							
+				usertoupdate.setUsername(username);
+				usertoupdate.setPassword(password);
+				usertoupdate.setEmail(email);
+				usertoupdate.setLastname(lastname);
+				usertoupdate.setFirstname(firstname);	
+				usertoupdate.setBirthdate(birthdate);			
+				usertoupdate.setGender(gender);		
 			session.getTransaction().commit();
-			session.close();
+			
+			} catch (Exception e) {
+				System.err.println("Flush-Error: " + e);
+				return "error";
+			} finally {
+				session.close();
+			}
 			return "success";
+			
 		}
 		else {
 			return "noID";
@@ -71,18 +73,5 @@ public class UserDAO {
 		session.close();
 		return "success";
 	}
-	
-	// Alle User ausgeben -- nur testweise hier drin, kann in ein AdminDAO
-	@SuppressWarnings("unchecked")
-	public static List<User> getAllUsers(){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-	    	 
-		session.beginTransaction();
-	    List<User> users = session.createQuery("FROM User").list(); 
-	    session.getTransaction().commit();				
-	    session.close();
-	
-	    return users;
-	}
-	
+
 }
