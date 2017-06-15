@@ -19,11 +19,9 @@ public class ContactDAO {
 			try{
 			session.beginTransaction();				
 			Contact contacttoupdate = session.get(Contact.class, id);
-
-				if(phone!=null)		{contacttoupdate.setPhone(phone);}
-				if(mobile!=null)	{contacttoupdate.setMobile(mobile);}
-				if(email!=null)		{contacttoupdate.setEmail(email);}
-
+				contacttoupdate.setPhone(phone);
+				contacttoupdate.setMobile(mobile);
+				contacttoupdate.setEmail(email);
 			session.getTransaction().commit();
 
 			} catch (Exception e) {
@@ -38,6 +36,26 @@ public class ContactDAO {
 		} else {
 			return "noID";
 		}
+	}
+	
+	// Kontakt löschen
+	public static String deleteContact(int contactID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try{
+		session.beginTransaction();
+		Contact contact = (Contact)session.get(Contact.class, contactID);
+		session.delete(contact);
+		session.getTransaction().commit();
+		
+		} catch (Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
+
+		return "success";
 	}
 	
 }

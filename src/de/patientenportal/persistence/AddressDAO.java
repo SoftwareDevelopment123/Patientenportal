@@ -24,7 +24,6 @@ public class AddressDAO {
 				addresstoupdate.setStreet(street);
 				addresstoupdate.setNumber(number);
 				addresstoupdate.setCity(city);		
-
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {
@@ -40,4 +39,23 @@ public class AddressDAO {
 		}
 	}
 	
+	// Adresse löschen
+	public static String deleteAddress(int addressID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try{
+		session.beginTransaction();
+		Address address = (Address)session.get(Address.class, addressID);
+		session.delete(address);
+		session.getTransaction().commit();
+		
+		} catch (Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
+
+		return "success";
+	}
 }

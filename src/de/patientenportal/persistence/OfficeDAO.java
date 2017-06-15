@@ -4,7 +4,6 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Office;
-import de.patientenportal.entities.User;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Address;
@@ -32,13 +31,16 @@ public class OfficeDAO {
 	public static String updateOffice(Office updatedoffice){
 		int id = updatedoffice.getOfficeID();
 		if(id!=0){
-				
+			
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			try{
 			String name = updatedoffice.getName();
 			List<Doctor> doctors = updatedoffice.getDoctors();
 			//Contact contact = updatedoffice.getContact();						//Flush-Fehler
 			//Address address = updatedoffice.getAddress();						//Flush-Fehler
 
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			
 			session.beginTransaction();				
 			Office officetoupdate = session.get(Office.class, id);
 					
@@ -48,8 +50,16 @@ public class OfficeDAO {
 				//if(address!=null)	{officetoupdate.setAddress(address);}		//Flush-Fehler
 			
 			session.getTransaction().commit();
-			session.close();
+			
+			} catch(Exception e) {
+				System.err.println("Flush-Error: " + e);
+				return "error";
+				
+			} finally{
+				session.close();
+			}
 			return "success";
+		
 		}
 		else {
 			return "noID";
