@@ -3,13 +3,10 @@ package de.patientenportal.persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Rights;
-import de.patientenportal.entities.VitalData;
-import de.patientenportal.entities.VitalDataType;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Relative;
 
@@ -24,11 +21,6 @@ public class RightsTest {
 			newcase.setTitle("Impf-Pass");
 			newcase.setDescription("Zusammenstellung aller Impfungen");
 			newcase.setStatus(true);
-		
-		// kleiner Zusatztest für unten
-				VitalData vitaldata1 = new VitalData("früh",4.5,VitalDataType.BLOODSUGAR);
-				List<VitalData> vitaldatas = Arrays.asList(vitaldata1);
-			newcase.setVitaldata(vitaldatas);
 			
 		Doctor D1 = new Doctor("Hausarzt");
 		Doctor D2 = new Doctor("Zahnarzt");
@@ -81,7 +73,7 @@ public class RightsTest {
 			Assert.assertEquals("success", feedbackUC2);*/
 		
 		// Rechte-Abfrage (für den Doktor)
-		List<Case> reading = RightsDAO.getDocRCases(2);
+		List<Case> reading = RightsDAO.getDocRCases(1);
 			for (Case cases : reading){
 				System.out.println("----------------------------------");
 				System.out.println(cases.getCaseID());

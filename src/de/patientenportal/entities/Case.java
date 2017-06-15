@@ -39,6 +39,11 @@ public class Case {
 	public Case(String title) {
 		this.title = title;
 	}
+	
+	public Case(String title, String desc) {
+		this.title = title;
+		this.description = desc;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

@@ -15,6 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
+@SuppressWarnings("static-access")
 public class User /*implements java.io.Serializable*/ {
 
 	private int userID;
@@ -44,9 +45,6 @@ public class User /*implements java.io.Serializable*/ {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	//@GenericGenerator(name = "user", strategy = "increment")
-	//@GeneratedValue(generator = "user")
-	
 	@Column(name = "USER_ID", unique = true, nullable = false)
 	public int getUserId() {
 		return this.userID;
