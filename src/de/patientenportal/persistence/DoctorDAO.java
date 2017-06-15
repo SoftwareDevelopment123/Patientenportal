@@ -1,7 +1,5 @@
 package de.patientenportal.persistence;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Doctor;

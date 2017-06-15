@@ -1,9 +1,6 @@
 package de.patientenportal.persistence;
 
-import java.util.List;
-
 import org.hibernate.Session;
-
 import de.patientenportal.entities.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -87,8 +84,7 @@ public class RegistrationDAO {
 			System.out.println("Short-Data: " + result.getFirstname() + " / " +  result.getLastname() + " / " + result.getEmail());	
 			System.out.println("------------------------------ See Ya! -------------------------------");
 			
-		return true;
-		
+		return true;	
 	}
 	
 }
