@@ -6,10 +6,6 @@ import org.junit.Assert;
 import de.patientenportal.entities.*;
 
 public class DoctorOfficeCRUDTest {
-
-	/*
-	 * Der Test ist noch nicht vollständig 
-	 */
 	
 	@Test
 	public void main(){
