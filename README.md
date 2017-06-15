@@ -39,6 +39,8 @@ Fortschrittsstand:
 15.06. (Stefan)
 - Try/Catch/Finally - Blöcke in die Tests eingebaut (noch nicht fertig)
 - Struktur der DAOs leicht geändert
+- Criteria impolementiert und getestet (siehe Spielwiese.smalltests)
+- CheckUsername zur RegistrationDAO hinzugefügt und UserCRUDTest um checkUsername erweitert --> funktioniert alles
 
 To-Do
 - ActorDAOs, RegistrationDAO und OfficeDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
