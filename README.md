@@ -37,6 +37,7 @@ Fortschrittsstand:
 - ManyToMany bei Patient-Relative gestestet (funktioniert super)
 
 15.06. (Stefan)
+- Try/Catch/Finally - Blöcke in die Tests eingebaut (noch nicht fertig)
 
 To-Do
 - ActorDAOs, RegistrationDAO und OfficeDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
@@ -44,6 +45,7 @@ To-Do
 - Unit-Tests aktualisieren (neue Update-Mechanik)
 
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Kollege uns bei der zwischenpräsentation genannt hat
+- Criteria-Abfragen testen ("Suche" nach username, bzw. Abfragen wie "zeige mir alle Fälle, bei denen ich Rechte habe")
 
 Anmerkungen
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
