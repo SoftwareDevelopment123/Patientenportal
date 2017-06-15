@@ -31,14 +31,19 @@ Fortschrittsstand:
 - OfficeDAO angefangen
 - DoctorOfficeCRUDTest angefangen
 
+14.06. (Stefan/Jan)
+- User/Doctor/Relative/Patient/Address/Contact DAOs bearbeitet
+- Tests weiterentwickelt
+- ManyToMany bei Patient-Relative gestestet (funktioniert super)
+
+15.06. (Stefan)
+
 To-Do
 - ActorDAOs, RegistrationDAO und OfficeDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
 
-- ManytoMany-Verknüpfung ausprobieren
+- Unit-Tests aktualisieren (neue Update-Mechanik)
 
-- Unit-Test in einzelne Methoden aufteilen (?)
-	- geht teilweise schlecht weil die Tests nicht der Reihe nach, sondern zufällig ausgeführt werden
-
+- Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Kollege uns bei der zwischenpräsentation genannt hat
 
 Anmerkungen
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
