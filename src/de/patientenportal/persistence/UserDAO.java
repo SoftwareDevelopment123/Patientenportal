@@ -65,12 +65,18 @@ public class UserDAO {
 	public static String deleteUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try{
 		session.beginTransaction();
 		User user = (User)session.get(User.class, user_id);
 		session.delete(user);
 		session.getTransaction().commit();
 		
-		session.close();
+		} catch (Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 
