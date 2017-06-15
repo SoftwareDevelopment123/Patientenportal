@@ -59,60 +59,6 @@ public class UserDAO {
 		}
 	}		
 	
-	// Adressdaten ändern
-	public static String updateAddress(Address updatedaddress){
-		int id = updatedaddress.getAddressID();
-		if(id!=0){
-			
-			String postalCode = updatedaddress.getPostalCode();
-			String street = updatedaddress.getStreet();
-			String number = updatedaddress.getNumber();
-			String city = updatedaddress.getCity();
-					
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();				
-			Address addresstoupdate = session.get(Address.class, id);
-			
-				if(postalCode!=null)	{addresstoupdate.setPostalCode(postalCode);}
-				if(street!=null)		{addresstoupdate.setStreet(street);}
-				if(number!=null)		{addresstoupdate.setNumber(number);}
-				if(city!=null)			{addresstoupdate.setCity(city);}				
-
-			session.getTransaction().commit();
-			session.close();
-			return "success";
-		}
-		else {
-			return "noID";
-		}
-	}		
-	
-	// Kontaktdaten ändern
-	public static String updateContact(Contact updatedcontact){
-		int id = updatedcontact.getContactID();
-		if(id!=0){
-			
-			String phone = updatedcontact.getPhone();
-			String mobile = updatedcontact.getMobile();
-			String email = updatedcontact.getEmail();
-								
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();				
-			Contact contacttoupdate = session.get(Contact.class, id);
-
-				if(phone!=null)		{contacttoupdate.setPhone(phone);}
-				if(mobile!=null)	{contacttoupdate.setMobile(mobile);}
-				if(email!=null)		{contacttoupdate.setEmail(email);}
-
-			session.getTransaction().commit();
-			session.close();
-			return "success";
-		}
-		else {
-			return "noID";
-		}
-	}
-	
 	// User löschen
 	public static String deleteUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
