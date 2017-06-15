@@ -7,7 +7,7 @@ import de.patientenportal.entities.VitalData;
 
 public class VitalDataDAO {
 	
-	// VitalDaten hinzufügen
+	// VitalDaten hinzufügen // Da das über den Case läuft ist die Methode wsl. unnötig
 	public static void add(VitalData vitalData) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 

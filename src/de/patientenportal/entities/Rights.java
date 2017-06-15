@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,15 +15,17 @@ import javax.persistence.Table;
 public class Rights {
 
 	private int rightID;
+	private Case pcase;
 	private Doctor doctor;
 	private Relative relative;
 	private boolean rRight;
 	private boolean wRight;
-	
+
 	public Rights(){
 	}
 	
-	public Rights(Doctor doctor, Relative relative, boolean rRight, boolean wRight){
+	public Rights(Case pcase, Doctor doctor, Relative relative, boolean rRight, boolean wRight){
+		this.pcase = pcase;
 		this.doctor = doctor;
 		this.relative = relative;
 		this.wRight = wRight;
@@ -37,6 +40,14 @@ public class Rights {
 	}
 	public void setRightID(int rightID) {
 		this.rightID = rightID;
+	}
+
+	@ManyToOne
+	public Case getPcase() {
+		return pcase;
+	}
+	public void setPcase(Case pcase) {
+		this.pcase = pcase;
 	}
 
 	@OneToOne
@@ -55,6 +66,7 @@ public class Rights {
 		this.relative = relative;
 	}
 
+	@Column(name = "RRIGHT")
 	public boolean isrRight() {
 		return rRight;
 	}
@@ -62,6 +74,7 @@ public class Rights {
 		this.rRight = rRight;
 	}
 
+	@Column(name = "WRIGHT")
 	public boolean iswRight() {
 		return wRight;
 	}

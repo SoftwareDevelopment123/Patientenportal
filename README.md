@@ -48,8 +48,9 @@ To-Do
 - Unit-Tests aktualisieren (neue Update-Mechanik)
 
 - Herausfinden, warum die doctor_office JoinTable angelegt wird
+	--> die wird einfach nicht automatisch gelöscht, kann aber manuell aus der Datenbank entfernt werden
 
-- Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Kollege uns bei der zwischenpräsentation genannt hat
+- Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat
 - Criteria-Abfragen testen ("Suche" nach username, bzw. Abfragen wie "zeige mir alle Fälle, bei denen ich Rechte habe")
 
 Anmerkungen
