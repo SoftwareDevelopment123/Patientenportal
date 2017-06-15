@@ -87,7 +87,6 @@ public class RightsTest {
 				System.out.println(cases.getCaseID());
 				System.out.println(cases.getTitle());
 				System.out.println(cases.getDescription());
-				System.out.println(CaseDAO.getCase(cases.getCaseID()).getVitaldata().get(0).getTimestamp());
 			}
 	}
 
