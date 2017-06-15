@@ -9,7 +9,7 @@ public class UserCRUDTest {
 	@Test
 	public void main() {
 				
-		//User anlegen (Patient)
+		//User anlegen (als Patient, Doktor und Relative)
 		User neu = new User();
 			neu.setUsername("staps");
 			neu.setPassword("pass");
