@@ -102,7 +102,7 @@ public class UserCRUDTest {
 			addressupdate.setAddressID(addressID);
 			addressupdate.setCity("NewCity");
 			addressupdate.setPostalCode("464646");		
-		UserDAO.updateAddress(addressupdate);
+		AddressDAO.updateAddress(addressupdate);
 		
 		User user3 = UserDAO.getUser(1);
 			Assert.assertEquals("NewCity", user3.getAddress().getCity());
@@ -114,7 +114,7 @@ public class UserCRUDTest {
 			contactupdate.setContactID(contactID);
 			contactupdate.setEmail("NeueMail@newnew.com");
 			contactupdate.setMobile("01175/3737212");
-		UserDAO.updateContact(contactupdate);
+		ContactDAO.updateContact(contactupdate);
 		
 		User user4 = UserDAO.getUser(1);
 			Assert.assertEquals("NeueMail@newnew.com", user4.getContact().getEmail());
