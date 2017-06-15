@@ -9,7 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		CaseCRUDTest.class,
 		UserCRUDTest.class,
 		DoctorOfficeCRUDTest.class,
-		PatientRelativeCRUDTest.class})
+		PatientRelativeCRUDTest.class,
+		RightsTest.class})
 
 public class AllTests {
 
