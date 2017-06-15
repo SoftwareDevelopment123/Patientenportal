@@ -15,7 +15,7 @@
   <property name="hibernate.search.autoregister_listeners">false</property>
   
  Zusaetzliche Hibernate-Properties -->
-  <property name="show_sql">true</property>
+  <property name="show_sql">false</property>
   <property name="format_sql">true</property>
   
   <!-- Auto-Tabelle -->
@@ -32,7 +32,6 @@
   <mapping class="de.patientenportal.entities.Case"/>
   <mapping class="de.patientenportal.entities.Office"/>
   <mapping class="de.patientenportal.entities.Rights"/>
-<!--  <mapping class="de.patientenportal.entities.PatientCase"/> -->
 
  </session-factory>
 </hibernate-configuration>
