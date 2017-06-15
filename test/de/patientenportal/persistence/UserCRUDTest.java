@@ -47,10 +47,14 @@ public class UserCRUDTest {
 			neu.setDoctor(neuD);
 			neu.setRelative(neuR);
 			
-		//User in der Datenbank speichern
+		// User in der Datenbank speichern
 		RegistrationDAO.createUser(neu);
 		
-		//User aus der Datenbank abrufen
+		// Prüfen, ob der username nun (schon) vergeben ist
+		boolean checkusername = RegistrationDAO.checkUsername("staps");
+			Assert.assertTrue("Should be True",checkusername);
+		
+		// User aus der Datenbank abrufen
 		User user = UserDAO.getUser(1);
 			Assert.assertEquals("staps", user.getUsername());
 			Assert.assertEquals("pass", user.getPassword());
@@ -128,7 +132,7 @@ public class UserCRUDTest {
 		
 		//Cascade-Delete-Test
 		//Hier vllt noch Abfragen in die anderen Tabellen (Doctor ...), ob die Einträge dort gelöscht sind
-		//Test ist nicht zwingend erforderlicht ist manuell überprüfbar
+		//Test ist nicht zwingend erforderlicht ist manuell überprüfbar (funktioniert)
 
 	}
 }

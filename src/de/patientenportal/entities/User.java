@@ -18,7 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User /*implements java.io.Serializable*/ {
 
 	private int userID;
-	private String username;
+	public static String username;			//für die Criteria geändert ( auf Fehler überprüfen )
 	private String password;
 	private String email;
 	private String lastname;
