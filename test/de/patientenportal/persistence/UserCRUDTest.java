@@ -79,16 +79,15 @@ public class UserCRUDTest {
 			Assert.assertEquals(1, user.getPatient().getUser().getUserId());
 		
 		//User-Update-Test
-		User userupdate = new User();
-			userupdate.setUserId(1);
+		User userupdate = UserDAO.getUser(1);
 			userupdate.setLastname("Newname+");
 		
-		String feedback = UserDAO.updateUser(userupdate);
-			Assert.assertEquals("success", feedback);
+		String feedbackUU = UserDAO.updateUser(userupdate);
+			Assert.assertEquals("success", feedbackUU);
 		
 		User user2 = UserDAO.getUser(1);
 			Assert.assertEquals("Newname+", user2.getLastname());
-
+			
 		//Update-Fehlermeldung-Test
 		User userupdateF = new User();
 			userupdateF.setBirthdate("01.01.0001"); //ID fehlt
@@ -97,9 +96,7 @@ public class UserCRUDTest {
 			Assert.assertEquals("noID", feedbackF);
 		
 		//Address-Update-Test
-		int addressID = UserDAO.getUser(1).getAddress().getAddressID();
-		Address addressupdate = new Address();
-			addressupdate.setAddressID(addressID);
+		Address addressupdate = UserDAO.getUser(1).getAddress();
 			addressupdate.setCity("NewCity");
 			addressupdate.setPostalCode("464646");		
 		AddressDAO.updateAddress(addressupdate);
@@ -109,9 +106,7 @@ public class UserCRUDTest {
 			Assert.assertEquals("464646", user3.getAddress().getPostalCode());
 		
 		//Kontakt-Update-Test
-		int contactID = UserDAO.getUser(1).getContact().getContactID();
-		Contact contactupdate = new Contact();
-			contactupdate.setContactID(contactID);
+		Contact contactupdate = UserDAO.getUser(1).getContact();
 			contactupdate.setEmail("NeueMail@newnew.com");
 			contactupdate.setMobile("01175/3737212");
 		ContactDAO.updateContact(contactupdate);
@@ -126,6 +121,11 @@ public class UserCRUDTest {
 			Assert.assertEquals("success", feedbackDU);
 			Assert.assertEquals(null, deletedU);	
 
+		//Error-Feedback-Test
+		String feedbackDUE = UserDAO.deleteUser(55);
+			Assert.assertEquals("Error expected!","error", feedbackDUE);
+			if (feedbackDUE == "error") {System.out.println("Dont worry, this Error was expected!");}
+		
 		//Cascade-Delete-Test
 		//Hier vllt noch Abfragen in die anderen Tabellen (Doctor ...), ob die Einträge dort gelöscht sind
 		//Test ist nicht zwingend erforderlicht ist manuell überprüfbar
