@@ -42,6 +42,11 @@ Fortschrittsstand:
 - Criteria impolementiert und getestet (siehe Spielwiese.smalltests)
 - CheckUsername zur RegistrationDAO hinzugefügt und UserCRUDTest um checkUsername erweitert --> funktioniert alles
 
+16.06.(Jan)
+- RelativeDAO Update und Delete eingefügt
+- PatientDAO Update und Delete eingefügt
+- braucht man bei Contact ein create oder wird die dann in die Service schicht geschrieben da es ja über den User läuft
+
 To-Do
 - ActorDAOs, RegistrationDAO und OfficeDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
 
