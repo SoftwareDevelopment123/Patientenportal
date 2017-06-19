@@ -1,5 +1,6 @@
 package de.patientenportal.persistence;
 
+import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
 import de.patientenportal.entities.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,11 +15,20 @@ public class RegistrationDAO {
 	public static String createUser(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try {
 		session.beginTransaction();
 		session.save(user);
 		session.getTransaction().commit();
-			
-		session.close();
+		
+		} catch (PropertyValueException e) {
+			System.err.println("Error: " + e);
+			return "NotNullError";
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 
@@ -26,11 +36,20 @@ public class RegistrationDAO {
 	public static String createDoctor(Doctor doctor) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try {
 		session.beginTransaction();
 		session.save(doctor);
 		session.getTransaction().commit();
-				
-		session.close();
+		
+		} catch (PropertyValueException e) {
+			System.err.println("Error: " + e);
+			return "NotNullError";
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 	
@@ -38,11 +57,20 @@ public class RegistrationDAO {
 	public static String createPatient(Patient patient) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try {
 		session.beginTransaction();
 		session.save(patient);
 		session.getTransaction().commit();
-					
-		session.close();
+		
+		} catch (PropertyValueException e) {
+			System.err.println("Error: " + e);
+			return "NotNullError";
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 		
@@ -50,11 +78,20 @@ public class RegistrationDAO {
 	public static String createRelative(Relative relative) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try {
 		session.beginTransaction();
 		session.save(relative);
 		session.getTransaction().commit();
-					
-		session.close();
+		
+		} catch (PropertyValueException e) {
+			System.err.println("Error: " + e);
+			return "NotNullError";
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 
