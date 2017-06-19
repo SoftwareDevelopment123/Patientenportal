@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+
+import de.patientenportal.entities.Insurance;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
@@ -37,8 +39,9 @@ public class PatientDAO {
 		User user = updatedpatient.getUser();
 		String bloodtype = updatedpatient.getBloodtype();
 		List <Relative> relatives = updatedpatient.getRelatives();
+		Insurance insurance = updatedpatient.getInsurance();
 		
-		/*Insurance insurance = updatedpatient.getInsurance();		Hinzugefügt wenn die Entitity Patient fertig ist	
+		/*		Hinzugefügt wenn die Entitity Patient fertig ist	
 		List <Case> cases = updatedpatient.getCases;	
 		List <MDoc> Mdoc = updatedpatient.getMdoc;*/
 		
@@ -50,8 +53,9 @@ public class PatientDAO {
 		patienttoupdate.setUser(user);
 		patienttoupdate.setBloodtype(bloodtype);
 		patienttoupdate.setRelatives(relatives);
-
-/*		patienttoupdate.setInsurance(insurance);					Hinzugefügt wenn die Entitity Patient fertig ist
+		patienttoupdate.setInsurance(insurance);
+		
+/*Hinzugefügt wenn die Entitity Patient fertig ist
 		patienttoupdate.setCases(cases);
 		patienttoupdate.setMdoc(Mdoc);*/
 		
