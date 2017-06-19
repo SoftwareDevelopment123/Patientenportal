@@ -2,6 +2,7 @@ package de.patientenportal.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -12,8 +13,6 @@ import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Rights;
 
 public class RightsDAO {
-
-	//Hibernate-Initialize für doctor und relative ??
 	
 	// Alle Rechte zu einem Fall ausgeben
 	public static List<Rights> getRights(int caseID){
@@ -184,23 +183,50 @@ public class RightsDAO {
 				
 			Root<Rights> right = 	query.from(Rights.class);
 										Predicate idP = 	builder.equal(right.get("doctor"), doctorID);
+										Predicate pcaseP = 	builder.equal(right.get("pcase"), caseID);
 										Predicate wRightP = builder.equal(right.get("wRight"), true);
-									query.select(right).where(idP,wRightP).distinct(true);
+									query.select(right).where(idP,pcaseP,wRightP).distinct(true);
 									
-			List <Rights> result;					
+			Rights result;					
 			try {
-			result = session.createQuery(query).getResultList();
+			result = session.createQuery(query).getSingleResult();
+			} catch (NoResultException e) {
+				return false;
 			} catch (Exception e) {
+				System.err.println("Error: " + e);
 				return false;
 			} finally {
 				session.close();
 			}
 					
-			List<Case> cases = new ArrayList<Case>();
-			for (Rights it : result){
-				cases.add(it.getPcase());
-			}
-			return true;	
+			return result.iswRight();	
 		}
 
+	// Prüfen, ob ich (Relative) beim angegebenen Fall Schreibrechte habe
+	public static boolean checkRelWRight(int relativeID, int caseID){
+			
+		Session session = HibernateUtil.getSessionFactory().openSession();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
+			
+		Root<Rights> right = 	query.from(Rights.class);
+									Predicate idP = 	builder.equal(right.get("relative"), relativeID);
+									Predicate pcaseP = 	builder.equal(right.get("pcase"), caseID);
+									Predicate wRightP = builder.equal(right.get("wRight"), true);
+								query.select(right).where(idP,pcaseP,wRightP).distinct(true);
+								
+		Rights result;					
+		try {
+		result = session.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			return false;
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return false;
+		} finally {
+			session.close();
+		}
+				
+		return result.iswRight();	
+	}
 }
