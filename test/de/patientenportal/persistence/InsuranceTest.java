@@ -1,4 +1,4 @@
-package smalltests;
+package de.patientenportal.persistence;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import de.patientenportal.persistence.UserDAO;
 public class InsuranceTest {
 
 	@Test
-	public static void main(String[] args) {
+	public void main() {
 
 
 	
