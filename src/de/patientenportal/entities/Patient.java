@@ -2,10 +2,13 @@ package de.patientenportal.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -22,9 +25,10 @@ public class Patient {
 	private String bloodtype;
 	private User user;
 	private List <Relative> relatives;
-//	private List <Case> cases;				heute
+	private Insurance insurance;
 	
-	//private Insurance insurance;			Verknüpfung fehlt noch
+	//	private List <Case> cases;				heute
+	
 	//private List <MDoc> Mdoc;				Verknüpfung fehlt noch
 	
 	public Patient() {
@@ -66,6 +70,16 @@ public class Patient {
 	}
 	public void setRelatives(List<Relative> relatives) {
 		this.relatives = relatives;
+	}
+
+	@ManyToOne
+	//@JoinColumn(name="patient_insurance_fk")
+	public Insurance getInsurance() {
+		return insurance;
+	}
+
+	public void setInsurance(Insurance insurance) {
+		this.insurance = insurance;
 	}
 	
 	

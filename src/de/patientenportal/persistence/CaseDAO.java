@@ -19,7 +19,6 @@ public class CaseDAO {
 		
 		if (getcase != null){
 			Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
-			Hibernate.initialize(getcase.getRights());
 		}
 		session.getTransaction().commit();
 				
@@ -36,8 +35,7 @@ public class CaseDAO {
 			String descr = updatedcase.getDescription();
 			boolean status = updatedcase.isStatus();
 			List <VitalData> vital = updatedcase.getVitaldata();
-			List <Rights> rights = updatedcase.getRights();						// sollte explizit ausgeschlossen werden
-																				// und in ein eigenes DAO kommen
+			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
 			Case casetoupdate = session.get(Case.class, id);
@@ -46,7 +44,6 @@ public class CaseDAO {
 				casetoupdate.setDescription(descr);
 				casetoupdate.setStatus(status);
 				casetoupdate.setVitaldata(vital);
-				casetoupdate.setRights(rights);
 				
 			session.getTransaction().commit();
 			session.close();

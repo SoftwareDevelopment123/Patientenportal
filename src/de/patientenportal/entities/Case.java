@@ -25,7 +25,6 @@ public class Case {
 	private String description;
 	private boolean status;
 	private List<VitalData> vitaldata;
-	private List<Rights> rights;
 //	private Patient patient;						heute
 	//private List<Medication> medication;			//noch nicht implementiert
 	//private List<InstructionDoc> idoc;				//noch nicht implementiert
@@ -87,15 +86,6 @@ public class Case {
 	}
 	public void setVitaldata(List<VitalData> vitaldata) {
 		this.vitaldata = vitaldata;
-	}
-
-	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="case_fk")
-	public List<Rights> getRights() {
-		return rights;
-	}
-	public void setRights(List<Rights> rights) {
-		this.rights = rights;
 	}
 
 /*	public List<Medication> getMedication() {
