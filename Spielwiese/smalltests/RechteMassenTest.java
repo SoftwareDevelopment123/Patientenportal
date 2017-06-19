@@ -1,6 +1,5 @@
 package smalltests;
 
-import java.util.Arrays;
 import java.util.List;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
@@ -31,24 +30,20 @@ public class RechteMassenTest {
 		Rights r5 = new Rights(case5, D1,null,true,true);
 		Rights r6 = new Rights(case5, D2,null,true,false);
 		
-		List<Rights> rights1 = Arrays.asList(r1);
-			case1.setRights(rights1);
-		List<Rights> rights2 = Arrays.asList(r2);
-			case2.setRights(rights2);
-		List<Rights> rights3 = Arrays.asList(r3);
-			case3.setRights(rights3);
-		List<Rights> rights4 = Arrays.asList(r4);
-			case4.setRights(rights4);
-		List<Rights> rights5 = Arrays.asList(r5,r6);
-			case5.setRights(rights5);
-
 		CaseDAO.createCase(case1);
 		CaseDAO.createCase(case2);
 		CaseDAO.createCase(case3);
 		CaseDAO.createCase(case4);
 		CaseDAO.createCase(case5);
-
-		List<Case> reading = RightsDAO.getDocRCases(2);
+		
+		RightsDAO.createRight(r1);
+		RightsDAO.createRight(r2);
+		RightsDAO.createRight(r3);
+		RightsDAO.createRight(r4);
+		RightsDAO.createRight(r5);
+		RightsDAO.createRight(r6);
+		
+		List<Case> reading = RightsDAO.getDocRCases(1);
 			for (Case cases : reading){
 				System.out.println("----------------------------------");
 				System.out.println(cases.getCaseID());

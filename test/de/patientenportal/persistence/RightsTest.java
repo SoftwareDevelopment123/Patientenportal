@@ -1,7 +1,5 @@
 package de.patientenportal.persistence;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,35 +24,45 @@ public class RightsTest {
 		Doctor D2 = new Doctor("Zahnarzt");
 		Relative R1 = new Relative();
 		Relative R2 = new Relative();
-			RegistrationDAO.createDoctor(D1);
-			RegistrationDAO.createDoctor(D2);
-			RegistrationDAO.createRelative(R1);
-			RegistrationDAO.createRelative(R2);
+			String feedbackCD1 = RegistrationDAO.createDoctor(D1);
+				Assert.assertEquals("success", feedbackCD1);
+			String feedbackCD2 = RegistrationDAO.createDoctor(D2);
+				Assert.assertEquals("success", feedbackCD2);
+			String feedbackCRe1 = RegistrationDAO.createRelative(R1);
+				Assert.assertEquals("success", feedbackCRe1);
+			String feedbackCRe2 = RegistrationDAO.createRelative(R2);
+				Assert.assertEquals("success", feedbackCRe2);
+		
+		String feedbackCC = CaseDAO.createCase(newcase);
+			Assert.assertEquals("success", feedbackCC);	
 		
 		Rights r1 = new Rights(newcase, D1,null,true,true);
 		Rights r2 = new Rights(newcase, D2,null,true,false);
 		Rights r3 = new Rights(newcase, null,R1,true,false);
 		Rights r4 = new Rights(newcase, null,R2,true,false);
-		List<Rights> rights = new ArrayList<Rights>(Arrays.asList(r1,r2,r3,r4));
-			newcase.setRights(rights);
-			
-		String feedbackCC = CaseDAO.createCase(newcase);
-			Assert.assertEquals("success", feedbackCC);
-			
+
+		String feedbackCR1 = RightsDAO.createRight(r1);
+			Assert.assertEquals("success", feedbackCR1);
+		String feedbackCR2 = RightsDAO.createRight(r2);
+			Assert.assertEquals("success", feedbackCR2);
+		String feedbackCR3 = RightsDAO.createRight(r3);
+			Assert.assertEquals("success", feedbackCR3);
+		String feedbackCR4 = RightsDAO.createRight(r4);
+			Assert.assertEquals("success", feedbackCR4);
+
 		// Case-Rechte ändern (neuer Doktor kommt dazu)
 		Doctor D3 = new Doctor("Notarzt");
-			RegistrationDAO.createDoctor(D3);
-			
-		Case rUpdate = CaseDAO.getCase(1);
-		Rights r5 = new Rights(newcase, D3,null,true,true);
-			rUpdate.getRights().add(r5);
-				
-		String feedbackUC1 = CaseDAO.updateCase(rUpdate);
-			Assert.assertEquals("success", feedbackUC1);
-			
+			String feedbackCD3 = RegistrationDAO.createDoctor(D3);
+				Assert.assertEquals("success", feedbackCD3);
+		
+				Case rUpdate = CaseDAO.getCase(1);
+		Rights r5 = new Rights(rUpdate, D3,null,true,true);
+			String feedbackCR5 = RightsDAO.createRight(r5);
+				Assert.assertEquals("success", feedbackCR5);
+
 		// Case abrufen (inkl. Rechte)
 		Case changedCase = CaseDAO.getCase(1);
-		List<Rights> rlist = changedCase.getRights();
+		List<Rights> rlist = RightsDAO.getRights(changedCase.getCaseID());
 		
 			Assert.assertEquals(1,rlist.get(0).getDoctor().getDoctorID());
 			Assert.assertEquals(2,rlist.get(1).getDoctor().getDoctorID());
@@ -63,23 +71,25 @@ public class RightsTest {
 			Assert.assertEquals(3,rlist.get(4).getDoctor().getDoctorID());
 			
 			Assert.assertEquals("Hausarzt", rlist.get(0).getDoctor().getSpecialization());
-			
-		/*// Case-Rechte-Zuordnung entfernen (Eintrag bleibt bestehen und muss manuell gelöscht werden)
-		// Der Test kann eigentlich weg, bzw. muss zusammen mit der RightsDAO getestet werden
-		Case rRemove = CaseDAO.getCase(1);
-			rRemove.getRights().remove(2);
-			
-		String feedbackUC2 = CaseDAO.updateCase(rRemove);
-			Assert.assertEquals("success", feedbackUC2);*/
+		
+			System.out.println("Zugewiesene Rechte - Fall " + changedCase.getCaseID());
+			for (Rights right : rlist){
+				System.out.print("Recht-ID: " + right.getRightID());
+				System.out.print(" / Fall-ID: " + right.getPcase().getCaseID());
+				if (right.getDoctor() 	!= null) 	{System.out.print(" / Doctor-ID   " + right.getDoctor().getDoctorID());}
+				if (right.getRelative() != null) 	{System.out.print(" / Relative-ID " + right.getRelative().getRelativeID());}
+				System.out.print(" / Leserecht: " + right.isrRight());
+				System.out.println(" / Schreibrecht: " + right.iswRight());
+			}
 		
 		// Rechte-Abfrage (für den Doktor)
-		List<Case> reading = RightsDAO.getDocRCases(1);
+		/*List<Case> reading = RightsDAO.getDocRCases(1);
 			for (Case cases : reading){
 				System.out.println("----------------------------------");
 				System.out.println(cases.getCaseID());
 				System.out.println(cases.getTitle());
 				System.out.println(cases.getDescription());
-			}
+			}*/
 	}
 
 }

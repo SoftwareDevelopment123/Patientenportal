@@ -5,7 +5,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
-import de.patientenportal.entities.Rights;
 
 public class CaseDAO {
 
