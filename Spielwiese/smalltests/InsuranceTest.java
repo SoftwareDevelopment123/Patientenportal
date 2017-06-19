@@ -1,5 +1,7 @@
 package smalltests;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,35 +24,50 @@ public class InsuranceTest {
 		Insurance insurance1 = new Insurance();
 		insurance1.setInsuranceNr(123);
 		insurance1.setName("Techniker");
-		InsuranceDAO.createInsurance(insurance1);
+	
 		
 		Insurance insurance2 = new Insurance();
 		insurance2.setInsuranceNr(234);
 		insurance2.setName("ReifEisen");
+		
+	//Insurances anlegen
+		InsuranceDAO.createInsurance(insurance1);
 		InsuranceDAO.createInsurance(insurance2); 
-		
+	
 		Patient pat1 = new Patient();
-		pat1.setInsurance(insurance1);
-		
-		
+			pat1.setBloodtype("abc");
+			pat1.setInsurance(insurance1);
 		Patient pat2 = new Patient();
-		pat2.setInsurance(insurance2);
-		
+			pat2.setBloodtype("xyz");
+			pat2.setInsurance(insurance2);
 		Patient pat3 = new Patient();
-		pat3.setInsurance(insurance1);
+			pat3.setBloodtype("xyz");
+			pat3.setInsurance(insurance1);
 		
+		//Patients anlegen
 		RegistrationDAO.createPatient(pat1);
 		RegistrationDAO.createPatient(pat2);
 		RegistrationDAO.createPatient(pat3);
 		
+		//Patients abrufen
 		Patient patient1 = PatientDAO.getPatient(1);
 		Patient patient2 = PatientDAO.getPatient(2);
 		Patient patient3 = PatientDAO.getPatient(3);
 		
-		//Insurance in Datenbank
+		//Insurance abgleichen
 		Insurance insurance = InsuranceDAO.getInsurance(1);
 		Assert.assertEquals("Techniker",insurance.getName());
 		Assert.assertEquals(123 ,insurance.getInsuranceNr());
+		
+		//Patienten von der Insurance abrufen
+		Insurance ins = InsuranceDAO.getInsurance(1);
+		List <Patient> patients = ins.getPatients();
+		for( Patient p : patients){
+			System.out.println(p.getBloodtype());
+		}
+		
+		//Assert.assertArrayEquals(List<Patient> pat1, InsuranceDAO.getInsurance(1).getPatients());
+		
 		
 		
 	
