@@ -1,43 +1,26 @@
 package de.patientenportal.services;
 
-//import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.UserDAO;
 
-@WebService (endpointInterface = "services.UserWS")
+@WebService (endpointInterface = "de.patientenportal.services.UserWS")
 public class UserWSImpl implements UserWS {
 
-//	private UserDAO userdao;
-
-//	@Transactional
-//	public List<User> getAllusers() {
-//		return UserDAO.getAllUsers();
-//	}
-
 	@Transactional
-	public User getUser(int user_id) throws Exception {
+	public User getUser(int user_id) {
 		return UserDAO.getUser(user_id);
 	}
 
 	@Transactional
-	public void add(User user) {
-//		UserDAO.add(user);
-
+	public void deleteUser(int user_id) {
+		UserDAO.deleteUser(user_id);
 	}
 
 	@Transactional
-	public void delete(int user_id) {
-//		UserDAO.delete(user_id);
-
-	}
-
-	@Transactional
-	public void update(User user) {
-//		UserDAO.update(user);
-
+	public void updateUser(User user) {
+		UserDAO.updateUser(user);
 	}
 
 }
