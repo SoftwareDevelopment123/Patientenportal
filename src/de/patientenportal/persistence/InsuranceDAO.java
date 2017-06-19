@@ -5,13 +5,34 @@ import org.hibernate.cfg.Configuration;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Insurance;
 import de.patientenportal.entities.Office;
+import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
+
+import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class InsuranceDAO {
+	
+	public static Insurance getInsurance(int InsuranceID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Insurance insurance = new Insurance();
+				
+		session.beginTransaction();		
+		insurance = (Insurance)session.get(Insurance.class, InsuranceID);
+		
+		if (insurance != null){
+			Hibernate.initialize(insurance.getPatients());			// LAZY-HIBERNATE-MAGIC
+			}
+		session.getTransaction().commit();
+	
+		session.close();
+			
+		return insurance;
+	}	
+
 	
 	public static String createInsurance(Insurance insurance) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -31,6 +52,7 @@ public class InsuranceDAO {
 					
 			String Name = updatedinsurance.getName();
 			int InsuranceNr = updatedinsurance.getInsuranceNr();
+			List <Patient> patlist = updatedinsurance.getPatients();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
@@ -38,6 +60,7 @@ public class InsuranceDAO {
 						
 				insurancetoupdate.setName(Name);
 				insurancetoupdate.setInsuranceNr(InsuranceNr);
+				insurancetoupdate.setPatients(patlist);
 				
 			session.getTransaction().commit();
 			session.close();

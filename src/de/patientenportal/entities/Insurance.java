@@ -19,7 +19,7 @@ public class Insurance {
 	private int insuranceID;
 	private int insuranceNr;
 	private String name;
-	private List<Patient> patient;
+	private List<Patient> patients;
 	
 	public Insurance(){
 	
@@ -54,18 +54,13 @@ public class Insurance {
 		this.name = name;
 	}
 
-	@OneToMany (fetch = FetchType.LAZY)
-	@JoinColumn(name="insurance_patient_fk")
-	public List<Patient> getPatient() {
-		return patient;
+	@OneToMany (fetch = FetchType.LAZY, mappedBy = "insurance")
+	public List<Patient> getPatients() {
+		return patients;
 	}
 
-	public void setPatient(List<Patient> patient) {
-		this.patient = patient;
+	public void setPatients(List<Patient> patient) {
+		this.patients = patient;
 	}
-
-	
-	
-	
 	
 }
