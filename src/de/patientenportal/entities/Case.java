@@ -25,7 +25,8 @@ public class Case {
 	private String description;
 	private boolean status;
 	private List<VitalData> vitaldata;
-	private List<Rights> rights;					//noch nicht implementiert
+	private List<Rights> rights;
+//	private Patient patient;						heute
 	//private List<Medication> medication;			//noch nicht implementiert
 	//private List<InstructionDoc> idoc;				//noch nicht implementiert
 	//private List<MedicalDoc> mdoc;					//noch nicht implementiert

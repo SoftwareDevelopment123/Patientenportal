@@ -43,7 +43,7 @@ public class OfficeDAO {
 			session.getTransaction().commit();
 			
 			} catch(Exception e) {
-				System.err.println("Flush-Error: " + e);
+				System.err.println("Error: " + e);
 				return "error";
 				
 			} finally{
@@ -67,7 +67,7 @@ public class OfficeDAO {
 		session.getTransaction().commit();
 		
 		} catch(Exception e) {
-			System.err.println("Flush-Error: " + e);
+			System.err.println("Error: " + e);
 			return "error";
 			
 		} finally{
@@ -87,7 +87,7 @@ public class OfficeDAO {
 		session.getTransaction().commit();
 		
 		} catch(Exception e) {
-			System.err.println("Flush-Error: " + e);
+			System.err.println("Error: " + e);
 			return "error";
 			
 		} finally{

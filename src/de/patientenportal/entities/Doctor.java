@@ -20,7 +20,7 @@ public class Doctor {
 	private String specialization;
 	private User user;
 	private Office office;
-	//private List <Case> cases;		Verknüpfung fehlt noch
+	//private List <Case> cases;				bisher nicht benötigt
 	
 	public Doctor() {
 	}

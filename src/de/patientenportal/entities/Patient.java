@@ -22,9 +22,9 @@ public class Patient {
 	private String bloodtype;
 	private User user;
 	private List <Relative> relatives;
+//	private List <Case> cases;				heute
 	
 	//private Insurance insurance;			Verknüpfung fehlt noch
-	//private List <Case> cases;			Verknüpfung fehlt noch
 	//private List <MDoc> Mdoc;				Verknüpfung fehlt noch
 	
 	public Patient() {

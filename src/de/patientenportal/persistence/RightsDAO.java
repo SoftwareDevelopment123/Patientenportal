@@ -21,7 +21,7 @@ public class RightsDAO {
 	public static List<Case> getDocRCases(int doctorID){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();
-						
+
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
 			

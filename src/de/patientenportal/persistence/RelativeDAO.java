@@ -29,48 +29,46 @@ public class RelativeDAO {
 	}
 	
 	// Relative ändern
-		public static String updateRelative (Relative updatedrelative){
-			int id = updatedrelative.getRelativeID();
-			if(id!=0){
-				
-			User user = updatedrelative.getUser();
-			List<Patient> patients = updatedrelative.getPatients();
+	public static String updateRelative (Relative updatedrelative){
+		int id = updatedrelative.getRelativeID();
+		if(id!=0){
 			
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();				
-			Relative relativetoupdate = session.get(Relative.class, id);
-			
-			relativetoupdate.setUser(user);
-			relativetoupdate.setPatients(patients);
-
+		User user = updatedrelative.getUser();
+		List<Patient> patients = updatedrelative.getPatients();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();				
+		Relative relativetoupdate = session.get(Relative.class, id);
+		
+		relativetoupdate.setUser(user);
+		relativetoupdate.setPatients(patients);
 		session.getTransaction().commit();
+		
 		session.close();
 		return "success";
+		} else {
+			return "noID";
+		}
 	}
-	else {
-		return "noID";
-}
-}
-	// User löschen
-		public static String deleteRelative (int relativeID) {
-			Session session = HibernateUtil.getSessionFactory().openSession();
 
-			try{
-			session.beginTransaction();
-			Relative relative = (Relative)session.get(Relative.class, relativeID);
-			session.delete(relative);
-			session.getTransaction().commit();
-				
-				} 
-			catch (Exception e) {
-					System.err.println("Flush-Error: " + e);
-					return "error";
-				} 
-			finally {
-					session.close();
-				}
-				return "success";
-			}	
+	// Relative löschen
+	public static String deleteRelative (int relativeID) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+			
+		try{
+		session.beginTransaction();
+		Relative relative = (Relative)session.get(Relative.class, relativeID);
+		session.delete(relative);
+		session.getTransaction().commit();	
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
+		return "success";
+	}
 
 }
 		

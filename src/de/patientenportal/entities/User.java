@@ -11,12 +11,10 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
 
-//import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
 @SuppressWarnings("static-access")
-public class User /*implements java.io.Serializable*/ {
+public class User {
 
 	private int userID;
 	public static String username;			//für die Criteria geändert ( auf Fehler überprüfen )
@@ -32,7 +30,6 @@ public class User /*implements java.io.Serializable*/ {
 	private Address address;
 	private Contact contact;
 
-	
 	public User() {
 	}
 	

@@ -29,6 +29,7 @@ public class RechteMassenTest {
 		Rights r3 = new Rights(case3, D2,null,true,false);
 		Rights r4 = new Rights(case4, D1,null,true,false);
 		Rights r5 = new Rights(case5, D1,null,true,true);
+		Rights r6 = new Rights(case5, D2,null,true,false);
 		
 		List<Rights> rights1 = Arrays.asList(r1);
 			case1.setRights(rights1);
@@ -38,7 +39,7 @@ public class RechteMassenTest {
 			case3.setRights(rights3);
 		List<Rights> rights4 = Arrays.asList(r4);
 			case4.setRights(rights4);
-		List<Rights> rights5 = Arrays.asList(r5);
+		List<Rights> rights5 = Arrays.asList(r5,r6);
 			case5.setRights(rights5);
 
 		CaseDAO.createCase(case1);
@@ -47,7 +48,7 @@ public class RechteMassenTest {
 		CaseDAO.createCase(case4);
 		CaseDAO.createCase(case5);
 
-		List<Case> reading = RightsDAO.getDocRCases(1);
+		List<Case> reading = RightsDAO.getDocRCases(2);
 			for (Case cases : reading){
 				System.out.println("----------------------------------");
 				System.out.println(cases.getCaseID());

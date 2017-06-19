@@ -27,7 +27,7 @@ public class AddressDAO {
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {
-				System.err.println("Flush-Error: " + e);
+				System.err.println("Error: " + e);
 				return "error";
 			} finally {
 				session.close();
@@ -50,7 +50,7 @@ public class AddressDAO {
 		session.getTransaction().commit();
 		
 		} catch (Exception e) {
-			System.err.println("Flush-Error: " + e);
+			System.err.println("Error: " + e);
 			return "error";
 		} finally {
 			session.close();
