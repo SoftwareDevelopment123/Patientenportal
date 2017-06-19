@@ -68,13 +68,6 @@ public class RightsTest {
 		Case changedCase = CaseDAO.getCase(1);
 		List<Rights> rlist = RightsDAO.getRights(changedCase.getCaseID());
 		
-			/*Assert.assertEquals(1,rlist.get(0).getDoctor().getDoctorID());
-			Assert.assertEquals(2,rlist.get(1).getDoctor().getDoctorID());
-			Assert.assertEquals(1,rlist.get(2).getRelative().getRelativeID());
-			Assert.assertEquals(2,rlist.get(3).getRelative().getRelativeID());
-			Assert.assertEquals(3,rlist.get(4).getDoctor().getDoctorID());
-			Assert.assertEquals("Hausarzt", rlist.get(0).getDoctor().getSpecialization());*/
-		
 		int i = 0;
 		for (Rights r : compareme){
 			Assert.assertEquals(r.getRightID()						,	rlist.get(i).getRightID());
