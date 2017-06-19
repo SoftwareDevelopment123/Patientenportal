@@ -1,5 +1,6 @@
 package de.patientenportal.persistence;
 
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class RightsTest {
 	@Test
 	public void main(){
 		
-		// Case anlegen (inkl. Rechte)
+		// Case und Rechte anlegen
 		Case newcase = new Case();
 			newcase.setTitle("Impf-Pass");
 			newcase.setDescription("Zusammenstellung aller Impfungen");
@@ -60,19 +61,36 @@ public class RightsTest {
 			String feedbackCR5 = RightsDAO.createRight(r5);
 				Assert.assertEquals("success", feedbackCR5);
 
-		// Case abrufen (inkl. Rechte)
+		List<Rights> compareme = Arrays.asList(r1,r2,r3,r4,r5);
+		int listsize = compareme.size();
+				
+		// Rechte zum Fall abrufen
 		Case changedCase = CaseDAO.getCase(1);
 		List<Rights> rlist = RightsDAO.getRights(changedCase.getCaseID());
 		
-			Assert.assertEquals(1,rlist.get(0).getDoctor().getDoctorID());
+			/*Assert.assertEquals(1,rlist.get(0).getDoctor().getDoctorID());
 			Assert.assertEquals(2,rlist.get(1).getDoctor().getDoctorID());
 			Assert.assertEquals(1,rlist.get(2).getRelative().getRelativeID());
 			Assert.assertEquals(2,rlist.get(3).getRelative().getRelativeID());
 			Assert.assertEquals(3,rlist.get(4).getDoctor().getDoctorID());
-			
-			Assert.assertEquals("Hausarzt", rlist.get(0).getDoctor().getSpecialization());
+			Assert.assertEquals("Hausarzt", rlist.get(0).getDoctor().getSpecialization());*/
 		
-			System.out.println("Zugewiesene Rechte - Fall " + changedCase.getCaseID());
+		int i = 0;
+		for (Rights r : compareme){
+			Assert.assertEquals(r.getRightID()						,	rlist.get(i).getRightID());
+			Assert.assertEquals(r.getPcase()	.getCaseID()		,	rlist.get(i).getPcase()		.getCaseID());
+			
+			if (r.getDoctor() != null){
+			Assert.assertEquals(r.getDoctor()	.getDoctorID()		,	rlist.get(i).getDoctor()	.getDoctorID());
+			Assert.assertEquals(r.getDoctor()	.getSpecialization(),	rlist.get(i).getDoctor()	.getSpecialization());}
+			
+			if (r.getRelative() != null){
+			Assert.assertEquals(r.getRelative()	.getRelativeID()	,	rlist.get(i).getRelative()	.getRelativeID());}
+			i++;
+		}
+		
+		// Ausgabe-Test
+		/*System.out.println("Zugewiesene Rechte - Fall " + changedCase.getCaseID());
 			for (Rights right : rlist){
 				System.out.print("Recht-ID: " + right.getRightID());
 				System.out.print(" / Fall-ID: " + right.getPcase().getCaseID());
@@ -80,16 +98,26 @@ public class RightsTest {
 				if (right.getRelative() != null) 	{System.out.print(" / Relative-ID " + right.getRelative().getRelativeID());}
 				System.out.print(" / Leserecht: " + right.isrRight());
 				System.out.println(" / Schreibrecht: " + right.iswRight());
-			}
-		
-		// Rechte-Abfrage (für den Doktor)
-		/*List<Case> reading = RightsDAO.getDocRCases(1);
-			for (Case cases : reading){
-				System.out.println("----------------------------------");
-				System.out.println(cases.getCaseID());
-				System.out.println(cases.getTitle());
-				System.out.println(cases.getDescription());
 			}*/
+		
+		// Recht ändern (wRight setzen)
+		Rights changeme = rlist.get(2);
+			changeme.setwRight(true);
+		
+		String feedbackUR = RightsDAO.updateRight(changeme);
+			Assert.assertEquals("success", feedbackUR);
+		
+		List<Rights> changedList = RightsDAO.getRights(1);
+			Assert.assertTrue(changedList.get(2).iswRight());
+		
+		// Recht entfernen
+		String feedbackDR = RightsDAO.removeRight(1);
+			Assert.assertEquals("success", feedbackDR);
+		listsize--;
+		
+		List<Rights> smallerList = RightsDAO.getRights(1);
+			Assert.assertEquals(listsize, smallerList.size());
+
 	}
 
 }
