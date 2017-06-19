@@ -65,6 +65,7 @@ To-Do
 - Bidirektionale OneToMany anpassen (mappedBy)
 	- Entities anpassen (Doctor-Office, Case-VitalData und ggf. weitere)
 	- Unit-Tests aktualisieren
+	- Läuft darauf hinaus, dass wir alle (!) Case-Verknüpfungen individuell anlegen und bei Case myppedBy angeben
 
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
 	- RBAM (role based access model)!
