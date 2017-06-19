@@ -54,8 +54,7 @@ public class Insurance {
 		this.name = name;
 	}
 
-	@OneToMany (fetch = FetchType.LAZY)
-	@JoinColumn(name="insurance_patient_fk")
+	@OneToMany (fetch = FetchType.LAZY, mappedBy = "insurance")
 	public List<Patient> getPatients() {
 		return patients;
 	}
@@ -63,9 +62,5 @@ public class Insurance {
 	public void setPatients(List<Patient> patient) {
 		this.patients = patient;
 	}
-
-	
-	
-	
 	
 }

@@ -47,7 +47,13 @@ Fortschrittsstand:
 - PatientDAO Update und Delete eingefügt
 - braucht man bei Contact ein create oder wird die dann in die Service schicht geschrieben da es ja über den User läuft
 
-To-Do
+19.06. (Jan/Stefan)
+- Bidirektionaler Zugriff optimiert (muss noch auf alle bestehenden Klassen angewendet werden)
+	- Join-Column auf der "owning-side" und MappedBy - Attribut auf der Gegenseite
+
+
+
+To-DODo
 - ActorDAOs, RegistrationDAO und OfficeDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
 
 - Unit-Tests aktualisieren (neue Update-Mechanik)
@@ -80,6 +86,7 @@ Anmerkungen
 	- stattdessen nehmen wir das bestehende Objekt aus der Abfrage und ändern nur den gewünschten Wert
 	- z.B. office.getContact().setMail("neue Mail");
 	
+- MAPPEDBY für Bidirektionale Beziehungen benutzen!!!!!! Siehe Patient-Insurance
 	
 Logik für die Service-Schicht
 - Verknüpfungen löschen bei delete

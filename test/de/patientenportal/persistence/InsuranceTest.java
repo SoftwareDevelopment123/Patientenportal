@@ -1,5 +1,6 @@
 package de.patientenportal.persistence;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import de.patientenportal.entities.Insurance;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
+import de.patientenportal.entities.VitalData;
 import de.patientenportal.persistence.InsuranceDAO;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RegistrationDAO;
@@ -18,14 +20,11 @@ public class InsuranceTest {
 
 	@Test
 	public void main() {
-
-
 	
 		Insurance insurance1 = new Insurance();
 		insurance1.setInsuranceNr(123);
 		insurance1.setName("Techniker");
 	
-		
 		Insurance insurance2 = new Insurance();
 		insurance2.setInsuranceNr(234);
 		insurance2.setName("ReifEisen");
@@ -56,8 +55,8 @@ public class InsuranceTest {
 		
 		//Insurance abgleichen
 		Insurance insurance = InsuranceDAO.getInsurance(1);
-		Assert.assertEquals("Techniker",insurance.getName());
-		Assert.assertEquals(123 ,insurance.getInsuranceNr());
+			Assert.assertEquals("Techniker",insurance.getName());
+			Assert.assertEquals(123 ,insurance.getInsuranceNr());
 		
 		//Patienten von der Insurance abrufen
 		Insurance ins = InsuranceDAO.getInsurance(1);
@@ -66,12 +65,10 @@ public class InsuranceTest {
 			System.out.println(p.getBloodtype());
 		}
 		
+		System.out.println(patients.size());
+		
 		//Assert.assertArrayEquals(List<Patient> pat1, InsuranceDAO.getInsurance(1).getPatients());
-		
-		
-		
-	
-			
+
 		System.out.println("-------Test-Abfrage--------");
 		System.out.println("----------User1 "+patient1.getInsurance().getName()+"-----------");
 		System.out.println("----------User2 "+patient2.getInsurance().getName()+"-----------");

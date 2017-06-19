@@ -5,7 +5,10 @@ import org.hibernate.cfg.Configuration;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Insurance;
 import de.patientenportal.entities.Office;
+import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
+
+import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -49,6 +52,7 @@ public class InsuranceDAO {
 					
 			String Name = updatedinsurance.getName();
 			int InsuranceNr = updatedinsurance.getInsuranceNr();
+			List <Patient> patlist = updatedinsurance.getPatients();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
@@ -56,6 +60,7 @@ public class InsuranceDAO {
 						
 				insurancetoupdate.setName(Name);
 				insurancetoupdate.setInsuranceNr(InsuranceNr);
+				insurancetoupdate.setPatients(patlist);
 				
 			session.getTransaction().commit();
 			session.close();

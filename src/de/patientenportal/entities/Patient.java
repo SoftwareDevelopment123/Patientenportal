@@ -73,7 +73,7 @@ public class Patient {
 	}
 
 	@ManyToOne
-	//@JoinColumn(name="patient_insurance_fk")
+	@JoinColumn(name="insurance_fk")
 	public Insurance getInsurance() {
 		return insurance;
 	}
