@@ -72,8 +72,8 @@ public class Patient {
 		this.relatives = relatives;
 	}
 
-	@ManyToOne (targetEntity = Insurance.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="patient_insurance_fk")
+	@ManyToOne
+	//@JoinColumn(name="patient_insurance_fk")
 	public Insurance getInsurance() {
 		return insurance;
 	}
