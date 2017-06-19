@@ -70,7 +70,9 @@ To-Do
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
 	- RBAM (role based access model)!
 
-	
+- mappedBy auch in die User-Verknüpfungen einfügen und WICHTIG: User-Doctor/Relative/Patient nicht kaskadisch anlegen!
+	- da gibt es aktuell noch einen Fehler, bei dem sich die Doctor - und UserTests in die Quere kommen
+	- lässt sich vermutlich durch die übliche Flush-Fehlerbehebung auflösen
 
 - DAOs zu Interfaces "ummodeln"
 - WS-Logik!!!

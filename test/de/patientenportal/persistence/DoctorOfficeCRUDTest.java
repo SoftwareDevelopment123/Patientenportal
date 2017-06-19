@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.List;
 import org.junit.Assert;
 import de.patientenportal.entities.*;
+import javassist.compiler.SyntaxError;
 
 public class DoctorOfficeCRUDTest {
 	
@@ -105,13 +106,20 @@ public class DoctorOfficeCRUDTest {
 			
 		//DeleteDoctor-Test
 		//Info - Rückwärtskaskadierung ist hier nicht eingestellt! Muss auch so sein
+		//Doktoren aus der DB zu löschen macht aus Gründen der Datenerhaltung ohnehin keinen Sinn
 		//Deswegen muss die Doktor-User-Verknüfung entfernt werden, bevor man den Doktor 1 löschen kann
 		
 		Doctor doc1 = DoctorDAO.getDoctor(1);
 			doc1.setUser(null);
-		DoctorDAO.updateDoctor(doc1);
-		DoctorDAO.deleteDoktor(1);
-				
+			DoctorDAO.updateDoctor(doc1);
+		
+		User user1 = UserDAO.getUser(1);
+			user1.setDoctor(null);
+		UserDAO.updateUser(user1);
+	
+		String feedbackDD1 = DoctorDAO.deleteDoctor(1);
+			Assert.assertEquals("success",feedbackDD1);
+			
 		//DeleteOffice-Test
 		//Info - auch hier keine Kaskadierung vom Office, die Verknüpfung des anderen Doktors zum Office muss/sollte entfernt werden
 		
@@ -123,6 +131,9 @@ public class DoctorOfficeCRUDTest {
 		Office deletedO = OfficeDAO.getOffice(1);
 			Assert.assertEquals("success",feedbackDO);
 			Assert.assertEquals(null, deletedO);
-			
+		
+		//Clearing Up DB
+		DoctorDAO.deleteDoctor(2);
+		UserDAO.deleteUser(1);
 	}	
 }

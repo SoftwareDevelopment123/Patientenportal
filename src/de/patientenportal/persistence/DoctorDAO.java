@@ -54,7 +54,7 @@ public class DoctorDAO {
 	//Info - Rückwärtskaskadierung ist nicht bei allen Verknüpfungen eingestellt
 	//Bevor der Eintrag gelöscht werden kann, müssen diese Verknüfungen entfernt werden
 	
-	public static String deleteDoktor(int doctor_id){
+	public static String deleteDoctor(int doctor_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();

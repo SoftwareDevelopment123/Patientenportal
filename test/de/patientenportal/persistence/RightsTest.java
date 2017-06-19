@@ -111,6 +111,14 @@ public class RightsTest {
 		List<Rights> smallerList = RightsDAO.getRights(1);
 			Assert.assertEquals(listsize, smallerList.size());
 
+			
+		// Clearing Up DB
+		DoctorDAO.deleteDoctor(1);
+		DoctorDAO.deleteDoctor(2);
+		DoctorDAO.deleteDoctor(3);
+		RelativeDAO.deleteRelative(1);
+		RelativeDAO.deleteRelative(2);
+		
 	}
 
 }

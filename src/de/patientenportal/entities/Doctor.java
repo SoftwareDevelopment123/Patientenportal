@@ -47,7 +47,7 @@ public class Doctor {
 		this.specialization = specialization;
 	}
 
-	@OneToOne(targetEntity = User.class)
+	@OneToOne(/*mappedBy = "doctor"*/targetEntity = User.class)
 	public User getUser() {
 		return user;
 	}

@@ -6,10 +6,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-		CaseCRUDTest.class,
 		UserCRUDTest.class,
-		DoctorOfficeCRUDTest.class,
+		CaseCRUDTest.class,
 		PatientRelativeCRUDTest.class,
+		DoctorOfficeCRUDTest.class,
 		RightsTest.class,
 		AccessTest.class})
 
