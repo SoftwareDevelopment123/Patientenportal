@@ -13,6 +13,24 @@ import org.hibernate.SessionFactory;
 
 public class InsuranceDAO {
 	
+	public static Insurance getInsurance(int InsuranceID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Insurance insurance = new Insurance();
+				
+		session.beginTransaction();		
+		insurance = (Insurance)session.get(Insurance.class, InsuranceID);
+		
+		if (insurance != null){
+			Hibernate.initialize(insurance.getPatients());			// LAZY-HIBERNATE-MAGIC
+			}
+		session.getTransaction().commit();
+	
+		session.close();
+			
+		return insurance;
+	}	
+
+	
 	public static String createInsurance(Insurance insurance) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 

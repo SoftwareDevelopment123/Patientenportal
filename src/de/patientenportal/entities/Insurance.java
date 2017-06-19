@@ -56,7 +56,7 @@ public class Insurance {
 
 	@OneToMany (fetch = FetchType.LAZY)
 	@JoinColumn(name="insurance_patient_fk")
-	public List<Patient> getPatient() {
+	public List<Patient> getPatients() {
 		return patient;
 	}
 
