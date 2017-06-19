@@ -15,6 +15,30 @@ public class RightsDAO {
 
 	//Hibernate-Initialize für doctor und relative ??
 	
+	// Alle Rechte zu einem Fall ausgeben
+	public static List<Rights> getRights(int caseID){
+			
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
+			
+		Root<Rights> right = 	query.from(Rights.class);
+									Predicate idP = builder.equal(right.get("pcase"), caseID);
+								query.select(right).where(idP).distinct(true);
+			
+		List <Rights> result;					
+		try {
+		result = session.createQuery(query).getResultList();
+		} catch (Exception e) {
+			return null;
+		} finally {
+			session.close();
+		}
+
+		return result;	
+	}
+
 	// Recht hinzufügen
 	public static String createRight(Rights right){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -40,7 +64,12 @@ public class RightsDAO {
 		return "success";
 	}
 	
-	// Recht ändern (sinnvollerweise soll nur wright bearbeitet werden können, zum entfernen wird das ganze Recht gelöscht)
+	/*
+	 * Recht ändern
+	 *  Sinnvollerweise soll nur wRight bearbeitet werden können 
+	 *  Zum Entfernen wird das ganze Recht gelöscht
+	 */
+ 
 	public static String updateRight(Rights updatedright){
 		int id = updatedright.getRightID();
 		if(id!=0){
@@ -67,7 +96,27 @@ public class RightsDAO {
 		else {
 			return "noID";
 		}
-	}		
+	}
+	
+	// Recht entfernen
+	public static String removeRight(int rightID){
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		try{
+		session.beginTransaction();
+		Rights right = (Rights)session.get(Rights.class, rightID);
+		session.delete(right);
+		session.getTransaction().commit();
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
+		return "success";
+	}
 
 	// Prüfen, bei welchen Fällen ich (als Doktor) Leserechte habe
 	public static List<Case> getDocRCases(int doctorID){
