@@ -64,9 +64,7 @@ public class InsuranceTest {
 		for( Patient p : patients){
 			System.out.println(p.getBloodtype());
 		}
-		
-		System.out.println(patients.size());
-		
+			
 		//Assert.assertArrayEquals(List<Patient> pat1, InsuranceDAO.getInsurance(1).getPatients());
 
 		System.out.println("-------Test-Abfrage--------");
@@ -78,9 +76,21 @@ public class InsuranceTest {
 				Patient patientupdate = PatientDAO.getPatient(2);
 					patientupdate.setInsurance(insurance1);
 				
-			String feedbackUP = PatientDAO.updatePatient(patientupdate);
-					//Assert.assertEquals("success", feedbackUP);
+		String feedbackUP = PatientDAO.updatePatient(patientupdate);
+			Assert.assertEquals("success", feedbackUP);
 		
+		patients.get(1).setInsurance(insurance1);
+		List<Patient> compareme = InsuranceDAO.getInsurance(1).getPatients();
+		
+		int i = 0;
+		for (Patient p : patients){
+			Assert.assertEquals(p.getBloodtype()					, compareme.get(i).getBloodtype());
+			Assert.assertEquals(p.getInsurance().getInsuranceID()	, compareme.get(i).getInsurance().getInsuranceID());
+			Assert.assertEquals(p.getInsurance().getInsuranceNr()	, compareme.get(i).getInsurance().getInsuranceNr());
+			Assert.assertEquals(p.getInsurance().getName()			, compareme.get(i).getInsurance().getName());
+			i++;
+		}
+	
 		Patient patientxy = PatientDAO.getPatient(2);	
 			
 		System.out.println("----------User2 Insurance von "+patient2.getInsurance().getName()+" zu "+patientxy.getInsurance().getName()+"-----------");
