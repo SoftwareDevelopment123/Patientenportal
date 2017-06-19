@@ -37,7 +37,7 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("Zahnarztpraxis", newoffice.getName());
 			Assert.assertEquals("officemail.dentist@googlemail.com", newoffice.getContact().getEmail());
 			Assert.assertEquals("0123456789", newoffice.getContact().getPhone());
-			//Assert.assertEquals("112", newoffice.getContact().getMobile());
+			Assert.assertEquals("112", newoffice.getContact().getMobile());
 			Assert.assertEquals("Officestraﬂe", newoffice.getAddress().getStreet());
 		
 		// Doktoren anlegen Office hinterlegen

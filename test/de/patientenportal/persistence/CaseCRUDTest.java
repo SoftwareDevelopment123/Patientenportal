@@ -70,11 +70,11 @@ public class CaseCRUDTest {
 				Assert.assertEquals("success", responseU2);
 			
 		// Case löschen
-		/*String responseD = CaseDAO.deleteCase(1);
+		String responseD = CaseDAO.deleteCase(1);
 			Assert.assertEquals("success", responseD);
 			
 		Case deletedcase = CaseDAO.getCase(1);
-			Assert.assertNull(deletedcase);*/
+			Assert.assertNull(deletedcase);
 	}
 
 }

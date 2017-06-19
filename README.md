@@ -48,21 +48,29 @@ Fortschrittsstand:
 - braucht man bei Contact ein create oder wird die dann in die Service schicht geschrieben da es ja über den User läuft
 
 19.06. (Jan/Stefan)
+
 - Bidirektionaler Zugriff optimiert (muss noch auf alle bestehenden Klassen angewendet werden)
 	- Join-Column auf der "owning-side" und MappedBy - Attribut auf der Gegenseite
-
+- Criteria (Rechte, checkusername)
+- Rechte fast fertig
+- ActorDAOs und RegistrationDAO fertig (bis auf Patient)
+- InsuranceDAO und Test fast fertig
 
 
 To-DODo
-- ActorDAOs, RegistrationDAO und OfficeDAO vervollständigen (siehe DAO Klassendiagramm und UserDAO) -- Jan
 
-- Unit-Tests aktualisieren (neue Update-Mechanik)
+- PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan
+- InsuranceTest vervollständigen -- Jan
 
-- Herausfinden, warum die doctor_office JoinTable angelegt wird
-	--> die wird einfach nicht automatisch gelöscht, kann aber manuell aus der Datenbank entfernt werden
+- Bidirektionale OneToMany anpassen (mappedBy)
+	- Entities anpassen (Doctor-Office, Case-VitalData und ggf. weitere)
+	- Unit-Tests aktualisieren
 
-- Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat
-- Criteria-Abfragen testen ("Suche" nach username, bzw. Abfragen wie "zeige mir alle Fälle, bei denen ich Rechte habe")
+- Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
+	- RBAM (role based access model)!
+	
+
+
 
 Anmerkungen
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
