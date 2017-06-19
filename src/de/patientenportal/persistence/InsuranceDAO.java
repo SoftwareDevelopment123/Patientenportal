@@ -16,6 +16,7 @@ import org.hibernate.SessionFactory;
 
 public class InsuranceDAO {
 	
+	// Insurance über ID abrufen
 	public static Insurance getInsurance(int InsuranceID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Insurance insurance = new Insurance();
@@ -33,7 +34,7 @@ public class InsuranceDAO {
 		return insurance;
 	}	
 
-	
+	// Insurance anlegen
 	public static String createInsurance(Insurance insurance) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -43,9 +44,9 @@ public class InsuranceDAO {
 			
 		session.close();
 		return "success";	
-}
+	}
 	
-	//Insurance Update Update der Patienten ist von hier nicht möglich
+	// Insurance Update (Verknüpfte Patienten können hier nicht geändert werden)
 	public static String updateInsurance(Insurance updatedinsurance){
 		int id = updatedinsurance.getInsuranceID();
 		if(id!=0){
@@ -71,7 +72,7 @@ public class InsuranceDAO {
 		}
 	}
 	
-	//INsurance löschen 
+	// Insurance löschen 
 	public static String deleteInsurance(int insurance_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -83,15 +84,5 @@ public class InsuranceDAO {
 		session.close();
 		return "success";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

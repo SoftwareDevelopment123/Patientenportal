@@ -52,12 +52,12 @@ Fortschrittsstand:
 - Bidirektionaler Zugriff optimiert (muss noch auf alle bestehenden Klassen angewendet werden)
 	- Join-Column auf der "owning-side" und MappedBy - Attribut auf der Gegenseite
 - Criteria (Rechte, checkusername)
-- Rechte fast fertig
+- Rechte fertig, RechteTest fertig, AccessTest angelegt und fertig
 - ActorDAOs und RegistrationDAO fertig (bis auf Patient)
 - InsuranceDAO und Test fast fertig
 
 
-To-DODo
+To-Do
 
 - PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan
 - InsuranceTest vervollständigen -- Jan
@@ -68,8 +68,11 @@ To-DODo
 
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
 	- RBAM (role based access model)!
+
 	
 
+- DAOs zu Interfaces "ummodeln"
+- WS-Logik!!!
 
 
 Anmerkungen
@@ -81,10 +84,12 @@ Anmerkungen
 - EAGER für OnetoOne, Lazy für große Abfragen !!!
 	- FEHLER IST BEHOBEN, NACH STUNDENLANGER SUCHE, FUCK YEAH
 	- Die Lösung ist in der CaseDAO zu bewundern
+	- im Prinzip können wir die ganzen EAGER-Verbindungen auch lazy machen und mit Hibernate-Initialize arbeiten (insofern sinnvoll)
 	
 - Flush-Error bei OneToMany und ManyToOne ist behoben
 	- eine bestimmte Reihenfolge muss eingehalten werden, damit alles funktioniert
 	- wie das aussehen kann/muss, könnt ihr euch im DoctorOfficeCRUDTest ansehen
+	- Grundlegend: Referenzierte Entities erst anlegen und dann verknüpfen (außer cascadetype.all und und owning-Klassen)
 	
 - Die if (xxx =! null) - Logik in der Persistenzschicht kann weg, wenn wir immer das Prinzip nutzen, was den Flush-Error vermeidet
 	- die if-Logik kann dann in die Service-Schicht, wo sie ja eigentlich "hingehört"
@@ -98,3 +103,5 @@ Anmerkungen
 	
 Logik für die Service-Schicht
 - Verknüpfungen löschen bei delete
+- Keine eigene DAO-Abfrage für Case-Status, lieber "aussortieren" in der WS-Logik?
+- Bei Create-Case auch dem erstellenden Doktor Lese-/Schreibrechte mitgeben

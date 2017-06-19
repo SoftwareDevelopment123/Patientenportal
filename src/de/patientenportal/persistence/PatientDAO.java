@@ -25,7 +25,6 @@ public class PatientDAO {
 		}
 		
 		session.getTransaction().commit();
-
 		session.close();
 			
 		return patient;
@@ -55,7 +54,7 @@ public class PatientDAO {
 		patienttoupdate.setRelatives(relatives);
 		patienttoupdate.setInsurance(insurance);
 		
-/*Hinzugefügt wenn die Entitity Patient fertig ist
+		/*Hinzugefügt wenn die Entitity Patient fertig ist
 		patienttoupdate.setCases(cases);
 		patienttoupdate.setMdoc(Mdoc);*/
 		
@@ -65,7 +64,7 @@ public class PatientDAO {
 		}
 		else {
 			return "noID";
-	}
+		}
 	}
 	
 	//Patient löschen
@@ -78,15 +77,13 @@ public class PatientDAO {
 		session.delete(patient);
 		session.getTransaction().commit();
 			
-			} 
-		catch (Exception e) {
-				System.err.println("Flush-Error: " + e);
-				return "error";
-			} 
-		finally {
-				session.close();
-			}
-			return "success";
-		}	
+		} catch (Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
+		return "success";
+	}	
 
 }
