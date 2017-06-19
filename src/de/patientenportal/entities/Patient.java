@@ -29,7 +29,7 @@ public class Patient {
 	
 	//	private List <Case> cases;				heute
 	
-	//private List <MDoc> Mdoc;				Verknüpfung fehlt noch
+	// private List <MDoc> Mdoc;				Verknüpfung fehlt noch (hier erst Lösung Superklasse klären)
 	
 	public Patient() {
 	}
