@@ -6,17 +6,69 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
+//import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
-
 import de.patientenportal.entities.Case;
-//import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Rights;
 
 public class RightsDAO {
 
-	//Hibernate-Initialize für doctor und relative nicht vergessen!
+	//Hibernate-Initialize für doctor und relative ??
 	
+	// Recht hinzufügen
+	public static String createRight(Rights right){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		if (right.getPcase() == null){					// Alternative zu unten
+			return "no case defined";
+		}
+		
+		try {
+		session.beginTransaction();
+		session.save(right);
+		session.getTransaction().commit();
+		
+		} /*catch (PropertyValueException e) {			// später implementieren, dass die Datenbank notnull vorraussetzt
+			System.err.println("Error: " + e);
+			return "NotNullError";
+		}*/ catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
+		return "success";
+	}
+	
+	// Recht ändern (sinnvollerweise soll nur wright bearbeitet werden können, zum entfernen wird das ganze Recht gelöscht)
+	public static String updateRight(Rights updatedright){
+		int id = updatedright.getRightID();
+		if(id!=0){
+			
+			boolean wright = updatedright.iswRight();
+
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			try{
+			session.beginTransaction();				
+			Rights toupdate = session.get(Rights.class, id);
+				toupdate.setwRight(wright);
+			session.getTransaction().commit();
+			
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return "error";
+			} finally {
+				session.close();
+			}
+			return "success";
+			
+		}
+		else {
+			return "noID";
+		}
+	}		
+
 	// Prüfen, bei welchen Fällen ich (als Doktor) Leserechte habe
 	public static List<Case> getDocRCases(int doctorID){
 			
@@ -38,15 +90,39 @@ public class RightsDAO {
 			session.close();
 		}
 		
-		// Als Alternative hierzu könnte man auch die Rechte zurückgeben
-		// (dann stekt auch das WRight gleich mit drin)
-		
+		List<Case> cases = new ArrayList<Case>();
+		for (Rights it : result){
+			cases.add(it.getPcase());
+		}
+		return cases;	
+	}
+	
+	// Prüfen, bei welchen Fällen ich (als Doktor) Leserechte habe
+	public static List<Case> getRelRCases(int relativeID){
+			
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
+			
+		Root<Rights> right = 	query.from(Rights.class);
+									Predicate idP = builder.equal(right.get("relative"), relativeID);
+								query.select(right).where(idP).distinct(true);
+			
+		List <Rights> result;					
+		try {
+		result = session.createQuery(query).getResultList();
+		} catch (Exception e) {
+			return null;
+		} finally {
+			session.close();
+		}
+				
 		List<Case> cases = new ArrayList<Case>();
 		for (Rights it : result){
 			cases.add(it.getPcase());
 		}
 		return cases;	
 	}	
-	
-	
+
 }
