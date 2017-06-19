@@ -32,6 +32,7 @@
   <mapping class="de.patientenportal.entities.Case"/>
   <mapping class="de.patientenportal.entities.Office"/>
   <mapping class="de.patientenportal.entities.Rights"/>
+  <mapping class="de.patientenportal.entities.Insurance"/>
 
  </session-factory>
 </hibernate-configuration>

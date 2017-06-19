@@ -2,10 +2,15 @@ package de.patientenportal.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Insurance", catalog = "patientenportal")
@@ -14,7 +19,7 @@ public class Insurance {
 	private int insuranceID;
 	private int insuranceNr;
 	private String name;
-	//Verknüpfung zu private Patient patient;
+	private List<Patient> patient;
 	
 	public Insurance(){
 	
@@ -48,6 +53,17 @@ public class Insurance {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@OneToMany (fetch = FetchType.LAZY)
+	@JoinColumn(name="insurance_patient_fk")
+	public List<Patient> getPatient() {
+		return patient;
+	}
+
+	public void setPatient(List<Patient> patient) {
+		this.patient = patient;
+	}
+
 	
 	
 	
