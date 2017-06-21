@@ -56,11 +56,17 @@ Fortschrittsstand:
 - ActorDAOs und RegistrationDAO fertig (bis auf Patient)
 - InsuranceDAO und Test fast fertig
 
+20.6 (Jan)
+-MDOC, InstructionDoc und Doc als Supperklasse angelegt + zugehörige DAOs für MedicalDOc und InstructionDoc
+-für Dokument kein DAO da reine Entity für Vererbung 
+
 
 To-Do
 
 - PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan
 - InsuranceTest vervollständigen -- Jan
+- InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
+- One to One bei createdby dazufügen --Jan
 
 - Bidirektionale OneToMany anpassen (mappedBy)
 	- Entities anpassen (Doctor-Office, Case-VitalData und ggf. weitere)
