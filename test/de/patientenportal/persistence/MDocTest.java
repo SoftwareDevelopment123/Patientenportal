@@ -31,7 +31,7 @@ public class MDocTest {
 			mdoc2.setPatient(pat);
 			mdoc2.setDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
 			mdoc2.setPcase(case1);											// wird nicht mit eingefügt, ich weiß noch nicht warum
-			
+				
 		MedicalDoc mdoc3 = new MedicalDoc();
 			mdoc3.setTitle("Dokument 3");
 			mdoc2.setPatient(pat);
@@ -46,7 +46,7 @@ public class MDocTest {
 		//Abrufen - direkt
 		MedicalDoc test = MDocDAO.getMedicalDoc(1);
 			Assert.assertEquals(1, test.getMedDocID());
-			//Assert.assertEquals("Dokument 1", test.getTitle());			// erst Superklasse-Hibernate-Problem lösen
+			//Assert.assertEquals("Dokument 1", test.getTitle());			// geht noch nicht, erst Superklasse-Hibernate-Problem lösen
 		
 		//Abrufen - über den Fall
 		List<MedicalDoc> casedocs = CaseDAO.getCase(1).getMedicalDocs();	
