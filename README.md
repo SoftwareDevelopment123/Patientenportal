@@ -64,7 +64,9 @@ Fortschrittsstand:
 To-Do
 
 - PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan
+	- bei den Dokumenten fehlt noch das create!?
 - InsuranceTest vervollständigen -- Jan
+
 - InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
 - One to One bei createdby dazufügen --Jan
 
