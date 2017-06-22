@@ -32,7 +32,7 @@ public class Relative {
 		this.relativeID = relativeID;
 	}
 
-	@OneToOne(targetEntity = User.class)
+	@OneToOne(mappedBy = "relative")
 	public User getUser() {
 		return user;
 	}

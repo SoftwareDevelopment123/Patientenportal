@@ -32,14 +32,11 @@ public class UserCRUDTest {
 			
 		Patient neuP = new Patient();
 			neuP.setBloodtype("ABC");
-			neuP.setUser(neu);
 			
 		Doctor neuD = new Doctor();
 			neuD.setSpecialization("Kardiologe");
-			neuD.setUser(neu);
 			
 		Relative neuR = new Relative();
-			neuR.setUser(neu);
 
 			neu.setAddress(neuA);
 			neu.setContact(neuC);

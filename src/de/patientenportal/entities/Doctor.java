@@ -47,7 +47,7 @@ public class Doctor {
 		this.specialization = specialization;
 	}
 
-	@OneToOne(/*mappedBy = "doctor"*/targetEntity = User.class)
+	@OneToOne(mappedBy = "doctor")
 	public User getUser() {
 		return user;
 	}
@@ -56,7 +56,7 @@ public class Doctor {
 	}
 	
 	@ManyToOne (targetEntity = Office.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="doctor_office_fk")
+	@JoinColumn(name="office_fk")
 	public Office getOffice() {
 		return office;
 	}

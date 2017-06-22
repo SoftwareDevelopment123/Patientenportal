@@ -12,17 +12,13 @@ public class InstructionDocDAO {
 			InstructionDoc instructiondoc = new InstructionDoc();
 					
 			session.beginTransaction();		
-			instructiondoc = (InstructionDoc)session.get(InstructionDoc.class, instructionDocid);
-			
-			if (instructiondoc != null){
-				Hibernate.initialize(instructiondoc.getTitle());	
-				}
+			instructiondoc = (InstructionDoc)session.get(InstructionDoc.class, instructionDocid);			
 			session.getTransaction().commit();
-		
 			session.close();
 				
 			return instructiondoc;
 			}
+
 	//InstructionDoc ändern
 		public static String updateInstructionDoc(InstructionDoc updatedinstructiondoc){
 			int id = updatedinstructiondoc.getInstructionDocID();
@@ -43,11 +39,11 @@ public class InstructionDocDAO {
 				session.getTransaction().commit();
 				session.close();
 				return "success";
-				}
-				else {
+			} else {
 				return "noID";
-				}	
-			}
+			}	
+		}
+		
 	//InstructionDoc löschen
 		
 		public static String deleteInstructionDoc(int InstructionDocID){

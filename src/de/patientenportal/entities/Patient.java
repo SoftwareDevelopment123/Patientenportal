@@ -54,7 +54,7 @@ public class Patient {
 		this.bloodtype = bloodtype;
 	}
 	
-	@OneToOne(targetEntity = User.class)
+	@OneToOne(mappedBy = "patient")
 	public User getUser() {
 		return user;
 	}

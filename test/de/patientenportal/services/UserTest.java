@@ -38,22 +38,19 @@ public class UserTest {
 				neuC.setMobile("01731234567");
 				neuC.setPhone("03512646152");
 		
-			/*Patient neuP = new Patient();
+			Patient neuP = new Patient();
 				neuP.setBloodtype("ABC");
-				neuP.setUser(newuser);*/
 		
 			Doctor neuD = new Doctor();
 				neuD.setSpecialization("Kardiologe");
-				neuD.setUser(newuser);
 		
-			/*Relative neuR = new Relative();
-				neuR.setUser(newuser);*/
+			Relative neuR = new Relative();
 
 			newuser.setAddress(neuA);
 			newuser.setContact(neuC);
-			//newuser.setPatient(neuP);
+			newuser.setPatient(neuP);
 			newuser.setDoctor(neuD);
-			//newuser.setRelative(neuR);
+			newuser.setRelative(neuR);
 		
 		System.out.println("Saving User in Database ...");
 			

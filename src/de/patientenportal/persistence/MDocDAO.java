@@ -14,13 +14,8 @@ public class MDocDAO {
 		MedicalDoc mediacaldoc = new MedicalDoc();
 				
 		session.beginTransaction();		
-		mediacaldoc = (MedicalDoc)session.get(MedicalDoc.class, medDocID);
-		
-		if (mediacaldoc != null){
-			Hibernate.initialize(mediacaldoc.getTitle());	
-			}
+		mediacaldoc = (MedicalDoc)session.get(MedicalDoc.class, medDocID);	
 		session.getTransaction().commit();
-	
 		session.close();
 			
 		return mediacaldoc;

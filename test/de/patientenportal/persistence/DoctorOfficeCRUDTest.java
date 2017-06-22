@@ -4,7 +4,6 @@ import org.junit.Test;
 import java.util.List;
 import org.junit.Assert;
 import de.patientenportal.entities.*;
-import javassist.compiler.SyntaxError;
 
 public class DoctorOfficeCRUDTest {
 	
@@ -60,15 +59,10 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("Zahnarztpraxis", D1.getOffice().getName());
 			Assert.assertEquals("0123456789", D1.getOffice().getContact().getPhone());
 		
-		// Dem Office die Doktoren hinzufügen (andere Zugriffsrichtung) // Office-Update
-		Doctor D2 = DoctorDAO.getDoctor(2);
-		
-		Office emptyoffice = OfficeDAO.getOffice(1);
-			List<Doctor> doctors = emptyoffice.getDoctors();
-				doctors.add(D1);
-				doctors.add(D2);
-			emptyoffice.setName("Zaaahnarztpraxis");
-		String feedbackUO = OfficeDAO.updateOffice(emptyoffice);
+		// Office-Update		
+		Office office = OfficeDAO.getOffice(1);
+			office.setName("Zaaahnarztpraxis");
+		String feedbackUO = OfficeDAO.updateOffice(office);
 			Assert.assertEquals("success", feedbackUO);
 					
 		//Doktoren und geänderte Daten abrufen
@@ -116,10 +110,7 @@ public class DoctorOfficeCRUDTest {
 		User user1 = UserDAO.getUser(1);
 			user1.setDoctor(null);
 		UserDAO.updateUser(user1);
-	
-		String feedbackDD1 = DoctorDAO.deleteDoctor(1);
-			Assert.assertEquals("success",feedbackDD1);
-			
+				
 		//DeleteOffice-Test
 		//Info - auch hier keine Kaskadierung vom Office, die Verknüpfung des anderen Doktors zum Office muss/sollte entfernt werden
 		
