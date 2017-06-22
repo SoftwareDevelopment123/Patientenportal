@@ -18,6 +18,7 @@ public class CaseDAO {
 		
 		if (getcase != null){
 			Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
+			Hibernate.initialize(getcase.getMedicalDocs());
 		}
 		session.getTransaction().commit();
 				
@@ -63,7 +64,7 @@ public class CaseDAO {
 			
 		session.close();
 		return "success";
-		}
+	}
 	
 	// Fall löschen
 	public static String deleteCase(int caseID){

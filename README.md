@@ -63,15 +63,21 @@ Fortschrittsstand:
 22.06. (Stefan)
 - mapped bei bei den user-actor-verknüpfungen eingeführt, außerdem bei doctor-office
 	- war auch nötig, da der WS sonst fehler wirft
-	
-
+- Patient-Case eingefügt
+- MedicalDocDAO vervollständigt (beim update ggf. noch Patient hinzufügen, try-Blöcke fehlen noch)
+- Mdoc zu case und patient eingefügt
+- MDoc-Test angelegt ( bis auf die Case-Verknüpfung klappt alles)
 
 
 To-Do
 
 - PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan
-	- bei den Dokumenten fehlt noch das create!?
+	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
+	- Spalten aus der Superklasse werden (noch) nicht in die Datenbank übernommen, da müssen wir noch was machen
+
 - InsuranceTest vervollständigen -- Jan
+
+- Entities: Case-Verknüpfung von Dokumenten in die Superklasse?
 
 - InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
 - One to One bei createdby dazufügen --Jan
@@ -83,6 +89,8 @@ To-Do
 
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
 	- RBAM (role based access model)!
+
+- Funktion: Einfügen von Dokumenten in die DB prüfen
 
 - mappedBy auch in die User-Verknüpfungen einfügen und WICHTIG: User-Doctor/Relative/Patient nicht kaskadisch anlegen!
 	- da gibt es aktuell noch einen Fehler, bei dem sich die Doctor - und UserTests in die Quere kommen

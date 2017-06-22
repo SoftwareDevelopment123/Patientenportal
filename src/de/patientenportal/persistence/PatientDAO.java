@@ -23,6 +23,7 @@ public class PatientDAO {
 		if (patient != null){
 			Hibernate.initialize(patient.getRelatives());				// LAZY-HIBERNATE-MAGIC
 			Hibernate.initialize(patient.getCases());
+			Hibernate.initialize(patient.getMedicalDocs());
 		}
 		
 		session.getTransaction().commit();

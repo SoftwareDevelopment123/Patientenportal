@@ -50,9 +50,10 @@ public class PatientCaseTest {
 				System.out.println(c.getCaseID() + " / " + c.getTitle() + " / " + c.getDescription());
 			}*/
 		
-			
+		PatientDAO.deletePatient(1);
+		CaseDAO.deleteCase(1);
+		CaseDAO.deleteCase(2);
+		CaseDAO.deleteCase(3);		
 	}
-	
-	
 	
 }

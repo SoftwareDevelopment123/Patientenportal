@@ -1,20 +1,10 @@
 package de.patientenportal.persistence;
 
-import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import de.patientenportal.entities.Insurance;
 import de.patientenportal.entities.Patient;
-import de.patientenportal.entities.User;
-import de.patientenportal.entities.VitalData;
-import de.patientenportal.persistence.InsuranceDAO;
-import de.patientenportal.persistence.PatientDAO;
-import de.patientenportal.persistence.RegistrationDAO;
-import de.patientenportal.persistence.UserDAO;
-
 
 public class InsuranceTest {
 

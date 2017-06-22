@@ -12,10 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.List;
-//import org.hibernate.annotations.GenericGenerator;
-
 
 @Entity
 @Table(name = "Patient", catalog = "patientenportal")
@@ -27,17 +24,13 @@ public class Patient {
 	private List <Relative> relatives;
 	private Insurance insurance;
 	private List <Case> cases;
-	
-	// private List <MDoc> Mdoc;				Verknüpfung fehlt noch (hier erst Lösung Superklasse klären)
+	private List <MedicalDoc> medicalDocs;
 	
 	public Patient() {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	//@GenericGenerator(name = "patient", strategy = "increment")
-	//@GeneratedValue(generator = "patient")
-	
+	@GeneratedValue(strategy = IDENTITY)	
 	@Column(name = "PATIENT_ID", unique = true, nullable = false)
 	public int getPatientID() {
 		return patientID;
@@ -87,6 +80,13 @@ public class Patient {
 	public void setCases(List<Case> cases) {
 		this.cases = cases;
 	}
-	
-	
+
+	@OneToMany (mappedBy = "patient")
+	public List<MedicalDoc> getMedicalDocs() {
+		return medicalDocs;
+	}
+	public void setMedicalDocs(List<MedicalDoc> medicalDocs) {
+		this.medicalDocs = medicalDocs;
+	}
+
 }

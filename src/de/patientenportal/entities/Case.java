@@ -26,25 +26,21 @@ public class Case {
 	private boolean status;
 	private List<VitalData> vitaldata;
 	private Patient patient;
+	private List<MedicalDoc> medicalDocs;
 	//private List<Medication> medication;			//noch nicht implementiert
 	//private List<InstructionDoc> idoc;				//noch nicht implementiert
-	//private List<MedicalDoc> mdoc;					//noch nicht implementiert
-	
 	//Verknüpfung Doctor
-	//Verknüpfung Patient
 	
 	public Case(){	
 	}
-	
 	public Case(String title) {
 		this.title = title;
 	}
-	
 	public Case(String title, String desc) {
 		this.title = title;
 		this.description = desc;
-	}
 
+	}
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CASE_ID", unique = true, nullable = false)
@@ -80,7 +76,7 @@ public class Case {
 	}
 
 	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="case_fk")
+	@JoinColumn(name="case_fk")					// noch ändern, sodass von VData aus gemapped wird
 	public List<VitalData> getVitaldata() {
 		return vitaldata;
 	}
@@ -89,12 +85,20 @@ public class Case {
 	}
 
 	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="case_fk")
+	@JoinColumn(name="patient_fk")
 	public Patient getPatient() {
 		return patient;
 	}
 	public void setPatient(Patient patient) {
 		this.patient = patient;
+	}
+
+	@OneToMany (mappedBy="pcase")
+	public List<MedicalDoc> getMedicalDocs() {
+		return medicalDocs;
+	}
+	public void setMedicalDocs(List<MedicalDoc> medicalDocs) {
+		this.medicalDocs = medicalDocs;
 	}
 
 /*	public List<Medication> getMedication() {
@@ -109,13 +113,6 @@ public class Case {
 	}
 	public void setIdoc(List<InstructionDoc> idoc) {
 		this.idoc = idoc;
-	}
-
-	public List<MedicalDoc> getMdoc() {
-		return mdoc;
-	}
-	public void setMdoc(List<MedicalDoc> mdoc) {
-		this.mdoc = mdoc;
 	}*/
 	
 }

@@ -1,12 +1,24 @@
 package de.patientenportal.persistence;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
+
+import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.MedicalDoc;
 
-
 public class MDocDAO {
+	
+	// MedicalDoc anlegen
+	public static String createMDoc(MedicalDoc newMDoc) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+		session.save(newMDoc);
+		session.getTransaction().commit();
+			
+		session.close();
+		return "success";
+	}
 	
 	//Medicaldocument abrufen
 	public static MedicalDoc getMedicalDoc (int medDocID){
@@ -29,6 +41,8 @@ public class MDocDAO {
 			Doctor createdBy = updatedmedicaldoc.getCreatedBy();
 			String title =  updatedmedicaldoc.getTitle();
 			String description =  updatedmedicaldoc.getDescription();
+			Case pcase = updatedmedicaldoc.getPcase();
+			// Patient ändern?
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
@@ -37,6 +51,7 @@ public class MDocDAO {
 				medicaldoctoupdate.setCreatedBy(createdBy);
 				medicaldoctoupdate.setDescription(description);
 				medicaldoctoupdate.setTitle(title);
+				medicaldoctoupdate.setPcase(pcase);
 
 			session.getTransaction().commit();
 			session.close();
