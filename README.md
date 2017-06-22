@@ -60,6 +60,12 @@ Fortschrittsstand:
 -MDOC, InstructionDoc und Doc als Supperklasse angelegt + zugehörige DAOs für MedicalDOc und InstructionDoc
 -für Dokument kein DAO da reine Entity für Vererbung 
 
+22.06. (Stefan)
+- mapped bei bei den user-actor-verknüpfungen eingeführt, außerdem bei doctor-office
+	- war auch nötig, da der WS sonst fehler wirft
+	
+
+
 
 To-Do
 
