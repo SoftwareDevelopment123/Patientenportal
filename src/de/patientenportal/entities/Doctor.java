@@ -55,7 +55,7 @@ public class Doctor {
 		this.user = user;
 	}
 	
-	@ManyToOne (targetEntity = Office.class, fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="office_fk")
 	public Office getOffice() {
 		return office;

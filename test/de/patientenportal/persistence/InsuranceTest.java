@@ -65,8 +65,6 @@ public class InsuranceTest {
 			System.out.println(p.getBloodtype());
 		}
 			
-		//Assert.assertArrayEquals(List<Patient> pat1, InsuranceDAO.getInsurance(1).getPatients());
-
 		System.out.println("-------Test-Abfrage--------");
 		System.out.println("----------User1 "+patient1.getInsurance().getName()+"-----------");
 		System.out.println("----------User2 "+patient2.getInsurance().getName()+"-----------");

@@ -13,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 		UserCRUDTest.class,
 		CaseCRUDTest.class,
-		PatientRelativeCRUDTest.class,
+		PatientRelativeTest.class,
 		DoctorOfficeCRUDTest.class,
 		RightsTest.class,
 		AccessTest.class})

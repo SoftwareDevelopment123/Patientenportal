@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -25,8 +26,7 @@ public class Patient {
 	private User user;
 	private List <Relative> relatives;
 	private Insurance insurance;
-	
-	//	private List <Case> cases;				heute
+	private List <Case> cases;
 	
 	// private List <MDoc> Mdoc;				Verknüpfung fehlt noch (hier erst Lösung Superklasse klären)
 	
@@ -76,9 +76,16 @@ public class Patient {
 	public Insurance getInsurance() {
 		return insurance;
 	}
-
 	public void setInsurance(Insurance insurance) {
 		this.insurance = insurance;
+	}
+
+	@OneToMany (mappedBy = "patient")
+	public List<Case> getCases() {
+		return cases;
+	}
+	public void setCases(List<Case> cases) {
+		this.cases = cases;
 	}
 	
 	

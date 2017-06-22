@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import de.patientenportal.entities.*;
 
-public class PatientRelativeCRUDTest {
+public class PatientRelativeTest {
 
 	@Test
 	public void main(){

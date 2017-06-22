@@ -13,8 +13,13 @@ public class RegistrationWSImpl implements RegistrationWS {
 
 	@Transactional
 	public String checkUsername(String username) {
-		// TODO Auto-generated method stub
+
+		// ggf. nur interne Methode, die beim Anlegen eines Users läuft
+	
 		return null;
+
+	
+	
 	}
 	
 	@Transactional

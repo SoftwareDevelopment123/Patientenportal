@@ -6,8 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-//import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -25,7 +25,7 @@ public class Case {
 	private String description;
 	private boolean status;
 	private List<VitalData> vitaldata;
-//	private Patient patient;						heute
+	private Patient patient;
 	//private List<Medication> medication;			//noch nicht implementiert
 	//private List<InstructionDoc> idoc;				//noch nicht implementiert
 	//private List<MedicalDoc> mdoc;					//noch nicht implementiert
@@ -86,6 +86,15 @@ public class Case {
 	}
 	public void setVitaldata(List<VitalData> vitaldata) {
 		this.vitaldata = vitaldata;
+	}
+
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name="case_fk")
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 /*	public List<Medication> getMedication() {

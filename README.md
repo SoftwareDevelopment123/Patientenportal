@@ -77,8 +77,8 @@ To-Do
 - One to One bei createdby dazufügen --Jan
 
 - Bidirektionale OneToMany anpassen (mappedBy)
-	- Entities anpassen (Doctor-Office, Case-VitalData und ggf. weitere)
-	- Unit-Tests aktualisieren
+	- Case-VitalData fehlt noch
+	- Unit-Tests aktualisieren (bei VitalData)
 	- Läuft darauf hinaus, dass wir alle (!) Case-Verknüpfungen individuell anlegen und bei Case myppedBy angeben
 
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
@@ -87,6 +87,7 @@ To-Do
 - mappedBy auch in die User-Verknüpfungen einfügen und WICHTIG: User-Doctor/Relative/Patient nicht kaskadisch anlegen!
 	- da gibt es aktuell noch einen Fehler, bei dem sich die Doctor - und UserTests in die Quere kommen
 	- lässt sich vermutlich durch die übliche Flush-Fehlerbehebung auflösen
+	- Tests funktionieren individuell, entweder läuft er bei mir zu schnell oder wir müssen die Datenbank nach jedem Test aufräumen
 
 - DAOs zu Interfaces "ummodeln"
 - WS-Logik!!!
