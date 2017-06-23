@@ -27,10 +27,11 @@ public class VitalData  {
 	}
 	
 	//Konstruktor
-	public VitalData(String timestamp,Double value,VitalDataType vitalDataType){
+	public VitalData(String timestamp,Double value,VitalDataType vitalDataType, Case pcase){
 		this.timestamp = timestamp;
 		this.value = value;
 		this.vitalDataType =vitalDataType;
+		this.pcase = pcase;
 	}
 
 	

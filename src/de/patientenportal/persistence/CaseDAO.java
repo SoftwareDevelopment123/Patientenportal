@@ -13,6 +13,7 @@ public class CaseDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Case getcase = new Case();
 			
+		try{
 		session.beginTransaction();
 		getcase = (Case)session.get(Case.class, caseID);	
 		
@@ -22,8 +23,13 @@ public class CaseDAO {
 			Hibernate.initialize(getcase.getDoctors());
 		}
 		session.getTransaction().commit();
-				
-		session.close();
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+		} finally {
+			session.close();
+		}
 		return getcase;
 		}
 	
@@ -38,16 +44,22 @@ public class CaseDAO {
 			List <Doctor> doctors = updatedcase.getDoctors();
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			try{
 			session.beginTransaction();				
-			Case casetoupdate = session.get(Case.class, id);
-					
+			Case casetoupdate = session.get(Case.class, id);	
 				casetoupdate.setTitle(title);
 				casetoupdate.setDescription(descr);
 				casetoupdate.setStatus(status);
-				casetoupdate.setDoctors(doctors);
-				
+				casetoupdate.setDoctors(doctors);	
 			session.getTransaction().commit();
-			session.close();
+			
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return "error";
+			} finally {
+				session.close();
+			}
 			return "success";
 		}
 		else {
@@ -59,11 +71,17 @@ public class CaseDAO {
 	public static String createCase(Case newcase) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try{
 		session.beginTransaction();
 		session.save(newcase);
 		session.getTransaction().commit();
-			
-		session.close();
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 	
@@ -71,12 +89,18 @@ public class CaseDAO {
 	public static String deleteCase(int caseID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try{
 		session.beginTransaction();
 		Case removecase = (Case)session.get(Case.class, caseID);
 		session.delete(removecase);
 		session.getTransaction().commit();
-			
-		session.close();
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 	

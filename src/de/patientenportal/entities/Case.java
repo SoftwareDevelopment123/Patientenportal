@@ -11,12 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
-
-
-//import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Case", catalog = "patientenportal")

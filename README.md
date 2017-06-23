@@ -68,43 +68,37 @@ Fortschrittsstand:
 - Mdoc zu case und patient eingefügt
 - MDoc-Test angelegt ( bis auf die Case-Verknüpfung klappt alles)
 
-
 23.06 (Stefan / nur auf Tablet eingefügt, noch nicht getestet)
 - case-doctor-Verknüpfung angelegt (noch kein Test geschrieben)
-- vitaldata-case-Verknüpfung geändert (Timestamp noch anschauen!)
-	- Test noch nicht angepasst
+- vitaldata-case-Verknüpfung geändert (Timestamp noch anschauen!), caseTest amgeüasst
+
 
 To-Do
 
-- PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan
+- Dokumente fertig anlegen und mit Case Verknüpfen
 	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
 	- Spalten aus der Superklasse werden (noch) nicht in die Datenbank übernommen, da müssen wir noch was machen
+	- Entities: Case-Verknüpfung von Dokumenten in die Superklasse?
+	- InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
 
 - InsuranceTest vervollständigen -- Jan
 
-- Entities: Case-Verknüpfung von Dokumenten in die Superklasse?
-
-- InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
-- One to One bei createdby dazufügen --Jan
-
-- Bidirektionale OneToMany anpassen (mappedBy)
-	- Case-VitalData fehlt noch
-	- Unit-Tests aktualisieren (bei VitalData)
+- Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
 	- Läuft darauf hinaus, dass wir alle (!) Case-Verknüpfungen individuell anlegen und bei Case myppedBy angeben
+	- noch nicht alles angelegt
 
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
 	- RBAM (role based access model)!
 
 - Funktion: Einfügen von Dokumenten in die DB prüfen
 
-- mappedBy auch in die User-Verknüpfungen einfügen und WICHTIG: User-Doctor/Relative/Patient nicht kaskadisch anlegen!
-	- da gibt es aktuell noch einen Fehler, bei dem sich die Doctor - und UserTests in die Quere kommen
-	- lässt sich vermutlich durch die übliche Flush-Fehlerbehebung auflösen
-	- Tests funktionieren individuell, entweder läuft er bei mir zu schnell oder wir müssen die Datenbank nach jedem Test aufräumen
+- Tests funktionieren individuell, aber nicht in der Suite
+	- liegt daran, dass z.B. mehrere Tests einen Case anlegen und damit arbeiten (beim 2. Test passt die ID dann nicht mehr)
+	- entweder Lösung in der Unit-Logik finden, Tests zusammenfassen oder einfach ohne Suite arbeiten (wäre schade)
 
 - DAOs zu Interfaces "ummodeln"
-- WS-Logik!!!
 
+- WS-Logik!!!
 
 Anmerkungen
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)

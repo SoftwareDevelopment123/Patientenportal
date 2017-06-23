@@ -16,7 +16,8 @@ public class PatientDAO {
 	public static Patient getPatient(int patientID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Patient patient = new Patient();
-				
+		
+		try{
 		session.beginTransaction();		
 		patient = (Patient)session.get(Patient.class, patientID);
 		
@@ -27,8 +28,12 @@ public class PatientDAO {
 		}
 		
 		session.getTransaction().commit();
-		session.close();
-			
+		} catch (Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return null;
+		} finally {
+			session.close();
+		}
 		return patient;
 	}
 	
@@ -42,12 +47,8 @@ public class PatientDAO {
 		List <Relative> relatives = updatedpatient.getRelatives();
 		Insurance insurance = updatedpatient.getInsurance();
 		
-		/*		Hinzugefügt wenn die Entitity Patient fertig ist	
-		List <Case> cases = updatedpatient.getCases;	
-		List <MDoc> Mdoc = updatedpatient.getMdoc;*/
-		
-		
 		Session session = HibernateUtil.getSessionFactory().openSession();
+		try{
 		session.beginTransaction();				
 		Patient patienttoupdate = session.get(Patient.class, id);
 				
@@ -56,12 +57,13 @@ public class PatientDAO {
 		patienttoupdate.setRelatives(relatives);
 		patienttoupdate.setInsurance(insurance);
 		
-		/*Hinzugefügt wenn die Entitity Patient fertig ist
-		patienttoupdate.setCases(cases);
-		patienttoupdate.setMdoc(Mdoc);*/
-		
 		session.getTransaction().commit();
-		session.close();
+		} catch (Exception e) {
+			System.err.println("Flush-Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 		}
 		else {
