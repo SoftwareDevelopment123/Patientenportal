@@ -7,18 +7,20 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 //import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
 public class VitalData  {
-	
 
 	private int vitalDataID;
 	private String timestamp;
 	private Double value;
 	private VitalDataType vitalDataType;
+	private Case pcase;
 
 	//Standardkonstruktor
 	public VitalData(){
@@ -34,9 +36,7 @@ public class VitalData  {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	//@GenericGenerator(name = "vitalData", strategy = "increment")
-	//@GeneratedValue(generator = "vitalData")
-	@Column(name = "VitalDataID", unique = true, nullable = false)
+	@Column(name = "VITALDATA_ID", unique = true, nullable = false)
 	public int getVitalDataID() {
 		return vitalDataID;
 	}
@@ -44,7 +44,7 @@ public class VitalData  {
 		this.vitalDataID = vitalDataID;
 	}
 	
-	@Column(name = "Timestamp", length = 45)
+	@Column(name = "TIMESTAMP", length = 45)
 	public String getTimestamp() {
 		return timestamp;
 	}
@@ -52,7 +52,7 @@ public class VitalData  {
 		this.timestamp = timestamp;
 	}
 	
-	@Column(name = "Value", length = 45)
+	@Column(name = "VALUE", length = 45)
 	public Double getValue() {
 		return value;
 	}
@@ -61,11 +61,21 @@ public class VitalData  {
 	}
 
 	@Enumerated(EnumType.STRING)
+	@Column(name = "TYPE")
 	public VitalDataType getVitalDataType() {
 		return vitalDataType;
 	}
 	public void setVitalDataType(VitalDataType vitalDataType) {
 		this.vitalDataType = vitalDataType;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="case_fk")
+	public Case getPcase() {
+		return pcase;
+	}
+	public void setPcase(Case pcase) {
+		this.pcase = pcase;
 	}
 
 }

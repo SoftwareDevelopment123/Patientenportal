@@ -69,6 +69,11 @@ Fortschrittsstand:
 - MDoc-Test angelegt ( bis auf die Case-Verknüpfung klappt alles)
 
 
+23.06 (Stefan / nur auf Tablet eingefügt, noch nicht getestet)
+- case-doctor-Verknüpfung angelegt (noch kein Test geschrieben)
+- vitaldata-case-Verknüpfung geändert (Timestamp noch anschauen!)
+	- Test noch nicht angepasst
+
 To-Do
 
 - PatientDAO vervollständigen (Case und MDoc[Superklasse?] Verknüpfung) -- Jan

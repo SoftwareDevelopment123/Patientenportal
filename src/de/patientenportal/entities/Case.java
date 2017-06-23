@@ -6,6 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,9 +29,9 @@ public class Case {
 	private List<VitalData> vitaldata;
 	private Patient patient;
 	private List<MedicalDoc> medicalDocs;
+	private List<Doctor> doctors;
 	//private List<Medication> medication;			//noch nicht implementiert
-	//private List<InstructionDoc> idoc;				//noch nicht implementiert
-	//Verknüpfung Doctor
+	//private List<InstructionDoc> idoc;			//noch nicht implementiert
 	
 	public Case(){	
 	}
@@ -75,8 +77,7 @@ public class Case {
 		this.status = status;
 	}
 
-	@OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="case_fk")					// noch ändern, sodass von VData aus gemapped wird
+	@OneToMany (fetch = FetchType.LAZY, mappedBy = "pcase")
 	public List<VitalData> getVitaldata() {
 		return vitaldata;
 	}
@@ -99,6 +100,15 @@ public class Case {
 	}
 	public void setMedicalDocs(List<MedicalDoc> medicalDocs) {
 		this.medicalDocs = medicalDocs;
+	}
+	
+	@ManyToMany
+	@JoinTable(name="case_doctor")
+	public List<Doctor> getDoctors() {
+		return doctors;
+	}
+	public void setDoctors(List<Doctor> doctors) {
+		this.doctors = doctors;
 	}
 
 /*	public List<Medication> getMedication() {

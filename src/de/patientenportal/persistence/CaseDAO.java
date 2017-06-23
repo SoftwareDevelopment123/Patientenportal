@@ -4,7 +4,7 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
-import de.patientenportal.entities.VitalData;
+import de.patientenportal.entities.Doctor;
 
 public class CaseDAO {
 
@@ -19,6 +19,7 @@ public class CaseDAO {
 		if (getcase != null){
 			Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
 			Hibernate.initialize(getcase.getMedicalDocs());
+			Hibernate.initialize(getcase.getDoctors());
 		}
 		session.getTransaction().commit();
 				
@@ -34,7 +35,7 @@ public class CaseDAO {
 			String title = updatedcase.getTitle();
 			String descr = updatedcase.getDescription();
 			boolean status = updatedcase.isStatus();
-			List <VitalData> vital = updatedcase.getVitaldata();
+			List <Doctor> doctors = updatedcase.getDoctors();
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();				
@@ -43,7 +44,7 @@ public class CaseDAO {
 				casetoupdate.setTitle(title);
 				casetoupdate.setDescription(descr);
 				casetoupdate.setStatus(status);
-				casetoupdate.setVitaldata(vital);
+				casetoupdate.setDoctors(doctors);
 				
 			session.getTransaction().commit();
 			session.close();

@@ -6,11 +6,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
-
+import java.util.List;
 
 @Entity
 @Table(name = "Doctor", catalog = "patientenportal")
@@ -20,7 +21,7 @@ public class Doctor {
 	private String specialization;
 	private User user;
 	private Office office;
-	//private List <Case> cases;				bisher nicht benötigt
+	private List <Case> cases;
 	
 	public Doctor() {
 	}
@@ -63,5 +64,12 @@ public class Doctor {
 	public void setOffice(Office office) {
 		this.office = office;
 	}
-
+	
+	@ManyToMany(mappedBy="doctors")
+	public List<Case> getCases() {
+		return cases;
+	}
+	public void setCases(List<Case> cases) {
+		this.cases = cases;
+	}
 }
