@@ -9,12 +9,18 @@ public class UserDAO {
 	public static User getUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		User user = new User();
-			
+		
+		try{
 		session.beginTransaction();		
 		user = (User)session.get(User.class, user_id);
 		session.getTransaction().commit();
 
-		session.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+		} finally {
+			session.close();
+		}
 		return user;
 	}
 	
@@ -23,13 +29,13 @@ public class UserDAO {
 		int id = updateduser.getUserId();
 		if(id!=0){
 			
-			String username = updateduser.getUsername();
-			String password = updateduser.getPassword();
-			String email = updateduser.getEmail();
-			String lastname = updateduser.getLastname();
-			String firstname = updateduser.getFirstname();
-			String birthdate = updateduser.getBirthdate();
-			String gender = updateduser.getGender();
+			String username = 	updateduser.getUsername();
+			String password = 	updateduser.getPassword();
+			String email = 		updateduser.getEmail();
+			String lastname = 	updateduser.getLastname();
+			String firstname = 	updateduser.getFirstname();
+			String birthdate = 	updateduser.getBirthdate();
+			String gender = 	updateduser.getGender();
 
 			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();

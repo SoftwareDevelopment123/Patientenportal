@@ -7,8 +7,22 @@ Nicht im Master-Branch arbeiten!
 
 - Hier unten können wir nochmal kurz notieren, das wir zuletzt gemacht haben und was noch fehlt
 
+## Fortschrittsstand
 
-Fortschrittsstand:
+Fertig und überprüft:
+DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights
+WS	-	
+
+(Fast) Fertig:
+DAO	-	Case, VitalData, InstructionalDoc, MedicalDoc 
+WS	-	
+
+Fehlt noch:
+DAO	-	Medication, Medicine
+WS	-	sehr viel ^^
+
+
+## Dokumentation
 
 06.06. (Stefan)
 - Entities (User, Doctor, Patient, Address, Contact) angelegt, fehlende Verknüpfungen sind auskommentiert
@@ -73,7 +87,7 @@ Fortschrittsstand:
 - vitaldata-case-Verknüpfung geändert (Timestamp noch anschauen!), caseTest amgeüasst
 
 
-To-Do
+## To-Do
 
 - Dokumente fertig anlegen und mit Case Verknüpfen
 	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
@@ -100,7 +114,7 @@ To-Do
 
 - WS-Logik!!!
 
-Anmerkungen
+## Anmerkungen
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
 - Idee: SaveOrUpdate-Funktion (ausprobieren, testen)
 - versch. Methodennamen für die getUserx-Methoden werden nicht mehr gebraucht, da bidirektionaler Zugriff funktioniert

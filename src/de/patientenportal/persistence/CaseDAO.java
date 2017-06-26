@@ -17,11 +17,11 @@ public class CaseDAO {
 		session.beginTransaction();
 		getcase = (Case)session.get(Case.class, caseID);	
 		
-		if (getcase != null){
-			Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
-			Hibernate.initialize(getcase.getMedicalDocs());
-			Hibernate.initialize(getcase.getDoctors());
-		}
+			if (getcase != null){
+				Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
+				Hibernate.initialize(getcase.getMedicalDocs());
+				Hibernate.initialize(getcase.getDoctors());
+			}
 		session.getTransaction().commit();
 		
 		} catch (Exception e) {

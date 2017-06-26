@@ -17,7 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User {
 
 	private int userID;
-	public static String username;			//für die Criteria geändert ( auf Fehler überprüfen )
+	public static String username;
 	private String password;
 	private String email;
 	private String lastname;

@@ -1,7 +1,5 @@
 package de.patientenportal.persistence;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
@@ -13,17 +11,22 @@ public class RelativeDAO {
 	public static Relative getRelative(int relativeID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Relative relative = new Relative();
-				
+		
+		try{
 		session.beginTransaction();		
 		relative = (Relative)session.get(Relative.class, relativeID);
 		
-		if (relative != null){
-			Hibernate.initialize(relative.getPatients());			// LAZY-HIBERNATE-MAGIC
-		}
-		
+			if (relative != null){
+				Hibernate.initialize(relative.getPatients());			// LAZY-HIBERNATE-MAGIC
+			}
 		session.getTransaction().commit();
 
-		session.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+		} finally {
+			session.close();
+		}
 			
 		return relative;
 	}
@@ -32,20 +35,25 @@ public class RelativeDAO {
 	public static String updateRelative (Relative updatedrelative){
 		int id = updatedrelative.getRelativeID();
 		if(id!=0){
-			
-		User user = updatedrelative.getUser();
-		List<Patient> patients = updatedrelative.getPatients();
 		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();				
-		Relative relativetoupdate = session.get(Relative.class, id);
+		/*
+		 * 	Platzhalter, da der Relative aktuell keine Attribute besitzt, die geändert werden müssen/können
+		 *  
+		 * 	Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		relativetoupdate.setUser(user);
-		relativetoupdate.setPatients(patients);
-		session.getTransaction().commit();
+			try{
+				session.beginTransaction();				
+				Relative relativetoupdate = session.get(Relative.class, id);
+
+				session.getTransaction().commit();
 		
-		session.close();
-		return "success";
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return "error";
+			} finally {
+				session.close();
+			}*/
+			return "success";
 		} else {
 			return "noID";
 		}
@@ -71,5 +79,3 @@ public class RelativeDAO {
 	}
 
 }
-		
-		

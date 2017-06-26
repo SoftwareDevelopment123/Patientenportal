@@ -1,10 +1,8 @@
 package de.patientenportal.persistence;
 
-import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Office;
-import de.patientenportal.entities.Doctor;
 
 public class OfficeDAO {
 
@@ -13,15 +11,22 @@ public class OfficeDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Office office = new Office();
 		
+		try{
 		session.beginTransaction();
 		office = (Office)session.get(Office.class, officeID);	
+			
+			if (office != null){
+				Hibernate.initialize(office.getDoctors());			// LAZY-HIBERNATE-MAGIC
+			}
+		session.getTransaction().commit();		
 		
-		if (office != null){
-		Hibernate.initialize(office.getDoctors());			// LAZY-HIBERNATE-MAGIC
+		} catch(Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+			
+		} finally{
+			session.close();
 		}
-		session.getTransaction().commit();
-				
-		session.close();
 		return office;		
 	}
 	
@@ -31,7 +36,6 @@ public class OfficeDAO {
 		if(id!=0){
 			
 			String name = updatedoffice.getName();
-			List<Doctor> doctors = updatedoffice.getDoctors();
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
@@ -39,7 +43,6 @@ public class OfficeDAO {
 			session.beginTransaction();				
 			Office officetoupdate = session.get(Office.class, id);
 				officetoupdate.setName(name);
-				officetoupdate.setDoctors(doctors);
 			session.getTransaction().commit();
 			
 			} catch(Exception e) {
@@ -77,12 +80,12 @@ public class OfficeDAO {
 	}
 	
 	//Office löschen
-	public static String deleteOffice(int office_id){
+	public static String deleteOffice(int officeID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try{
 		session.beginTransaction();
-		Office officeD = (Office)session.get(Office.class, office_id);
+		Office officeD = (Office)session.get(Office.class, officeID);
 		session.delete(officeD);
 		session.getTransaction().commit();
 		
