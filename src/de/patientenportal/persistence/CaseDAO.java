@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.Patient;
 
 public class CaseDAO {
 
@@ -42,6 +43,7 @@ public class CaseDAO {
 			String descr = updatedcase.getDescription();
 			boolean status = updatedcase.isStatus();
 			List <Doctor> doctors = updatedcase.getDoctors();
+			Patient patient = updatedcase.getPatient();				// sollte man normalerweise nicht ändern müssen
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
@@ -51,7 +53,8 @@ public class CaseDAO {
 				casetoupdate.setTitle(title);
 				casetoupdate.setDescription(descr);
 				casetoupdate.setStatus(status);
-				casetoupdate.setDoctors(doctors);	
+				casetoupdate.setDoctors(doctors);
+				casetoupdate.setPatient(patient);
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {

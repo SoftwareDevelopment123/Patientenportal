@@ -1,11 +1,9 @@
 # Patientenportal
 
-Nicht im Master-Branch arbeiten!
+Nicht im Development-Branch arbeiten!
 
 - Wenn ihr mit Programmieren startet, checked euren Branch und merged dann von "Development"
 - Nach dem Commit und Push in eurem eigenen Branch checked ihr Development und merged von dort dann euren eigenen Branch (da sollte möglichst alles funktionieren dann)
-
-- Hier unten können wir nochmal kurz notieren, das wir zuletzt gemacht haben und was noch fehlt
 
 ## Fortschrittsstand
 
@@ -13,12 +11,16 @@ Fertig und überprüft:
 DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights
 WS	-	
 
-(Fast) Fertig:
-DAO	-	Case, VitalData, InstructionalDoc, MedicalDoc 
+Fertig:
+DAO	-	
+WS	-
+
+in Arbeit:
+DAO	-	Case, VitalData, InstructionalDoc, MedicalDoc, Tests (bisherige vervollständigen), Medication, Medicine (Entities angelegt)
 WS	-	
 
 Fehlt noch:
-DAO	-	Medication, Medicine
+DAO	-	Tests (für alle Funktionen/DAOs vervollständigen, ist viel copy/paste)
 WS	-	sehr viel ^^
 
 
@@ -86,6 +88,10 @@ WS	-	sehr viel ^^
 - case-doctor-Verknüpfung angelegt (noch kein Test geschrieben)
 - vitaldata-case-Verknüpfung geändert (Timestamp noch anschauen!), caseTest amgeüasst
 
+26.06.
+- QM bei allen bestehenden DAOs (try-catch-Blöche eingefügt und Logik überprüft)
+- Entities Medication und Medicine angelegt, Verknüpfung zum Case (DAOs und Test fehlen noch)
+
 
 ## To-Do
 
@@ -115,8 +121,11 @@ WS	-	sehr viel ^^
 - WS-Logik!!!
 
 ## Anmerkungen
+- getCases (patientID) in der DAO vs. PatientDAO.getCases(); + Rechteabgleich in der Service-Schicht?!
+
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
 - Idee: SaveOrUpdate-Funktion (ausprobieren, testen)
+
 - versch. Methodennamen für die getUserx-Methoden werden nicht mehr gebraucht, da bidirektionaler Zugriff funktioniert
 	- gleiches gilt für die getDoctorsByx, etc. Methoden, das geht durch Eager/Init - Zugriff (macht eigentlich mehr Sinn)
 
@@ -131,6 +140,7 @@ WS	-	sehr viel ^^
 	- Grundlegend: Referenzierte Entities erst anlegen und dann verknüpfen (außer cascadetype.all und und owning-Klassen)
 	
 - Die if (xxx =! null) - Logik in der Persistenzschicht kann weg, wenn wir immer das Prinzip nutzen, was den Flush-Error vermeidet
+	- d.h. wir rufen ein (vollständiges) Objekt aus der DB ab, ändern Werte und geben dann das dieses Objekt wieder zurück
 	- die if-Logik kann dann in die Service-Schicht, wo sie ja eigentlich "hingehört"
 	
 - Das gleiche Prinzip kann man vllt auch bei dem Schreiben von Adreessen über das Office angewendet werden (funktioniert noch nicht)

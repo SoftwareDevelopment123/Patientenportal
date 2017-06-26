@@ -26,7 +26,7 @@ public class Case {
 	private Patient patient;
 	private List<MedicalDoc> medicalDocs;
 	private List<Doctor> doctors;
-	//private List<Medication> medication;			//noch nicht implementiert
+	private List<Medication> medication;
 	//private List<InstructionDoc> idoc;			//noch nicht implementiert
 	
 	public Case(){	
@@ -37,8 +37,8 @@ public class Case {
 	public Case(String title, String desc) {
 		this.title = title;
 		this.description = desc;
-
 	}
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CASE_ID", unique = true, nullable = false)
@@ -107,14 +107,15 @@ public class Case {
 		this.doctors = doctors;
 	}
 
-/*	public List<Medication> getMedication() {
+	@OneToMany (mappedBy="pcase")
+	public List<Medication> getMedication() {
 		return medication;
 	}
 	public void setMedication(List<Medication> medication) {
 		this.medication = medication;
 	}
 
-	public List<InstructionDoc> getIdoc() {
+	/*public List<InstructionDoc> getIdoc() {
 		return idoc;
 	}
 	public void setIdoc(List<InstructionDoc> idoc) {
