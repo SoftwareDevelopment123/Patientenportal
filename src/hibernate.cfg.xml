@@ -37,6 +37,8 @@
   <mapping class="de.patientenportal.entities.Insurance"/>
   <mapping class="de.patientenportal.entities.MedicalDoc"/>
   <mapping class="de.patientenportal.entities.InstructionDoc"/>
+  <mapping class="de.patientenportal.entities.Medication"/>
+  <mapping class="de.patientenportal.entities.Medicine"/>
   
 
  </session-factory>

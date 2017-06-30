@@ -12,11 +12,17 @@ public class MDocDAO {
 	public static String createMDoc(MedicalDoc newMDoc) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
+		try{
 		session.beginTransaction();
 		session.save(newMDoc);
 		session.getTransaction().commit();
-			
-		session.close();
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+		} finally {
+			session.close();
+		}
 		return "success";
 	}
 	
@@ -24,11 +30,19 @@ public class MDocDAO {
 	public static MedicalDoc getMedicalDoc (int medDocID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		MedicalDoc mediacaldoc = new MedicalDoc();
-				
+		
+		try{
 		session.beginTransaction();		
 		mediacaldoc = (MedicalDoc)session.get(MedicalDoc.class, medDocID);	
 		session.getTransaction().commit();
 		session.close();
+		
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+		} finally {
+			session.close();
+		}
 			
 		return mediacaldoc;
 		
@@ -48,13 +62,19 @@ public class MDocDAO {
 			session.beginTransaction();				
 			MedicalDoc medicaldoctoupdate = session.get(MedicalDoc.class, id);
 					
-				medicaldoctoupdate.setCreatedBy(createdBy);
-				medicaldoctoupdate.setDescription(description);
-				medicaldoctoupdate.setTitle(title);
-				medicaldoctoupdate.setPcase(pcase);
+			try{
+			medicaldoctoupdate.setCreatedBy(createdBy);
+			medicaldoctoupdate.setDescription(description);
+			medicaldoctoupdate.setTitle(title);
+			medicaldoctoupdate.setPcase(pcase);
 
 			session.getTransaction().commit();
-			session.close();
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return "error";
+			} finally {
+				session.close();
+			}
 			return "success";
 			}
 			else {
@@ -67,12 +87,18 @@ public class MDocDAO {
 		public static String deleteMedicalDoc(int medDocID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
+			try{
 			session.beginTransaction();
 			MedicalDoc medicaldoc = (MedicalDoc)session.get(MedicalDoc.class, medDocID);
 			session.delete(medicaldoc);
 			session.getTransaction().commit();
 			
-			session.close();
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return "error";
+			} finally {
+				session.close();
+			}
 			return "success";
 		}
 			

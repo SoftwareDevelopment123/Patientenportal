@@ -19,8 +19,6 @@ public class MedicalDoc extends Document {
 	private Patient patient;
 	private Case pcase;
 	
-	public MedicalDoc(){
-	}
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -58,5 +56,6 @@ public class MedicalDoc extends Document {
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}
+
 	
 }

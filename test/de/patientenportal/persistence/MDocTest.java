@@ -23,15 +23,17 @@ public class MDocTest {
 		CaseDAO.createCase(case1);
 				
 		MedicalDoc mdoc1 = new MedicalDoc();
-			mdoc1.setTitle("Dokument 1");
+			mdoc1.setTitle("Dokument1");
 			mdoc1.setPatient(pat);
+			System.out.println(mdoc1.getTitle());
 			
 		MedicalDoc mdoc2 = new MedicalDoc();
 			mdoc2.setTitle("Dokument 2");
 			mdoc2.setPatient(pat);
 			mdoc2.setDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
-			mdoc2.setPcase(case1);											// wird nicht mit eingefügt, ich weiß noch nicht warum
-				
+			mdoc2.setPcase(case1);	// wird nicht mit eingefügt, ich weiß noch nicht warum
+			System.out.println(mdoc2.getTitle());
+			
 		MedicalDoc mdoc3 = new MedicalDoc();
 			mdoc3.setTitle("Dokument 3");
 			mdoc2.setPatient(pat);

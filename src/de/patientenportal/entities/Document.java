@@ -4,9 +4,13 @@ import javax.persistence.Column;
 
 public class Document {
 
-	private String title;
-	private String description;
+	public String title;
+	public String description;
 	//private Document
+	
+	public Document(){
+		
+	}
 	
 	@Column(name = "TITLE", length = 20)
 	public String getTitle() {
