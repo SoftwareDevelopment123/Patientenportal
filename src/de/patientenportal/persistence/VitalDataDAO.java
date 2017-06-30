@@ -1,5 +1,6 @@
 package de.patientenportal.persistence;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
@@ -12,6 +13,13 @@ public class VitalDataDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		VitalData vitalData = new VitalData();
 		
+		if (vitalData != null){
+			Hibernate.initialize(vitalData.getTimestamp());
+			Hibernate.initialize(vitalData.getValue());
+			Hibernate.initialize(vitalData.getVitalDataType());
+			Hibernate.initialize(vitalData.getPcase());
+			}
+			
 		try{
 		session.beginTransaction();		
 		vitalData = (VitalData)session.get(VitalData.class, vitalDataID);		
