@@ -1,9 +1,8 @@
 package de.patientenportal.persistence;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.InstructionDoc;
-import de.patientenportal.entities.MedicalDoc;
+
 
 public class InstructionDocDAO {
 
@@ -56,11 +55,14 @@ public class InstructionDocDAO {
 				String title =  updatedinstructiondoc.getTitle();
 				String description =  updatedinstructiondoc.getDescription();
 				
+				
 				Session session = HibernateUtil.getSessionFactory().openSession();
+				
+				try{
 				session.beginTransaction();				
 				InstructionDoc instructiondoctoupdate = (InstructionDoc) session.get(InstructionDoc.class, id);
 					
-				try{
+				
 					instructiondoctoupdate.setInstructionType(instructionType);
 					instructiondoctoupdate.setTitle(title);
 					instructiondoctoupdate.setDescription(description);
