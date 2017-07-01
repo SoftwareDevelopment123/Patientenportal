@@ -22,6 +22,7 @@ public class CaseDAO {
 				Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
 				Hibernate.initialize(getcase.getMedicalDocs());
 				Hibernate.initialize(getcase.getDoctors());
+				Hibernate.initialize(getcase.getMedication());
 			}
 		session.getTransaction().commit();
 		

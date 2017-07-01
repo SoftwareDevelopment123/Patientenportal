@@ -14,12 +14,12 @@ public class InsuranceTest {
 	
 	//Insurances anlegen
 		Insurance insurance1 = new Insurance();
-		insurance1.setInsuranceNr(123);
-		insurance1.setName("Techniker");
+			insurance1.setInsuranceNr(123);
+			insurance1.setName("Techniker");
 	
 		Insurance insurance2 = new Insurance();
-		insurance2.setInsuranceNr(234);
-		insurance2.setName("ReifEisen");
+			insurance2.setInsuranceNr(234);
+			insurance2.setName("ReifEisen");
 	
 		InsuranceDAO.createInsurance(insurance1);
 		InsuranceDAO.createInsurance(insurance2); 
@@ -37,11 +37,11 @@ public class InsuranceTest {
 		
 		
 		String feedbackpat1 = RegistrationDAO.createPatient(pat1);
-		Assert.assertEquals("success", feedbackpat1);
+			Assert.assertEquals("success", feedbackpat1);
 		String feedbackpat2 = RegistrationDAO.createPatient(pat2);
-		Assert.assertEquals("success", feedbackpat2);
+			Assert.assertEquals("success", feedbackpat2);
 		String feedbackpat3 = RegistrationDAO.createPatient(pat3);
-		Assert.assertEquals("success", feedbackpat3);
+			Assert.assertEquals("success", feedbackpat3);
 		
 		
 		//Patients abrufen und testen
@@ -49,9 +49,9 @@ public class InsuranceTest {
 		Patient patient2 = PatientDAO.getPatient(2);
 		Patient patient3 = PatientDAO.getPatient(3);
 		
-		Assert.assertEquals("Techniker",patient1.getInsurance().getName());
-		Assert.assertEquals("ReifEisen",patient2.getInsurance().getName());
-		Assert.assertEquals("AB²",		patient3.getBloodtype());
+			Assert.assertEquals("Techniker",patient1.getInsurance().getName());
+			Assert.assertEquals("ReifEisen",patient2.getInsurance().getName());
+			Assert.assertEquals("AB²",		patient3.getBloodtype());
 		
 		//Insurance abgleichen
 		Insurance insurance = InsuranceDAO.getInsurance(1);

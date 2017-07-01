@@ -1,6 +1,5 @@
 package de.patientenportal.persistence;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
@@ -12,10 +11,6 @@ public class VitalDataDAO {
 	public static VitalData getVitalData(int vitalDataID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		VitalData vitalData = new VitalData();
-		
-		if (vitalData != null){
-			Hibernate.initialize(vitalData.getPcase());
-			}
 			
 		try{
 		session.beginTransaction();		
@@ -23,7 +18,7 @@ public class VitalDataDAO {
 		session.getTransaction().commit();
 		
 		} catch (Exception e) {
-			System.err.println("Flush-Error: " + e);
+			System.err.println("Error: " + e);
 			return null;
 		} finally {
 			session.close();
@@ -95,7 +90,7 @@ public class VitalDataDAO {
 		session.getTransaction().commit();
 				
 		} catch (Exception e) {
-			System.err.println("Flush-Error: " + e);
+			System.err.println("Error: " + e);
 			return "error";
 		} finally {
 			session.close();

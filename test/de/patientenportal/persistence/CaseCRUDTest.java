@@ -41,7 +41,7 @@ public class CaseCRUDTest {
 			Assert.assertEquals("success", feedbackCV4);
 		String feedbackCV5 = VitalDataDAO.add(vitaldata5);	
 			Assert.assertEquals("success", feedbackCV5);
-
+			
 		// Case abrufen
 		Case getcase = CaseDAO.getCase(1);
 			Assert.assertEquals("Kreuzbandriss", getcase.getTitle());

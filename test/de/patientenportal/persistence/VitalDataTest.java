@@ -51,7 +51,6 @@ public class VitalDataTest {
 		
 		//Zuordnungen
 		newcase.setPatient(pat);
-		newcase.setPatient(pat);
 		newcase2.setPatient(pat2);
 		
 			

@@ -19,15 +19,12 @@ public class InstructionDoc extends Document {
 	public InstructionDoc(){
 	}
 	
-	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "INSTRUCTION_ID", unique = true, nullable = false)
 	public int getInstructionDocID() {
 		return instructionDocID;
 	}
-	
-	
 	public void setInstructionDocID(int instructionDocID) {
 		this.instructionDocID = instructionDocID;
 	}
@@ -36,11 +33,8 @@ public class InstructionDoc extends Document {
 	public String getInstructionType() {
 		return instructionType;
 	}
-	
-	
 	public void setInstructionType(String instructionType) {
 		this.instructionType = instructionType;
 	}
-	
 
 }

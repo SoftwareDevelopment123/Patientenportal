@@ -145,7 +145,7 @@ public class RightsDAO {
 		return cases;	
 	}
 	
-	// Prüfen, bei welchen Fällen ich (als Doktor) Leserechte habe
+	// Prüfen, bei welchen Fällen ich (als Verwandter) Leserechte habe
 	public static List<Case> getRelRCases(int relativeID){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();

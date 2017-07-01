@@ -43,7 +43,7 @@ public class RechteMassenTest {
 		RightsDAO.createRight(r5);
 		RightsDAO.createRight(r6);
 		
-		List<Case> reading = RightsDAO.getDocRCases(1);
+		List<Case> reading = RightsDAO.getDocRCases(2);
 			for (Case cases : reading){
 				System.out.println("----------------------------------");
 				System.out.println(cases.getCaseID());

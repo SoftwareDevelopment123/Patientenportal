@@ -23,32 +23,30 @@ public class MDocTest {
 		CaseDAO.createCase(case1);
 				
 		MedicalDoc mdoc1 = new MedicalDoc();
-			mdoc1.setTitle("Dokument1");
+			mdoc1.setTitle("Dokument 1");
 			mdoc1.setPatient(pat);
-			System.out.println(mdoc1.getTitle());
 			
 		MedicalDoc mdoc2 = new MedicalDoc();
 			mdoc2.setTitle("Dokument 2");
 			mdoc2.setPatient(pat);
 			mdoc2.setDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
 			mdoc2.setPcase(case1);	// wird nicht mit eingefügt, ich weiß noch nicht warum
-			System.out.println(mdoc2.getTitle());
 			
 		MedicalDoc mdoc3 = new MedicalDoc();
 			mdoc3.setTitle("Dokument 3");
-			mdoc2.setPatient(pat);
+			mdoc3.setPatient(pat);
 			
 		String feedbackCMD1 = MDocDAO.createMDoc(mdoc1);
 			Assert.assertEquals("success", feedbackCMD1);
-		String feedbackCMD2 = MDocDAO.createMDoc(mdoc1);
+		String feedbackCMD2 = MDocDAO.createMDoc(mdoc2);
 			Assert.assertEquals("success", feedbackCMD2);
-		String feedbackCMD3 = MDocDAO.createMDoc(mdoc1);
+		String feedbackCMD3 = MDocDAO.createMDoc(mdoc3);
 			Assert.assertEquals("success", feedbackCMD3);
 
 		//Abrufen - direkt
 		MedicalDoc test = MDocDAO.getMedicalDoc(1);
 			Assert.assertEquals(1, test.getMedDocID());
-			//Assert.assertEquals("Dokument 1", test.getTitle());			// geht noch nicht, erst Superklasse-Hibernate-Problem lösen
+			Assert.assertEquals("Dokument 1", test.getTitle());
 		
 		//Abrufen - über den Fall
 		List<MedicalDoc> casedocs = CaseDAO.getCase(1).getMedicalDocs();	
@@ -60,7 +58,5 @@ public class MDocTest {
 			Assert.assertEquals(3, patdocs.size());
 		
 	}
-	
-	
 	
 }
