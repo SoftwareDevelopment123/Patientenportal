@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.MedicalDoc;
+import de.patientenportal.entities.Patient;
 
 public class MDocDAO {
 	
@@ -48,7 +49,7 @@ public class MDocDAO {
 		
 	}
 	//Medicaldocument ändern
-		public static String updateMedicalDoc(MedicalDoc updatedmedicaldoc){
+	public static String updateMedicalDoc(MedicalDoc updatedmedicaldoc){
 		int id = updatedmedicaldoc.getMedDocID();
 		if(id!=0){
 			
@@ -56,18 +57,21 @@ public class MDocDAO {
 			String title =  updatedmedicaldoc.getTitle();
 			String description =  updatedmedicaldoc.getDescription();
 			Case pcase = updatedmedicaldoc.getPcase();
-			// Patient ändern?
+			Patient patient = updatedmedicaldoc.getPatient();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
+			
+			try{
 			session.beginTransaction();				
 			MedicalDoc medicaldoctoupdate = session.get(MedicalDoc.class, id);
 					
-			try{
+			
 			medicaldoctoupdate.setCreatedBy(createdBy);
 			medicaldoctoupdate.setDescription(description);
 			medicaldoctoupdate.setTitle(title);
 			medicaldoctoupdate.setPcase(pcase);
-
+			medicaldoctoupdate.setPatient(patient);
+			
 			session.getTransaction().commit();
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
@@ -75,12 +79,12 @@ public class MDocDAO {
 			} finally {
 				session.close();
 			}
-			return "success";
-			}
-			else {
-				return "noID";
-			}	
+		return "success";
 		}
+		else {
+		return "noID";
+	}	
+}
 		
 	//Medicaldocument löschen
 		
@@ -100,9 +104,6 @@ public class MDocDAO {
 				session.close();
 			}
 			return "success";
-		}
-			
-		
-		
+		}	
 		
 }
