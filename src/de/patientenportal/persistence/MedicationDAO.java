@@ -1,5 +1,6 @@
 package de.patientenportal.persistence;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
@@ -33,7 +34,14 @@ public class MedicationDAO {
 		
 		try{
 		session.beginTransaction();		
-		medication = (Medication)session.get(Medication.class, medicationID);	
+		medication = (Medication)session.get(Medication.class, medicationID);
+		
+		if (medication != null){
+			Hibernate.initialize(medication.getMedicine());
+			Hibernate.initialize(medication.getPrescribedBy());
+			Hibernate.initialize(medication.getPcase());
+		}
+		
 		session.getTransaction().commit();
 		session.close();
 		} catch (Exception e) {

@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.Assert;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Patient;
-import de.patientenportal.entities.User;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;
 

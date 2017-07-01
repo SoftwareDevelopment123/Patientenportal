@@ -1,11 +1,7 @@
 package de.patientenportal.persistence;
 
-import java.util.List;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-
-import de.patientenportal.entities.Medication;
 import de.patientenportal.entities.Medicine;
 
 public class MedicineDAO {
@@ -61,7 +57,6 @@ public class MedicineDAO {
 			String name = updatedmedicine.getName();
 			String drugmaker = updatedmedicine.getDrugmaker();
 			String activeIngredient = updatedmedicine.getActiveIngredient();
-			List <Medication> medication = updatedmedicine.getMedication();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
@@ -71,7 +66,6 @@ public class MedicineDAO {
 			medicinetoupdate.setName(name);
 			medicinetoupdate.setDrugmaker(drugmaker);
 			medicinetoupdate.setActiveIngredient(activeIngredient);
-			medicinetoupdate.setMedication(medication);
 			session.getTransaction().commit();
 		
 			} catch (Exception e) {

@@ -24,9 +24,7 @@ public class Medication {
 	public Medication(){
 	}
 
-	public Medication(int medicationID, Medicine medicine, String dosage, String duration, Doctor prescribedBy,
-			Case pcase) {
-		this.medicationID = medicationID;
+	public Medication(Medicine medicine, String dosage, String duration, Doctor prescribedBy, Case pcase) {
 		this.medicine = medicine;
 		this.dosage = dosage;
 		this.duration = duration;
