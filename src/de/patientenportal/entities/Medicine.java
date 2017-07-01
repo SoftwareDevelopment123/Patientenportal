@@ -53,7 +53,7 @@ public class Medicine {
 		this.drugmaker = drugmaker;
 	}
 	
-	@Column(name = "ACTIVEINGREDIENT", length = 45)
+	@Column(name = "ACTIVEINGREDIENT", length = 90)
 	public String getActiveIngredient() {
 		return activeIngredient;
 	}

@@ -8,7 +8,7 @@ Nicht im Development-Branch arbeiten!
 ## Fortschrittsstand
 
 Fertig und überprüft:
-DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights
+DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine
 WS	-	
 
 Fertig:
@@ -16,7 +16,7 @@ DAO	-
 WS	-
 
 in Arbeit:
-DAO	-	Case, VitalData, InstructionalDoc, MedicalDoc, Tests (bisherige vervollständigen), Medication, Medicine (Entities angelegt)
+DAO	-	Case, VitalData, InstructionalDoc, MedicalDoc, Tests (bisherige vervollständigen)
 WS	-	
 
 Fehlt noch:
@@ -73,8 +73,8 @@ WS	-	sehr viel ^^
 - InsuranceDAO und Test fast fertig
 
 20.6 (Jan)
--MDOC, InstructionDoc und Doc als Supperklasse angelegt + zugehörige DAOs für MedicalDOc und InstructionDoc
--für Dokument kein DAO da reine Entity für Vererbung 
+- MDOC, InstructionDoc und Doc als Supperklasse angelegt + zugehörige DAOs für MedicalDOc und InstructionDoc
+- für Dokument kein DAO da reine Entity für Vererbung 
 
 22.06. (Stefan)
 - mapped bei bei den user-actor-verknüpfungen eingeführt, außerdem bei doctor-office
@@ -93,12 +93,14 @@ WS	-	sehr viel ^^
 - Entities Medication und Medicine angelegt, Verknüpfung zum Case (DAOs und Test fehlen noch)
 
 30.06-1.07 Jan 
--MedicationDAo mit Try Catch Blöcken eingefügt 
--MDoc DAO ergänzt um TryCatch Blöcke
--Insurance Test funktioniert
--Vitaldata Test ist bisher in Case enthalten so kann es einzeln geprüft werden...können wir aber auch rausnehemen, müssen wir mal drüber sprechen
--Lösung gesucht für die Hibernate Superklasse nennt sich union subclass bei hibernate aber kein beispiel gefunden bzw. nicht ganz verstanden aber die Lösung ist die richtige
+- MedicationDAo mit Try Catch Blöcken eingefügt 
+- MDoc DAO ergänzt um TryCatch Blöcke
+- Insurance Test funktioniert
+- Vitaldata Test ist bisher in Case enthalten so kann es einzeln geprüft werden...können wir aber auch rausnehemen, müssen wir mal drüber sprechen
+- Lösung gesucht für die Hibernate Superklasse nennt sich union subclass bei hibernate aber kein beispiel gefunden bzw. nicht ganz verstanden aber die Lösung ist die richtige
 
+01.07. (alle)
+- Medication/Medicine inkl. Tests fertig und geprüft
 
 ## To-Do
 
@@ -122,6 +124,7 @@ WS	-	sehr viel ^^
 - Tests funktionieren individuell, aber nicht in der Suite
 	- liegt daran, dass z.B. mehrere Tests einen Case anlegen und damit arbeiten (beim 2. Test passt die ID dann nicht mehr)
 	- entweder Lösung in der Unit-Logik finden, Tests zusammenfassen oder einfach ohne Suite arbeiten (wäre schade)
+	- beheben wir durch den ID-Abruf aus dem Objekt vom Anlegen
 
 - DAOs zu Interfaces "ummodeln"
 

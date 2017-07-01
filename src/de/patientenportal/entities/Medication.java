@@ -23,7 +23,15 @@ public class Medication {
 	
 	public Medication(){
 	}
-	
+
+	public Medication(Medicine medicine, String dosage, String duration, Doctor prescribedBy, Case pcase) {
+		this.medicine = medicine;
+		this.dosage = dosage;
+		this.duration = duration;
+		this.prescribedBy = prescribedBy;
+		this.pcase = pcase;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "MEDICATION_ID", unique = true, nullable = false)
