@@ -92,6 +92,13 @@ WS	-	sehr viel ^^
 - QM bei allen bestehenden DAOs (try-catch-Blöche eingefügt und Logik überprüft)
 - Entities Medication und Medicine angelegt, Verknüpfung zum Case (DAOs und Test fehlen noch)
 
+30.06-1.07 Jan 
+-MedicationDAo mit Try Catch Blöcken eingefügt 
+-MDoc DAO ergänzt um TryCatch Blöcke
+-Insurance Test funktioniert
+-Vitaldata Test ist bisher in Case enthalten so kann es einzeln geprüft werden...können wir aber auch rausnehemen, müssen wir mal drüber sprechen
+-Lösung gesucht für die Hibernate Superklasse nennt sich union subclass bei hibernate aber kein beispiel gefunden bzw. nicht ganz verstanden aber die Lösung ist die richtige
+
 
 ## To-Do
 
