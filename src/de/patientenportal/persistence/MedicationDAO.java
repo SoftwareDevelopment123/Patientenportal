@@ -1,7 +1,6 @@
 package de.patientenportal.persistence;
 
 import org.hibernate.Session;
-
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Medication;
@@ -17,42 +16,41 @@ public class MedicationDAO {
 		session.beginTransaction();
 		session.save(newMedication);
 		session.getTransaction().commit();
+		
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
 			return "error";
 		} finally {
 			session.close();
 		}
-			
-		session.close();
 		return "success";
 	}
 
 	//Medication abrufen
-		public static Medication getMedication (int medicationID){
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			Medication medication = new Medication();
-			
-			try{
-			session.beginTransaction();		
-			medication = (Medication)session.get(Medication.class, medicationID);	
-			session.getTransaction().commit();
+	public static Medication getMedication (int medicationID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Medication medication = new Medication();
+		
+		try{
+		session.beginTransaction();		
+		medication = (Medication)session.get(Medication.class, medicationID);	
+		session.getTransaction().commit();
+		session.close();
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+		} finally {
 			session.close();
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return null;
-			} finally {
-				session.close();
-			}
-			return medication;
-			
 		}
+		return medication;
+		
+	}
 	
 	//Medication ändern
-		public static String updateMedication(Medication updatedmedication){
+	public static String updateMedication(Medication updatedmedication){
 		int id = updatedmedication.getMedicationID();
 		if(id!=0){
-			
+		
 			Medicine medicine = updatedmedication.getMedicine();
 			String dosage = updatedmedication.getDosage();
 			String duration = updatedmedication.getDuration();
@@ -60,50 +58,47 @@ public class MedicationDAO {
 			Case pcase = updatedmedication.getPcase();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();				
-			Medication medicationtoupdate = session.get(Medication.class, id);
-			
-			try{		
-			medicationtoupdate.setMedicine(medicine);
-			medicationtoupdate.setDosage(dosage);
-			medicationtoupdate.setDuration(duration);
-			medicationtoupdate.setPrescribedBy(prescribedBy);
-			medicationtoupdate.setPcase(pcase);
-			
-			session.getTransaction().commit();
-			
-			} catch (Exception e) {
-			System.err.println("Error: " + e);
-			return "error";
-			} finally {
-			session.close();
-			}
-			return "success";
-			}
-			else {
-				return "noID";
-			}	
-		}		
 		
-	//Medication löschen
-		
-		public static String deleteMedication(int medicationID){
-			Session session = HibernateUtil.getSessionFactory().openSession();
-
 			try{
-				
-			session.beginTransaction();
-			Medication medication = (Medication)session.get(Medication.class, medicationID);
-			session.delete(medication);
-			session.getTransaction().commit();
-			
+			session.beginTransaction();				
+				Medication medicationtoupdate = session.get(Medication.class, id);
+				medicationtoupdate.setMedicine(medicine);
+				medicationtoupdate.setDosage(dosage);
+				medicationtoupdate.setDuration(duration);
+				medicationtoupdate.setPrescribedBy(prescribedBy);
+				medicationtoupdate.setPcase(pcase);
+				session.getTransaction().commit();
+		
 			} catch (Exception e) {
-			System.err.println("Error: " + e);
-			return "error";
+				System.err.println("Error: " + e);
+				return "error";
 			} finally {
-			session.close();
+				session.close();
 			}
 			return "success";
-		}		
+			}
+		else {
+			return "noID";
+		}	
+	}		
+		
+	//Medication löschen		
+	public static String deleteMedication(int medicationID){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try{	
+		session.beginTransaction();
+		Medication medication = (Medication)session.get(Medication.class, medicationID);
+		session.delete(medication);
+		session.getTransaction().commit();
+		
+		} catch (Exception e) {
+		System.err.println("Error: " + e);
+		return "error";
+		} finally {
+		session.close();
+		}
+		return "success";
+	}		
 
 }
