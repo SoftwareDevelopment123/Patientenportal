@@ -35,7 +35,7 @@ public class PatientCaseTest {
 		
 		// Fälle vom Patient abrufen
 		List<Case> compareme = Arrays.asList(pcase1,pcase2,pcase3);
-		List<Case> pcases = PatientDAO.getPatient(1).getCases();
+		List<Case> pcases = PatientDAO.getPatient(pat.getPatientID()).getCases();
 		
 		int i = 0;
 		for (Case c : compareme){
@@ -50,10 +50,11 @@ public class PatientCaseTest {
 				System.out.println(c.getCaseID() + " / " + c.getTitle() + " / " + c.getDescription());
 			}*/
 		
-		PatientDAO.deletePatient(1);
-		CaseDAO.deleteCase(1);
-		CaseDAO.deleteCase(2);
-		CaseDAO.deleteCase(3);		
+		// Clearing up DB
+		PatientDAO.deletePatient(pat.getPatientID());
+		CaseDAO.deleteCase(pcase1.getCaseID());
+		CaseDAO.deleteCase(pcase2.getCaseID());
+		CaseDAO.deleteCase(pcase3.getCaseID());		
 	}
 	
 }

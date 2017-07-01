@@ -11,6 +11,12 @@ import de.patientenportal.entities.Patient;
 
 public class MDocTest {
 
+	/*
+	 * 
+	 * Das hier kann alles in den DocumentsTest, zusammen mit allen Dokumenten-Funktionen (sobalt das klappt)
+	 * 
+	 */
+	
 	@Test
 	public void main(){
 		

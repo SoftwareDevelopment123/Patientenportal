@@ -1,4 +1,4 @@
-package de.patientenportal.persistence;
+package smalltests;
 
 
 import java.sql.Connection;
