@@ -50,7 +50,7 @@ public class AccessTest {
 		RightsDAO.createRight(r6);
 		
 		// Einsehbare Fälle zum Doktor abrufen
-		List <Case> d1cases = RightsDAO.getDocRCases(1);
+		List <Case> d1cases = RightsDAO.getDocRCases(D1.getDoctorID());
 			
 			int i = 0;
 			for (Case cases : d1CompareList){				
@@ -62,17 +62,17 @@ public class AccessTest {
 		
 		// checkWRights-Test für Doktoren
 			// Existierende Kombinationen (doctorID, caseID)
-			Assert.assertTrue	(RightsDAO.checkDocWRight(1, 1));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(1, 2));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(1, 4));
-			Assert.assertTrue	(RightsDAO.checkDocWRight(1, 5));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(2, 3));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(2, 5));
+			Assert.assertTrue	(RightsDAO.checkDocWRight(D1.getDoctorID() , case1.getCaseID()));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(D1.getDoctorID() , case2.getCaseID()));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(D1.getDoctorID() , case4.getCaseID()));
+			Assert.assertTrue	(RightsDAO.checkDocWRight(D1.getDoctorID() , case5.getCaseID()));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(D2.getDoctorID() , case3.getCaseID()));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(D2.getDoctorID() , case5.getCaseID()));
 
 			// ungültige Kombinationen (sollen auch einfach False zurückgben)
-			Assert.assertFalse	(RightsDAO.checkDocWRight(1, 3));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(5, 55));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(188, 23));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(D1.getDoctorID()	, case3.getCaseID()));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(5					, 55));
+			Assert.assertFalse	(RightsDAO.checkDocWRight(188				, 23));
 	
 		// Ausgabe-Test
 		/*System.out.println("Alle einsehbaren Fälle von Doktor 1");
@@ -87,6 +87,7 @@ public class AccessTest {
 		/*
 		 *  Für die Relative-Entity ist das Vorgehen genau dasselbe, daher wird der Test hier stark verkürzt
 		 */
+			
 		Relative R1 = new Relative();
 		RegistrationDAO.createRelative(R1);
 			
@@ -97,7 +98,7 @@ public class AccessTest {
 		
 		List<Case> r1CompareList = Arrays.asList(case1,case2);
 		
-		List <Case> r1cases = RightsDAO.getRelRCases(1);
+		List <Case> r1cases = RightsDAO.getRelRCases(R1.getRelativeID());
 		
 		i = 0;
 		for (Case cases : r1CompareList){				
@@ -107,9 +108,9 @@ public class AccessTest {
 			i++;
 		}
 		
-		Assert.assertTrue	(RightsDAO.checkRelWRight(1, 1));
-		Assert.assertFalse	(RightsDAO.checkRelWRight(1, 2));
-		Assert.assertFalse	(RightsDAO.checkRelWRight(1, 3));
+		Assert.assertTrue	(RightsDAO.checkRelWRight(R1.getRelativeID() , case1.getCaseID()));
+		Assert.assertFalse	(RightsDAO.checkRelWRight(R1.getRelativeID() , case2.getCaseID()));
+		Assert.assertFalse	(RightsDAO.checkRelWRight(R1.getRelativeID() , case3.getCaseID()));
 		
 		// Ausgabe-Test
 		/*System.out.println("/////////////////////////////////////");

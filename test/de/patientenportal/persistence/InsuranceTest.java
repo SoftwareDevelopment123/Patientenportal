@@ -35,7 +35,6 @@ public class InsuranceTest {
 			pat3.setBloodtype("AB²");
 			pat3.setInsurance(insurance1);
 		
-		
 		String feedbackpat1 = RegistrationDAO.createPatient(pat1);
 			Assert.assertEquals("success", feedbackpat1);
 		String feedbackpat2 = RegistrationDAO.createPatient(pat2);
@@ -43,25 +42,24 @@ public class InsuranceTest {
 		String feedbackpat3 = RegistrationDAO.createPatient(pat3);
 			Assert.assertEquals("success", feedbackpat3);
 		
-		
 		//Patients abrufen und testen
-		Patient patient1 = PatientDAO.getPatient(1);
-		Patient patient2 = PatientDAO.getPatient(2);
-		Patient patient3 = PatientDAO.getPatient(3);
+		Patient patient1 = PatientDAO.getPatient(pat1.getPatientID());
+		Patient patient2 = PatientDAO.getPatient(pat2.getPatientID());
+		Patient patient3 = PatientDAO.getPatient(pat3.getPatientID());
 		
-			Assert.assertEquals("Techniker",patient1.getInsurance().getName());
-			Assert.assertEquals("ReifEisen",patient2.getInsurance().getName());
-			Assert.assertEquals("AB²",		patient3.getBloodtype());
+			Assert.assertEquals("Techniker" , patient1.getInsurance().getName());
+			Assert.assertEquals("ReifEisen" , patient2.getInsurance().getName());
+			Assert.assertEquals("AB²"		, patient3.getBloodtype());
 		
 		//Insurance abgleichen
-		Insurance insurance = InsuranceDAO.getInsurance(1);
+		Insurance insurance = InsuranceDAO.getInsurance(insurance1.getInsuranceID());
 			Assert.assertEquals("Techniker",insurance.getName());
 			Assert.assertEquals(123 ,insurance.getInsuranceNr());
 		
 		//Patienten über die Insurance abrufen
-		Insurance ins = InsuranceDAO.getInsurance(1);
+		Insurance ins = InsuranceDAO.getInsurance(insurance1.getInsuranceID());
 		List <Patient> patients = ins.getPatients();
-		List<Patient> vergleich = InsuranceDAO.getInsurance(1).getPatients();
+		List <Patient> vergleich = InsuranceDAO.getInsurance(insurance1.getInsuranceID()).getPatients();
 		int u=0;
 		for( Patient p : patients){
 				
@@ -73,18 +71,18 @@ public class InsuranceTest {
 		}
 				
 		//Patient-Update-Test
-		Patient patientupdate = PatientDAO.getPatient(2);
+		Patient patientupdate = PatientDAO.getPatient(pat2.getPatientID());
 			patientupdate.setInsurance(insurance1);
 				
 		String feedbackUP = PatientDAO.updatePatient(patientupdate);
 			Assert.assertEquals("success", feedbackUP);
 		
 		patients.get(1).setInsurance(insurance1);
-		List<Patient> compareme = InsuranceDAO.getInsurance(1).getPatients();
+		List<Patient> compareme = InsuranceDAO.getInsurance(insurance1.getInsuranceID()).getPatients();
 		
 		//Liste muss nach Update neu definiert werden
 		//Vergleich der Liste der PAtienten mit der Liste der Patienten aufgerufen über die VErsicherung
-		Insurance ins1 = InsuranceDAO.getInsurance(1);
+		Insurance ins1 = InsuranceDAO.getInsurance(insurance1.getInsuranceID());
 		List <Patient> patients1 = ins1.getPatients();
 		
 		int i = 0;
@@ -98,24 +96,24 @@ public class InsuranceTest {
 		}
 	
 		//Patient wird abgeglichen
-		Patient patientxy = PatientDAO.getPatient(2);	
+		Patient patientxy = PatientDAO.getPatient(pat2.getPatientID());	
 		Assert.assertEquals( 123 , patientxy.getInsurance().getInsuranceNr());
 		
 		//Insurance wird upgedated
-		Insurance update1 = InsuranceDAO.getInsurance(1);
+		Insurance update1 = InsuranceDAO.getInsurance(insurance1.getInsuranceID());
 		update1.setName("Schwarzwald Krankenkasse");
 		InsuranceDAO.updateInsurance(update1);
 		
 		//Abgleich ob update der einzelnen Krankenkasse funktioniert hat
-		Patient patientSchwarzwald = PatientDAO.getPatient(1);	
+		Patient patientSchwarzwald = PatientDAO.getPatient(pat1.getPatientID());	
 		Assert.assertEquals("Schwarzwald Krankenkasse", patientSchwarzwald.getInsurance().getName());
 		Assert.assertEquals( 123 , patientSchwarzwald.getInsurance().getInsuranceNr());
 	
 		//Löschen der Insurance
-		String responseD = InsuranceDAO.deleteInsurance(1);
+		String responseD = InsuranceDAO.deleteInsurance(insurance1.getInsuranceID());
 		Assert.assertEquals("success", responseD);
 		
-		Insurance deletedinsurance = InsuranceDAO.getInsurance(1);
+		Insurance deletedinsurance = InsuranceDAO.getInsurance(insurance1.getInsuranceID());
 		Assert.assertNull(deletedinsurance);
 	}
 	

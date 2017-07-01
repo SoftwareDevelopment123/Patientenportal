@@ -71,8 +71,7 @@ public class PatientRelativeTest {
 			Assert.assertEquals(pat1.getPatientID(), rellist1.get(0).getPatientID());
 		
 			Assert.assertEquals(pat1.getPatientID(), rellist4.get(0).getPatientID());
-			Assert.assertEquals(pat2.getPatientID(), rellist4.get(1).getPatientID());
-			
+			Assert.assertEquals(pat2.getPatientID(), rellist4.get(1).getPatientID());		
 	}
 	
 }

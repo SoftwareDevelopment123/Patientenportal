@@ -41,10 +41,10 @@ public class MedicineMedicationTest {
 
 		// Medizin und Medikation einzeln abrufen (Test beim Anlegen)
 		Medicine getmedicine1 = MedicineDAO.getMedicine(med1.getMedicineID());
-			Assert.assertEquals(med1.getMedicineID(), getmedicine1.getMedicineID());
-			Assert.assertEquals(med1.getName()		, getmedicine1.getName());
-			Assert.assertEquals(med1.getDrugmaker()	, getmedicine1.getDrugmaker());
-			Assert.assertEquals(1					, getmedicine1.getMedication().size());
+			Assert.assertEquals(med1.getMedicineID()	, getmedicine1.getMedicineID());
+			Assert.assertEquals(med1.getName()			, getmedicine1.getName());
+			Assert.assertEquals(med1.getDrugmaker()		, getmedicine1.getDrugmaker());
+			Assert.assertEquals(1						, getmedicine1.getMedication().size());
 			
 		Medication getmedication1 = MedicationDAO.getMedication(m1.getMedicationID());
 			Assert.assertEquals(m1.getMedicationID()					, getmedication1.getMedicationID());
@@ -62,8 +62,7 @@ public class MedicineMedicationTest {
 			Assert.assertEquals(3							, getcase.getMedication().size());
 			Assert.assertEquals(m1.getMedicationID()		, getcase.getMedication().get(0).getMedicationID());
 			Assert.assertEquals(m1.getDosage()				, getcase.getMedication().get(0).getDosage());
-			
-			;
+
 			Assert.assertEquals(m1.getMedicine().getName()	, MedicineDAO.getMedicine(getcase.getMedication().get(0)
 																.getMedicine().getMedicineID()).getName());
 			

@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import de.patientenportal.entities.*;
 
-public class DoctorOfficeCRUDTest {
+public class DoctorOfficeTest {
 	
 	@Test
 	public void main(){
@@ -33,12 +33,12 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("success", feedbackCO);
 		
 		// Office abrufen
-		Office newoffice = OfficeDAO.getOffice(1);
-			Assert.assertEquals("Zahnarztpraxis", newoffice.getName());
-			Assert.assertEquals("officemail.dentist@googlemail.com", newoffice.getContact().getEmail());
-			Assert.assertEquals("0123456789", newoffice.getContact().getPhone());
-			Assert.assertEquals("112", newoffice.getContact().getMobile());
-			Assert.assertEquals("Officestraße", newoffice.getAddress().getStreet());
+		Office newoffice = OfficeDAO.getOffice(neuO.getOfficeID());
+			Assert.assertEquals("Zahnarztpraxis"					, newoffice.getName());
+			Assert.assertEquals("officemail.dentist@googlemail.com"	, newoffice.getContact().getEmail());
+			Assert.assertEquals("0123456789"						, newoffice.getContact().getPhone());
+			Assert.assertEquals("112"								, newoffice.getContact().getMobile());
+			Assert.assertEquals("Officestraße"						, newoffice.getAddress().getStreet());
 		
 		// Doktoren anlegen Office hinterlegen
 		Doctor neuD1 = new Doctor();
@@ -54,19 +54,19 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("success", feedbackCD2);
 		
 		//Doktor und Office über Doktor (bidirektional) abrufen
-		Doctor D1 = DoctorDAO.getDoctor(1);
-			Assert.assertEquals("Zahnarzt", D1.getSpecialization());
-			Assert.assertEquals("Zahnarztpraxis", D1.getOffice().getName());
-			Assert.assertEquals("0123456789", D1.getOffice().getContact().getPhone());
+		Doctor D1 = DoctorDAO.getDoctor(neuD1.getDoctorID());
+			Assert.assertEquals("Zahnarzt"			, D1.getSpecialization());
+			Assert.assertEquals("Zahnarztpraxis"	, D1.getOffice().getName());
+			Assert.assertEquals("0123456789"		, D1.getOffice().getContact().getPhone());
 		
 		// Office-Update		
-		Office office = OfficeDAO.getOffice(1);
+		Office office = OfficeDAO.getOffice(neuO.getOfficeID());
 			office.setName("Zaaahnarztpraxis");
 		String feedbackUO = OfficeDAO.updateOffice(office);
 			Assert.assertEquals("success", feedbackUO);
 					
 		//Doktoren und geänderte Daten abrufen
-		Office fulloffice = OfficeDAO.getOffice(1);
+		Office fulloffice = OfficeDAO.getOffice(neuO.getOfficeID());
 				Assert.assertEquals("Zaaahnarztpraxis", fulloffice.getName());
 			List<Doctor> fulldoctors = fulloffice.getDoctors();
 				Assert.assertEquals("Zahnarzt", fulldoctors.get(0).getSpecialization());
@@ -93,8 +93,8 @@ public class DoctorOfficeCRUDTest {
 			Assert.assertEquals("success", feedbackUD);
 		
 		// Bidirektionaler Zugriff nach nachträglicher Verknüpfung
-		Doctor dx = DoctorDAO.getDoctor(1);
-		User ux = UserDAO.getUser(1);
+		Doctor dx = DoctorDAO.getDoctor(neuD1.getDoctorID());
+		User ux = UserDAO.getUser(newuser.getUserId());
 			Assert.assertEquals("New", dx.getUser().getFirstname());
 			Assert.assertEquals("Zahnarzt", ux.getDoctor().getSpecialization());
 			
@@ -103,28 +103,28 @@ public class DoctorOfficeCRUDTest {
 		//Doktoren aus der DB zu löschen macht aus Gründen der Datenerhaltung ohnehin keinen Sinn
 		//Deswegen muss die Doktor-User-Verknüfung entfernt werden, bevor man den Doktor 1 löschen kann
 		
-		Doctor doc1 = DoctorDAO.getDoctor(1);
+		Doctor doc1 = DoctorDAO.getDoctor(neuD1.getDoctorID());
 			doc1.setUser(null);
 			DoctorDAO.updateDoctor(doc1);
 		
-		User user1 = UserDAO.getUser(1);
+		User user1 = UserDAO.getUser(newuser.getUserId());
 			user1.setDoctor(null);
 		UserDAO.updateUser(user1);
 				
 		//DeleteOffice-Test
 		//Info - auch hier keine Kaskadierung vom Office, die Verknüpfung des anderen Doktors zum Office muss/sollte entfernt werden
 		
-		Doctor d2 = DoctorDAO.getDoctor(2);
+		Doctor d2 = DoctorDAO.getDoctor(neuD2.getDoctorID());
 			d2.setOffice(null);
 		DoctorDAO.updateDoctor(d2);
 			
-		String feedbackDO = OfficeDAO.deleteOffice(1);
-		Office deletedO = OfficeDAO.getOffice(1);
+		String feedbackDO = OfficeDAO.deleteOffice(neuO.getOfficeID());
+		Office deletedO = OfficeDAO.getOffice(neuO.getOfficeID());
 			Assert.assertEquals("success",feedbackDO);
 			Assert.assertEquals(null, deletedO);
 		
 		//Clearing Up DB
-		DoctorDAO.deleteDoctor(2);
-		UserDAO.deleteUser(1);
+		DoctorDAO.deleteDoctor(neuD2.getDoctorID());
+		UserDAO.deleteUser(newuser.getUserId());
 	}	
 }

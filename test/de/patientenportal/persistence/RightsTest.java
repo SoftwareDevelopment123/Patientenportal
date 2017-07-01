@@ -56,7 +56,7 @@ public class RightsTest {
 			String feedbackCD3 = RegistrationDAO.createDoctor(D3);
 				Assert.assertEquals("success", feedbackCD3);
 		
-				Case rUpdate = CaseDAO.getCase(1);
+				Case rUpdate = CaseDAO.getCase(newcase.getCaseID());
 		Rights r5 = new Rights(rUpdate, D3,null,true,true);
 			String feedbackCR5 = RightsDAO.createRight(r5);
 				Assert.assertEquals("success", feedbackCR5);
@@ -65,7 +65,7 @@ public class RightsTest {
 		int listsize = compareme.size();
 				
 		// Rechte zum Fall abrufen
-		Case changedCase = CaseDAO.getCase(1);
+		Case changedCase = CaseDAO.getCase(newcase.getCaseID());
 		List<Rights> rlist = RightsDAO.getRights(changedCase.getCaseID());
 		
 		int i = 0;
@@ -100,24 +100,23 @@ public class RightsTest {
 		String feedbackUR = RightsDAO.updateRight(changeme);
 			Assert.assertEquals("success", feedbackUR);
 		
-		List<Rights> changedList = RightsDAO.getRights(1);
+		List<Rights> changedList = RightsDAO.getRights(newcase.getCaseID());
 			Assert.assertTrue(changedList.get(2).iswRight());
 		
 		// Recht entfernen
-		String feedbackDR = RightsDAO.removeRight(1);
+		String feedbackDR = RightsDAO.removeRight(r1.getRightID());
 			Assert.assertEquals("success", feedbackDR);
 		listsize--;
 		
-		List<Rights> smallerList = RightsDAO.getRights(1);
+		List<Rights> smallerList = RightsDAO.getRights(newcase.getCaseID());
 			Assert.assertEquals(listsize, smallerList.size());
 
-			
 		// Clearing Up DB
-		DoctorDAO.deleteDoctor(1);
-		DoctorDAO.deleteDoctor(2);
-		DoctorDAO.deleteDoctor(3);
-		RelativeDAO.deleteRelative(1);
-		RelativeDAO.deleteRelative(2);
+		DoctorDAO.deleteDoctor(D1.getDoctorID());
+		DoctorDAO.deleteDoctor(D2.getDoctorID());
+		DoctorDAO.deleteDoctor(D3.getDoctorID());
+		RelativeDAO.deleteRelative(R1.getRelativeID());
+		RelativeDAO.deleteRelative(R2.getRelativeID());
 		
 	}
 
