@@ -10,8 +10,8 @@ public class WSPublisher {
 		
 		System.out.println("Web-Services running on " + URI);
 		
-		Endpoint.publish(URI + "/user", new UserWSImpl());
-		System.out.println(" User-WebService : 				/user?wsdl");
+		Endpoint.publish(URI + "/account", new AccountWSImpl());
+		System.out.println(" Account-WebService : 				/account?wsdl");
 	
 		Endpoint.publish(URI + "/registration", new RegistrationWSImpl());
 		System.out.println(" Registration-WebService : 			/registration?wsdl");

@@ -11,9 +11,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "InstructionDoc", catalog = "patientenportal")
-public class InstructionDoc extends Document {
+public class InstructionDoc {
 	
 	private int instructionDocID;
+	public String title;
+	public String description;
 	private String instructionType;
 	
 	public InstructionDoc(){
@@ -28,6 +30,22 @@ public class InstructionDoc extends Document {
 	public void setInstructionDocID(int instructionDocID) {
 		this.instructionDocID = instructionDocID;
 	}
+	
+	@Column(name = "TITLE", length = 20)
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	@Column(name = "DESCRIPTION", length = 200)
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}		
 	
 	@Column(name = "INSTRUCTION_TYPE", length = 40)
 	public String getInstructionType() {

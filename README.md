@@ -8,7 +8,7 @@ Nicht im Development-Branch arbeiten!
 ## Fortschrittsstand
 
 Fertig und überprüft:
-DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine
+DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine, VitalData
 WS	-	
 
 Fertig:
@@ -16,11 +16,10 @@ DAO	-
 WS	-
 
 in Arbeit:
-DAO	-	Case, VitalData, InstructionalDoc, MedicalDoc, Tests (bisherige vervollständigen)
+DAO	-	InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
 WS	-	
 
 Fehlt noch:
-DAO	-	Tests (für alle Funktionen/DAOs vervollständigen, ist viel copy/paste)
 WS	-	sehr viel ^^
 
 
@@ -101,6 +100,9 @@ WS	-	sehr viel ^^
 
 01.07. (alle)
 - Medication/Medicine inkl. Tests fertig und geprüft
+- Alle Tests angepasst, sodass die ID unabhängig verwendbar ist (Suite funktioniert wieder)
+- Dokumenten-Test
+- WS angefangen
 
 ## To-Do
 

@@ -1,7 +1,6 @@
 package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +11,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "MedicalDoc", catalog = "patientenportal")
-public class MedicalDoc extends Document {
+public class MedicalDoc {
 
 	private int medDocID;
+	public String mDocTitle;
+	public String mDocDescription;
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;
@@ -29,6 +30,22 @@ public class MedicalDoc extends Document {
 	public void setMedDocID(int medDocID) {
 		this.medDocID = medDocID;
 	}
+
+	@Column(name = "TITLE", length = 20)
+	public String getTitle() {
+		return mDocTitle;
+	}
+	public void setTitle(String title) {
+		this.mDocTitle = title;
+	}
+	
+	@Column(name = "DESCRIPTION", length = 200)
+	public String getDescription() {
+		return mDocDescription;
+	}
+	public void setDescription(String description) {
+		this.mDocDescription = description;
+	}	
 	
 	@ManyToOne
 	@JoinColumn(name="doctor_fk")

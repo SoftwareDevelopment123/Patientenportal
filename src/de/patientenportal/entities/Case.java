@@ -19,8 +19,8 @@ import java.util.List;
 public class Case {
 
 	private int caseID;
-	private String title;
-	private String description;
+	private String caseTitle;
+	private String caseDescription;
 	private boolean status;
 	private List<VitalData> vitaldata;
 	private Patient patient;
@@ -32,11 +32,11 @@ public class Case {
 	public Case(){	
 	}
 	public Case(String title) {
-		this.title = title;
+		this.caseTitle = title;
 	}
 	public Case(String title, String desc) {
-		this.title = title;
-		this.description = desc;
+		this.caseTitle = title;
+		this.caseDescription = desc;
 	}
 	
 	@Id
@@ -51,18 +51,18 @@ public class Case {
 
 	@Column(name = "TITLE", length = 45, nullable = false)
 	public String getTitle() {
-		return title;
+		return caseTitle;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		this.caseTitle = title;
 	}
 
 	@Column(name = "DESCRIPTION", length = 200)
 	public String getDescription() {
-		return description;
+		return caseDescription;
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		this.caseDescription = description;
 	}
 
 	@Column(name = "STATUS"/*, nullable = false*/)

@@ -14,11 +14,6 @@ import de.patientenportal.entities.Relative;
 @SOAPBinding(style = Style.RPC)
 public interface RegistrationWS {
 	
-	// checkUsername private machen und bei createUser verwenden?
-	
-	@WebMethod
-	public String checkUsername	(@WebParam (name="Username")	String username);
-	
 	@WebMethod
 	public String createUser	(@WebParam (name="User")		User user);
 		
