@@ -124,6 +124,7 @@ WS	-	sehr viel ^^
 - Tests funktionieren individuell, aber nicht in der Suite
 	- liegt daran, dass z.B. mehrere Tests einen Case anlegen und damit arbeiten (beim 2. Test passt die ID dann nicht mehr)
 	- entweder Lösung in der Unit-Logik finden, Tests zusammenfassen oder einfach ohne Suite arbeiten (wäre schade)
+	- beheben wir durch den ID-Abruf aus dem Objekt vom Anlegen
 
 - DAOs zu Interfaces "ummodeln"
 
