@@ -14,9 +14,6 @@ public class VitalDataDAO {
 		VitalData vitalData = new VitalData();
 		
 		if (vitalData != null){
-			Hibernate.initialize(vitalData.getTimestamp());
-			Hibernate.initialize(vitalData.getValue());
-			Hibernate.initialize(vitalData.getVitalDataType());
 			Hibernate.initialize(vitalData.getPcase());
 			}
 			
