@@ -1,6 +1,9 @@
 package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.io.File;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +22,7 @@ public class MedicalDoc {
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;
+	private File file;
 	
 	
 	@Id
@@ -27,26 +31,11 @@ public class MedicalDoc {
 	public int getMedDocID() {
 		return medDocID;
 	}
+	
 	public void setMedDocID(int medDocID) {
 		this.medDocID = medDocID;
 	}
 
-	@Column(name = "TITLE", length = 20)
-	public String getTitle() {
-		return mDocTitle;
-	}
-	public void setTitle(String title) {
-		this.mDocTitle = title;
-	}
-	
-	@Column(name = "DESCRIPTION", length = 200)
-	public String getDescription() {
-		return mDocDescription;
-	}
-	public void setDescription(String description) {
-		this.mDocDescription = description;
-	}	
-	
 	@ManyToOne
 	@JoinColumn(name="doctor_fk")
 	public Doctor getCreatedBy() {
@@ -73,6 +62,28 @@ public class MedicalDoc {
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
+	}
 
+	public String getmDocTitle() {
+		return mDocTitle;
+	}
+
+	public void setmDocTitle(String mDocTitle) {
+		this.mDocTitle = mDocTitle;
+	}
+
+	public String getmDocDescription() {
+		return mDocDescription;
+	}
+
+	public void setmDocDescription(String mDocDescription) {
+		this.mDocDescription = mDocDescription;
+	}
+	
 	
 }

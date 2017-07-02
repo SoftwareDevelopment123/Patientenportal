@@ -29,17 +29,17 @@ public class MDocTest {
 		CaseDAO.createCase(case1);
 				
 		MedicalDoc mdoc1 = new MedicalDoc();
-			mdoc1.setTitle("Dokument 1");
+			mdoc1.setmDocTitle("Dokument 1");
 			mdoc1.setPatient(pat);
 			
 		MedicalDoc mdoc2 = new MedicalDoc();
-			mdoc2.setTitle("Dokument 2");
+			mdoc2.setmDocTitle("Dokument 2");
 			mdoc2.setPatient(pat);
-			mdoc2.setDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
+			mdoc2.setmDocDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
 			mdoc2.setPcase(case1);	// wird nicht mit eingefügt, ich weiß noch nicht warum
 			
 		MedicalDoc mdoc3 = new MedicalDoc();
-			mdoc3.setTitle("Dokument 3");
+			mdoc3.setmDocTitle("Dokument 3");
 			mdoc3.setPatient(pat);
 			
 		String feedbackCMD1 = MDocDAO.createMDoc(mdoc1);
@@ -52,7 +52,7 @@ public class MDocTest {
 		//Abrufen - direkt
 		MedicalDoc test = MDocDAO.getMedicalDoc(1);
 			Assert.assertEquals(1, test.getMedDocID());
-			Assert.assertEquals("Dokument 1", test.getTitle());
+			Assert.assertEquals("Dokument 1", test.getmDocTitle());
 		
 		//Abrufen - über den Fall
 		List<MedicalDoc> casedocs = CaseDAO.getCase(1).getMedicalDocs();	

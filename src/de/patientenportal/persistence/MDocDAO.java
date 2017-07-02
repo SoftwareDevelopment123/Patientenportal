@@ -11,10 +11,11 @@ public class MDocDAO {
 	
 	// MedicalDoc anlegen
 	public static String createMDoc(MedicalDoc newMDoc) {
+		//newMDoc.getFile().delete();
 		Session session = HibernateUtil.getSessionFactory().openSession();
-
+				
 		try{
-		session.beginTransaction();
+		session.beginTransaction();		
 		session.save(newMDoc);
 		session.getTransaction().commit();
 		
@@ -54,8 +55,8 @@ public class MDocDAO {
 		if(id!=0){
 			
 			Doctor createdBy = updatedmedicaldoc.getCreatedBy();
-			String title =  updatedmedicaldoc.getTitle();
-			String description =  updatedmedicaldoc.getDescription();
+			String title =  updatedmedicaldoc.getmDocTitle();
+			String description =  updatedmedicaldoc.getmDocDescription();
 			Case pcase = updatedmedicaldoc.getPcase();
 			Patient patient = updatedmedicaldoc.getPatient();
 
@@ -67,8 +68,8 @@ public class MDocDAO {
 					
 			
 			medicaldoctoupdate.setCreatedBy(createdBy);
-			medicaldoctoupdate.setDescription(description);
-			medicaldoctoupdate.setTitle(title);
+			medicaldoctoupdate.setmDocDescription(description);
+			medicaldoctoupdate.setmDocTitle(title);
 			medicaldoctoupdate.setPcase(pcase);
 			medicaldoctoupdate.setPatient(patient);
 			

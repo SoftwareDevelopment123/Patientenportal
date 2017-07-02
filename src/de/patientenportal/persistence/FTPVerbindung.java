@@ -1,5 +1,6 @@
 package de.patientenportal.persistence;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,7 +13,7 @@ public class FTPVerbindung {
 	
 	 public static void main(String[] args) {
 	        try {
-	            URL url = new URL("ftp://admin:12345@127.0.0.1/Ordner1/");
+	            URL url = new URL("ftp://admin:12345@127.0.0.1/Dateien/");
 	            //<protokoll><benutzername>:<passwort>@<hostname>[/verzeichnis/] 
 	            show(url);
 	        } catch (MalformedURLException e) {
@@ -29,7 +30,8 @@ public class FTPVerbindung {
 	        while ((s = buff.readLine()) != null) {
 	            System.out.println(s);
 	        }
-	  
+	        boolean InstructionDoc = new File( "C:/Users/Jani/Desktop/Filezilla/Dateien/InstructionDoc.txt/" ).delete();
+	        System.out.println( InstructionDoc );  
 } 
 }
 	
