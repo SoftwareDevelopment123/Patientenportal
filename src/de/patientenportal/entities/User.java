@@ -29,7 +29,8 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-
+	private WebSession webSession;
+	
 	public User() {
 	}
 	
@@ -159,4 +160,12 @@ public class User {
 		this.contact = contact;
 	}
 
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	public WebSession getWebSession() {
+		return webSession;
+	}
+
+	public void setWebSession(WebSession webSession) {
+		this.webSession = webSession;
+	}
 }
