@@ -13,7 +13,7 @@ WS	-
 
 Fertig:
 DAO	-	
-WS	- RegistrationWS, AccountWS, PatientWS, 
+WS	- RegistrationWS, AccountWS, PatientWS, RelativeWS, DoctorWS
 
 in Arbeit:
 DAO	-	InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
