@@ -7,16 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 
 @Entity
 @Table(name = "Relative", catalog = "patientenportal")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement (name="relative")
 public class Relative {
 	
 	private int relativeID;
 	private User user;
-	private List<Patient> patients;
+	@XmlElementWrapper(name="patients") @XmlElement(name="patient") private List<Patient> patients;
 	
 	public Relative(){
 	}
@@ -39,7 +46,7 @@ public class Relative {
 		this.user = user;
 	}
 	
-	@ManyToMany(mappedBy="relatives")
+	@ManyToMany(mappedBy="relatives") 
 	public List<Patient> getPatients() {
 		return patients;
 	}

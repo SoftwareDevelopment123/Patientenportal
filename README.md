@@ -120,6 +120,9 @@ WS	-
 - Timestamp bei den Dokumenten/VitalData und Datumsformat bei Birthdate
 
 - WS-Logik!!!
+	- Listen werden nicht von JAXB verstanden
+	- Lösung 1: @SOAPBinding(style = Style.RPC) zu Style.Document ändern, dann müssen wir aber auch ein entsprechendes Doc erstellen
+	- Lösung 2: @SOAPBinding auskommentieren und die @Xml... mappings benutzen --> das wirds wahrscheinlich, muss ich noch testen
 
 ## Anmerkungen
 - Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
