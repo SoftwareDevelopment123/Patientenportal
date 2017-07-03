@@ -17,8 +17,8 @@ import javax.persistence.Table;
 public class MedicalDoc {
 
 	private int medDocID;
-	public String mDocTitle;
-	public String mDocDescription;
+	private String mDocTitle;
+	private String mDocDescription;
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;

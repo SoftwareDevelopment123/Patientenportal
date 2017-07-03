@@ -56,6 +56,7 @@ public class RegistrationWSImpl implements RegistrationWS {
 	@Transactional
 	public String createDoctor(Doctor doctor, int userID) {
 		
+		if (userID == 0)					 	 {return "Keine User-ID mitgegeben";}	// Sollte in der Client-Logik ausgeschlossen sein
 		if (doctor.getSpecialization()	== null) {return "Kein Fachgebiet angegeben.";}
 		
 		User toupdate = UserDAO.getUser(userID);
@@ -73,7 +74,9 @@ public class RegistrationWSImpl implements RegistrationWS {
 
 	@Transactional
 	public String createRelative(Relative relative, int userID) {
-			
+		
+		if (userID == 0)					 	 {return "Keine User-ID mitgegeben";}	// Sollte in der Client-Logik ausgeschlossen sein
+		
 		User toupdate = UserDAO.getUser(userID);
 		if (toupdate.getRelative() != null)	 	 {return "Zu diesem User ist schon ein Doktor eingetragen";}
 		
