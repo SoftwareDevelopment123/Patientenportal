@@ -7,7 +7,7 @@ public class LoginImpl implements Login {
 	
 	@Override
 	public String authenticateUser(String name, String password) {
-		
+		//
 		LoginUtil utility = new LoginUtil();
 		
 		if (name.equals("")) {
