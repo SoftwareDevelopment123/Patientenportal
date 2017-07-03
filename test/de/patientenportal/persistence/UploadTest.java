@@ -1,4 +1,4 @@
-package de.patientenportal.persistence;
+/*package de.patientenportal.persistence;
 
 import de.patientenportal.entities.*;
 
@@ -32,4 +32,4 @@ public class UploadTest {
 		
 	}
 	
-}
+}*/
