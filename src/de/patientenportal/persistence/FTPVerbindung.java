@@ -1,55 +1,70 @@
 /*package de.patientenportal.persistence;
-import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.*;
 
 //import klären
 
 public class FTPVerbindung {
 
-	
-	 public static void main(String[] args) {
-		
-	FTPClient client = new FTPClient(); 
-	client.connect("127.0.0.1");
-    client.enterLocalPassiveMode();
-    client.login("admin", "12345");
-    FTPFile[] files = client.listFiles("/pub");
-    for (FTPFile file : files) {
-        System.out.println(file.getName());
-    }	 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		   try {
-	            URL url = new URL("ftp://admin:12345@127.0.0.1/Dateien/");
-	            //<protokoll><benutzername>:<passwort>@<hostname>[/verzeichnis/] 
-	            show(url);
-	        } catch (MalformedURLException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
+	 FTPClient ftpClient = new FTPClient();
+     try {
 
-	    private static void show(URL url) throws IOException {
-	        InputStream in = url.openStream();
-	        BufferedReader buff = new BufferedReader(new InputStreamReader(in));
-	        String s;
-	        while ((s = buff.readLine()) != null) {
-	            System.out.println(s);
-	        }
-	        boolean InstructionDoc = new File( "C:/Users/Jani/Desktop/Filezilla/Dateien/InstructionDoc.txt/" ).delete();
-	        System.out.println( InstructionDoc );  
-} 
-}
+         ftpClient.connect(server, port);
+         ftpClient.login(user, pass);
+         ftpClient.enterLocalPassiveMode();
+
+         ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+
+         // APPROACH #1: uploads first file using an InputStream
+         File firstLocalFile = new File("D:/Test/Projects.zip");
+
+         String firstRemoteFile = "Projects.zip";
+         InputStream inputStream = new FileInputStream(firstLocalFile);
+
+         System.out.println("Start uploading first file");
+         boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
+         inputStream.close();
+         if (done) {
+             System.out.println("The first file is uploaded successfully.");
+         }
+
+         // APPROACH #2: uploads second file using an OutputStream
+         File secondLocalFile = new File("E:/Test/Report.doc");
+         String secondRemoteFile = "test/Report.doc";
+         inputStream = new FileInputStream(secondLocalFile);
+
+         System.out.println("Start uploading second file");
+         OutputStream outputStream = ftpClient.storeFileStream(secondRemoteFile);
+         byte[] bytesIn = new byte[4096];
+         int read = 0;
+
+         while ((read = inputStream.read(bytesIn)) != -1) {
+             outputStream.write(bytesIn, 0, read);
+         }
+         inputStream.close();
+         outputStream.close();
+
+         boolean completed = ftpClient.completePendingCommand();
+         if (completed) {
+             System.out.println("The second file is uploaded successfully.");
+         }
+
+     } catch (IOException ex) {
+         System.out.println("Error: " + ex.getMessage());
+         ex.printStackTrace();
+     } finally {
+         try {
+             if (ftpClient.isConnected()) {
+                 ftpClient.logout();
+                 ftpClient.disconnect();
+             }
+         } catch (IOException ex) {
+             ex.printStackTrace();
+         }
+     }
+ }
+
 }
 	
-
+}
+	
 */
