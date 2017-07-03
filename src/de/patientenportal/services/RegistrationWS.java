@@ -15,15 +15,17 @@ import de.patientenportal.entities.Relative;
 public interface RegistrationWS {
 	
 	@WebMethod
-	public String createUser	(@WebParam (name="User")		User user);
+	public String createUser	(@WebParam (name="User") User user);
 		
 	@WebMethod
-	public String createPatient	(@WebParam (name="Patient")		Patient patient, int userID);
+	public String createPatient	(@WebParam (name="Patient") Patient patient,
+								 @WebParam (name="User-ID")	int userID);
 	
 	@WebMethod
-	public String createDoctor	(@WebParam (name="Doctor")		Doctor doctor, int userID);
+	public String createDoctor	(@WebParam (name="Doctor")	Doctor doctor,
+								 @WebParam (name="User-ID")	int userID);
 	
 	@WebMethod
-	public String createRelative(@WebParam (name="Relative")	Relative relative, int userID);
-	
+	public String createRelative(@WebParam (name="Relative")Relative relative,
+								 @WebParam (name="User-ID")	int userID);
 }

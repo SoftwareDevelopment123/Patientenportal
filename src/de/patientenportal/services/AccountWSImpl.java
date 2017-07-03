@@ -15,45 +15,62 @@ import de.patientenportal.persistence.UserDAO;
 @WebService (endpointInterface = "de.patientenportal.services.AccountWS")
 public class AccountWSImpl implements AccountWS {
 
+	/*
+	 * Die Delete-Methoden sind eher für die Bereinigung der Datenbank von fehlerhaften Einträgen (insofern vorhanden)
+	 * gedacht und sollten nicht genutzt werden, um aktive Nutzer zu löschen.
+	 */
+	
 	@Transactional
-	public void deleteUser(int userID) {
-		UserDAO.deleteUser(userID);
+	public String deleteUser(int userID) {
+		String response = UserDAO.deleteUser(userID);
+		return response;
 	}
 
 	@Transactional
-	public void deleteDoctor(int doctorID) {
-		DoctorDAO.deleteDoctor(doctorID);
+	public String deleteDoctor(int doctorID) {
+		String response = DoctorDAO.deleteDoctor(doctorID);
+		return response;
 	}
 
 	@Transactional
-	public void deletePatient(int patientID) {
-		PatientDAO.deletePatient(patientID);
+	public String deletePatient(int patientID) {
+		String response = PatientDAO.deletePatient(patientID);
+		return response;
 	}
 
 	@Transactional
-	public void deleteRelative(int relativeID) {
-		RelativeDAO.deleteRelative(relativeID);
+	public String deleteRelative(int relativeID) {
+		String response = RelativeDAO.deleteRelative(relativeID);
+		return response;
 	}
 
+	/*
+	 * Hinweis für die Präsentationsschicht
+	 * Bei den Update-Methoden ist sicherzustellen, dass vollständige Objekte mitgegeben werden,
+	 * zum Beispiel durch Abruf des Users aus der Datenbank und Änderung einzelner Attribute
+	 */
+	
 	@Transactional
-	public void updateUser(User user) {
-		UserDAO.updateUser(user);
+	public String updateUser(User user) {
+		String response = UserDAO.updateUser(user);
+		return response;
 	}
 	
 	@Transactional
-	public void updateDoctor(Doctor doctor) {
-		DoctorDAO.updateDoctor(doctor);
-		
+	public String updateDoctor(Doctor doctor) {
+		String response = DoctorDAO.updateDoctor(doctor);
+		return response;
 	}
 
 	@Transactional
-	public void updatePatient(Patient patient) {
-		PatientDAO.updatePatient(patient);		
+	public String updatePatient(Patient patient) {
+		String response = PatientDAO.updatePatient(patient);
+		return response;
 	}
 
 	@Transactional
-	public void updateRelative(Relative relative) {
-		RelativeDAO.updateRelative(relative);
+	public String updateRelative(Relative relative) {
+		String response = RelativeDAO.updateRelative(relative);
+		return response;
 	}
-
 }

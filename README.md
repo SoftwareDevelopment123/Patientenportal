@@ -112,27 +112,18 @@ WS	-
 	- Entities: Case-Verknüpfung von Dokumenten in die Superklasse?
 	- InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
 
-- InsuranceTest vervollständigen -- Jan
-
-- Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
-	- Läuft darauf hinaus, dass wir alle (!) Case-Verknüpfungen individuell anlegen und bei Case myppedBy angeben
-	- noch nicht alles angelegt
-
 - Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
 	- RBAM (role based access model)!
 
 - Funktion: Einfügen von Dokumenten in die DB prüfen
 
-- Tests funktionieren individuell, aber nicht in der Suite
-	- liegt daran, dass z.B. mehrere Tests einen Case anlegen und damit arbeiten (beim 2. Test passt die ID dann nicht mehr)
-	- entweder Lösung in der Unit-Logik finden, Tests zusammenfassen oder einfach ohne Suite arbeiten (wäre schade)
-	- beheben wir durch den ID-Abruf aus dem Objekt vom Anlegen
-
-- DAOs zu Interfaces "ummodeln"
-
 - WS-Logik!!!
 
 ## Anmerkungen
+- Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
+	- Läuft darauf hinaus, dass wir alle (!) Case-Verknüpfungen individuell anlegen und bei Case myppedBy angeben
+	- noch nicht alles angelegt
+
 - getCases (patientID) in der DAO vs. PatientDAO.getCases(); + Rechteabgleich in der Service-Schicht?!
 
 - Case-Status bei Anzeige der Fälle filtern (Schon in den Rechten oder später?) --> in der Service-Darstellung geändert (noch nicht sicher)
@@ -161,8 +152,18 @@ WS	-
 	- z.B. office.getContact().setMail("neue Mail");
 	
 - MAPPEDBY für Bidirektionale Beziehungen benutzen!!!!!! Siehe Patient-Insurance
-	
-Logik für die Service-Schicht
+
+- Tests funktionierten nur individuell, aber nicht in der Suite (gelöst)
+	- liegt daran, dass z.B. mehrere Tests einen Case anlegen und damit arbeiten (beim 2. Test passt die ID dann nicht mehr)
+	- entweder Lösung in der Unit-Logik finden, Tests zusammenfassen oder einfach ohne Suite arbeiten (wäre schade)
+	- beheben wir durch den ID-Abruf aus dem Objekt vom Anlegen
+
+## Logik für die Service-Schicht
 - Verknüpfungen löschen bei delete
 - Keine eigene DAO-Abfrage für Case-Status, lieber "aussortieren" in der WS-Logik?
 - Bei Create-Case auch dem erstellenden Doktor Lese-/Schreibrechte mitgeben
+
+## Ausblick
+- DAO - Interfaces und non-static DAOs
+- Token-Authentication
+- Response-Entity
