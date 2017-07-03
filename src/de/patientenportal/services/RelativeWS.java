@@ -7,10 +7,12 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
+import javax.transaction.Transactional;
+
 import de.patientenportal.entities.Relative;
 
 @WebService
-@SOAPBinding(style = Style.RPC)
+//@SOAPBinding(style = Style.RPC)			// Behebt aktuell den Fehler beim Publisher, weiter testen
 public interface RelativeWS {
 
 	@WebMethod
