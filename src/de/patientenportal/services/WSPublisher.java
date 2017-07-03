@@ -17,8 +17,7 @@ public class WSPublisher {
 		System.out.println(" Registration-WebService : 			/registration?wsdl");
 		
 		Endpoint.publish(URI + "/authentication", new AuthenticationWSImpl());
-		System.out.println(" Authentication-WebService : 		/authentication?wsdl");
-		
+		System.out.println(" Authentication-WebService : 			/authentication?wsdl");
 		/*
 		 * 
 		 * usw. für alle WS

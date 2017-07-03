@@ -21,10 +21,10 @@ public class AuthenticationTest {
         QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
 
         Service service = Service.create(url, qname);
-        AuthenticationWS hello = service.getPort(AuthenticationWS.class);
+        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
         
         /*******************UserName & Password ******************************/
-        Map<String, Object> req_ctx = ((BindingProvider)hello).getRequestContext();
+        Map<String, Object> req_ctx = ((BindingProvider)authWS).getRequestContext();
         req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
 
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
@@ -33,7 +33,7 @@ public class AuthenticationTest {
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
         /**********************************************************************/
         
-        System.out.println(hello.authenticateUser());
+        System.out.println(authWS.authenticateUser());
        
     }
 
