@@ -1,3 +1,62 @@
+package de.patientenportal.persistence;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException; 
+import java.io.InputStream; 
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+
+public class FTPVerbindung {
+	
+	public static void main(String[] args) throws IOException { 
+/*        try { 
+            URL url = new URL("ftp://admin:12345@127.0.0.1/Server1/"); 
+            show(url);
+            System.out.println(url.getProtocol());
+            System.out.println(url.getHost());
+        } catch (MalformedURLException e) { 
+            e.printStackTrace(); 
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+        } 
+    } 
+
+    private static void show(URL url) throws IOException { 
+        InputStream in = url.openStream(); 
+        BufferedReader buff = new BufferedReader(new InputStreamReader(in)); 
+        String s;
+        while ((s = buff.readLine()) != null) { 
+            System.out.println(s); 
+        }
+        
+    }
+
+    
+    private static void outputbla(URL url) throws IOException { */
+    	File path = new File("laber.txt");
+    	System.out.println("We got a file: "+path);
+    	
+    	System.out.println("Does it exist?"+path.exists());
+    	System.out.println("Wat? "+path.isDirectory());
+    	
+    	String contentstowrite = "hello du grausame Welt";
+    	OutputStream outstream = new FileOutputStream(path);
+    	outstream.write(contentstowrite.getBytes());
+    	outstream.close();
+    }
+    
+    
+}   	
+	
+
+	 
+
+
 /*package de.patientenportal.persistence;
 import java.io.File;
 import java.io.FileInputStream;
