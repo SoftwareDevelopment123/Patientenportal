@@ -13,14 +13,14 @@ WS	-
 
 Fertig:
 DAO	-	
-WS	-
+WS	- RegistrationWS
 
 in Arbeit:
 DAO	-	InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
 WS	-	
 
 Fehlt noch:
-WS	-	sehr viel ^^
+WS	-	
 
 
 ## Dokumentation

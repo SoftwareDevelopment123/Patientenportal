@@ -18,12 +18,12 @@ public interface RegistrationWS {
 	public String createUser	(@WebParam (name="User")		User user);
 		
 	@WebMethod
-	public String createPatient	(@WebParam (name="Patient")		Patient patient);
+	public String createPatient	(@WebParam (name="Patient")		Patient patient, int userID);
 	
 	@WebMethod
-	public String createDoctor	(@WebParam (name="Doctor")		Doctor doctor);
+	public String createDoctor	(@WebParam (name="Doctor")		Doctor doctor, int userID);
 	
 	@WebMethod
-	public String createRelative(@WebParam (name="Relative")	Relative relative);
+	public String createRelative(@WebParam (name="Relative")	Relative relative, int userID);
 	
 }
