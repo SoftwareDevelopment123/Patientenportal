@@ -48,6 +48,11 @@ public class AccountWSImpl implements AccountWS {
 	 * Hinweis für die Präsentationsschicht
 	 * Bei den Update-Methoden ist sicherzustellen, dass vollständige Objekte mitgegeben werden,
 	 * zum Beispiel durch Abruf des Users aus der Datenbank und Änderung einzelner Attribute
+	 * 
+	 * Infos zum Aufbau:
+	 * Die User-Actor, Beziehungen werden beim Erstellen festgelegt und können nicht geändert werden
+	 * Patient-Relative-Beziehungen werden von der Patientenseite aus festgelegt
+	 * 
 	 */
 	
 	@Transactional
