@@ -19,12 +19,11 @@ public class PatientWSImpl implements PatientWS {
 		else{
 			Patient patient = PatientDAO.getPatient(patientID);
 			return patient;
-		}
-		
+		}	
 	}
 
 	@Transactional
-	public List<Patient> getPatientsbyR(int relativeID) {
+	public List<Patient> getPatientsByR(int relativeID) {
 		
 		if (relativeID == 0) {return null;}
 		
