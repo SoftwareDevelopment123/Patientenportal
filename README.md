@@ -117,6 +117,8 @@ WS	-
 
 - Funktion: Einfügen von Dokumenten in die DB prüfen
 
+- Timestamp bei den Dokumenten/VitalData und Datumsformat bei Birthdate
+
 - WS-Logik!!!
 
 ## Anmerkungen
