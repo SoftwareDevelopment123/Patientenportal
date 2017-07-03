@@ -1,12 +1,26 @@
-/*package de.patientenportal.persistence;
-import org.apache.commons.net.ftp.*;
+package de.patientenportal.persistence;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 
 //import klären
 
 public class FTPVerbindung {
 
+	public static void main(String[] args) {
+	
 	 FTPClient ftpClient = new FTPClient();
-     try {
+	 String server = "127.0.0.1";
+     int port = 14147;
+     String user = "admin";
+     String pass = "12345";
+	 
+	 try {
 
          ftpClient.connect(server, port);
          ftpClient.login(user, pass);
@@ -15,9 +29,9 @@ public class FTPVerbindung {
          ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 
          // APPROACH #1: uploads first file using an InputStream
-         File firstLocalFile = new File("D:/Test/Projects.zip");
+         File firstLocalFile = new File("C:/Users/Jani/Desktop/BeispielDoc");
 
-         String firstRemoteFile = "Projects.zip";
+         String firstRemoteFile = "BeispielDoc";
          InputStream inputStream = new FileInputStream(firstLocalFile);
 
          System.out.println("Start uploading first file");
@@ -65,6 +79,5 @@ public class FTPVerbindung {
 
 }
 	
-}
+
 	
-*/
