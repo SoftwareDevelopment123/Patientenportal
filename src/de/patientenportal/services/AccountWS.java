@@ -15,27 +15,27 @@ import de.patientenportal.entities.User;
 public interface AccountWS {
 		
 	@WebMethod
-	public void deleteUser		(@WebParam (name="User-ID")int user_id);
+	public String deleteUser		(@WebParam (name="User-ID")int userID);
 	
 	@WebMethod
-	public void deleteDoctor	(@WebParam (name="Doctor-ID")int user_id);
+	public String deleteDoctor		(@WebParam (name="Doctor-ID")int userID);
 	
 	@WebMethod
-	public void deletePatient	(@WebParam (name="Patient-ID")int user_id);
+	public String deletePatient		(@WebParam (name="Patient-ID")int userID);
 	
 	@WebMethod
-	public void deleteRelative	(@WebParam (name="Relative-ID")int user_id);
+	public String deleteRelative	(@WebParam (name="Relative-ID")int userID);
 	
 	@WebMethod
-	public void updateUser		(@WebParam (name="User")User user);
+	public String updateUser		(@WebParam (name="User")User user);
 	
 	@WebMethod
-	public void updateDoctor	(@WebParam (name="Doctor")Doctor doctor);
+	public String updateDoctor		(@WebParam (name="Doctor")Doctor doctor);
 	
 	@WebMethod
-	public void updatePatient	(@WebParam (name="Patient")Patient patient);
+	public String updatePatient		(@WebParam (name="Patient")Patient patient);
 	
 	@WebMethod
-	public void updateRelative	(@WebParam (name="Relative")Relative relative);
+	public String updateRelative	(@WebParam (name="Relative")Relative relative);
 }
 
