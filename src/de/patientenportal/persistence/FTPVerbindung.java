@@ -1,4 +1,4 @@
-package de.patientenportal.persistence;
+/*package de.patientenportal.persistence;
 import org.apache.commons.net.ftp.FTPClient;
 
 //import klären
@@ -27,7 +27,7 @@ public class FTPVerbindung {
 		 
 		 
 		 
-		 /*  try {
+		   try {
 	            URL url = new URL("ftp://admin:12345@127.0.0.1/Dateien/");
 	            //<protokoll><benutzername>:<passwort>@<hostname>[/verzeichnis/] 
 	            show(url);
@@ -47,8 +47,9 @@ public class FTPVerbindung {
 	        }
 	        boolean InstructionDoc = new File( "C:/Users/Jani/Desktop/Filezilla/Dateien/InstructionDoc.txt/" ).delete();
 	        System.out.println( InstructionDoc );  
-} */
+} 
 }
 }
 	
 
+*/
