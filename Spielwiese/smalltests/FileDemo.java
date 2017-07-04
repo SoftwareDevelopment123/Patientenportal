@@ -19,7 +19,9 @@ import java.nio.file.StandardCopyOption;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.BasicConfigurator;;
+import org.apache.log4j.BasicConfigurator;
+
+import de.patientenpotal.ftpconnection.FtpMethoden;;
 
 public class FileDemo {
 
@@ -70,19 +72,22 @@ public class FileDemo {
     	} catch(IOException e) {
     		e.printStackTrace();
     	}*/
-		
-		//InputStream in = new URL("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt").openStream();
-		/*File file = new File("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt");
-		InputStream targetStream = new FileInputStream(file);
-		OutputStream out = 
-		new URL("ftp://admin:12345@127.0.0.1/Server1/").openConnection().getOutputStream();
-			
-		FileUtils.copyURLToFile(URL, File);
-    		*/
-		BasicConfigurator.configure();
+				
+		//Abrufen des Servers
+		/*BasicConfigurator.configure();
 		URL url = new URL("ftp://admin:12345@127.0.0.1/Server1/");
-		String umgewnadelt = url.toString();
-		String Resp = DownloadFileTest.downloadFile(umgewnadelt);
+		String umgewandelt = url.toString();
+		String Resp = FtpMethoden.downloadFile(umgewandelt);
+		System.out.println(Resp);*/
+		
+		String ftpServer = new String("ftp://admin:12345@127.0.0.1/Server1/");
+		String user = new String("admin");
+		String password = new String("12345");
+		String fileName = new String("JenesDokument");
+		File file = new File("C://Users/Jani/Desktop/JenesDokument/");
+		
+		
+		
    	}
     	
 }
