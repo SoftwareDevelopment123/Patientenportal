@@ -1,5 +1,8 @@
 package de.patientenportal.persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import de.patientenportal.entities.*;
 
@@ -23,6 +26,32 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	// Alle User abrufen
+	//private Class<T> persistentClass;
+
+		public static List<User> getAllUsers(){
+			Session session = HibernateUtil.getSessionFactory().openSession();
+		//	User user = new User();
+			
+			try{
+			session.beginTransaction();		
+			List<User> allUsers  = new ArrayList<User>();
+			
+					allUsers = session.createCriteria(User.class).list();
+			session.getTransaction().commit();
+
+			return allUsers;
+			
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return null;
+			} finally {
+				session.close();
+			}
+		//	return allUsers;
+		}
+	
 	
 	// Userdaten ändern
 	public static String updateUser(User updateduser){
