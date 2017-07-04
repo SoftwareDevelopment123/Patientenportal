@@ -62,9 +62,11 @@ public class MedicalDoc {
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}
+	
 	public File getFile() {
 		return file;
 	}
+	
 	public void setFile(File file) {
 		this.file = file;
 	}

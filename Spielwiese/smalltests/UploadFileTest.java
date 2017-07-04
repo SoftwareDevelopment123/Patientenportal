@@ -11,7 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+
 
 import com.mysql.jdbc.log.Log;
 

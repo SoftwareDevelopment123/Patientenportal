@@ -19,7 +19,7 @@ import java.nio.file.StandardCopyOption;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.BasicConfigurator;
+//import org.apache.log4j.BasicConfigurator;
 
 import de.patientenpotal.ftpconnection.FtpMethoden;;
 
