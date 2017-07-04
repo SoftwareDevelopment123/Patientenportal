@@ -39,7 +39,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         }
         	
         //Should validate username and password with database
-        if (username.equals("mkyong") && password.equals("password")){
+        if (username.equals("mkyong123") && password.equals("password")){
         	return "Hello World JAX-WS - Valid User!";
         }else{
         	return "Unknown User!";

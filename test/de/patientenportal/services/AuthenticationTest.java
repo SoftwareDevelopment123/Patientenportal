@@ -24,7 +24,7 @@ public class AuthenticationTest {
         Service service = Service.create(url, qname);
         AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
         
-        /*******************UserName & Password ******************************/
+        /*******************Wrong UserName & Password ******************************/
         Map<String, Object> req_ctx = ((BindingProvider)authWS).getRequestContext();
         req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
 
@@ -36,6 +36,18 @@ public class AuthenticationTest {
         
         System.out.println(authWS.authenticateUser());
        
+        
+        /*******************UserName & Password ******************************/
+        Map<String, Object> req_ctx2 = ((BindingProvider)authWS).getRequestContext();
+        req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
+
+        Map<String, List<String>> headers2 = new HashMap<String, List<String>>();
+        headers2.put("Username", Collections.singletonList("mkyong123"));
+        headers2.put("Password", Collections.singletonList("password"));
+        req_ctx2.put(MessageContext.HTTP_REQUEST_HEADERS, headers2);
+        /**********************************************************************/
+        
+        System.out.println(authWS.authenticateUser());
     }
 
 }
