@@ -13,10 +13,11 @@ import javax.xml.ws.handler.MessageContext;
 
 
 public class AuthenticationTest {
-	private static final String WS_URL = "http://localhost:8080//authentication?wsdl";
+	private static final String WS_URL = "http://localhost:8080/authentication?wsdl";
 	
 	public static void main(String[] args) throws Exception {
 	   
+		
 		URL url = new URL(WS_URL);
         QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
 

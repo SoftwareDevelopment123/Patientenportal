@@ -15,7 +15,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	@Resource
     WebServiceContext wsctx;
 		
-	@Transactional
+	@Override
 	public String authenticateUser(){ //(String username, String password) {
 	
 		MessageContext mctx = wsctx.getMessageContext();
