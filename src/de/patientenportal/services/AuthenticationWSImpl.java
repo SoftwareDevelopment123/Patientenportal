@@ -37,12 +37,26 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         	//get password
         	password = passList.get(0).toString();
         }
-        	
+        
+        //User in Datenbank suchen
+        UserDAO udao = new UserDAO();
+    	List<User> users = udao.getAll();
+    	for (User u : users) {
+    		if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+    			return u;
+    		}
+        
+        //User und Passwort abgleichen
+        
+        //Websession erstellen?
+        
+        
+        
         //Should validate username and password with database
         if (username.equals("mkyong123") && password.equals("password")){
-        	return "Hello World JAX-WS - Valid User!";
+        	return "Herzlich willkommen! " + username;
         }else{
-        	return "Unknown User!";
+        	return "Benutzer oder Passwort nicht vorhanden!";
         }
        
 	}
