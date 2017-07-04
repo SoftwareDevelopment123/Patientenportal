@@ -3,12 +3,14 @@ package de.patientenportal.persistence;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Assert;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.MedicalDoc;
 import de.patientenportal.entities.Patient;
+import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 public class MDocTest {
 
@@ -19,7 +21,7 @@ public class MDocTest {
 	 */
 	
 	@Test
-	public void main(){
+	public void main() throws IOException{
 		
 		// Anlegen
 		Patient pat = new Patient();
@@ -29,6 +31,10 @@ public class MDocTest {
 		Case case1 = new Case("Impfpass","erklärt sich von selbst");
 		CaseDAO.createCase(case1);
 		
+		String serveruser1 = new String("admin");
+		String passwort1 = new String("12345");
+		//String passwort2 =new String("1234");
+		
 		File mdocDatei1 = new File(
 				"C:" 				+File.separator+
 				"Users" 			+File.separator+ 
@@ -36,7 +42,7 @@ public class MDocTest {
 				"Desktop"			+File.separator+
 				"Filezilla"			+File.separator+
 				"Upload"			+File.separator+
-				"armbruch.txt");
+				"armbruch.docx");
 		
 		File mdocDatei2 = new File(
 				"C:" 				+File.separator+
@@ -53,12 +59,13 @@ public class MDocTest {
 				"Desktop"			+File.separator+
 				"Filezilla"			+File.separator+
 				"Upload"			+File.separator+
-				"Notizen Schädelbasisbruch.txt");
+				"tumor.jpg");
 				
 		MedicalDoc mdoc1 = new MedicalDoc();
 			mdoc1.setmDocTitle("armbruch");
 			mdoc1.setPatient(pat);
 			mdoc1.setFile(mdocDatei1);
+			mdoc1.setFileType(".docx");
 			
 		MedicalDoc mdoc2 = new MedicalDoc();
 			mdoc2.setmDocTitle("beinbruch");
@@ -66,11 +73,13 @@ public class MDocTest {
 			mdoc2.setmDocDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
 			mdoc2.setPcase(case1);	// wird nicht mit eingefügt, ich weiß noch nicht warum
 			mdoc2.setFile(mdocDatei2);
+			mdoc2.setFileType(".txt");
 			
 		MedicalDoc mdoc3 = new MedicalDoc();
-			mdoc3.setmDocTitle("Notizen Schädelbasisbruch");
+			mdoc3.setmDocTitle("tumor");
 			mdoc3.setPatient(pat);
 			mdoc3.setFile(mdocDatei3);
+			mdoc3.setFileType(".jpg");
 			
 		String feedbackCMD1 = MDocDAO.createMDoc(mdoc1);
 			Assert.assertEquals("success", feedbackCMD1);
@@ -93,12 +102,18 @@ public class MDocTest {
 		List<MedicalDoc> patdocs = PatientDAO.getPatient(1).getMedicalDocs();
 			Assert.assertEquals(3, patdocs.size());
 		
+		//Upload der Files
 		FtpMethodenMDocs.uploadMDoc(mdoc1);
-		FtpMethodenMDocs.downloadFile(mdoc1);
 		FtpMethodenMDocs.uploadMDoc(mdoc2);
-		FtpMethodenMDocs.downloadFile(mdoc2);
 		FtpMethodenMDocs.uploadMDoc(mdoc3);
+		
+		//Download der Files
+		FtpMethodenMDocs.downloadFile(mdoc1);
+		FtpMethodenMDocs.downloadFile(mdoc2);
 		FtpMethodenMDocs.downloadFile(mdoc3);
+		
+		//Anzeigen der Files auf dem Server
+		FtpMethodenMDocs.showAllFiles(serveruser1, passwort1);
 	}
 	
 }

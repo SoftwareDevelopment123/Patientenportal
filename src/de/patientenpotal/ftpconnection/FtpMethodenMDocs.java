@@ -1,12 +1,16 @@
-package de.patientenportal.persistence;
+package de.patientenpotal.ftpconnection;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URL;
+
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import de.patientenportal.entities.MedicalDoc;
@@ -34,7 +38,7 @@ public class FtpMethodenMDocs {
 	 
 	            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 	 
-	            String firstRemoteFile = mdoc.getMedDocID()+".txt";
+	            String firstRemoteFile = mdoc.getMedDocID()+"."+mdoc.getFileType();
 	            InputStream inputStream = new FileInputStream(filetoupload);
 	 
 	            System.out.println("Start uploading "+mdoc.getmDocTitle());
@@ -61,7 +65,7 @@ public class FtpMethodenMDocs {
 		
 		public static void downloadFile(MedicalDoc mdoctodownload) {
 			//String nameOfFile, File downloadtofile
-			String filetodownload = File.separator+mdoctodownload.getMedDocID()+".txt";
+			String filetodownload = File.separator+mdoctodownload.getMedDocID()+"."+mdoctodownload.getFileType();
 			String server = "127.0.0.1";
 	        int port = 21;
 	        String user = "admin";
@@ -73,12 +77,13 @@ public class FtpMethodenMDocs {
 					"Desktop"			+File.separator+
 					"Filezilla"			+File.separator+
 					"Download"			+File.separator+
-					mdoctodownload.getmDocTitle()+".txt");
+					mdoctodownload.getmDocTitle()+"."+
+					mdoctodownload.getFileType());
 	 
 	        FTPClient ftpClient = new FTPClient();
 	        try {
 	        	
-	        	System.out.println("Starting Download of the Medicaldocument: "+ mdoctodownload.getmDocTitle());
+	        	System.out.println("Starting Download of the Medicaldocument: "+ mdoctodownload.getmDocTitle()+mdoctodownload.getFileType());
 	        	
 	            ftpClient.connect(server, port);
 	            ftpClient.login(user, pass);
@@ -90,7 +95,7 @@ public class FtpMethodenMDocs {
 	            outputStream1.close();
 	 
 	            if (success) {
-	                System.out.println("The medicaldocument: "+mdoctodownload.getmDocTitle()+" has been downloaded sucessfully.");
+	                System.out.println("The medicaldocument: "+mdoctodownload.getmDocTitle()+mdoctodownload.getFileType()+" has been downloaded sucessfully.");
 	            }
 	        } catch (IOException ex) {
 	            System.out.println("Error: " + ex.getMessage());
@@ -106,8 +111,23 @@ public class FtpMethodenMDocs {
 	            }
 	        }
 	    }
+		public static void showAllFiles(String user, String password) throws IOException {
+			URL url = new URL("ftp://"+user+":"+password+"@127.0.0.1/");
+			InputStream stream = url.openStream();
+	    	BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+	    	String line = reader.readLine();
+	    	while(line!= null){
+	    	System.out.println(line);
+	    	line = reader.readLine();
+	    	}
+	    	System.out.println("Done Reading!");
+			
+
+		}
+			
+		}
 	        
 
-}
+
 
 
