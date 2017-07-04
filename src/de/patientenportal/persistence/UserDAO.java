@@ -3,15 +3,22 @@ package de.patientenportal.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
+
 import de.patientenportal.entities.*;
 
 public class UserDAO {
 	
+	private static List<User> ulist;
+
 	// User abrufen
 	public static User getUser(int user_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -37,31 +44,76 @@ public class UserDAO {
 		public static List<User> getAllUsers(){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 		//	User user = new User();
-			
 			try{
 			session.beginTransaction();		
-			List<User> allUsers  = new ArrayList<User>();
 			
-				for(int i =0; i<5; i++){
-				User useri = UserDAO.getUser(i);
-				allUsers.add(useri);
-				}
-					
-					
-					
+			
+			@SuppressWarnings("deprecation")
+			Criteria criteria = session.createCriteria(User.class);
+			
+			
 			session.getTransaction().commit();
-
-			return allUsers;
+			
+			return criteria.list();
 			
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
 				return null;
 			} finally {
 				session.close();
-			}
-		//	return allUsers;
-		}
+			}		
+}
 	
+
+		@SuppressWarnings("deprecation")
+		public static User getUserByUsername (String username){  
+		
+		    Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		    User user = new User();
+		
+			try{
+			session.beginTransaction();		
+
+			Query query = session.createQuery("from User where username =:username");
+					query.setString("username", username);
+					user = (User) query.uniqueResult();
+	
+			return user;
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return null;
+			} finally {
+				session.close();
+			}
+			
+		}
+		
+		@SuppressWarnings("deprecation")
+		public static User getUserByUsername2 (String username){  
+			
+		    Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		    User user = new User();
+		
+			try{
+			session.beginTransaction();		
+			
+			Criteria criteria =  session.createCriteria(User.class);
+					criteria.add(Restrictions.eq("username", username));
+			
+		
+					user = (User) criteria.uniqueResult();
+	
+			return user;
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return null;
+			} finally {
+				session.close();
+			}
+			
+		}
 	
 	// Userdaten ändern
 	public static String updateUser(User updateduser){

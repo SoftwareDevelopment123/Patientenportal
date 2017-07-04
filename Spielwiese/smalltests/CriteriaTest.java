@@ -1,5 +1,6 @@
 package smalltests;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.patientenportal.entities.User;
@@ -30,21 +31,39 @@ public class CriteriaTest {
 			
 		RegistrationDAO.createUser(neu);
 		
+		User neu2 = new User();
+		
+		neu2.setUsername("Jon");
+		neu2.setPassword("123Jon");
+		neu2.setEmail("stap.staptp@mustermail.com");
+		neu2.setLastname("Stupser");
+		neu2.setFirstname("Staps");
+		neu2.setBirthdate("01.01.1952");
+		neu2.setGender("male");
+		
+		RegistrationDAO.createUser(neu2);
 		
 		String checkme = "NewUser";
 		boolean check =  RegistrationDAO.checkUsername(checkme);
 		System.out.println("User exists: " + check);
 		
 		
+		
 		List<User> ulist = UserDAO.getAllUsers();
 		System.out.println(ulist);
-		int i = 0;
+		
 		for (User u : ulist){
 			System.out.println(u.getUsername());
-			i++;
+			System.out.println(u.getUserId());
+			System.out.println(u.getFirstname());
+			System.out.println(u.getUsername());
+		}
+		
+	//	ulist.stream().forEach(elm -> System.out.println(elm.username));
 	
-	}
-	
-	
+		User u = UserDAO.getUserByUsername2 ("staps12");
+			System.out.println(u.getUsername());
+			System.out.println(u.getUserId());
+			System.out.println(u.getFirstname());
 }
 }
