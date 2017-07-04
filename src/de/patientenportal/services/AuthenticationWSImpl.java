@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import de.patientenportal.persistence.UserDAO;
+
 @WebService(endpointInterface = "de.patientenportal.services.AuthenticationWS")
 public class AuthenticationWSImpl implements AuthenticationWS {
 
@@ -51,50 +53,13 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         //Websession erstellen?
         
         
-        
         //Should validate username and password with database
-        if (username.equals("mkyong123") && password.equals("password")){
+        if (username.equals(UserDAO.getUserByUsername2(username).getUsername()) && password.equals(UserDAO.getUserByUsername2(username).getPassword())){
         	return "Herzlich willkommen! " + username;
         }else{
-        	return "Benutzer oder Passwort nicht vorhanden!";
+        	return "Benutzer nicht vorhanden oder Passwort falsch!"+ username + password;
         }
        
 	}
 }		
 		
-	/*	//LoginUtil utility = new LoginUtil();
-		
-		if (username.equals("")) {
-			return "Name is missing";
-		}
-		
-		if (password.equals("")) {
-			return "Password is missing";
-		}
-		
-	//	String pass = utility.getCombination().get(name);
-		
-		if (password.equals(pass)) {
-			return "Correct credentials";
-		}
-		
-		if (pass == null) {
-			return "User not found. Please register here";
-		}
-		
-		return "Invalid password";
-	}
-}
-
-
-
-//public User authenticateUser(String username, String password) throws Exception{
-	UserDAOImpl udao = new UserDAOImpl();
-	List<User> users = udao.getAll();
-	for (User u : users) {
-		if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
-			return u;
-		}
-	}
-	return null;
-}*/
