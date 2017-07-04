@@ -17,6 +17,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.BasicConfigurator;;
+
 public class FileDemo {
 
 	public static void main(String[] args) throws IOException {
@@ -52,19 +56,33 @@ public class FileDemo {
     	System.out.println("Done Reading!");*/
     	
 		
-		Path lokfile = Paths.get("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt");
+		/*Path lokfile = Paths.get("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt");
+		File file = new File("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt");
     	Path kopie = Paths.get("C:/Users/Jani/Desktop/Filezilla/Kopie.txt");
     	URL url = new URL("ftp://admin:12345@127.0.0.1/Server1/");   
+    	OutputStream outstream = new URLOutputStream(path);
+    	
+    	FileUtils.copyFile(file, outstream);
     	
     	try{
     		Files.copy(lokfile, kopie, StandardCopyOption.REPLACE_EXISTING);
     		System.out.println("Kopie wurde erstellt");
     	} catch(IOException e) {
     		e.printStackTrace();
-    	}
-	
-    		
-    		
+    	}*/
+		
+		//InputStream in = new URL("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt").openStream();
+		/*File file = new File("C:/Users/Jani/Desktop/Filezilla/DasDokument.txt");
+		InputStream targetStream = new FileInputStream(file);
+		OutputStream out = 
+		new URL("ftp://admin:12345@127.0.0.1/Server1/").openConnection().getOutputStream();
+			
+		FileUtils.copyURLToFile(URL, File);
+    		*/
+		BasicConfigurator.configure();
+		URL url = new URL("ftp://admin:12345@127.0.0.1/Server1/");
+		String umgewnadelt = url.toString();
+		String Resp = DownloadFileTest.downloadFile(umgewnadelt);
    	}
     	
 }
