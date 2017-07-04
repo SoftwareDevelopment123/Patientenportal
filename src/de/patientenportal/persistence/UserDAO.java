@@ -3,6 +3,9 @@ package de.patientenportal.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.hibernate.Session;
 import de.patientenportal.entities.*;
 
@@ -38,7 +41,18 @@ public class UserDAO {
 			session.beginTransaction();		
 			List<User> allUsers  = new ArrayList<User>();
 			
-					allUsers = session.createCriteria(User.class).list();
+					allUsers = (List<User>) session.createCriteria(User.class).list();
+					
+		/*			// Create CriteriaBuilder
+					CriteriaBuilder builder = session.getCriteriaBuilder();
+
+					// Create CriteriaQuery
+					allUsers = (List<User>) builder.createQuery(User.class);
+					
+					(allUsers)session.createSQLQuery("SELECT * FROM Products").addEntity(User.class).list();
+					
+					*/
+					
 			session.getTransaction().commit();
 
 			return allUsers;
