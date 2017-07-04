@@ -39,12 +39,12 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         }
         
         //User in Datenbank suchen
-        UserDAO udao = new UserDAO();
+/*        UserDAO udao = new UserDAO();
     	List<User> users = udao.getAll();
     	for (User u : users) {
     		if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
     			return u;
-    		}
+    		}*/
         
         //User und Passwort abgleichen
         
