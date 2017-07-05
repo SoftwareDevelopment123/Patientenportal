@@ -63,9 +63,11 @@ public class FtpMethodenMDocs {
 	        }
 		}
 		
+		//Zum Download von Medicaldocs
 		public static void downloadFile(MedicalDoc mdoctodownload) {
-			//String nameOfFile, File downloadtofile
+			//Hier wird eine ID aus der Datenbank abgerufen um die Datei auf dem Server zu identifizieren
 			String filetodownload = File.separator+mdoctodownload.getMedDocID()+"."+mdoctodownload.getFileType();
+			
 			String server = "127.0.0.1";
 	        int port = 21;
 	        String user = "admin";
@@ -97,6 +99,10 @@ public class FtpMethodenMDocs {
 	            if (success) {
 	                System.out.println("The medicaldocument: "+mdoctodownload.getmDocTitle()+mdoctodownload.getFileType()+" has been downloaded sucessfully.");
 	            }
+	            if (!success){
+	            	System.out.println("The medicaldocument: "+mdoctodownload.getmDocTitle()+mdoctodownload.getFileType()+" has not been found on the server.");
+	            	downloadfileto.delete();
+	            }
 	        } catch (IOException ex) {
 	            System.out.println("Error: " + ex.getMessage());
 	            ex.printStackTrace();
@@ -111,6 +117,7 @@ public class FtpMethodenMDocs {
 	            }
 	        }
 	    }
+				
 		public static void showAllFiles(String user, String password) throws IOException {
 			URL url = new URL("ftp://"+user+":"+password+"@127.0.0.1/");
 			InputStream stream = url.openStream();

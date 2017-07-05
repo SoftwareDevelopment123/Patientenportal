@@ -65,7 +65,7 @@ public class MDocTest {
 			mdoc1.setmDocTitle("armbruch");
 			mdoc1.setPatient(pat);
 			mdoc1.setFile(mdocDatei1);
-			mdoc1.setFileType(".docx");
+			mdoc1.setFileType("docx");
 			
 		MedicalDoc mdoc2 = new MedicalDoc();
 			mdoc2.setmDocTitle("beinbruch");
@@ -73,13 +73,13 @@ public class MDocTest {
 			mdoc2.setmDocDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
 			mdoc2.setPcase(case1);	// wird nicht mit eingefügt, ich weiß noch nicht warum
 			mdoc2.setFile(mdocDatei2);
-			mdoc2.setFileType(".txt");
+			mdoc2.setFileType("txt");
 			
 		MedicalDoc mdoc3 = new MedicalDoc();
 			mdoc3.setmDocTitle("tumor");
 			mdoc3.setPatient(pat);
 			mdoc3.setFile(mdocDatei3);
-			mdoc3.setFileType(".jpg");
+			mdoc3.setFileType("jpg");
 			
 		String feedbackCMD1 = MDocDAO.createMDoc(mdoc1);
 			Assert.assertEquals("success", feedbackCMD1);

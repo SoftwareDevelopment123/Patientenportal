@@ -2,6 +2,8 @@ package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.File;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,9 @@ public class InstructionDoc {
 	public String title;
 	public String description;
 	private String instructionType;
-	
+	private String fileType;
+	private File file;
+
 	public InstructionDoc(){
 	}
 	
@@ -53,6 +57,23 @@ public class InstructionDoc {
 	}
 	public void setInstructionType(String instructionType) {
 		this.instructionType = instructionType;
+	}
+	
+	@Column(name = "FILE_TYPE", length = 10)
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 }

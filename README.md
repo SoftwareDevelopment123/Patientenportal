@@ -104,6 +104,17 @@ WS	-
 - Dokumenten-Test
 - WS angefangen
 
+05.07 Jan
+- Verbindung zu FTTP Server (Filezilla)
+- InDoc und MedicalDoc Entity ergänzt
+- die DAOs entsprechend ergänzt
+- FTP methoden allgmein geschrieben dann extra Klassen gemacht für die Methoden bezüglich der FtpMethoden für InstructionDocs und MDocs
+- Tests zu beiden geschrieben
+- Tests laufen durch (testsuite funktioniert auch noch)
+- Problem mit Download gelöst 
+- durch das Attribut FileType können nur verschiedene Dateien abgespeichert werden
+
+
 ## To-Do
 
 - Dokumente fertig anlegen und mit Case Verknüpfen
