@@ -102,12 +102,11 @@ public class UserDAO {
 			Criteria criteria =  session.createCriteria(User.class);
 					criteria.add(Restrictions.eq("username", username));
 			
-			if(criteria != null)
-			{
+
 					user = (User) criteria.uniqueResult();
 			
-			return user;}
-			return null;
+			return user;
+
 
 			} catch (Exception e) {
 				e.printStackTrace();
