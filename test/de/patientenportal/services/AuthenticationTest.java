@@ -33,19 +33,10 @@ public class AuthenticationTest {
 		
 		RegistrationDAO.createUser(neu);
 		
-		
-		User neu2 = new User();
-		
-		neu2.setUsername("Jon");
-		neu2.setPassword("123Jon");
-		neu2.setEmail("stap.staptp@mustermail.com");
-		neu2.setLastname("Stupser");
-		neu2.setFirstname("Staps");
-		
-		RegistrationDAO.createUser(neu2);
-		
-		System.out.println(UserDAO.getUserByUsername2("staps12").getUsername());
-		System.out.println(UserDAO.getUserByUsername2("staps12").getPassword());
+		if(UserDAO.getUserByUsername2(neu.getUsername())!= null){
+		System.out.println(UserDAO.getUserByUsername2(neu.getUsername()).getUsername());
+		System.out.println(UserDAO.getUserByUsername2(neu.getUsername()).getPassword());
+		}
 		
 		//eigentlicher Test
 		//mit richtigem PW
@@ -68,17 +59,33 @@ public class AuthenticationTest {
         /**********************************************************************/
         
         System.out.println(authWS.authenticateUser());
-       //mit falschem PW
+      
+        //mit falschem PW
         neu.setPassword("falsch");
         
         /*******************UserName & Password ******************************/
         Map<String, Object> req_ctx2 = ((BindingProvider)authWS).getRequestContext();
-        req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
+        req_ctx2.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
 
         Map<String, List<String>> headers2 = new HashMap<String, List<String>>();
         headers2.put("Username", Collections.singletonList(neu.getUsername()));
         headers2.put("Password", Collections.singletonList(neu.getPassword()));
         req_ctx2.put(MessageContext.HTTP_REQUEST_HEADERS, headers2);
+        /**********************************************************************/
+        
+        System.out.println(authWS.authenticateUser());
+        
+        //mit falschem Usernamen
+        neu.setUsername("Unbekannt");
+        
+        /*******************UserName & Password ******************************/
+        Map<String, Object> req_ctx3 = ((BindingProvider)authWS).getRequestContext();
+        req_ctx3.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
+
+        Map<String, List<String>> headers3 = new HashMap<String, List<String>>();
+        headers3.put("Username", Collections.singletonList(neu.getUsername()));
+        headers3.put("Password", Collections.singletonList(neu.getPassword()));
+        req_ctx3.put(MessageContext.HTTP_REQUEST_HEADERS, headers3);
         /**********************************************************************/
         
         System.out.println(authWS.authenticateUser());

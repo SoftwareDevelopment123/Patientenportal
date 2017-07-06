@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
-import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
@@ -40,26 +39,24 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         	password = passList.get(0).toString();
         }
         
-        //User in Datenbank suchen
-/*        UserDAO udao = new UserDAO();
-    	List<User> users = udao.getAll();
-    	for (User u : users) {
-    		if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
-    			return u;
-    		}*/
-        
-        //User und Passwort abgleichen
-        
-        //Websession erstellen?
-        
-        
-        //Should validate username and password with database
-        if (username.equals(UserDAO.getUserByUsername2(username).getUsername()) && password.equals(UserDAO.getUserByUsername2(username).getPassword())){
-        	return "Herzlich willkommen! " + username;
-        }else{
-        	return "Benutzer nicht vorhanden oder Passwort falsch!"+ username + password;
+        //User und Passwort-Überprüfung
+        if(UserDAO.getUserByUsername2(username) != null){
+        	if (username.equals(UserDAO.getUserByUsername2(username).getUsername()) && password.equals(UserDAO.getUserByUsername2(username).getPassword()))
+        	{
+        	return "Herzlich willkommen "+username+"!";
+        	}
+        	else if (username.equals(UserDAO.getUserByUsername2(username).getUsername()))
+        	{
+        	return "Passwort falsch! Bitte überprüfen Sie Ihre Eingaben!";	
+        	}
+        }
+        else 
+        {
+        	return "Benutzer nicht vorhanden! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!"+ username + password;
+        }
+        return "Fehler";
         }
        
-	}
+	
 }		
 		
