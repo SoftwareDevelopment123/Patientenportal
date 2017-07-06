@@ -30,6 +30,7 @@ public class AuthenticationTest {
 		neu.setEmail("stap.staptp@mustermail.com");
 		neu.setLastname("Stupser");
 		neu.setFirstname("Staps1");
+		neu.setGender("male");
 		
 		RegistrationDAO.createUser(neu);
 		

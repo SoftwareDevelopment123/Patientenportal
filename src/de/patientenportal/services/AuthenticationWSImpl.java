@@ -43,7 +43,21 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         if(UserDAO.getUserByUsername2(username) != null){
         	if (username.equals(UserDAO.getUserByUsername2(username).getUsername()) && password.equals(UserDAO.getUserByUsername2(username).getPassword()))
         	{
-        	return "Herzlich willkommen "+username+"!";
+        		if (UserDAO.getUserByUsername2(username).getGender() != null)
+        		{
+        			if (UserDAO.getUserByUsername2(username).getGender().equals("male"))
+    				{
+    				return "Herzlich willkommen Herr "+UserDAO.getUserByUsername2(username).getLastname()+"!";
+    				}
+        			else if (UserDAO.getUserByUsername2(username).getGender().equals("female"))
+        			{
+        			return "Herzlich willkommen Frau "+UserDAO.getUserByUsername2(username).getLastname()+"!";	
+        			}
+        			else
+        			{
+        				return "Herzlich willkommen "+username +"!";	
+        			}
+        		}
         	}
         	else if (username.equals(UserDAO.getUserByUsername2(username).getUsername()))
         	{
