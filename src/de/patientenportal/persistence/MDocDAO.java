@@ -59,6 +59,7 @@ public class MDocDAO {
 			String description =  updatedmedicaldoc.getmDocDescription();
 			Case pcase = updatedmedicaldoc.getPcase();
 			Patient patient = updatedmedicaldoc.getPatient();
+			String filetype = updatedmedicaldoc.getFileType();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
@@ -72,6 +73,7 @@ public class MDocDAO {
 			medicaldoctoupdate.setmDocTitle(title);
 			medicaldoctoupdate.setPcase(pcase);
 			medicaldoctoupdate.setPatient(patient);
+			medicaldoctoupdate.setFileType(filetype);
 			
 			session.getTransaction().commit();
 			} catch (Exception e) {

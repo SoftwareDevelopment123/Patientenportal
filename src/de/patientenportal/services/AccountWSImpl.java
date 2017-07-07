@@ -52,7 +52,7 @@ public class AccountWSImpl implements AccountWS {
 	 * Infos zum Aufbau:
 	 * Die User-Actor, Beziehungen werden beim Erstellen festgelegt und können nicht geändert werden
 	 * Patient-Relative-Beziehungen werden von der Patientenseite aus festgelegt
-	 * 
+	 * Address - und Contact - Infos werden direkt über den User mitgegeben
 	 */
 	
 	@Transactional

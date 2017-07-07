@@ -11,17 +11,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import static javax.persistence.GenerationType.IDENTITY;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Patient", catalog = "patientenportal")
+@XmlRootElement (name="patient")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Patient {
 
 	private int patientID;
 	private String bloodtype;
 	private User user;
-	private List <Relative> relatives;
+	@XmlElementWrapper(name="relatives") @XmlElement(name="relative") private List <Relative> relatives;
 	private Insurance insurance;
 	private List <Case> cases;
 	private List <MedicalDoc> medicalDocs;

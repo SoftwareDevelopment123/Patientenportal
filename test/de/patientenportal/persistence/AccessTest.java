@@ -2,6 +2,8 @@ package de.patientenportal.persistence;
 
 import org.junit.Test;
 import org.junit.Assert;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import de.patientenportal.entities.Case;
@@ -22,6 +24,12 @@ public class AccessTest {
 		Case case4 = new Case("Knochenbruch"	,"Am Arm, Sturz bei schlechtem Wetter");
 		Case case5 = new Case("Erkältung"		,"Was gibts da zu sagen?");
 
+		//Test zum Massen-Anlegen
+		List<Case> d1CompareList = Arrays.asList(case1,case2,case4,case5);
+		List<Case> cCList = new ArrayList<Case>();
+			cCList.addAll(d1CompareList);
+			cCList.add(case3);
+		
 		Doctor D1 = new Doctor("Hausarzt");
 			RegistrationDAO.createDoctor(D1);
 		Doctor D2 = new Doctor("Kardiologe");
@@ -34,21 +42,16 @@ public class AccessTest {
 		Rights r5 = new Rights(case5, D1,null,true,true);
 		Rights r6 = new Rights(case5, D2,null,true,false);
 		
-		List<Case> d1CompareList = Arrays.asList(case1,case2,case4,case5);
+		List <Rights> cRList = Arrays.asList(r1,r2,r3,r4,r5,r6);
+
+		for (Case c : cCList){
+			CaseDAO.createCase(c);
+		}
 		
-		CaseDAO.createCase(case1);
-		CaseDAO.createCase(case2);
-		CaseDAO.createCase(case3);
-		CaseDAO.createCase(case4);
-		CaseDAO.createCase(case5);
-		
-		RightsDAO.createRight(r1);
-		RightsDAO.createRight(r2);
-		RightsDAO.createRight(r3);
-		RightsDAO.createRight(r4);
-		RightsDAO.createRight(r5);
-		RightsDAO.createRight(r6);
-		
+		for (Rights r : cRList){
+			RightsDAO.createRight(r);
+		}
+				
 		// Einsehbare Fälle zum Doktor abrufen
 		List <Case> d1cases = RightsDAO.getDocRCases(D1.getDoctorID());
 			

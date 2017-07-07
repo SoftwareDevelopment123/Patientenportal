@@ -19,6 +19,7 @@ public class MedicalDoc {
 	private int medDocID;
 	private String mDocTitle;
 	private String mDocDescription;
+	private String fileType;
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;
@@ -62,9 +63,11 @@ public class MedicalDoc {
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}
+	
 	public File getFile() {
 		return file;
 	}
+	
 	public void setFile(File file) {
 		this.file = file;
 	}
@@ -85,5 +88,13 @@ public class MedicalDoc {
 		this.mDocDescription = mDocDescription;
 	}
 	
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
 	
 }

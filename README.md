@@ -13,7 +13,7 @@ WS	-
 
 Fertig:
 DAO	-	
-WS	- RegistrationWS, AccountWS, PatientWS, 
+WS	- RegistrationWS (getestet), AccountWS, PatientWS, RelativeWS, DoctorWS, OfficeWS, AddressWS, ContactWS (alle noch nicht getestet)
 
 in Arbeit:
 DAO	-	InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
@@ -104,8 +104,26 @@ WS	-
 - Dokumenten-Test
 - WS angefangen
 
-## To-Do
+05.07 Jan
+- Verbindung zu FTTP Server (Filezilla)
+- InDoc und MedicalDoc Entity ergänzt
+- die DAOs entsprechend ergänzt
+- FTP methoden allgmein geschrieben dann extra Klassen gemacht für die Methoden bezüglich der FtpMethoden für InstructionDocs und MDocs
+- Tests zu beiden geschrieben
+- Tests laufen durch (testsuite funktioniert auch noch)
+- Problem mit Download gelöst 
+- durch das Attribut FileType können nur verschiedene Dateien abgespeichert werden
 
+06.07 Jascha
+ -AuthenticationWS läuft - jedoch immer erst richtig nach dem 2. Mal - kp. warum
+ hierfür wurde u.a. UserDao und hibernate.cfg angepasst
+ -Libary Ordner entfernt --> werden nur noch über Maven gemanaged!
+ -alles erfolgreich gemerged
+
+
+## To-Do
+- Enum für Gender einfügen
+- Websession anpassen
 - Dokumente fertig anlegen und mit Case Verknüpfen
 	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
 	- Spalten aus der Superklasse werden (noch) nicht in die Datenbank übernommen, da müssen wir noch was machen
@@ -117,7 +135,12 @@ WS	-
 
 - Funktion: Einfügen von Dokumenten in die DB prüfen
 
+- Timestamp bei den Dokumenten/VitalData und Datumsformat bei Birthdate
+
 - WS-Logik!!!
+	- Listen werden nicht von JAXB verstanden
+	- Lösung 1: @SOAPBinding(style = Style.RPC) zu Style.Document ändern, dann müssen wir aber auch ein entsprechendes Doc erstellen
+	- Lösung 2: @SOAPBinding auskommentieren und die @Xml... mappings benutzen --> das wirds wahrscheinlich, muss ich noch testen
 
 ## Anmerkungen
 - Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)

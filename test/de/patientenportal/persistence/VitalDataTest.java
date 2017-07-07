@@ -93,10 +93,10 @@ public class VitalDataTest {
 		}
 	
 	//Vitaldaten Löschen
-	String responseD = VitalDataDAO.deleteVitalData(1);
+	String responseD = VitalDataDAO.deleteVitalData(vitaldata1.getVitalDataID());
 		Assert.assertEquals("success", responseD);
 		
-	VitalData deletedvitaldata = VitalDataDAO.getVitalData(1);
+	VitalData deletedvitaldata = VitalDataDAO.getVitalData(vitaldata1.getVitalDataID());
 		Assert.assertNull(deletedvitaldata);	
 	}
 }

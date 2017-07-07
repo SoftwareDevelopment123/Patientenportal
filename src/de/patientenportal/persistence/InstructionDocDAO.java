@@ -54,6 +54,7 @@ public class InstructionDocDAO {
 				String instructionType = updatedinstructiondoc.getInstructionType();
 				String title =  updatedinstructiondoc.getTitle();
 				String description =  updatedinstructiondoc.getDescription();
+				String filetype = updatedinstructiondoc.getFileType();
 				
 				
 				Session session = HibernateUtil.getSessionFactory().openSession();
@@ -66,6 +67,7 @@ public class InstructionDocDAO {
 					instructiondoctoupdate.setInstructionType(instructionType);
 					instructiondoctoupdate.setTitle(title);
 					instructiondoctoupdate.setDescription(description);
+					instructiondoctoupdate.setFileType(filetype);
 
 				session.getTransaction().commit();
 				} catch (Exception e) {

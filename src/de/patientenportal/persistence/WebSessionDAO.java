@@ -6,6 +6,7 @@ import de.patientenportal.entities.WebSession;
 
 public class WebSessionDAO  {
 	
+//quick and dirty... muss noch überarbeitet werden
 	
 	public static WebSession createWebSession(WebSession entity) {
 		WebSession ws = new WebSession();
