@@ -20,7 +20,7 @@
   <property name="format_sql">true</property>
   
   <!-- Auto-Tabelle ggf. wieder mit reinnehmen - sobald z.b. neue Entities hinzukommen  -->
-   
+   <!--   <property name="hbm2ddl.auto">create</property>-->
    
   <!-- Auflistung der gemappten Klassen -->
   <mapping class="de.patientenportal.entities.User"/>

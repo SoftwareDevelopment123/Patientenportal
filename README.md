@@ -1,5 +1,9 @@
 # Patientenportal
 
+**Automatische Tabellen-Generierung für Hibernate ist in der Konfig momentan deaktiviert!**  
+  --> einfach wieder bei Bedarf einkommentieren!
+
+
 Nicht im Development-Branch arbeiten!
 
 - Wenn ihr mit Programmieren startet, checked euren Branch und merged dann von "Development"
@@ -115,10 +119,13 @@ WS	-
 - durch das Attribut FileType können nur verschiedene Dateien abgespeichert werden
 
 06.07 Jascha
- -AuthenticationWS läuft - jedoch immer erst richtig nach dem 2. Mal - kp. warum
+- AuthenticationWS läuft - jedoch immer erst richtig nach dem 2. Mal - kp. warum
  hierfür wurde u.a. UserDao und hibernate.cfg angepasst
- -Libary Ordner entfernt --> werden nur noch über Maven gemanaged!
- -alles erfolgreich gemerged
+- Libary Ordner entfernt --> werden nur noch über Maven gemanaged!
+- alles erfolgreich gemerged
+
+07.07. Jascha
+* Alles erfolgreich gemerged, Gender-Enum eingefügt und alles entsprechend angepasst
 
 
 ## To-Do

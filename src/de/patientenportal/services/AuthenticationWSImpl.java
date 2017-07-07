@@ -10,7 +10,14 @@ import javax.xml.ws.handler.MessageContext;
 
 import de.patientenportal.entities.Gender;
 import de.patientenportal.persistence.UserDAO;
-
+/**
+ * Autentifizierungsservice: Überprüft die über den HTTP übergebenen Usernamen und Passwort
+ * und gleicht diese mit den Datenbankeinträgen ab. Bei erfolgreichem Login wird eine Websession 
+ * mit Token erstellt. 
+ *@param Username (über HTTP-Header)
+ *@param Password (über HTTP-Header)
+ *@return Begrüßung/ Information als <code>String</code>  und Token
+ */
 @WebService(endpointInterface = "de.patientenportal.services.AuthenticationWS")
 public class AuthenticationWSImpl implements AuthenticationWS {
 
