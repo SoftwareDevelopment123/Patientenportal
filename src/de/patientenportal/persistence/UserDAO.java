@@ -103,7 +103,7 @@ public class UserDAO {
 			String lastname = 	updateduser.getLastname();
 			String firstname = 	updateduser.getFirstname();
 			String birthdate = 	updateduser.getBirthdate();
-			String gender = 	updateduser.getGender();
+			Gender gender = 	updateduser.getGender();
 
 			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();

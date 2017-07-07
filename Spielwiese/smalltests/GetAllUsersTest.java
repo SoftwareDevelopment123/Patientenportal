@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import de.patientenportal.entities.Address;
 import de.patientenportal.entities.Contact;
+import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
@@ -27,7 +28,7 @@ public class GetAllUsersTest {
 					neu.setLastname("Stupser");
 					neu.setFirstname("Staps");
 					neu.setBirthdate("01.01.1992");
-					neu.setGender("male");
+					neu.setGender(Gender.MALE);
 					
 					RegistrationDAO.createUser(neu);
 					
@@ -39,7 +40,7 @@ public class GetAllUsersTest {
 					neu2.setLastname("Stupser");
 					neu2.setFirstname("Staps");
 					neu2.setBirthdate("01.01.1952");
-					neu2.setGender("male");
+					neu2.setGender(Gender.MALE);
 					
 					RegistrationDAO.createUser(neu2);
 					

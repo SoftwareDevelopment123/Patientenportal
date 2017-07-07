@@ -27,7 +27,7 @@ public class DBCreator {
 				user.setFirstname("firstname" + i);
 				user.setEmail("mail.address" + i + "@mailprovider.com");
 				user.setBirthdate(i + ".1.2001");
-				user.setGender("gender " + i);
+				user.setGender(Gender.MALE);
 				
 			Address address = new Address();
 				address.setCity("City " + i);

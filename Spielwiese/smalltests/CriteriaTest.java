@@ -3,6 +3,7 @@ package smalltests;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
@@ -39,7 +40,7 @@ public class CriteriaTest {
 		neu2.setLastname("Stupser");
 		neu2.setFirstname("Staps");
 		neu2.setBirthdate("01.01.1952");
-		neu2.setGender("male");
+		neu2.setGender(Gender.MALE);
 		
 		RegistrationDAO.createUser(neu2);
 		

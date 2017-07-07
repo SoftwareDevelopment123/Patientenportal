@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import de.patientenportal.entities.Gender;
 import de.patientenportal.persistence.UserDAO;
 
 @WebService(endpointInterface = "de.patientenportal.services.AuthenticationWS")
@@ -45,11 +46,11 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         	{
         		if (UserDAO.getUserByUsername(username).getGender() != null)
         		{
-        			if (UserDAO.getUserByUsername(username).getGender().equals("male"))
+        			if (UserDAO.getUserByUsername(username).getGender().equals(Gender.MALE))
     				{
     				return "Herzlich willkommen Herr "+UserDAO.getUserByUsername(username).getLastname()+"!";
     				}
-        			else if (UserDAO.getUserByUsername(username).getGender().equals("female"))
+        			else if (UserDAO.getUserByUsername(username).getGender().equals(Gender.FEMALE))
         			{
         			return "Herzlich willkommen Frau "+UserDAO.getUserByUsername(username).getLastname()+"!";	
         			}

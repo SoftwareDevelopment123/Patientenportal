@@ -11,6 +11,7 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import javax.xml.ws.handler.MessageContext;
 
+import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
@@ -30,7 +31,7 @@ public class AuthenticationTest {
 		neu.setEmail("stap.staptp@mustermail.com");
 		neu.setLastname("Stupser");
 		neu.setFirstname("Staps1");
-		neu.setGender("male");
+		neu.setGender(Gender.MALE);
 		
 		RegistrationDAO.createUser(neu);
 		

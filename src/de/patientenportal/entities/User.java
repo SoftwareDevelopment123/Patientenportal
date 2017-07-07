@@ -2,6 +2,8 @@ package de.patientenportal.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,7 +31,7 @@ public class User {
 	private String lastname;
 	private String firstname;
 	private String birthdate;
-	private String gender;	
+	private Gender gender;	
 	private	Doctor doctor;
 	private	Patient patient;
 	private	Relative relative;
@@ -111,13 +113,14 @@ public class User {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name = "GENDER", length = 10)
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 	

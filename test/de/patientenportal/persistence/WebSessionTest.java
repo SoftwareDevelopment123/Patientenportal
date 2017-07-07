@@ -2,6 +2,7 @@ package de.patientenportal.persistence;
 
 import org.junit.Test;
 
+import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
 
@@ -21,7 +22,7 @@ public class WebSessionTest {
 		neu.setLastname("Stupser");
 		neu.setFirstname("Staps");
 		neu.setBirthdate("01.01.1992");
-		neu.setGender("male");
+		neu.setGender(Gender.MALE);
 		
 		// User in der Datenbank speichern
 				RegistrationDAO.createUser(neu);
