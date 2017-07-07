@@ -42,5 +42,12 @@ public class WSPublisher {
 			System.exit(0);
 		}*/
 
+		Endpoint.publish(URI + "/authentication", new AuthenticationWSImpl());
+		System.out.println(" Authentication-WebService : 			/authentication?wsdl");
+		/*
+		 * 
+		 * usw. für alle WS
+		 * 
+		 */
 	}
 }

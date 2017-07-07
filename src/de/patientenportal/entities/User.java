@@ -8,8 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
+
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
@@ -17,7 +22,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User {
 
 	private int userID;
-	public static String username;
+	private String username;
+	//public static String username;
 	private String password;
 	private String email;
 	private String lastname;
@@ -29,7 +35,8 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-
+	private WebSession webSession;
+	
 	public User() {
 	}
 	
@@ -159,4 +166,14 @@ public class User {
 		this.contact = contact;
 	}
 
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	public WebSession getWebSession() {
+		return webSession;
+	}
+
+	public void setWebSession(WebSession webSession) {
+		this.webSession = webSession;
+	}
+
+	
 }

@@ -2,14 +2,15 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory>
+
+<session-factory>
  
   <!-- Datenbank Connection Einstellungen -->
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/patientenportal</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-  
+
    <property name="hibernate.connection.isolation">2</property>
   <property name="hibernate.current_session_context_class">thread</property>
   <property name="hibernate.search.autoregister_listeners">false</property>
@@ -17,11 +18,8 @@
   <!--Zusaetzliche Hibernate-Properties -->
   <property name="show_sql">false</property>
   <property name="format_sql">true</property>
-  
   <!-- Auto-Tabelle -->
-
-  <property name="hbm2ddl.auto">create</property>
-
+    <property name="hbm2ddl.auto">create</property>
   <!-- Auflistung der gemappten Klassen -->
   <mapping class="de.patientenportal.entities.User"/>
   <mapping class="de.patientenportal.entities.Doctor"/>
@@ -38,7 +36,6 @@
   <mapping class="de.patientenportal.entities.InstructionDoc"/>
   <mapping class="de.patientenportal.entities.Medication"/>
   <mapping class="de.patientenportal.entities.Medicine"/>
-  
-
+  <mapping class="de.patientenportal.entities.WebSession"/>
  </session-factory>
 </hibernate-configuration>
