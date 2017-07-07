@@ -34,9 +34,9 @@ public class AuthenticationTest {
 		
 		RegistrationDAO.createUser(neu);
 		
-		if(UserDAO.getUserByUsername2(neu.getUsername())!= null){
-		System.out.println(UserDAO.getUserByUsername2(neu.getUsername()).getUsername());
-		System.out.println(UserDAO.getUserByUsername2(neu.getUsername()).getPassword());
+		if(UserDAO.getUserByUsername(neu.getUsername())!= null){
+		System.out.println(UserDAO.getUserByUsername(neu.getUsername()).getUsername());
+		System.out.println(UserDAO.getUserByUsername(neu.getUsername()).getPassword());
 		}
 		
 		//eigentlicher Test

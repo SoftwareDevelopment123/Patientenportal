@@ -114,9 +114,16 @@ WS	-
 - Problem mit Download gelöst 
 - durch das Attribut FileType können nur verschiedene Dateien abgespeichert werden
 
+06.07 Jascha
+ -AuthenticationWS läuft - jedoch immer erst richtig nach dem 2. Mal - kp. warum
+ hierfür wurde u.a. UserDao und hibernate.cfg angepasst
+ -Libary Ordner entfernt --> werden nur noch über Maven gemanaged!
+ -alles erfolgreich gemerged
+
 
 ## To-Do
-
+- Enum für Gender einfügen
+- Websession anpassen
 - Dokumente fertig anlegen und mit Case Verknüpfen
 	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
 	- Spalten aus der Superklasse werden (noch) nicht in die Datenbank übernommen, da müssen wir noch was machen

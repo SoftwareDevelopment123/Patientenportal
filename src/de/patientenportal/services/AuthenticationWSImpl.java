@@ -40,18 +40,18 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         }
         
         //User und Passwort-Überprüfung
-        if(UserDAO.getUserByUsername2(username) != null){
-        	if (username.equals(UserDAO.getUserByUsername2(username).getUsername()) && password.equals(UserDAO.getUserByUsername2(username).getPassword()))
+        if(UserDAO.getUserByUsername(username) != null){
+        	if (username.equals(UserDAO.getUserByUsername(username).getUsername()) && password.equals(UserDAO.getUserByUsername(username).getPassword()))
         	{
-        		if (UserDAO.getUserByUsername2(username).getGender() != null)
+        		if (UserDAO.getUserByUsername(username).getGender() != null)
         		{
-        			if (UserDAO.getUserByUsername2(username).getGender().equals("male"))
+        			if (UserDAO.getUserByUsername(username).getGender().equals("male"))
     				{
-    				return "Herzlich willkommen Herr "+UserDAO.getUserByUsername2(username).getLastname()+"!";
+    				return "Herzlich willkommen Herr "+UserDAO.getUserByUsername(username).getLastname()+"!";
     				}
-        			else if (UserDAO.getUserByUsername2(username).getGender().equals("female"))
+        			else if (UserDAO.getUserByUsername(username).getGender().equals("female"))
         			{
-        			return "Herzlich willkommen Frau "+UserDAO.getUserByUsername2(username).getLastname()+"!";	
+        			return "Herzlich willkommen Frau "+UserDAO.getUserByUsername(username).getLastname()+"!";	
         			}
         			else
         			{
@@ -59,7 +59,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         			}
         		}
         	}
-        	else if (username.equals(UserDAO.getUserByUsername2(username).getUsername()))
+        	else if (username.equals(UserDAO.getUserByUsername(username).getUsername()))
         	{
         	return "Passwort falsch! Bitte überprüfen Sie Ihre Eingaben!";	
         	}

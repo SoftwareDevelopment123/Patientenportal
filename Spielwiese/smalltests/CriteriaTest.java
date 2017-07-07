@@ -61,7 +61,7 @@ public class CriteriaTest {
 		
 	//	ulist.stream().forEach(elm -> System.out.println(elm.username));
 	
-		User u = UserDAO.getUserByUsername2 ("staps12");
+		User u = UserDAO.getUserByUsername ("staps12");
 			System.out.println(u.getUsername());
 			System.out.println(u.getUserId());
 			System.out.println(u.getFirstname());

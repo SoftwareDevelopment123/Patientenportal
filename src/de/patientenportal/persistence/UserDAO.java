@@ -63,34 +63,9 @@ public class UserDAO {
 				session.close();
 			}		
 }
-	
-
+		
 		@SuppressWarnings("deprecation")
 		public static User getUserByUsername (String username){  
-		
-		    Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		    User user = new User();
-		
-			try{
-			session.beginTransaction();		
-
-			Query query = session.createQuery("from User where username =:username");
-					query.setString("username", username);
-					user = (User) query.uniqueResult();
-	
-			return user;
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return null;
-			} finally {
-				session.close();
-			}
-			
-		}
-		
-		@SuppressWarnings("deprecation")
-		public static User getUserByUsername2 (String username){  
 			
 		    Session session = HibernateUtil.getSessionFactory().openSession();
 		
