@@ -10,6 +10,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import de.patientenportal.entities.Gender;
 import de.patientenportal.persistence.UserDAO;
+
 /**
  * Autentifizierungsservice: Überprüft die über den HTTP übergebenen Usernamen und Passwort
  * und gleicht diese mit den Datenbankeinträgen ab. Bei erfolgreichem Login wird eine Websession 
@@ -71,42 +72,14 @@ public class AuthenticationWSImpl implements AuthenticationWS {
         	{
         	return "Passwort falsch! Bitte überprüfen Sie Ihre Eingaben!";	
         	}
-       
+        }
+        else 
+        {
         	return "Benutzer nicht vorhanden! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!"+ username + password;
         }
         return "Fehler";
         }
        
-	/*public boolean authenticateToken(String token){
-		WebSessionDAOImpl wsdi = new WebSessionDAOImpl();
-		List<WebSession> sessions = wsdi.findByCriteria(Restrictions.eq("token", token));
-		if (sessions.size() != 1) return false;
-		sessionService.updateToken(sessions.get(0));
-		return true;
-	}
-	
-	public User getUserByToken(String token) {
-		WebSessionDAOImpl wsdi = new WebSessionDAOImpl();
-		List<WebSession> sessions = wsdi.findByCriteria(Restrictions.eq("token", token));
-		if (sessions.size() != 1) throw new DataNotFoundException("No user found for token " + token);
-		return sessions.get(0).getUser();
-	}
-	
-	public Response logout(String token){
-		WebSessionDAOImpl wsdi = new WebSessionDAOImpl();
-		List<WebSession> sessions = wsdi.getAll();
-		for (WebSession ws : sessions) {
-			if (ws.getToken().equals(token)){
-				wsdi.deleteEntity(ws);
-				return Response.status(Status.OK)
-						.entity("User logged out sucesfully")
-						.build();
-			}
-		}
-		throw new DataNotFoundException("No session found for token token " + token);
-		
-	}*/
-	
 	
 }		
 		
