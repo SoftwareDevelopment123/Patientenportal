@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.0" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="de.patientenportal.services.AuthenticationTest" project="Patientenportal" 
+    file="/Patientenportal/test/de/patientenportal/services/AuthenticationTest.java" binary="false" 
+    label="authenticationTest" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="207" y="0"/>    
+    <execution id="2">      
+      <position height="235" width="129" x="5" y="151"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="21" width="7" x="66" y="323"/>    
+    </execution>  
+  </object>  
+  <object id="6" language="java" name="de.patientenportal.services.AuthenticationWS" project="Patientenportal" 
+    file="/Patientenportal/src/de/patientenportal/services/AuthenticationWS.java" binary="false" 
+    label="authenticationWS" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="274" y="0"/>    
+    <execution id="4">      
+      <position height="193" width="125" x="138" y="172"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="21" width="7" x="197" y="235"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="21" width="7" x="197" y="294"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="de.patientenportal.persistence.UserDAO" project="Patientenportal" 
+    file="/Patientenportal/src/de/patientenportal/persistence/UserDAO.java" binary="false" label="userDAO" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="507" y="0"/>    
+    <execution id="8">      
+      <position height="63" width="132" x="420" y="214"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="de.patientenportal.persistence.WebSessionDAO" project="Patientenportal" 
+    file="/Patientenportal/src/de/patientenportal/persistence/WebSessionDAO.java" binary="false" label="webSessionDAO" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="547" y="0"/>    
+    <execution id="10">      
+      <position height="63" width="132" x="403" y="273"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="authenticateUser():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" operation="getAllUsers():java.util.List&lt;User&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" 
+    operation="createWebSession(de.patientenportal.entities.WebSession):de.patientenportal.entities.WebSession" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="15" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="17" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>
+</sequence-diagram>
