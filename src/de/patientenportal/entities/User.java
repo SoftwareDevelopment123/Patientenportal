@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -170,6 +171,7 @@ public class User {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	//@JoinColumn(name="WebSessionID")
 	public WebSession getWebSession() {
 		return webSession;
 	}

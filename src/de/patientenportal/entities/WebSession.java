@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-//@PrimaryKeyJoinColumn //(name="baseclass_id")
+//@PrimaryKeyJoinColumn(name="baseclass_id")
 @Table(name = "Websession", catalog = "patientenportal")
 public class WebSession  {
 
@@ -39,6 +39,16 @@ public class WebSession  {
 	@Column
 	private String token;
 	
+	@Column(name="validtill", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date validtill;
+	
+	@OneToOne//(mappedBy="webSession")
+	private User user;
+	
+	public WebSession() {	
+	}
+	
 	public int getWebSessionID() {
 		return webSessionID;
 	}
@@ -47,37 +57,24 @@ public class WebSession  {
 		this.webSessionID = webSessionID;
 	}
 
-	@OneToOne
-	private User user;
-	
-	@Column(name="validtill", columnDefinition="DATETIME")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date validtill;
-	
 	public String getToken() {
 		return token;
 	}
-
 	public void setToken(String token) {
 		this.token = token;
 	}
 	
-	public WebSession() {
-		
-	}
-
-	public User getUser() {
-		return this.user;
+	public User getUser(){
+		return user;
 	}
 	
-	public void setUser(User user) {
+	public void setUser(User user){
 		this.user = user;
 	}
-	
+
 	public Date getValidTill() {
 		return validtill;
 	}
-	
 	public void setValidTill(Date validtill) {
 		this.validtill = validtill;
 	}

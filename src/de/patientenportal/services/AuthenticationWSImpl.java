@@ -57,29 +57,38 @@ public class AuthenticationWSImpl implements AuthenticationWS {
     	password = passList.get(0).toString();
     }
     //User und Passwort-Überprüfung
-    return checkUsernamePassword(username, password);
-    
+    if (checkUsernamePassword(username, password) == true){
+    	createSessionToken(UserDAO.getUserByUsername(username));
+    	return getGreeting(username);
+    	
+    }
+    return "Benutzer nicht vorhanden oder Passwort falsch! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!";
   }
-    
+  
+  @Override
+  public String getSessionToken(String username){
+	  if(UserDAO.getUserByUsername(username) != null){
+		if(UserDAO.getUserByUsername(username).getWebSession()!= null){
+		  return  UserDAO.getUserByUsername(username).getWebSession().getToken();
+		}
+	  }
+	  return "Fehler";
+  }
+  
+  
+  /**
+   * Token-Überprüfung. Abgelaufene Token werden zunächst gelöscht,
+   * anschließend werden die vom Client übergebenen Token mit der Datenbank abgeglichen.
+   * Ist der Token noch vorhanden, so wird die zugehörige Websession verlängert und True zurückgegeben.
+   *@param
+   *@return Boolean
+   */
   @Transactional
-  public boolean authenticateToken(){
-	  MessageContext mctx = wsctx.getMessageContext();
-		
-		//get detail from request headers
-	    Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
-	    List tokenList = (List) http_headers.get("Token");
-
-	    String token = "";
-	    
-	    if(tokenList!=null){
-	    	//get username
-	    	token = tokenList.get(0).toString();
-	    }	
-	  
-	  
-	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+  public boolean authenticateToken(String token){	
+	  deleteInvalidTokens();
+	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
 	if (sessions.size() != 1) return false;
-	updateToken(sessions.get(0));
+	extendWebSession(sessions.get(0));
 	return true;
   }
   
@@ -101,47 +110,36 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   
   
   
-  
-  
   //Alle benötigten Methoden:  
   
   //Gleicht Username und Passwort mit der Datenbank ab und erstellt bei Übereinstimmung
   //einen Token. Dieser wird mit zurückgegeben --> anpassen!
-  private String checkUsernamePassword(String username, String password){
-    
+  
+  private boolean checkUsernamePassword(String username, String password){
     if(UserDAO.getUserByUsername(username) != null){
     	if (username.equals(UserDAO.getUserByUsername(username).getUsername()) && password.equals(UserDAO.getUserByUsername(username).getPassword()))
     	{
-    		if (UserDAO.getUserByUsername(username).getGender() != null)
-    		{
-    			if (UserDAO.getUserByUsername(username).getGender().equals(Gender.MALE))
-				{
-    			User user = UserDAO.getUserByUsername(username);
-    			String token = createSessionToken(user);
-				return "Herzlich willkommen Herr "+user.getLastname()+"! Token:" + token;
-				}
-    			else if (UserDAO.getUserByUsername(username).getGender().equals(Gender.FEMALE))
-    			{
-    			return "Herzlich willkommen Frau "+UserDAO.getUserByUsername(username).getLastname()+"!";	
-    			}
-    			else
-    			{
-    			return "Herzlich willkommen "+username +"!";	
-    			}
-    		}
-    	}
-    	else if (username.equals(UserDAO.getUserByUsername(username).getUsername()))
-    	{
-    	return "Passwort falsch! Bitte überprüfen Sie Ihre Eingaben!";	
+    	return true;
     	}
     }
-    else 
-    {
-    	return "Benutzer nicht vorhanden! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!"+ username + password;
-    }
-    return "Fehler";
-    }
+    return false;
+  }
+    
   
+  private String getGreeting(String username){
+	  if (UserDAO.getUserByUsername(username).getGender() != null)
+		{
+			if (UserDAO.getUserByUsername(username).getGender().equals(Gender.MALE))
+			{
+			return "Herzlich willkommen Herr "+UserDAO.getUserByUsername(username).getLastname()+"!";
+			}
+			else if (UserDAO.getUserByUsername(username).getGender().equals(Gender.FEMALE))
+			{
+			return "Herzlich willkommen Frau "+UserDAO.getUserByUsername(username).getLastname()+"!";	
+			}
+		}
+		return "Herzlich willkommen "+username +"!";	
+  }
   
   
   //SessionService: --> alle Methoden für die Verwaltung der Sessions:
@@ -151,7 +149,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
    * @param
    * @return Token
    */
-  public String createSessionToken(User user){
+  private String createSessionToken(User user){
 	WebSession wss = new WebSession();
 	wss.setUser(user);
 	wss.setToken(getNewToken());
@@ -163,13 +161,13 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   }
   
   //Erstellt einen zufällig generierten Token
-  public String getNewToken() {
+  private String getNewToken() {
 		Random random = new SecureRandom();
 		return new BigInteger(130, random).toString(32);
   }
   
   //Löscht abgelaufene Token
-  public static void deleteInvalidTokens() {
+  private void deleteInvalidTokens() {
 	List<WebSession> invalidSessions = WebSessionDAO.findByCriteria(Restrictions.or(
 			Restrictions.isNull("validtill"),
 			Restrictions.le("validtill", Calendar.getInstance().getTime())));
@@ -179,13 +177,12 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   }
   
   //Verlängert die Session um weitere 15 min
-  public void updateToken(WebSession ws) {
+  private void extendWebSession(WebSession ws) {
 	Calendar c = Calendar.getInstance();
 	c.add(Calendar.MINUTE, 15);
 	ws.setValidTill(c.getTime());
 	WebSessionDAO.updateWS(ws);
-  }
-  
+  } 
 }
        
 	

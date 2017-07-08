@@ -1,4 +1,4 @@
-package de.patientenportal.services;
+/*package de.patientenportal.services;
 
 import java.net.URL;
 import java.util.Collections;
@@ -16,13 +16,7 @@ public class TokenTest {
 private static final String WS_URL = "http://localhost:8080/authentication?wsdl";
 	
 	public static void main(String[] args) throws Exception {
-	   
-		//Vor Test:
-		
-		
-		//eigentlicher Test
-		//mit richtigem PW
-		
+
 		
 		URL url = new URL(WS_URL);
         QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
@@ -30,7 +24,7 @@ private static final String WS_URL = "http://localhost:8080/authentication?wsdl"
         Service service = Service.create(url, qname);
         AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
         
-        /*******************Wrong UserName & Password ******************************/
+        *//*******************Wrong UserName & Password ******************************//*
         Map<String, Object> req_ctx = ((BindingProvider)authWS).getRequestContext();
         req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
 
@@ -38,10 +32,11 @@ private static final String WS_URL = "http://localhost:8080/authentication?wsdl"
         headers.put("Token", Collections.singletonList("hm01teanb0c02qs9chd3rbu7op"));
  
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
-        /**********************************************************************/
+        *//**********************************************************************//*
         
         System.out.println(authWS.authenticateToken());
       
 
     }
 }
+*/
