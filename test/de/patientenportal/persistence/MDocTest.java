@@ -19,7 +19,7 @@ public class MDocTest {
 	 * Das hier kann alles in den DocumentsTest, zusammen mit allen Dokumenten-Funktionen (sobalt das klappt)
 	 * 
 	 */
-	
+	//Audführliche KOmmentar in InDocTest
 	@Test
 	public void main() throws IOException{
 		
