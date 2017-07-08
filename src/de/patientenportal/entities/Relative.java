@@ -22,6 +22,11 @@ import java.util.List;
 //@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 //@XmlDiscriminatorValue("RELATIVE")
 
+/*
+ * Readme
+ * https://stackoverflow.com/questions/22509921/jax-ws-hibernate-jaxb-how-to-avoid-lazyinitializationexception-during-marsh
+ * 
+ */
 public class Relative {
 	
 	private int relativeID;
