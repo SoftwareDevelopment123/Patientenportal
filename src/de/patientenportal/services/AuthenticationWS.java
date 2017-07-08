@@ -16,4 +16,6 @@ public interface AuthenticationWS {
 
 	@WebMethod String getSessionToken(String username);
 	
+	@WebMethod public String logout(String token);
+	
 }

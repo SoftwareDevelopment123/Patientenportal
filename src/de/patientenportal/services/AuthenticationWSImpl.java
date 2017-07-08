@@ -58,7 +58,9 @@ public class AuthenticationWSImpl implements AuthenticationWS {
     }
     //User und Passwort-Überprüfung
     if (checkUsernamePassword(username, password) == true){
+    	if(UserDAO.getUserByUsername(username).getWebSession()== null){
     	createSessionToken(UserDAO.getUserByUsername(username));
+    	}
     	return getGreeting(username);
     	
     }
