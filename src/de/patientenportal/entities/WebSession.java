@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -32,8 +34,7 @@ import javax.persistence.TemporalType;
 public class WebSession  {
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "webSessionID", unique = true, nullable = false)
+	@Column(name = "webSessionID")
 	private int webSessionID;
 	
 	@Column
@@ -43,7 +44,9 @@ public class WebSession  {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date validtill;
 	
+	@MapsId
 	@OneToOne(mappedBy="webSession")
+	@JoinColumn(name= "webSessionID")
 	private User user;
 	
 	public WebSession() {	

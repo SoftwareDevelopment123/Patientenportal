@@ -68,7 +68,8 @@ public class AuthenticationTest {
         System.out.println(authWS.authenticateUser());
         System.out.println(authWS.getSessionToken(username));
         System.out.println(authWS.authenticateToken(authWS.getSessionToken(username)));
-        
+        Assert.assertEquals(true, authWS.authenticateToken(authWS.getSessionToken(username)));
+       
         //mit falschem PW
         password = "falsch";
         
