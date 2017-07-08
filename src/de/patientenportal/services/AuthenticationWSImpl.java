@@ -77,7 +77,6 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	  return "Fehler";
   }
   
-  
   /**
    * Token-Überprüfung. Abgelaufene Token werden zunächst gelöscht,
    * anschließend werden die vom Client übergebenen Token mit der Datenbank abgeglichen.
