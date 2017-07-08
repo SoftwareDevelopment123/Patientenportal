@@ -8,7 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -38,6 +40,8 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
+	
+	
 	private WebSession webSession;
 	
 	public User() {
@@ -170,8 +174,13 @@ public class User {
 		this.contact = contact;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	
+	//@JoinTable(name="user_websession",
+	//			joinColumns = @JoinColumn(name = "USER_ID"),
+		//		inverseJoinColumns = @JoinColumn(name= "webSessionID"))
 	//@JoinColumn(name="WebSessionID")
+	@OneToOne(fetch = FetchType.EAGER) // cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	public WebSession getWebSession() {
 		return webSession;
 	}

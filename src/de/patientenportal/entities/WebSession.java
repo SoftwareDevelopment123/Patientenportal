@@ -43,7 +43,7 @@ public class WebSession  {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date validtill;
 	
-	@OneToOne//(mappedBy="webSession")
+	@OneToOne(mappedBy="webSession")
 	private User user;
 	
 	public WebSession() {	
