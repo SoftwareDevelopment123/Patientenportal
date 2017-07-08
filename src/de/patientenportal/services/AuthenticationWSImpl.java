@@ -62,7 +62,21 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   }
     
   @Transactional
-  public boolean authenticateToken(String token){
+  public boolean authenticateToken(){
+	  MessageContext mctx = wsctx.getMessageContext();
+		
+		//get detail from request headers
+	    Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
+	    List tokenList = (List) http_headers.get("Token");
+
+	    String token = "";
+	    
+	    if(tokenList!=null){
+	    	//get username
+	    	token = tokenList.get(0).toString();
+	    }	
+	  
+	  
 	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
 	if (sessions.size() != 1) return false;
 	updateToken(sessions.get(0));

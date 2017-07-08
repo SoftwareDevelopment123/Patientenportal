@@ -11,4 +11,6 @@ import javax.jws.soap.SOAPBinding.Style;
 public interface AuthenticationWS {
 	
 	@WebMethod String authenticateUser(); //(@WebParam (name="username")String username, @WebParam (name="password")String password);
+
+	@WebMethod boolean authenticateToken();
 }
