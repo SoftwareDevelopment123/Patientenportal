@@ -38,7 +38,7 @@ public class WebSessionDAO  {
 		}
 	
 	//Gibt WebSession zurück die bestimmtem Kriterium entsprechen - bsp. ungültig
-	public List<WebSession> findByCriteria(Criterion...criterion){
+	public static List<WebSession> findByCriteria(Criterion...criterion){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		

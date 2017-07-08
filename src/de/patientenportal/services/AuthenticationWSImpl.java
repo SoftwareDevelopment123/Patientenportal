@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
@@ -34,7 +35,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   @Resource
   WebServiceContext wsctx;
 		
-  @Override
+  @Transactional
   public String authenticateUser(){ //(String username, String password) {
 	
 	MessageContext mctx = wsctx.getMessageContext();
@@ -50,17 +51,42 @@ public class AuthenticationWSImpl implements AuthenticationWS {
     if(userList!=null){
     	//get username
     	username = userList.get(0).toString();
-    }
-    	
+    }	
     if(passList!=null){
     	//get password
     	password = passList.get(0).toString();
     }
-    
     //User und Passwort-Überprüfung
     return checkUsernamePassword(username, password);
+    
   }
     
+  @Transactional
+  public boolean authenticateToken(String token){
+	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+	if (sessions.size() != 1) return false;
+	updateToken(sessions.get(0));
+	return true;
+  }
+  
+  @Transactional
+  public User getUserByToken(String token) {
+	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+	if (sessions.size() != 1) return null;
+	return sessions.get(0).getUser();
+  } 
+  
+  @Transactional
+  public String logout(String token){
+	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+	if (sessions.size() != 1) return "Fehler";
+	WebSessionDAO.deleteWS(sessions.get(0));
+	return "Erfolgreich ausgeloggt! Bis zum nächsten Mal!";
+  }
+  
+  
+  
+  
   
   
   //Alle benötigten Methoden:  
@@ -86,7 +112,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
     			}
     			else
     			{
-    				return "Herzlich willkommen "+username +"!";	
+    			return "Herzlich willkommen "+username +"!";	
     			}
     		}
     	}
@@ -102,6 +128,9 @@ public class AuthenticationWSImpl implements AuthenticationWS {
     return "Fehler";
     }
   
+  
+  
+  //SessionService: --> alle Methoden für die Verwaltung der Sessions:
   
   /**Erstellt eine Websession und gibt einen zufällig generierten Token zurück.
    * Die Session läuft nach 15 Minuten Inaktivität ab.
@@ -127,8 +156,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   
   //Löscht abgelaufene Token
   public static void deleteInvalidTokens() {
-	WebSessionDAO wsdi = new WebSessionDAO();
-	List<WebSession> invalidSessions = wsdi.findByCriteria(Restrictions.or(
+	List<WebSession> invalidSessions = WebSessionDAO.findByCriteria(Restrictions.or(
 			Restrictions.isNull("validtill"),
 			Restrictions.le("validtill", Calendar.getInstance().getTime())));
 	for(WebSession ws: invalidSessions) {
@@ -138,7 +166,6 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   
   //Verlängert die Session um weitere 15 min
   public void updateToken(WebSession ws) {
-	WebSessionDAO wsdi = new WebSessionDAO();
 	Calendar c = Calendar.getInstance();
 	c.add(Calendar.MINUTE, 15);
 	ws.setValidTill(c.getTime());
