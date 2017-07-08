@@ -12,6 +12,8 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.hibernate.criterion.Restrictions;
+
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
@@ -62,6 +64,9 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   
   
   //Alle benötigten Methoden:  
+  
+  //Gleicht Username und Passwort mit der Datenbank ab und erstellt bei Übereinstimmung
+  //einen Token. Dieser wird mit zurückgegeben --> anpassen!
   private String checkUsernamePassword(String username, String password){
     
     if(UserDAO.getUserByUsername(username) != null){
@@ -99,7 +104,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   
   
   /**Erstellt eine Websession und gibt einen zufällig generierten Token zurück.
-   * Die Session ist 15 Minuten gültig.
+   * Die Session läuft nach 15 Minuten Inaktivität ab.
    * @param
    * @return Token
    */
@@ -114,9 +119,30 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	return (WebSessionDAO.createWebSession(wss)).getToken();
   }
   
+  //Erstellt einen zufällig generierten Token
   public String getNewToken() {
 		Random random = new SecureRandom();
 		return new BigInteger(130, random).toString(32);
+  }
+  
+  //Löscht abgelaufene Token
+  public static void deleteInvalidTokens() {
+	WebSessionDAO wsdi = new WebSessionDAO();
+	List<WebSession> invalidSessions = wsdi.findByCriteria(Restrictions.or(
+			Restrictions.isNull("validtill"),
+			Restrictions.le("validtill", Calendar.getInstance().getTime())));
+	for(WebSession ws: invalidSessions) {
+		WebSessionDAO.deleteWS(ws);
+	}
+  }
+  
+  //Verlängert die Session um weitere 15 min
+  public void updateToken(WebSession ws) {
+	WebSessionDAO wsdi = new WebSessionDAO();
+	Calendar c = Calendar.getInstance();
+	c.add(Calendar.MINUTE, 15);
+	ws.setValidTill(c.getTime());
+	WebSessionDAO.updateWS(ws);
   }
   
 }

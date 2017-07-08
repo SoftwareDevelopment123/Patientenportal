@@ -93,6 +93,7 @@ public class UserDAO {
 		}
 	
 	// Userdaten ändern
+	//kann man mit SaveOrUpdate anpassen! Siehe WebSessionDAO!
 	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
