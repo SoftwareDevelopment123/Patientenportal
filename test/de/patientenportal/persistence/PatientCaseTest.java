@@ -51,10 +51,10 @@ public class PatientCaseTest {
 			}*/
 		
 		// Clearing up DB
-		PatientDAO.deletePatient(pat.getPatientID());
+		/*PatientDAO.deletePatient(pat.getPatientID());
 		CaseDAO.deleteCase(pcase1.getCaseID());
 		CaseDAO.deleteCase(pcase2.getCaseID());
-		CaseDAO.deleteCase(pcase3.getCaseID());		
+		CaseDAO.deleteCase(pcase3.getCaseID());	*/	
 	}
 	
 }

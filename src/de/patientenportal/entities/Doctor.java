@@ -10,11 +10,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 
 @Entity
 @Table(name = "Doctor", catalog = "patientenportal")
+@XmlRootElement (name="doctor")
 public class Doctor {
 
 	private int doctorID;
@@ -66,6 +72,7 @@ public class Doctor {
 	}
 	
 	@ManyToMany(mappedBy="doctors")
+	@Transient
 	public List<Case> getCases() {
 		return cases;
 	}

@@ -2,6 +2,7 @@ package de.patientenportal.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,24 +12,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorNode;
+import org.eclipse.persistence.oxm.annotations.XmlPath;
+
 import static javax.persistence.GenerationType.IDENTITY;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Patient", catalog = "patientenportal")
 @XmlRootElement (name="patient")
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
+//@XmlDiscriminatorNode(value = "PATIENT")
+
+
+
 public class Patient {
 
 	private int patientID;
+	
+
 	private String bloodtype;
 	private User user;
+
 	private List <Relative> relatives;
 	private Insurance insurance;
 	private List <Case> cases;
@@ -47,6 +60,8 @@ public class Patient {
 		this.patientID = patientID;
 	}
 	
+	//@XmlPath("patient[@name='blood-type']/text()")			//will noch nicht so richtig
+	
 	@Column(name = "BLOODTYPE", length = 3)
 	public String getBloodtype() {
 		return bloodtype;
@@ -63,8 +78,9 @@ public class Patient {
 		this.user = user;
 	}
 	
-	@ManyToMany
+	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable(name="patient_relative")
+	//@XmlTransient										// zwischenlösung
 	@XmlElementWrapper(name="relatives")
 	@XmlElement(name="relative")
 	public List<Relative> getRelatives() {
@@ -83,7 +99,11 @@ public class Patient {
 		this.insurance = insurance;
 	}
 
-	@OneToMany (mappedBy = "patient")
+	
+	@OneToMany (mappedBy = "patient", fetch = FetchType.LAZY)
+	//@Transient
+	//@XmlElementWrapper(name="cases")
+	//@XmlElement(name="case")
 	public List<Case> getCases() {
 		return cases;
 	}
@@ -92,6 +112,9 @@ public class Patient {
 	}
 
 	@OneToMany (mappedBy = "patient")
+	@Transient
+	//@XmlElementWrapper(name="mdocs")
+	//@XmlElement(name="mdoc")
 	public List<MedicalDoc> getMedicalDocs() {
 		return medicalDocs;
 	}

@@ -16,8 +16,8 @@ import de.patientenportal.entities.Relative;
 public interface RelativeWS {
 
 	@WebMethod
-	public Relative getRelative				(@WebParam (name="Relative-ID")int relativeID);
+	public Relative getRelative				(@WebParam (name="relativeID")int relativeID);
 	
 	/*@WebMethod
-	public List<Relative> getRelativesByP	(@WebParam (name="Patient-ID")int patientID);*/
+	public List<Relative> getRelativesByP	(@WebParam (name="patientID")int patientID);*/
 }
