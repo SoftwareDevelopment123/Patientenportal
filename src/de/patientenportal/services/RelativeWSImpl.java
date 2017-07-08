@@ -22,7 +22,7 @@ public class RelativeWSImpl implements RelativeWS {
 		//}
 	}
 
-	@Transactional
+	/*@Transactional
 	public List<Relative> getRelativesByP(int patientID) {
 		
 		if (patientID == 0) {return null;}
@@ -31,6 +31,6 @@ public class RelativeWSImpl implements RelativeWS {
 			List<Relative> relatives = PatientDAO.getPatient(patientID).getRelatives();
 			return relatives;
 		}
-	}
+	}*/
 
 }

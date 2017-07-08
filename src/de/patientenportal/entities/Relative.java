@@ -12,18 +12,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "Relative", catalog = "patientenportal")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement (name="relative")
 public class Relative {
 	
 	private int relativeID;
 	private User user;
-	@XmlElementWrapper(name="patients") @XmlElement(name="patient") private List<Patient> patients;
+		private List<Patient> patients;
 	
 	public Relative(){
 	}
@@ -46,7 +50,11 @@ public class Relative {
 		this.user = user;
 	}
 	
+
 	@ManyToMany(mappedBy="relatives") 
+	@XmlElementWrapper(name="patients")
+	@XmlElement(name="patient")
+	//@XmlTransient
 	public List<Patient> getPatients() {
 		return patients;
 	}

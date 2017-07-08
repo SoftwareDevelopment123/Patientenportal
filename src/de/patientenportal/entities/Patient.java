@@ -23,13 +23,13 @@ import java.util.List;
 @Entity
 @Table(name = "Patient", catalog = "patientenportal")
 @XmlRootElement (name="patient")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Patient {
 
 	private int patientID;
 	private String bloodtype;
 	private User user;
-	@XmlElementWrapper(name="relatives") @XmlElement(name="relative") private List <Relative> relatives;
+	private List <Relative> relatives;
 	private Insurance insurance;
 	private List <Case> cases;
 	private List <MedicalDoc> medicalDocs;
@@ -65,6 +65,8 @@ public class Patient {
 	
 	@ManyToMany
 	@JoinTable(name="patient_relative")
+	@XmlElementWrapper(name="relatives")
+	@XmlElement(name="relative")
 	public List<Relative> getRelatives() {
 		return relatives;
 	}
