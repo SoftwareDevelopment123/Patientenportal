@@ -19,10 +19,22 @@ import de.patientenportal.persistence.RelativeDAO;
 @SuppressWarnings("unused")
 public class PatientRelativeTest {
 
-	/*@Before
-	public void setUp(){
-		DBCreator.main(null);
-	}*/
+	private String token;
+	
+	@Before
+	public void login() throws MalformedURLException{
+		String username = "user4";
+		String password = "pass4";
+		
+		URL url = new URL("http://localhost:8080/authentication?wsdl");
+        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+        Service service = Service.create(url, qname);
+        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+        
+        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        authWS.authenticateUser(ActiveRole.Patient);
+        token = authWS.getSessionToken(username);
+	}
 	
 	// Info: manuell vorher DBCreator ausführen
 	
@@ -72,7 +84,11 @@ public class PatientRelativeTest {
 		
 		// Get Patient
 		Patient comparepat = PatientDAO.getPatient(1);
-		Accessor getpat = new Accessor(1);
+
+		Accessor getpat = new Accessor();
+			getpat.setToken(token);
+			getpat.setObject(1);
+				
 		Patient patient = pat.getPatient(getpat);
 			Assert.assertEquals(comparepat.getPatientID() 			, patient.getPatientID());
 			Assert.assertEquals(comparepat.getBloodtype() 			, patient.getBloodtype());

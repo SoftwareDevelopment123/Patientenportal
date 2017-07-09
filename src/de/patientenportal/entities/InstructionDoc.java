@@ -3,11 +3,14 @@ package de.patientenportal.entities;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.File;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -20,6 +23,7 @@ public class InstructionDoc {
 	public String description;
 	private String instructionType;
 	private String fileType;
+	private List<Case> cases;
 
 	public InstructionDoc(){
 	}
@@ -65,6 +69,15 @@ public class InstructionDoc {
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
+	}
+
+	@ManyToMany
+	@JoinTable(name="idoc_case")
+	public List<Case> getPcase() {
+		return cases;
+	}
+	public void setPcase(List<Case> cases) {
+		this.cases = cases;
 	}
 
 }

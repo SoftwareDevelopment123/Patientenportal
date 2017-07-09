@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -37,7 +36,7 @@ public class Case {
 	private List<MedicalDoc> medicalDocs;
 	private List<Doctor> doctors;
 	private List<Medication> medication;
-	private List<InstructionDoc> idoc;			//noch nicht implementiert
+	private List<InstructionDoc> idoc;
 	
 	public Case(){	
 	}
@@ -137,18 +136,13 @@ public class Case {
 	public void setMedication(List<Medication> medication) {
 		this.medication = medication;
 	}
+	
+	@ManyToMany (mappedBy="pcase")
+	@XmlTransient
 	public List<InstructionDoc> getIdoc() {
 		return idoc;
 	}
 	public void setIdoc(List<InstructionDoc> idoc) {
 		this.idoc = idoc;
 	}
-
-	/*public List<InstructionDoc> getIdoc() {
-		return idoc;
-	}
-	public void setIdoc(List<InstructionDoc> idoc) {
-		this.idoc = idoc;
-	}*/
-	
 }

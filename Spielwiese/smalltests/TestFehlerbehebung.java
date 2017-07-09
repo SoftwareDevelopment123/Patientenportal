@@ -8,50 +8,59 @@ import javax.swing.plaf.synth.SynthPasswordFieldUI;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
+import de.patientenportal.persistence.PatientDAO;
+import de.patientenportal.services.AuthenticationWS;
+import de.patientenportal.services.HTTPHeaderService;
+import de.patientenportal.services.PatientWS;
 import de.patientenportal.services.RelativeWS;
 
 public class TestFehlerbehebung {
 
 	public static void main(String[] args) throws MalformedURLException {
 		
-		/*System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
-		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", "1000000");*/
+		System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", "1000000");
 		
-		URL url = new URL("http://localhost:8080/relative?wsdl");
-		QName qname = new QName("http://services.patientenportal.de/", "RelativeWSImplService");
+		String username = "user4";
+		String password = "pass4";
+		
+		URL url = new URL("http://localhost:8080/authentication?wsdl");
+        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+        Service service = Service.create(url, qname);
+        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+ 
+        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        System.out.println(authWS.authenticateUser(ActiveRole.Patient));
+        System.out.println(authWS.getSessionToken(username));
+        
+        String token = authWS.getSessionToken(username);
+        System.out.println(authWS.authenticateToken(token));
+        
+        URL url2 = new URL("http://localhost:8080/patient?wsdl");
+		QName qname2 = new QName("http://services.patientenportal.de/", "PatientWSImplService");
+		Service service2 = Service.create(url2, qname2);
+		PatientWS pat = service2.getPort(PatientWS.class);
+		
+		// Get Patient
+		Patient comparepat = PatientDAO.getPatient(1);
 
-		Service service = Service.create(url, qname);
-		RelativeWS rel = service.getPort(RelativeWS.class);
+		Accessor getpat = new Accessor();
+			getpat.setToken(token);
+			getpat.setObject(1);
 				
-		// Methode 1
-		/*Accessor accessor = new Accessor(2);
-		Relative relative = rel.getRelative(accessor);
-		System.out.println(relative.getRelativeID());
-		for (Patient p : relative.getPatients()){
-			System.out.print("ID: " + p.getUser().getUserId() + " - ");
-			System.out.print(p.getUser().getFirstname() + " - ");
-			System.out.print(p.getUser().getLastname()  + " - ");
-			System.out.println(p.getBloodtype());
-		}*/
-
-		// Methode 2
-		/*Accessor accessor = new Accessor(1);
-		RelativeListResponse response = rel.getRelativesByP(accessor);
-		System.out.println(response.getResponseCode());
-		System.out.println(response.getResponseList().size());
-						
-			for(Relative r : response.getResponseList()){
-				System.out.print(r.getRelativeID() + " - ");
-				System.out.print(r.getUser().getFirstname() + " - ");
-				System.out.println(r.getUser().getLastname());
-			}*/
+		Patient patient = pat.getPatient(getpat);
+		
+		System.out.println(patient.getBloodtype());
+		
+		
 
 	}
 

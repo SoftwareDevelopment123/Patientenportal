@@ -12,6 +12,11 @@ public class Accessor {
 		this.object = object;
 	}
 	
+	public Accessor(String token, Object object){
+		this.token = token;
+		this.object = object;
+	}
+	
 	public String getToken() {
 		return token;
 	}

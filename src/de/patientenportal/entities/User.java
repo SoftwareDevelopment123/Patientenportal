@@ -44,8 +44,6 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-	
-	
 	private WebSession webSession;
 	
 	public User() {
@@ -180,15 +178,9 @@ public class User {
 		this.contact = contact;
 	}
 
-
-
-	
-	//@JoinTable(name="user_websession",
-	//			joinColumns = @JoinColumn(name = "USER_ID"),
-		//		inverseJoinColumns = @JoinColumn(name= "webSessionID"))
-	//@JoinColumn(name="WebSessionID")
 	@PrimaryKeyJoinColumn
 	@OneToOne(fetch = FetchType.LAZY)
+	@XmlTransient
 	public WebSession getWebSession() {
 		return webSession;
 	}
