@@ -23,7 +23,6 @@ public class MedicalDoc {
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;
-	private File file;
 	
 	
 	@Id
@@ -64,14 +63,6 @@ public class MedicalDoc {
 		this.pcase = pcase;
 	}
 	
-	public File getFile() {
-		return file;
-	}
-	
-	public void setFile(File file) {
-		this.file = file;
-	}
-
 	public String getmDocTitle() {
 		return mDocTitle;
 	}

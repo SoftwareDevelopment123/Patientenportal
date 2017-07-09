@@ -20,7 +20,6 @@ public class InstructionDoc {
 	public String description;
 	private String instructionType;
 	private String fileType;
-	private File file;
 
 	public InstructionDoc(){
 	}
@@ -35,7 +34,7 @@ public class InstructionDoc {
 		this.instructionDocID = instructionDocID;
 	}
 	
-	@Column(name = "TITLE", length = 20)
+	@Column(name = "TITLE", length = 30)
 	public String getTitle() {
 		return title;
 	}
@@ -66,14 +65,6 @@ public class InstructionDoc {
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
 	}
 
 }

@@ -34,37 +34,10 @@ public class MDocTest {
 		String serveruser1 = new String("admin");
 		String passwort1 = new String("12345");
 		//String passwort2 =new String("1234");
-		
-		File mdocDatei1 = new File(
-				"C:" 				+File.separator+
-				"Users" 			+File.separator+ 
-				"Jani"				+File.separator+
-				"Desktop"			+File.separator+
-				"Filezilla"			+File.separator+
-				"Upload"			+File.separator+
-				"armbruch.docx");
-		
-		File mdocDatei2 = new File(
-				"C:" 				+File.separator+
-				"Users" 			+File.separator+ 
-				"Jani"				+File.separator+
-				"Desktop"			+File.separator+
-				"Filezilla"			+File.separator+
-				"Upload"			+File.separator+
-				"beinbruch.txt");
-		File mdocDatei3 = new File(
-				"C:" 				+File.separator+
-				"Users" 			+File.separator+ 
-				"Jani"				+File.separator+
-				"Desktop"			+File.separator+
-				"Filezilla"			+File.separator+
-				"Upload"			+File.separator+
-				"tumor.jpg");
 				
 		MedicalDoc mdoc1 = new MedicalDoc();
 			mdoc1.setmDocTitle("armbruch");
 			mdoc1.setPatient(pat);
-			mdoc1.setFile(mdocDatei1);
 			mdoc1.setFileType("docx");
 			
 		MedicalDoc mdoc2 = new MedicalDoc();
@@ -72,13 +45,11 @@ public class MDocTest {
 			mdoc2.setPatient(pat);
 			mdoc2.setmDocDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
 			mdoc2.setPcase(case1);	// wird nicht mit eingefügt, ich weiß noch nicht warum
-			mdoc2.setFile(mdocDatei2);
 			mdoc2.setFileType("txt");
 			
 		MedicalDoc mdoc3 = new MedicalDoc();
 			mdoc3.setmDocTitle("tumor");
 			mdoc3.setPatient(pat);
-			mdoc3.setFile(mdocDatei3);
 			mdoc3.setFileType("jpg");
 			
 		String feedbackCMD1 = MDocDAO.createMDoc(mdoc1);
@@ -89,9 +60,9 @@ public class MDocTest {
 			Assert.assertEquals("success", feedbackCMD3);
 
 		//Abrufen - direkt
-		MedicalDoc test = MDocDAO.getMedicalDoc(1);
-			Assert.assertEquals(1, test.getMedDocID());
-			Assert.assertEquals("armbruch", test.getmDocTitle());
+		MedicalDoc test = MDocDAO.getMedicalDoc(mdoc1.getMedDocID());
+			Assert.assertEquals(mdoc1.getMedDocID(), test.getMedDocID());
+			Assert.assertEquals(mdoc1.getmDocTitle(), test.getmDocTitle());
 		
 		//Abrufen - über den Fall
 		List<MedicalDoc> casedocs = CaseDAO.getCase(1).getMedicalDocs();	
@@ -102,10 +73,10 @@ public class MDocTest {
 		List<MedicalDoc> patdocs = PatientDAO.getPatient(1).getMedicalDocs();
 			Assert.assertEquals(3, patdocs.size());
 		
-		//Upload der Files
-		FtpMethodenMDocs.uploadMDoc(mdoc1);
+		//Upload der Files geschieht nun direkt bei create kann ausgelagert werden falls nötig
+		/*FtpMethodenMDocs.uploadMDoc(mdoc1);
 		FtpMethodenMDocs.uploadMDoc(mdoc2);
-		FtpMethodenMDocs.uploadMDoc(mdoc3);
+		FtpMethodenMDocs.uploadMDoc(mdoc3);*/
 		
 		//Download der Files
 		FtpMethodenMDocs.downloadFile(mdoc1);

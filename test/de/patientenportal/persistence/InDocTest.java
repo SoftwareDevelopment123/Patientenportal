@@ -32,67 +32,39 @@ public class InDocTest {
 			
 			//Anlegen der FIles statt mit/ wurde mit FIle.separator gearbeitet um auch andere System außer windows zu unterstützen
 			//In diesem Fall handelt es sich um lokale Dateien diese würden sonst von der Gui übergeben werden
-			File indocDatei1 = new File(
-					"C:" 				+File.separator+
-					"Users" 			+File.separator+ 
-					"Jani"				+File.separator+
-					"Desktop"			+File.separator+
-					"Filezilla"			+File.separator+
-					"Upload"			+File.separator+
-					"MundzuMundBeatmung.docx");
-			
-			File indocDatei2 = new File(
-					"C:" 				+File.separator+
-					"Users" 			+File.separator+ 
-					"Jani"				+File.separator+
-					"Desktop"			+File.separator+
-					"Filezilla"			+File.separator+
-					"Upload"			+File.separator+
-					"ErsteHilfe.txt");
-			File indocDatei3 = new File(
-					"C:" 				+File.separator+
-					"Users" 			+File.separator+ 
-					"Jani"				+File.separator+
-					"Desktop"			+File.separator+
-					"Filezilla"			+File.separator+
-					"Upload"			+File.separator+
-					"MundzuMund.jpg");
-			
+						
 			//Den Objekten werden noch ein paar Attributswerte gegeben
 			InstructionDoc indoc1 = new InstructionDoc();
-				indoc1.setTitle("Mund Beatmung");
-				indoc1.setFile(indocDatei1);
+				indoc1.setTitle("MundzuMundBeatmung");
 				indoc1.setFileType("docx");
 				indoc1.setDescription("Eine Beschreibung ....");
 				
 			InstructionDoc indoc2 = new InstructionDoc();
-				indoc2.setTitle("Erste Hilfe");
+				indoc2.setTitle("ErsteHilfe");
 				indoc2.setDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
-				indoc2.setFile(indocDatei2);
 				indoc2.setFileType("txt");
 				
 			InstructionDoc indoc3 = new InstructionDoc();
-				indoc3.setTitle("Beatmung Bild");
-				indoc3.setFile(indocDatei3);
+				indoc3.setTitle("Beatmung");
 				indoc3.setFileType("jpg");
 				
 				//InstructiondocDAO wird augerufen und die Objekt bei Hibernate erzeugt
-			String feedbackCMD1 = InstructionDocDAO.createInstructionDoc(indoc1);
-				Assert.assertEquals("success", feedbackCMD1);
-			String feedbackCMD2 = InstructionDocDAO.createInstructionDoc(indoc2);
-				Assert.assertEquals("success", feedbackCMD2);
-			String feedbackCMD3 = InstructionDocDAO.createInstructionDoc(indoc3);
-				Assert.assertEquals("success", feedbackCMD3);
+			String feedbackIMD1 = InstructionDocDAO.createInstructionDoc(indoc1);
+				Assert.assertEquals("success", feedbackIMD1);
+			String feedbackIMD2 = InstructionDocDAO.createInstructionDoc(indoc2);
+				Assert.assertEquals("success", feedbackIMD2);
+			String feedbackIMD3 = InstructionDocDAO.createInstructionDoc(indoc3);
+				Assert.assertEquals("success", feedbackIMD3);
 
 			//Abrufen - direkt
-			InstructionDoc test = InstructionDocDAO.getInstructionDoc(1);
-				Assert.assertEquals(1, test.getInstructionDocID());
-				Assert.assertEquals("Mund Beatmung", test.getTitle());
+			InstructionDoc test = InstructionDocDAO.getInstructionDoc(indoc1.getInstructionDocID());
+				Assert.assertEquals(indoc1.getInstructionDocID() , test.getInstructionDocID());
+				Assert.assertEquals(indoc1.getTitle(), test.getTitle());
 			
 			//Upload der Files genaueres siehe de.patientenportal.ftpconnection FTPMethodenInDocs
-			FtpMethodenInDocs.uploadInstructionDoc(indoc1);
+		/*	FtpMethodenInDocs.uploadInstructionDoc(indoc1);
 			FtpMethodenInDocs.uploadInstructionDoc(indoc2);
-			FtpMethodenInDocs.uploadInstructionDoc(indoc3);
+			FtpMethodenInDocs.uploadInstructionDoc(indoc3);*/
 			
 			//Download der Files
 			FtpMethodenInDocs.downloadInstructionDoc(indoc1);

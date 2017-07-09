@@ -27,7 +27,15 @@ public class FtpMethodenMDocs {
 	        int port = 21;
 	        String user = "admin";
 	        String pass = "12345";
-	        File filetoupload = mdoc.getFile();
+	        File filetoupload =  new File(
+					"C:" 				+File.separator+
+					"Users" 			+File.separator+ 
+					"Jani"				+File.separator+
+					"Desktop"			+File.separator+
+					"Filezilla"			+File.separator+
+					"Upload"			+File.separator+
+					mdoc.getmDocTitle()+"."+
+					mdoc.getFileType());
 	 
 	        FTPClient ftpClient = new FTPClient();
 	        try {
@@ -66,7 +74,7 @@ public class FtpMethodenMDocs {
 		//Zum Download von Medicaldocs
 		public static void downloadFile(MedicalDoc mdoctodownload) {
 			//Hier wird eine ID aus der Datenbank abgerufen um die Datei auf dem Server zu identifizieren
-			String filetodownload = File.separator+mdoctodownload.getMedDocID()+"."+mdoctodownload.getFileType();
+			String filetodownload = File.separator+"Medicaldocument"+mdoctodownload.getMedDocID()+"."+mdoctodownload.getFileType();
 			
 			String server = "127.0.0.1";
 	        int port = 21;
@@ -79,7 +87,8 @@ public class FtpMethodenMDocs {
 					"Desktop"			+File.separator+
 					"Filezilla"			+File.separator+
 					"Download"			+File.separator+
-					mdoctodownload.getmDocTitle()+"."+
+					mdoctodownload.getmDocTitle()+
+					mdoctodownload.getMedDocID()+"."+
 					mdoctodownload.getFileType());
 	 
 	        FTPClient ftpClient = new FTPClient();
