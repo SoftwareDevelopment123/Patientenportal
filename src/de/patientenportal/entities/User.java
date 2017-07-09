@@ -12,7 +12,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
@@ -24,6 +27,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
 @SuppressWarnings("static-access")
+@XmlRootElement (name="user")
 public class User {
 
 	private int userID;
@@ -129,7 +133,8 @@ public class User {
 		this.gender = gender;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY/*, cascade=CascadeType.ALL*/)
+	@XmlTransient
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -138,7 +143,8 @@ public class User {
 		this.doctor = doctor;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY/*, cascade=CascadeType.ALL*/)
+	@XmlTransient
 	public Patient getPatient() {
 		return patient;
 	}
@@ -147,11 +153,11 @@ public class User {
 		this.patient = patient;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY/*, cascade=CascadeType.ALL*/)
+	@XmlTransient
 	public Relative getRelative() {
 		return relative;
 	}
-
 	public void setRelative(Relative relative) {
 		this.relative = relative;
 	}
@@ -174,13 +180,14 @@ public class User {
 		this.contact = contact;
 	}
 
+
 	
 	//@JoinTable(name="user_websession",
 	//			joinColumns = @JoinColumn(name = "USER_ID"),
 		//		inverseJoinColumns = @JoinColumn(name= "webSessionID"))
 	//@JoinColumn(name="WebSessionID")
-	@OneToOne(fetch = FetchType.EAGER) // cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
+	@OneToOne(fetch = FetchType.LAZY)
 	public WebSession getWebSession() {
 		return webSession;
 	}

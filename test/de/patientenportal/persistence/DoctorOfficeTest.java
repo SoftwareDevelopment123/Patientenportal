@@ -96,7 +96,7 @@ public class DoctorOfficeTest {
 		Doctor dx = DoctorDAO.getDoctor(neuD1.getDoctorID());
 		User ux = UserDAO.getUser(newuser.getUserId());
 			Assert.assertEquals("New", dx.getUser().getFirstname());
-			Assert.assertEquals("Zahnarzt", ux.getDoctor().getSpecialization());
+		//	Assert.assertEquals("Zahnarzt", ux.getDoctor().getSpecialization());		// ab jetzt ausgeschlossen / Transient
 			
 		//DeleteDoctor-Test
 		//Info - Rückwärtskaskadierung ist hier nicht eingestellt! Muss auch so sein

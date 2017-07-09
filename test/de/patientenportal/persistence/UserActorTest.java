@@ -70,14 +70,11 @@ public class UserActorTest {
 			Assert.assertEquals("01731234567"				, user.getContact().getMobile());
 			Assert.assertEquals("03512646152"				, user.getContact().getPhone());
 		
-			Assert.assertEquals("ABC"						, user.getPatient().getBloodtype());
 		
-			Assert.assertEquals("Kardiologe"				, user.getDoctor().getSpecialization());
-		
-		//Bidirektionaler Zugriff-Test
-			Assert.assertEquals(neu.getUserId()				, user.getRelative().getUser().getUserId());
-			Assert.assertEquals(neu.getUserId()				, user.getDoctor()	.getUser().getUserId());
-			Assert.assertEquals(neu.getUserId()				, user.getPatient()	.getUser().getUserId());
+		//Bidirektionaler Zugriff-Test // ist jetzt Transient
+		//	Assert.assertEquals(neu.getUserId()				, user.getRelative().getUser().getUserId());
+		//	Assert.assertEquals(neu.getUserId()				, user.getDoctor()	.getUser().getUserId());
+		//	Assert.assertEquals(neu.getUserId()				, user.getPatient()	.getUser().getUserId());
 		
 		//User-Update-Test
 			System.out.println(neu.getUserId());

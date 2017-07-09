@@ -12,12 +12,12 @@ import javax.transaction.Transactional;
 import de.patientenportal.entities.Relative;
 
 @WebService
-//@SOAPBinding(style = Style.RPC)			// Behebt aktuell den Fehler beim Publisher, weiter testen
+@SOAPBinding(style = Style.RPC)			// Behebt aktuell den Fehler beim Publisher, weiter testen
 public interface RelativeWS {
 
 	@WebMethod
-	public Relative getRelative				(@WebParam (name="Relative-ID")int relativeID);
+	public Relative getRelative				(@WebParam (name="relativeID")int relativeID);
 	
-	@WebMethod
-	public List<Relative> getRelativesByP	(@WebParam (name="Patient-ID")int patientID);
+	/*@WebMethod
+	public List<Relative> getRelativesByP	(@WebParam (name="patientID")int patientID);*/
 }

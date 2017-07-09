@@ -1,15 +1,11 @@
 package de.patientenportal.entities;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import static javax.persistence.GenerationType.IDENTITY;
-//import org.hibernate.annotations.GenericGenerator;
-
 
 @Entity
 @Table(name = "Address", catalog = "patientenportal")
@@ -26,9 +22,6 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-//	@GenericGenerator(name = "address", strategy = "increment")
-//	@GeneratedValue(generator = "address")
-	
 	@Column(name = "ADDRESS_ID", unique = true, nullable = false)
 	public int getAddressID() {
 		return addressID;

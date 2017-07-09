@@ -8,12 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "Office", catalog = "patientenportal")
+@XmlRootElement (name="office")
 public class Office {
 	
 	
@@ -61,6 +66,8 @@ public class Office {
 	}
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "office")
+	@XmlElementWrapper(name="doctors")
+	@XmlElement(name="doctor")
 	public List<Doctor> getDoctors() {
 		return doctors;
 	}

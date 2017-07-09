@@ -38,7 +38,7 @@ public class FtpMethodenMDocs {
 	 
 	            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
 	 
-	            String firstRemoteFile = mdoc.getMedDocID()+"."+mdoc.getFileType();
+	            String firstRemoteFile = "Medicaldocument"+mdoc.getMedDocID()+"."+mdoc.getFileType();
 	            InputStream inputStream = new FileInputStream(filetoupload);
 	 
 	            System.out.println("Start uploading "+mdoc.getmDocTitle());
