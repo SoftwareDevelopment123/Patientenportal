@@ -67,7 +67,7 @@ public class InDocWSImpl implements InDocWS{
 		else{
 			try {
 				//mit while Schleife alle ids durchgehen?
-			List<InstructionDoc> rlist = InstructionDocDAO.;
+			List<InstructionDoc> rlist = InstructionDocDAO.getAllIDocs();
 				response.setResponseCode("success");
 				response.setResponseList(rlist);
 			} catch (Exception e) {

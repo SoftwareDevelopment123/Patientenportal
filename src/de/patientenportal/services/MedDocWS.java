@@ -23,7 +23,7 @@ public interface MedDocWS {
 	
 	public MDocListResponse getMDocsbyD			(@WebParam (name="DoctorID")Accessor accessor);
 	
-	public String createMedicalDoc				(@WebParam (name="Medicaldocument") MedicalDoc medicaldoc;)
+	public String createMedicalDoc				(@WebParam (name="Medicaldocument") MedicalDoc medicaldoc);
 	
 	public String updateMDoc					(@WebParam (name="Medicaldocument") MedicalDoc medicaldoc);
 	
