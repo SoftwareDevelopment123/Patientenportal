@@ -30,12 +30,12 @@ public class TestFehlerbehebung {
 		Relative relative = rel.getRelative(2);
 		System.out.println(relative.getRelativeID());
 				
-		for (Patient p : relative.getPatients()){
+		/*for (Patient p : relative.getPatients()){
 			System.out.print("ID: " + p.getUser().getUserId() + " - ");
 			System.out.print(p.getUser().getFirstname() + " - ");
 			System.out.print(p.getUser().getLastname()  + " - ");
 			System.out.println(p.getBloodtype());
-		}
+		}*/
 
 		
 		// Methode 2

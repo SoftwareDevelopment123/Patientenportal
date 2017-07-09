@@ -112,7 +112,7 @@ public class Patient {
 	}
 
 	@OneToMany (mappedBy = "patient")
-	@Transient
+	//@Transient
 	//@XmlElementWrapper(name="mdocs")
 	//@XmlElement(name="mdoc")
 	public List<MedicalDoc> getMedicalDocs() {
