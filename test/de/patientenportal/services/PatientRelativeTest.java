@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -34,6 +36,16 @@ public class PatientRelativeTest {
         HTTPHeaderService.putUsernamePassword(username, password, authWS);
         authWS.authenticateUser(ActiveRole.Patient);
         token = authWS.getSessionToken(username);
+	}
+	
+	@After
+	public void logout() throws MalformedURLException{
+		URL url = new URL("http://localhost:8080/authentication?wsdl");
+        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+        Service service = Service.create(url, qname);
+        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+		
+        System.out.println(authWS.logout(token));
 	}
 	
 	// Info: manuell vorher DBCreator ausführen
