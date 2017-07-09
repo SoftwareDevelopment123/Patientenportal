@@ -15,6 +15,8 @@ public interface AuthenticationWS {
 	@WebMethod String authenticateUser(ActiveRole activeRole); //(@WebParam (name="username")String username, @WebParam (name="password")String password);
 
 	@WebMethod boolean authenticateToken(String token);
+	
+	@WebMethod boolean authenticateTokenHTTP();
 
 	@WebMethod String getSessionToken(String username);
 	

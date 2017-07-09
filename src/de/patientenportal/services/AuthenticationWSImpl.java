@@ -34,6 +34,7 @@ import de.patientenportal.persistence.WebSessionDAO;
 public class AuthenticationWSImpl implements AuthenticationWS {
 
   @Resource
+static
   WebServiceContext wsctx;
 		
   @Transactional
@@ -92,6 +93,16 @@ public class AuthenticationWSImpl implements AuthenticationWS {
    */
   @Transactional
   public boolean authenticateToken(String token){	
+	  deleteInvalidTokens();
+	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+	if (sessions.size() != 1) return false;
+	extendWebSession(sessions.get(0));
+	return true;
+  }
+  
+  @Transactional
+  public boolean authenticateTokenHTTP(){
+	  String token = getToken();
 	  deleteInvalidTokens();
 	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
 	if (sessions.size() != 1) return false;
@@ -190,8 +201,24 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	ws.setValidTill(c.getTime());
 	WebSessionDAO.updateWS(ws);
   } 
-}
+
        
-	
+  public static String getToken(){
+
+		MessageContext mctx = wsctx.getMessageContext();
 		
+		//get detail from request headers
+	    Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
+	    List tokenList = (List) http_headers.get("Token");
+
+	    String token = "";
+	    
+	    if(tokenList!=null){
+	    	//get username
+	    	token = tokenList.get(0).toString();
+	    return token;
+	    }
+	    return null;
+	}
 		
+}		
