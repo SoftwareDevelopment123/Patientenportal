@@ -22,5 +22,5 @@ public interface RelativeWS {
 	public Relative getRelative					(@WebParam (name="relativeID")Accessor accessor);
 	
 	@WebMethod
-	public RelativeListResponse getRelativesByP	(@WebParam (name="patientID")int patientID);
+	public RelativeListResponse getRelativesByP	(@WebParam (name="patientID")Accessor accessor);
 }

@@ -1,6 +1,10 @@
 package smalltests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.patientenportal.entities.Gender;
+import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.response.Accessor;
 
@@ -25,7 +29,7 @@ public class AccessorTest {
 		User fromaccessor = (User) tryme.getObject();
 			System.out.println(fromaccessor.getFirstname());*/
 		
-		int id = 1;
+		/*int id = 1;
 		
 		Accessor tryme2 = new Accessor();
 			tryme2.setObject(id);
@@ -33,7 +37,24 @@ public class AccessorTest {
 		System.out.println(tryme2.getObject().getClass());
 		
 		int idfromaccess = (int) tryme2.getObject();
-			System.out.println(idfromaccess);
+			System.out.println(idfromaccess);*/
+		
+		int id = 1;
+		Patient patient = new Patient();
+			patient.setBloodtype("ABC");
+		
+		List<Object> liste = new ArrayList<Object>();
+			liste.add(id);
+			liste.add(patient);
+		
+		Accessor acc = new Accessor(liste);
+		List<Object> getme = (List<Object>) acc.getObject();
+		
+		int getid = (int) getme.get(0);
+			System.out.println(getid);
+		Patient pat = (Patient) getme.get(1);
+			System.out.println(pat.getBloodtype());
+		
 	}
 	
 }

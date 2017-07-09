@@ -16,31 +16,38 @@ public class RelativeWSImpl implements RelativeWS {
 	@Transactional
 	public Relative getRelative(Accessor accessor) {
 
-		int id = (int) accessor.getObject();
-		if (id == 0) {return null;}
+		int id;
+		try { id = (int) accessor.getObject(); }
+		catch (Exception e) { System.out.println("Invalid access"); return null; }
+		
+		if (id == 0) {System.out.println("Id null"); return null;}
 		
 		else{
-			Relative relative = RelativeDAO.getRelative(id);
-
-			return relative;
+			Relative relative = new Relative();
+			try { relative = RelativeDAO.getRelative(id); }
+			catch (Exception e) { System.out.println("Error: " + e); }
+		return relative;
 		}
 	}
 
 	@Transactional
-	public RelativeListResponse getRelativesByP(int patientID) {
+	public RelativeListResponse getRelativesByP(Accessor accessor) {
+		RelativeListResponse response = new RelativeListResponse();
 		
-		if (patientID == 0) {return null;}
+		int id;
+		try { id = (int) accessor.getObject(); }
+		catch (Exception e) { System.out.println("Invalid access"); return null; }
+		
+		if (id == 0) {System.out.println("Id null"); return null;}
 		
 		else{
-			RelativeListResponse response = new RelativeListResponse();
 			try {
-			List<Relative> rlist = PatientDAO.getPatient(patientID).getRelatives();
+			List<Relative> rlist = PatientDAO.getPatient(id).getRelatives();
 				response.setResponseCode("success");
 				response.setResponseList(rlist);
 			} catch (Exception e) {
 				response.setResponseCode("Error: " + e);
-			}
-			return response;
+			} return response;
 		}
 	}
 
