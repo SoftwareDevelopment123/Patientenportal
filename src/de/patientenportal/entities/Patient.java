@@ -24,6 +24,8 @@ import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorNode;
 import org.eclipse.persistence.oxm.annotations.XmlPath;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,7 +42,7 @@ public class Patient {
 	private String bloodtype;
 	private User user;
 
-	private List <Relative> relatives;
+	private List <Relative> relatives = new ArrayList<Relative>();
 	private Insurance insurance;
 	private List <Case> cases;
 	private List <MedicalDoc> medicalDocs;
@@ -59,7 +61,6 @@ public class Patient {
 	}
 	
 	//@XmlPath("patient[@name='blood-type']/text()")			//will noch nicht so richtig
-	
 	@Column(name = "BLOODTYPE", length = 3)
 	public String getBloodtype() {
 		return bloodtype;
@@ -78,7 +79,7 @@ public class Patient {
 	
 	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable(name="patient_relative")
-	@XmlTransient										// zwischenlösung
+	@XmlTransient
 	//@XmlElementWrapper(name="relatives")
 	//@XmlElement(name="relative")
 	public List<Relative> getRelatives() {
@@ -99,7 +100,7 @@ public class Patient {
 
 	
 	@OneToMany (mappedBy = "patient", fetch = FetchType.LAZY)
-	//@Transient
+	@XmlTransient
 	//@XmlElementWrapper(name="cases")
 	//@XmlElement(name="case")
 	public List<Case> getCases() {
@@ -110,8 +111,7 @@ public class Patient {
 	}
 
 	@OneToMany (mappedBy = "patient")
-
-	//@Transient
+	@XmlTransient
 	//@XmlElementWrapper(name="mdocs")
 	//@XmlElement(name="mdoc")
 	public List<MedicalDoc> getMedicalDocs() {

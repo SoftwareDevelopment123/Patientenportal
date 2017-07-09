@@ -28,12 +28,21 @@ public class PatientRelativeTest {
 			RelativeWS rel = service.getPort(RelativeWS.class);
 				
 			// Methode 1
-			Relative relative = rel.getRelative(1);
+			/*Relative relative = rel.getRelative(2);
 			System.out.println(relative.getRelativeID());
 			
+			for (Patient p : relative.getPatients()){
+			System.out.print("ID: " + p.getUser().getUserId() + " - ");
+			System.out.print(p.getUser().getFirstname() + " - ");
+			System.out.print(p.getUser().getLastname()  + " - ");
+			System.out.println(p.getBloodtype());
+			}*/
+			
 			// Methode 2
-				/*List<Relative> relList = rel.getRelativesByP(1);
+			/*ArrayList<Relative> relList = rel.getRelativesByP(2);
 				
+			System.out.println(relList.size());
+			
 				for(Relative r : relList){
 					System.out.println(r.getRelativeID());
 				}*/
