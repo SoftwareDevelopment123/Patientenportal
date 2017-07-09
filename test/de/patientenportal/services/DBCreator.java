@@ -1,13 +1,20 @@
 package de.patientenportal.services;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 import de.patientenportal.entities.*;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.*;
 
 public class DBCreator {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MalformedURLException {
 
 		System.out.println("Creating DB-Entries ...");
 		
@@ -94,34 +101,38 @@ public class DBCreator {
 		PatientDAO.updatePatient(pat3);
 		System.out.println("Patient 6 updated");
 		
+		/*
+		 * Office
+		 */
+		
 		System.err.println("Opening Office ...");
 		Office office = new Office();
 			office.setName("Testoffice");
+			office.setDoctors(doctors);
 			
-		Address address = new Address();
-			address.setCity("Office-city");
-			address.setPostalCode("0f1cc3");
-			address.setStreet("Office-Street");
-			address.setNumber("123");
-		
-		Contact contact = new Contact();
-			contact.setEmail("office.contact@mail.com");
-			contact.setMobile("112");
-			contact.setPhone("110");
-		
+			Address address = new Address();
+				address.setCity("Office-city");
+				address.setPostalCode("0f1cc3");
+				address.setStreet("Office-Street");
+				address.setNumber("123");
 			office.setAddress(address);
-			office.setContact(contact);
-			
-		OfficeDAO.createOffice(office);
-		System.out.println("Office-ID " + office.getOfficeID() + " - Office created");
 		
-		System.err.println("Putting doctors into office ...");
-		for (Doctor d : doctors){
-			Doctor x = DoctorDAO.getDoctor(d.getDoctorID());
-			x.setOffice(office);
-			DoctorDAO.updateDoctor(x);
-			System.out.println("Doctor " + d.getDoctorID() + " updated");
-		}
+			Contact contact = new Contact();
+				contact.setEmail("office.contact@mail.com");
+				contact.setMobile("112");
+				contact.setPhone("110");
+			office.setContact(contact);
+		
+		URL urlO = new URL("http://localhost:8080/office?wsdl");
+		QName qnameO = new QName("http://services.patientenportal.de/", "OfficeWSImplService");
+		Service serviceO = Service.create(urlO, qnameO);
+		OfficeWS off = serviceO.getPort(OfficeWS.class);
+		Accessor createOffice = new Accessor(office);
+		String feedbackCO = off.createOffice(createOffice);
+		if (feedbackCO != null){
+		System.out.println("Doctors added: " + doctors.size());
+		System.out.println("Office created");}
+		
 		
 		System.err.println("Creating Cases ...");
 		i = 0;

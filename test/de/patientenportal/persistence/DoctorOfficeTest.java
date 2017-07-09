@@ -15,10 +15,10 @@ public class DoctorOfficeTest {
 			neuO.setName("Zahnarztpraxis");
 			
 		Address addressOffice = new Address();
-		addressOffice.setCity("Officecity");
-		addressOffice.setNumber("3A");
-		addressOffice.setPostalCode("19230");
-		addressOffice.setStreet("Officestraße");
+			addressOffice.setCity("Officecity");
+			addressOffice.setNumber("3A");
+			addressOffice.setPostalCode("19230");
+			addressOffice.setStreet("Officestraße");
 			
 			neuO.setAddress(addressOffice);
 	
@@ -92,11 +92,11 @@ public class DoctorOfficeTest {
 			Assert.assertEquals("success", feedbackCU);
 			Assert.assertEquals("success", feedbackUD);
 		
-		// Bidirektionaler Zugriff nach nachträglicher Verknüpfung
-		Doctor dx = DoctorDAO.getDoctor(neuD1.getDoctorID());
+		// Bidirektionaler Zugriff nach nachträglicher Verknüpfung  // ab jetzt ausgeschlossen / Transient
+		/*Doctor dx = DoctorDAO.getDoctor(neuD1.getDoctorID());
 		User ux = UserDAO.getUser(newuser.getUserId());
 			Assert.assertEquals("New", dx.getUser().getFirstname());
-		//	Assert.assertEquals("Zahnarzt", ux.getDoctor().getSpecialization());		// ab jetzt ausgeschlossen / Transient
+			Assert.assertEquals("Zahnarzt", ux.getDoctor().getSpecialization());	*/	
 			
 		//DeleteDoctor-Test
 		//Info - Rückwärtskaskadierung ist hier nicht eingestellt! Muss auch so sein

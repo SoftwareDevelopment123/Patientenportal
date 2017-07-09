@@ -1,7 +1,11 @@
 package de.patientenportal.persistence;
 
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+
+import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Office;
 
 public class OfficeDAO {
@@ -36,6 +40,7 @@ public class OfficeDAO {
 		if(id!=0){
 			
 			String name = updatedoffice.getName();
+			List<Doctor> dlist = updatedoffice.getDoctors();
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
@@ -43,6 +48,7 @@ public class OfficeDAO {
 			session.beginTransaction();				
 			Office officetoupdate = session.get(Office.class, id);
 				officetoupdate.setName(name);
+				officetoupdate.setDoctors(dlist);
 			session.getTransaction().commit();
 			
 			} catch(Exception e) {

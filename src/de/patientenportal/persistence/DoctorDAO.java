@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Office;
 
+@SuppressWarnings("unused")
 public class DoctorDAO {
 	
 	// Doktor abrufen
@@ -17,7 +18,7 @@ public class DoctorDAO {
 		doctor = (Doctor)session.get(Doctor.class, doctorID);
 		
 			if (doctor != null){
-				//Hibernate.initialize(doctor.getOffice());
+				Hibernate.initialize(doctor.getOffice());
 			}
 		session.getTransaction().commit();
 	
@@ -37,14 +38,14 @@ public class DoctorDAO {
 		if(id!=0){
 					
 			String specialization = updateddoctor.getSpecialization();
-			Office office = updateddoctor.getOffice();
+			//Office office = updateddoctor.getOffice();								//geändert, ab jetzt über Office
 		
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			try{
 			session.beginTransaction();				
 			Doctor doctortoupdate = session.get(Doctor.class, id);
 				doctortoupdate.setSpecialization(specialization);
-				doctortoupdate.setOffice(office);
+				//doctortoupdate.setOffice(office);
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {

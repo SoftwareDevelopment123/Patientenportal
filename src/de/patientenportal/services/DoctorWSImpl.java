@@ -19,14 +19,14 @@ public class DoctorWSImpl implements DoctorWS {
 	public Doctor getDoctor(Accessor accessor) {
 		int id;
 		
-		try { id = (int) accessor.getObject(); }
+		try {id = (int) accessor.getObject();}
 		catch (Exception e) {System.err.println("Invalid access"); return null;}
 		if (id == 0) 		{System.err.println("Id null"); return null;}
 		
 		else{
 			Doctor doctor = new Doctor();
 			try { doctor = DoctorDAO.getDoctor(id); }
-			catch (Exception e) {System.out.println("Error: " + e);}
+			catch (Exception e) {System.err.println("Error: " + e);}
 		return doctor;
 		}
 	}

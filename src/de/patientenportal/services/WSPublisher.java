@@ -26,8 +26,8 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/relative", new RelativeWSImpl());
 		System.out.println(" Relative-WebService : 				/relative?wsdl");
 		
-/*		Endpoint.publish(URI + "/office", new OfficeWSImpl());
-		System.out.println(" Office-WebService : 			/office?wsdl");*/
+		Endpoint.publish(URI + "/office", new OfficeWSImpl());
+		System.out.println(" Office-WebService : 				/office?wsdl");
 		
 		Endpoint.publish(URI + "/address", new AddressWSImpl());
 		System.out.println(" Address-WebService : 				/address?wsdl");
