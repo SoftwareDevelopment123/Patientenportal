@@ -20,8 +20,8 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/patient", new PatientWSImpl());
 		System.out.println(" Patient-WebService : 				/patient?wsdl");
 		
-/*		Endpoint.publish(URI + "/doctor", new DoctorWSImpl());
-		System.out.println(" Doctor-WebService : 			/doctor?wsdl");*/
+		Endpoint.publish(URI + "/doctor", new DoctorWSImpl());
+		System.out.println(" Doctor-WebService : 				/doctor?wsdl");
 		
 		Endpoint.publish(URI + "/relative", new RelativeWSImpl());
 		System.out.println(" Relative-WebService : 				/relative?wsdl");

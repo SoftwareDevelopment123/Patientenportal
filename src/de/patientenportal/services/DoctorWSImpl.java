@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.DoctorListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.DoctorDAO;
 import de.patientenportal.persistence.PatientDAO;
@@ -15,58 +16,77 @@ import de.patientenportal.persistence.PatientDAO;
 public class DoctorWSImpl implements DoctorWS {
 
 	@Transactional
-	public Doctor getDoctor(int doctorID) {
+	public Doctor getDoctor(Accessor accessor) {
+		int id;
 		
-		if (doctorID == 0) {return null;}
+		try { id = (int) accessor.getObject(); }
+		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		if (id == 0) 		{System.err.println("Id null"); return null;}
 		
 		else{
-			Doctor doctor = DoctorDAO.getDoctor(doctorID);
-			return doctor;
+			Doctor doctor = new Doctor();
+			try { doctor = DoctorDAO.getDoctor(id); }
+			catch (Exception e) {System.out.println("Error: " + e);}
+		return doctor;
 		}
 	}
 
 	@Transactional
-	public List<Doctor> getDoctorsByC(int caseID) {
+	public DoctorListResponse getDoctorsByC(Accessor accessor) {
+		DoctorListResponse response = new DoctorListResponse();
+		int id;
 		
-		if (caseID == 0) {return null;}
+		try {id = (int) accessor.getObject();}
+		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		if (id == 0) 		{System.err.println("Id null"); return null;}
 		
 		else{
-			List<Doctor> doctors = CaseDAO.getCase(caseID).getDoctors();
-			return doctors;
-		}
-		
+			try {
+			List<Doctor> rlist = CaseDAO.getCase(id).getDoctors();
+				response.setResponseCode("success");
+				response.setResponseList(rlist);
+			} catch (Exception e) {
+				response.setResponseCode("Error: " + e);
+			} return response;
+		}		
 	}
 
 	/*
 	 * Auf diese Methode sollte nur der Patient zugreifen können (entsprechende Beschränkung noch einfügen)
-	 * Die Lösung zur Vermeidung von Dopplungen sollte explizit getestet werden!
 	 */
 	
 	@Transactional
-	public List<Doctor> getDoctorsByP(int patientID) {
+	public DoctorListResponse getDoctorsByP(Accessor accessor) {
+		DoctorListResponse response = new DoctorListResponse();
+		int id;
 		
-		if (patientID == 0) {return null;}
-		
+		try {id = (int) accessor.getObject();}
+		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		if (id == 0) 		{System.err.println("Id null"); return null;}
+
 		else{
-			List<Case> cases = PatientDAO.getPatient(patientID).getCases();
-			
+			try {
+			List<Case> cases = PatientDAO.getPatient(id).getCases();
 			List<Doctor> pDoctors = new ArrayList<Doctor>();
 			
-			for (Case c : cases) {
-				List <Doctor> caselist = c.getDoctors();
+				for (Case c : cases) {
+					List <Doctor> caselist = c.getDoctors();
 				
-				for (Doctor d : caselist){
-					boolean alreadyInList = false;
+					for (Doctor d : caselist){
+						boolean alreadyInList = false;
 		
-					for (Doctor dfromlist : pDoctors){
-						if (d.getDoctorID() == dfromlist.getDoctorID()){alreadyInList = true;}
-					}
-					if (alreadyInList == false){pDoctors.add(d);}
-				}	
-				pDoctors.addAll(c.getDoctors());	
-			}
-		return pDoctors;
+						for (Doctor dfromlist : pDoctors){
+							if (d.getDoctorID() == dfromlist.getDoctorID()){alreadyInList = true;}
+						}
+						if (alreadyInList == false){pDoctors.add(d);}
+					}		
+				}
+			response.setResponseCode("success");
+			response.setResponseList(pDoctors);
+			
+			} catch (Exception e) {
+				response.setResponseCode("Error: " + e);
+			} return response;
 		}
 	}
-
 }

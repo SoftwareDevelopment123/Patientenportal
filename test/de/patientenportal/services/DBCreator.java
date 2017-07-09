@@ -123,7 +123,37 @@ public class DBCreator {
 			System.out.println("Doctor " + d.getDoctorID() + " updated");
 		}
 		
-		
+		System.err.println("Creating Cases ...");
+		i = 0;
+		for (int s = 6; s>=1; s--){
+			i++;
+			i.toString();
+			Case pcase = new Case();
+				pcase.setTitle("Case " + i);
+				pcase.setDescription("Description " + i);
+				pcase.setStatus(true);
+			
+				Patient pat = PatientDAO.getPatient(i);
+				pcase.setPatient(pat);
+			
+			if (i <= 2){
+				Doctor doc = DoctorDAO.getDoctor(3);
+				List <Doctor> doclist = new ArrayList<Doctor>();
+					doclist.add(doc);
+				pcase.setDoctors(doclist);
+			}
+			
+			else {
+				Doctor doc1 = DoctorDAO.getDoctor(1);
+				Doctor doc2 = DoctorDAO.getDoctor(2);
+				List <Doctor> doclist = new ArrayList<Doctor>();
+					doclist.add(doc1);
+					doclist.add(doc2);
+				pcase.setDoctors(doclist);
+			}
+			CaseDAO.createCase(pcase);
+			System.out.println("Case-ID " + pcase.getCaseID() + " for Patient " + pat.getPatientID());
+		}
 		
 		System.exit(0);
 	}	
