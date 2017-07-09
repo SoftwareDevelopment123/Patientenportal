@@ -20,7 +20,7 @@ public class TestOnetoOne {
 			neu.setLastname("Stupser");
 			neu.setFirstname("Staps");
 			neu.setBirthdate("01.01.1992");
-			neu.setGender("male");
+			neu.setGender(Gender.MALE);
 
 		Address neuA = new Address();
 			neuA.setCity("Stapshausen");

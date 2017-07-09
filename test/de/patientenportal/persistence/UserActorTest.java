@@ -17,7 +17,7 @@ public class UserActorTest {
 			neu.setLastname("Stupser");
 			neu.setFirstname("Staps");
 			neu.setBirthdate("01.01.1992");
-			neu.setGender("male");
+			neu.setGender(Gender.MALE);
 			
 		Address neuA = new Address();
 			neuA.setCity("Stapshausen");
@@ -52,14 +52,14 @@ public class UserActorTest {
 			Assert.assertTrue("Should be True",checkusername);
 		
 		// User aus der Datenbank abrufen
-		User user = UserDAO.getUser(neu.getUserId());
+		User user = UserDAO.getUserByUsername("staps");
 			Assert.assertEquals("staps"						, user.getUsername());
 			Assert.assertEquals("pass"						, user.getPassword());
 			Assert.assertEquals("stap.staptp@mustermail.com", user.getEmail());
 			Assert.assertEquals("Stupser"					, user.getLastname());
 			Assert.assertEquals("Staps"						, user.getFirstname());
 			Assert.assertEquals("01.01.1992"				, user.getBirthdate());
-			Assert.assertEquals("male"						, user.getGender());
+			Assert.assertEquals(Gender.MALE					, user.getGender());
 		
 			Assert.assertEquals("Stapshausen"				, user.getAddress().getCity());
 			Assert.assertEquals("1a"						, user.getAddress().getNumber());
@@ -77,6 +77,7 @@ public class UserActorTest {
 		//	Assert.assertEquals(neu.getUserId()				, user.getPatient()	.getUser().getUserId());
 		
 		//User-Update-Test
+			System.out.println(neu.getUserId());
 		User userupdate = UserDAO.getUser(neu.getUserId());
 			userupdate.setLastname("Newname+");
 		

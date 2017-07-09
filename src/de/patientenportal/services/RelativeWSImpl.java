@@ -17,8 +17,7 @@ public class RelativeWSImpl implements RelativeWS {
 		
 		else{
 			Relative relative = RelativeDAO.getRelative(relativeID);
-			
-			
+
 			return relative;
 		}
 	}

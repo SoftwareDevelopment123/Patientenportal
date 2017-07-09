@@ -7,6 +7,7 @@ import javax.xml.ws.Service;
 import de.patientenportal.entities.Address;
 import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
@@ -25,7 +26,7 @@ public class UserTest {
 			newuser.setLastname("Mustermann");
 			newuser.setFirstname("Max");
 			newuser.setBirthdate("01.01.2000");
-			newuser.setGender("male");
+			newuser.setGender(Gender.MALE);
 		
 			Address neuA = new Address();
 				neuA.setCity("Musterstadt");

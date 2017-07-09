@@ -93,6 +93,7 @@ public class UserDAO {
 		}
 	
 	// Userdaten ändern
+	//kann man mit SaveOrUpdate anpassen! Siehe WebSessionDAO!
 	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
@@ -103,7 +104,7 @@ public class UserDAO {
 			String lastname = 	updateduser.getLastname();
 			String firstname = 	updateduser.getFirstname();
 			String birthdate = 	updateduser.getBirthdate();
-			String gender = 	updateduser.getGender();
+			Gender gender = 	updateduser.getGender();
 
 			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();
