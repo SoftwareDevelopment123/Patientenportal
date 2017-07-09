@@ -55,7 +55,7 @@ public class JaxBTest {
 				System.out.println(r.getUser().getLastname());
 			}*/
 		
-		JAXBContext jc = JAXBContext.newInstance(Doctor.class);
+	/*	JAXBContext jc = JAXBContext.newInstance(Doctor.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		Doctor doctor = DoctorDAO.getDoctor(2);
@@ -65,7 +65,14 @@ public class JaxBTest {
 		System.out.println(doctor.getUser().getEmail());
 		
         marshaller.marshal(doctor, System.out);
+		*/
 		
+		JAXBContext jc = JAXBContext.newInstance(Case.class);
+        Marshaller marshaller = jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		Case pcase = CaseDAO.getCase(3);
+				
+		marshaller.marshal(pcase, System.out);
 		
         System.exit(0);
         

@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.DoctorListResponse;
+import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.DoctorDAO;
 
 public class DoctorTest {
@@ -32,17 +34,19 @@ public class DoctorTest {
 		Assert.assertEquals(comparedoc.getSpecialization() 		, doctor.getSpecialization());
 		Assert.assertEquals(comparedoc.getUser().getLastname() 	, doctor.getUser().getLastname());
 	
-	/*// Get PatientList by Relative
-	List<Patient> comparePatList = RelativeDAO.getRelative(3).getPatients();
-	Accessor getPatList = new Accessor(3);
-	PatientListResponse patListResponse = pat.getPatientsByR(getPatList);
-	List<Patient> patList = patListResponse.getResponseList();
+	// Get DoctorList by Case
+	System.out.println(CaseDAO.getCase(3).getDoctors().size());
+		
+	/*List<Doctor> compareDocList = CaseDAO.getCase(3).getDoctors();
+	Accessor getDocList = new Accessor(3);
+	DoctorListResponse docListResponse = doc.getDoctorsByC(getDocList);
+	List<Doctor> docList = docListResponse.getResponseList();
 	
 	int i = 0;
-	for (Patient p : comparePatList){
-		Assert.assertEquals(p.getPatientID() 			, patList.get(i).getPatientID());
-		Assert.assertEquals(p.getBloodtype() 			, patList.get(i).getBloodtype());
-		Assert.assertEquals(p.getUser().getLastname() 	, patList.get(i).getUser().getLastname());
+	for (Doctor d : compareDocList){
+		Assert.assertEquals(d.getDoctorID()				, docList.get(i).getDoctorID());
+		Assert.assertEquals(d.getSpecialization()		, docList.get(i).getSpecialization());
+		Assert.assertEquals(d.getUser().getFirstname()	, docList.get(i).getUser().getFirstname());
 		i++;
 	}*/
 		
