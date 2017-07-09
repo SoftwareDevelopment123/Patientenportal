@@ -68,9 +68,9 @@ public class DoctorWSImpl implements DoctorWS {
 			try {
 			List<Case> cases = PatientDAO.getPatient(id).getCases();
 			List<Doctor> pDoctors = new ArrayList<Doctor>();
-			
+						
 				for (Case c : cases) {
-					List <Doctor> caselist = c.getDoctors();
+					List <Doctor> caselist = CaseDAO.getCase(c.getCaseID()).getDoctors();
 				
 					for (Doctor d : caselist){
 						boolean alreadyInList = false;

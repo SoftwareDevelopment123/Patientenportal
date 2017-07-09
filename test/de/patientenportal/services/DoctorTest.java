@@ -34,10 +34,8 @@ public class DoctorTest {
 		Assert.assertEquals(comparedoc.getSpecialization() 		, doctor.getSpecialization());
 		Assert.assertEquals(comparedoc.getUser().getLastname() 	, doctor.getUser().getLastname());
 	
-	// Get DoctorList by Case
-	System.out.println(CaseDAO.getCase(3).getDoctors().size());
-		
-	/*List<Doctor> compareDocList = CaseDAO.getCase(3).getDoctors();
+	// Get DoctorList by Case	
+	List<Doctor> compareDocList = CaseDAO.getCase(3).getDoctors();
 	Accessor getDocList = new Accessor(3);
 	DoctorListResponse docListResponse = doc.getDoctorsByC(getDocList);
 	List<Doctor> docList = docListResponse.getResponseList();
@@ -48,8 +46,24 @@ public class DoctorTest {
 		Assert.assertEquals(d.getSpecialization()		, docList.get(i).getSpecialization());
 		Assert.assertEquals(d.getUser().getFirstname()	, docList.get(i).getUser().getFirstname());
 		i++;
-	}*/
+	}
+	
+	/*
+	 * Get DoctorList by Patient
+	 * zum manuellen Testen vorgesehen, wird sonst zu kompliziert (für mehr Komplexität mehr Fälle zu Patient 1 zuweisen
+	 * Aktueller Stand: funktioniert
+	 */
+	
+	/*Accessor getDocList2 = new Accessor(1);
+	DoctorListResponse docListResponse2 = doc.getDoctorsByP(getDocList2);
 		
+	List<Doctor> docList2 = docListResponse2.getResponseList();
+	for (Doctor d : docList2) {
+		System.out.print("Doktor-ID: " + d.getDoctorID());
+		System.out.println(" - " + d.getSpecialization());
+	}*/
+	
+	
 	System.out.println("Success!");	
 	}
 }
