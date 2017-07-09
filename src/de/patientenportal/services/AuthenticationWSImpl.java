@@ -12,6 +12,7 @@ import javax.jws.WebService;
 import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.http.HTTPException;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -95,7 +96,7 @@ static
   public boolean authenticateToken(String token){	
 	  deleteInvalidTokens();
 	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
-	if (sessions.size() != 1) return false;
+	if (sessions.size() != 1) return false; //throw new HTTPException(401);
 	extendWebSession(sessions.get(0));
 	return true;
   }

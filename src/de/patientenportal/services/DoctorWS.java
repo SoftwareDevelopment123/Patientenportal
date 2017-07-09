@@ -5,6 +5,8 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
+
+import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.DoctorListResponse;
@@ -21,5 +23,8 @@ public interface DoctorWS {
 	
 	@WebMethod
 	public DoctorListResponse getDoctorsByP	(@WebParam (name="Patient-ID") Accessor accessor);
+
+	@WebMethod
+	public String createCase				(@WebParam (name="Case") Accessor accessor);
 
 }

@@ -70,7 +70,7 @@ public class AuthenticationTest {
         System.out.println(authWS.authenticateUser(ActiveRole.Patient));
         System.out.println(authWS.getSessionToken(username));
         String tokenTest = authWS.getSessionToken(username);
-        System.out.println(authWS.authenticateToken(tokenTest));
+        System.out.println(authWS.authenticateToken(tokenTest+ "1"));
       //  Assert.assertEquals(true, authWS.authenticateToken(authWS.getSessionToken(username)));
        
  

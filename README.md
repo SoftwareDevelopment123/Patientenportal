@@ -209,6 +209,8 @@ bis 09.07. (alle)
 - Bei Create-Case auch dem erstellenden Doktor Lese-/Schreibrechte mitgeben
 
 ## Ausblick
+
 - DAO - Interfaces und non-static DAO
 - Token-Authentication über HTTP Heade
 - Response-Entities verbessern
+
