@@ -7,12 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.List;
 
 @Entity
 @Table(name = "Insurance", catalog = "patientenportal")
+@XmlRootElement (name="insurance")
 public class Insurance {
 	
 	private int insuranceID;
@@ -54,6 +59,8 @@ public class Insurance {
 	}
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "insurance")
+	@XmlElementWrapper(name="patients")
+	@XmlElement(name="patient")
 	public List<Patient> getPatients() {
 		return patients;
 	}

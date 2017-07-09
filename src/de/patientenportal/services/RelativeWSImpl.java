@@ -10,19 +10,18 @@ import de.patientenportal.persistence.RelativeDAO;
 @WebService (endpointInterface = "de.patientenportal.services.RelativeWS")
 public class RelativeWSImpl implements RelativeWS {
 	
-	//@Transactional
+	@Transactional
 	public Relative getRelative(int relativeID) {
 
-		//if (relativeID == 0) {return null;}
+		if (relativeID == 0) {return null;}
 		
-		//else{
+		else{
 			Relative relative = RelativeDAO.getRelative(relativeID);
-			System.out.println("WSImpl :" + relative.getRelativeID());
 			return relative;
-		//}
+		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public List<Relative> getRelativesByP(int patientID) {
 		
 		if (patientID == 0) {return null;}
@@ -31,6 +30,6 @@ public class RelativeWSImpl implements RelativeWS {
 			List<Relative> relatives = PatientDAO.getPatient(patientID).getRelatives();
 			return relatives;
 		}
-	}
+	}*/
 
 }

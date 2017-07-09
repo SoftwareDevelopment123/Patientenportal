@@ -17,8 +17,9 @@ public class RelativeDAO {
 		relative = (Relative)session.get(Relative.class, relativeID);
 		
 			if (relative != null){
-				Hibernate.initialize(relative.getPatients());			// LAZY-HIBERNATE-MAGIC
+				Hibernate.initialize(relative.getPatients());				// LAZY-HIBERNATE-MAGIC
 			}
+			
 		session.getTransaction().commit();
 
 		} catch (Exception e) {
