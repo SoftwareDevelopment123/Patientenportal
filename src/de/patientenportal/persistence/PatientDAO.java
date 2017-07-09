@@ -23,7 +23,7 @@ public class PatientDAO {
 				Hibernate.initialize(patient.getCases());
 				Hibernate.initialize(patient.getMedicalDocs());
 				
-				/*for (Relative r : patient.getRelatives()){
+				/*for (Relative r : patient.getRelatives()){				// Zu Testzwecken eingefügt, nicht für finale version
 					Hibernate.initialize(r.getPatients());
 				}*/
 				

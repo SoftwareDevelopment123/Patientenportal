@@ -32,8 +32,6 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 //@XmlDiscriminatorNode(value = "PATIENT")
 
-
-
 public class Patient {
 
 	private int patientID;
@@ -80,9 +78,9 @@ public class Patient {
 	
 	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable(name="patient_relative")
-	//@XmlTransient										// zwischenlösung
-	@XmlElementWrapper(name="relatives")
-	@XmlElement(name="relative")
+	@XmlTransient										// zwischenlösung
+	//@XmlElementWrapper(name="relatives")
+	//@XmlElement(name="relative")
 	public List<Relative> getRelatives() {
 		return relatives;
 	}
@@ -112,7 +110,8 @@ public class Patient {
 	}
 
 	@OneToMany (mappedBy = "patient")
-	@Transient
+
+	//@Transient
 	//@XmlElementWrapper(name="mdocs")
 	//@XmlElement(name="mdoc")
 	public List<MedicalDoc> getMedicalDocs() {

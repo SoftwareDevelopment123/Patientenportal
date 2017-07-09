@@ -1,35 +1,21 @@
 package de.patientenportal.entities;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.Date;
-import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-/*
- * Eine WebSession wird erzeugt, wenn sich ein User mit gültigem username und password anmeldet. Sie enthält die User, einen Zeitstempel
- * und einen Token, der an den User zurückgegeben wird.
- * 
- */
-
-
 @Entity
-//@PrimaryKeyJoinColumn(name="baseclass_id")
 @Table(name = "Websession", catalog = "patientenportal")
 public class WebSession  {
 
@@ -49,8 +35,22 @@ public class WebSession  {
 	@JoinColumn(name= "webSessionID")
 	private User user;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ActiveRole")
+	private ActiveRole activeRole;
+	
 	public WebSession() {	
 	}
+	
+	public ActiveRole getActiveRole() {
+		return activeRole;
+	}
+
+	public void setActiveRole(ActiveRole activeRole) {
+		this.activeRole = activeRole;
+	}
+
+
 	
 	public int getWebSessionID() {
 		return webSessionID;

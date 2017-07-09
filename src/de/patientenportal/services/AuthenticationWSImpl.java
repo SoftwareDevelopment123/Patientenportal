@@ -15,6 +15,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.hibernate.criterion.Restrictions;
 
+import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
@@ -36,7 +37,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   WebServiceContext wsctx;
 		
   @Transactional
-  public String authenticateUser(){ //(String username, String password) {
+  public String authenticateUser(ActiveRole activeRole){ //(String username, String password) {
 	
 	MessageContext mctx = wsctx.getMessageContext();
 	
@@ -58,9 +59,14 @@ public class AuthenticationWSImpl implements AuthenticationWS {
     }
     //User und Passwort-Überprüfung
     if (checkUsernamePassword(username, password) == true){
-    	//if(UserDAO.getUserByUsername(username).getWebSession()== null){
-    	createSessionToken(UserDAO.getUserByUsername(username));
-    	//}
+    	if((UserDAO.getUserByUsername(username).getPatient() != null && activeRole == ActiveRole.Patient)||
+    	   (UserDAO.getUserByUsername(username).getDoctor() != null	&& activeRole == ActiveRole.Doctor)||
+    	   (UserDAO.getUserByUsername(username).getRelative() != null && activeRole == ActiveRole.Relative))
+    	
+    		//if(UserDAO.getUserByUsername(username).getWebSession()== null){
+    		createSessionToken(UserDAO.getUserByUsername(username), activeRole);
+    		//}
+    	else{ return "Keine Berechtigung für die gewünschte Rolle";}
     	return getGreeting(username);
     	
     }
@@ -150,14 +156,14 @@ public class AuthenticationWSImpl implements AuthenticationWS {
    * @param
    * @return Token
    */
-  private String createSessionToken(User user){
+  private String createSessionToken(User user, ActiveRole activeRole){
 	WebSession wss = new WebSession();
 	wss.setUser(user);
 	wss.setToken(getNewToken());
 	Calendar c = Calendar.getInstance();
 	c.add(Calendar.MINUTE, 15);
 	wss.setValidTill(c.getTime());
-	
+	wss.setActiveRole(activeRole);
 	return (WebSessionDAO.createWebSession(wss)).getToken();
   }
   
