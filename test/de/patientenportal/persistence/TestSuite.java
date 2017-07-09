@@ -13,6 +13,9 @@ import org.junit.runners.Suite.SuiteClasses;
 		PatientCaseTest.class,				// x
 		MedicineMedicationTest.class,		// x
 		VitalDataTest.class,				// x
+		
+		//MDocTest.class,						// x
+		//InDocTest.class,					// x
 		/*DocumentsTest.class,*/			// fehlt noch
 		RightsTest.class,					// x
 		AccessTest.class})					// x				

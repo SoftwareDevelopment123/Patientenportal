@@ -6,6 +6,7 @@ import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.MedicalDoc;
 import de.patientenportal.entities.Patient;
+import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 public class MDocDAO {
 	
@@ -18,6 +19,7 @@ public class MDocDAO {
 		session.beginTransaction();		
 		session.save(newMDoc);
 		session.getTransaction().commit();
+		FtpMethodenMDocs.uploadMDoc(newMDoc);
 		
 		} catch (Exception e) {
 			System.err.println("Error: " + e);

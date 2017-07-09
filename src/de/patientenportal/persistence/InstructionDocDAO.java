@@ -2,6 +2,8 @@ package de.patientenportal.persistence;
 
 import org.hibernate.Session;
 import de.patientenportal.entities.InstructionDoc;
+import de.patientenpotal.ftpconnection.FtpMethodenInDocs;
+import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 
 public class InstructionDocDAO {
@@ -14,6 +16,7 @@ public class InstructionDocDAO {
 			session.beginTransaction();
 			session.save(newInstructionDoc);
 			session.getTransaction().commit();
+			FtpMethodenInDocs.uploadInstructionDoc(newInstructionDoc);
 			
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
