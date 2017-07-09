@@ -16,6 +16,11 @@ public class DBCreator {
 		List <Relative> relatives = new ArrayList<Relative>();
 		List <Doctor> doctors = new ArrayList<Doctor>();
 		
+		Insurance insurance = new Insurance();
+			insurance.setInsuranceNr(4641831);
+			insurance.setName("Techniker");
+		InsuranceDAO.createInsurance(insurance);
+		
 		for (int s = 12; s>=1; s--){
 			i++;
 			i.toString();
@@ -63,6 +68,7 @@ public class DBCreator {
 			else {
 				Patient patient = new Patient();
 				patient.setBloodtype("A" + i);
+				patient.setInsurance(insurance);
 				RegistrationDAO.createPatient(patient);
 				user.setPatient(patient);
 				System.out.println("User-ID " + i + " - Patient created");

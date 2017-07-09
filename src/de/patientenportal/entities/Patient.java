@@ -89,7 +89,7 @@ public class Patient {
 		this.relatives = relatives;
 	}
 
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name="insurance_fk")
 	public Insurance getInsurance() {
 		return insurance;

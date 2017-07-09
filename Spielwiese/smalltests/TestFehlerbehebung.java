@@ -1,4 +1,4 @@
-package de.patientenportal.services;
+package smalltests;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +12,7 @@ import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
+import de.patientenportal.services.RelativeWS;
 
 public class TestFehlerbehebung {
 

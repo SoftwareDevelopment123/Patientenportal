@@ -4,6 +4,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import de.patientenportal.entities.*;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.*;
 import de.patientenportal.services.RelativeWSImpl;
@@ -23,7 +24,7 @@ public class JaxBTest {
 		
 		// Ergebnis: Über Relative werden Patienten mit gemapped
 
-/*		JAXBContext jc = JAXBContext.newInstance(Patient.class);
+		JAXBContext jc = JAXBContext.newInstance(Patient.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
@@ -35,19 +36,20 @@ public class JaxBTest {
         	System.out.print(r.getRelativeID());
         	System.out.print(" - " + r.getUser().getFirstname());
            	System.out.println(" - " + r.getUser().getLastname());
-        }*/
+        }
                
         // Ergebnis: Über Patient werden Relatives nicht direkt gemapped, nur bei explizitem Abruf
 
-        JAXBContext jc = JAXBContext.newInstance(RelativeListResponse.class);
+		/* JAXBContext jc = JAXBContext.newInstance(RelativeListResponse.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
+        Accessor access = new Accessor(1);
         RelativeWSImpl relws = new RelativeWSImpl();
-        RelativeListResponse response = relws.getRelativesByP(1);       
+        RelativeListResponse response = relws.getRelativesByP(access);       
         marshaller.marshal(response, System.out);		
 			
-			/*for(Relative r : response.getResponseList()){
+			for(Relative r : response.getResponseList()){
 				System.out.print(r.getRelativeID() + " - ");
 				System.out.print(r.getUser().getFirstname() + " - ");
 				System.out.println(r.getUser().getLastname());
