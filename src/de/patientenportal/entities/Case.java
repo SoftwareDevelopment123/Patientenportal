@@ -33,7 +33,7 @@ public class Case {
 	private List<MedicalDoc> medicalDocs;
 	private List<Doctor> doctors;
 	private List<Medication> medication;
-	//private List<InstructionDoc> idoc;			//noch nicht implementiert
+	private List<InstructionDoc> idoc;			//noch nicht implementiert
 	
 	public Case(){	
 	}
@@ -128,6 +128,12 @@ public class Case {
 	}
 	public void setMedication(List<Medication> medication) {
 		this.medication = medication;
+	}
+	public List<InstructionDoc> getIdoc() {
+		return idoc;
+	}
+	public void setIdoc(List<InstructionDoc> idoc) {
+		this.idoc = idoc;
 	}
 
 	/*public List<InstructionDoc> getIdoc() {
