@@ -14,6 +14,7 @@ public class RegistrationWSImpl implements RegistrationWS {
 	
 /*
  * Anlegen von Usern und den 3 bisher vorgesehenen Akteuren
+ * Hier keine Token-Checks durchführen
  */
 	
 	@Transactional

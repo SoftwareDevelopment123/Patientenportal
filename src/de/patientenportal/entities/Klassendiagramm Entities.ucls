@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="de.patientenportal.entities.Relative" project="Patientenportal" 
     file="/Patientenportal/src/de/patientenportal/entities/Relative.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="371" y="456"/>    
+    <position height="-1" width="-1" x="301" y="444"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="false" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -583,10 +583,10 @@
   <association id="122">    
     <end type="SOURCE" refId="17" navigable="false" variant="ASSOCIATION">      
       <attribute id="123" name="relatives">        
-        <position height="0" width="0" x="0" y="-17"/>      
+        <position height="0" width="0" x="-70" y="-29"/>      
       </attribute>      
       <multiplicity id="124" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="-17"/>      
+        <position height="0" width="0" x="-70" y="-29"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
@@ -607,10 +607,10 @@
   <association id="128">    
     <end type="SOURCE" refId="16" navigable="false" variant="ASSOCIATION">      
       <attribute id="129" name="relative">        
-        <position height="0" width="0" x="0" y="-17"/>      
+        <position height="0" width="0" x="-70" y="-29"/>      
       </attribute>      
       <multiplicity id="130" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="-17"/>      
+        <position height="0" width="0" x="-70" y="-29"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
@@ -667,10 +667,10 @@
   <association id="143">    
     <end type="SOURCE" refId="6" navigable="false" variant="ASSOCIATION">      
       <attribute id="144" name="relative">        
-        <position height="0" width="0" x="0" y="-17"/>      
+        <position height="0" width="0" x="-70" y="-29"/>      
       </attribute>      
       <multiplicity id="145" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="-17"/>      
+        <position height="0" width="0" x="-70" y="-29"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    

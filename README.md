@@ -16,15 +16,15 @@ DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Of
 WS	-	
 
 Fertig:
-DAO	-	
-WS	- RegistrationWS (getestet), AccountWS, PatientWS, RelativeWS, DoctorWS, OfficeWS, AddressWS, ContactWS (alle noch nicht getestet)
+DAO	- InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
+WS	- RegistrationWS, AccountWS, PatientWS, RelativeWS, DoctorWS, OfficeWS, AddressWS, ContactWS (getestet, token/rolecheck fehlt noch)
 
 in Arbeit:
-DAO	-	InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
+DAO	-	finale Prüfung (z.B. criteria anpassen)
 WS	-	
 
 Fehlt noch:
-WS	-	
+WS	-	restliche ws
 
 
 ## Dokumentation
@@ -127,10 +127,24 @@ WS	-
 07.07. Jascha
 * Alles erfolgreich gemerged, Gender-Enum eingefügt und alles entsprechend angepasst
 
+bis 09.07. (alle)
+- DAOs und Case-Verknüpfungen weitgehend Fertig
+	- noch testen und dann abschließen
+- WS bis zu den Actors fertig
+- Token / Authentication / Authorization / Login / Logout funktioniert
+- DateiServerZugriff funktioniert (bei Jan, hier vllt noch eine Anleitung einfügen)
 
 ## To-Do
+- Deprecated Criterias anpassen (UserDAO, WebSessionDAO, ...?)
+
+- Token- und Role-Check (soweit nötig) in die Methoden einfüge
+	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
+	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen
+
 - Enum für Gender einfügen
+
 - Websession anpassen
+
 - Dokumente fertig anlegen und mit Case Verknüpfen
 	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
 	- Spalten aus der Superklasse werden (noch) nicht in die Datenbank übernommen, da müssen wir noch was machen
@@ -143,11 +157,6 @@ WS	-
 - Funktion: Einfügen von Dokumenten in die DB prüfen
 
 - Timestamp bei den Dokumenten/VitalData und Datumsformat bei Birthdate
-
-- WS-Logik!!!
-	- Listen werden nicht von JAXB verstanden
-	- Lösung 1: @SOAPBinding(style = Style.RPC) zu Style.Document ändern, dann müssen wir aber auch ein entsprechendes Doc erstellen
-	- Lösung 2: @SOAPBinding auskommentieren und die @Xml... mappings benutzen --> das wirds wahrscheinlich, muss ich noch testen
 
 ## Anmerkungen
 - Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
@@ -180,7 +189,13 @@ WS	-
 	- Dadurch sparen wir uns die getrennten Address- und ContactDAOs
 	- stattdessen nehmen wir das bestehende Objekt aus der Abfrage und ändern nur den gewünschten Wert
 	- z.B. office.getContact().setMail("neue Mail");
-	
+
+- WS-Logik!!
+	- Listen werden nicht von JAXB verstande
+	- Lösung 1: @SOAPBinding(style = Style.RPC) zu Style.Document ändern, dann müssen wir aber auch ein entsprechendes Doc erstelle
+	- Lösung 2: @SOAPBinding auskommentieren und die @Xml... mappings benutzen --> das wirds wahrscheinlich, muss ich noch teste
+- gelöst durch @XmlTransient-Annotation bei unnötigen Verknüpfungen (Data-Input bleibt durch entsprechende Methoden erhalten
+
 - MAPPEDBY für Bidirektionale Beziehungen benutzen!!!!!! Siehe Patient-Insurance
 
 - Tests funktionierten nur individuell, aber nicht in der Suite (gelöst)
@@ -194,7 +209,8 @@ WS	-
 - Bei Create-Case auch dem erstellenden Doktor Lese-/Schreibrechte mitgeben
 
 ## Ausblick
-- HTTP-Header für Requests mehr einbinden (Token, ...)
-- DAO - Interfaces und non-static DAOs
-- Token-Authentication
-- Response-Entity
+
+- DAO - Interfaces und non-static DAO
+- Token-Authentication über HTTP Heade
+- Response-Entities verbessern
+
