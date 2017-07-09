@@ -109,7 +109,7 @@
       <position height="52" width="132" x="556" y="1025"/>    
     </execution>  
   </object>  
-  <message id="3" operation="authenticateUser():java.lang.String" asynchronous="false">    
+  <message id="3" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </message>  
@@ -125,7 +125,7 @@
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="10"/>  
   </message>  
-  <message id="15" operation="authenticateUser():java.lang.String" asynchronous="false">    
+  <message id="15" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="16"/>  
   </message>  

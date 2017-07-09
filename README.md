@@ -194,6 +194,7 @@ WS	-
 - Bei Create-Case auch dem erstellenden Doktor Lese-/Schreibrechte mitgeben
 
 ## Ausblick
+- HTTP-Header für Requests mehr einbinden (Token, ...)
 - DAO - Interfaces und non-static DAOs
 - Token-Authentication
 - Response-Entity

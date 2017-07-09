@@ -10,16 +10,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 
 @Entity
 @Table(name = "Doctor", catalog = "patientenportal")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlRootElement (name="doctor")
 public class Doctor {
 
@@ -64,6 +67,7 @@ public class Doctor {
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="office_fk")
+	@XmlTransient
 	public Office getOffice() {
 		return office;
 	}
@@ -72,7 +76,7 @@ public class Doctor {
 	}
 	
 	@ManyToMany(mappedBy="doctors")
-	@Transient
+	@XmlTransient
 	public List<Case> getCases() {
 		return cases;
 	}

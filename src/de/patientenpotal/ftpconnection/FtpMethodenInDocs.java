@@ -25,7 +25,14 @@ public class FtpMethodenInDocs {
         int port = 21;
         String user = "admin";
         String pass = "12345";
-        File filetoupload = indoc.getFile();
+        File filetoupload = new File(
+        		"C:" 				+File.separator+
+				"Users" 			+File.separator+ 
+				"Jani"				+File.separator+
+				"Desktop"			+File.separator+
+				"Filezilla"			+File.separator+
+				"Upload"			+File.separator+
+				indoc.getTitle()+"."+indoc.getFileType());
  
         FTPClient ftpClient = new FTPClient();
         try {
@@ -63,7 +70,7 @@ public class FtpMethodenInDocs {
 	
 	public static void downloadInstructionDoc(InstructionDoc indoctodownload) {
 		
-		String filetodownload = File.separator+indoctodownload.getInstructionDocID()+"."+indoctodownload.getFileType();
+		String filetodownload = File.separator+"InstructionDoc"+indoctodownload.getInstructionDocID()+"."+indoctodownload.getFileType();
 		String server = "127.0.0.1";
         int port = 21;
         String user = "admin";
@@ -75,7 +82,8 @@ public class FtpMethodenInDocs {
 				"Desktop"			+File.separator+
 				"Filezilla"			+File.separator+
 				"Download"			+File.separator+
-				indoctodownload.getTitle()+"."+
+				indoctodownload.getTitle()+
+				indoctodownload.getInstructionDocID()+"."+
 				indoctodownload.getFileType());
  
         FTPClient ftpClient = new FTPClient();

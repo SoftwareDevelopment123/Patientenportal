@@ -17,8 +17,7 @@ public class DoctorDAO {
 		doctor = (Doctor)session.get(Doctor.class, doctorID);
 		
 			if (doctor != null){
-				Hibernate.initialize(doctor.getOffice());
-				Hibernate.initialize(doctor.getCases());			// LAZY-HIBERNATE-MAGIC
+				//Hibernate.initialize(doctor.getOffice());
 			}
 		session.getTransaction().commit();
 	

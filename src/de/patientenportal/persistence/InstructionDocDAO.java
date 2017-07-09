@@ -1,7 +1,13 @@
 package de.patientenportal.persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import de.patientenportal.entities.InstructionDoc;
+import de.patientenportal.entities.User;
+import de.patientenpotal.ftpconnection.FtpMethodenInDocs;
+import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 
 public class InstructionDocDAO {
@@ -14,6 +20,7 @@ public class InstructionDocDAO {
 			session.beginTransaction();
 			session.save(newInstructionDoc);
 			session.getTransaction().commit();
+			FtpMethodenInDocs.uploadInstructionDoc(newInstructionDoc);
 			
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
@@ -102,6 +109,24 @@ public class InstructionDocDAO {
 				
 			return "success";
 		}
+	
+	@SuppressWarnings("unchecked")
+	public static List<InstructionDoc> getAllIDocs(){
+		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		
+		List<InstructionDoc> docs = new ArrayList<InstructionDoc>();
+		try{
+		session.beginTransaction();
+		docs = session.createQuery("FROM instructiondoc").list(); 
+	    session.getTransaction().commit();				
+	    
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return null;
+		} finally {
+			session.close();
+		}
+	    return docs;
+	}
 		
 }

@@ -27,8 +27,8 @@ public class TestFehlerbehebung {
 		RelativeWS rel = service.getPort(RelativeWS.class);
 				
 		// Methode 1
-		Relative relative = rel.getRelative(2);
-		System.out.println(relative.getRelativeID());
+	//	Relative relative = rel.getRelative(2);
+	//	System.out.println(relative.getRelativeID());
 				
 
 		/*for (Patient p : relative.getPatients()){

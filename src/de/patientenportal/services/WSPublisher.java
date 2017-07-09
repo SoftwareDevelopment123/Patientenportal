@@ -11,17 +11,17 @@ public class WSPublisher {
 		System.out.println("Web-Services running on " + URI);
 		
 //		try {
-		Endpoint.publish(URI + "/account", new AccountWSImpl());
-		System.out.println(" Account-WebService : 				/account?wsdl");
-	
 		Endpoint.publish(URI + "/registration", new RegistrationWSImpl());
 		System.out.println(" Registration-WebService : 			/registration?wsdl");
 		
-/*		Endpoint.publish(URI + "/patient", new PatientWSImpl());
-		System.out.println(" Patient-WebService : 			/patient?wsdl");*/
+		Endpoint.publish(URI + "/account", new AccountWSImpl());
+		System.out.println(" Account-WebService : 				/account?wsdl");
 		
-/*		Endpoint.publish(URI + "/doctor", new DoctorWSImpl());
-		System.out.println(" Doctor-WebService : 			/doctor?wsdl");*/
+		Endpoint.publish(URI + "/patient", new PatientWSImpl());
+		System.out.println(" Patient-WebService : 				/patient?wsdl");
+		
+		Endpoint.publish(URI + "/doctor", new DoctorWSImpl());
+		System.out.println(" Doctor-WebService : 				/doctor?wsdl");
 		
 		Endpoint.publish(URI + "/relative", new RelativeWSImpl());
 		System.out.println(" Relative-WebService : 				/relative?wsdl");

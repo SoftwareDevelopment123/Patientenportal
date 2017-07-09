@@ -1,24 +1,25 @@
 package de.patientenportal.services;
 
-import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.DoctorListResponse;
 
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface DoctorWS {
 
 	@WebMethod
-	public Doctor getDoctor				(@WebParam (name="Doctor-ID")int doctorID);
+	public Doctor getDoctor					(@WebParam (name="Doctor-ID") Accessor accessor);
 	
 	@WebMethod
-	public List<Doctor> getDoctorsByC	(@WebParam (name="Case-ID")int caseID);
+	public DoctorListResponse getDoctorsByC	(@WebParam (name="Case-ID") Accessor accessor);
 	
 	@WebMethod
-	public List<Doctor> getDoctorsByP	(@WebParam (name="Patient-ID")int patientID);
+	public DoctorListResponse getDoctorsByP	(@WebParam (name="Patient-ID") Accessor accessor);
 
 }

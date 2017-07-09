@@ -1,11 +1,20 @@
 package de.patientenportal.persistence;
 
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
 
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.MedicalDoc;
 import de.patientenportal.entities.Patient;
+import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 public class MDocDAO {
 	
@@ -18,6 +27,7 @@ public class MDocDAO {
 		session.beginTransaction();		
 		session.save(newMDoc);
 		session.getTransaction().commit();
+		FtpMethodenMDocs.uploadMDoc(newMDoc);
 		
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
@@ -108,5 +118,31 @@ public class MDocDAO {
 			}
 			return "success";
 		}	
+		
+		
+		public static List<MedicalDoc> getMDocs(int DoctorID){
+			
+			Session session = HibernateUtil.getSessionFactory().openSession();
+
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery <MedicalDoc> query = builder.createQuery(MedicalDoc.class);
+				
+			Root<MedicalDoc> mdoc = 	query.from(MedicalDoc.class);
+							
+									//Doctor_fk richtig ?
+									Predicate idP = builder.equal(mdoc.get("doctor_fk"), DoctorID);
+									query.select(mdoc).where(idP).distinct(true);
+				
+			List <MedicalDoc> result;					
+			try {
+			result = session.createQuery(query).getResultList();
+			} catch (Exception e) {
+				return null;
+			} finally {
+				session.close();
+			}
+
+			return result;	
+		}
 		
 }

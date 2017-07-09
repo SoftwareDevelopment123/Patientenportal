@@ -11,16 +11,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 
 @Entity
 @Table(name = "Case", catalog = "patientenportal")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlRootElement (name="case")
 public class Case {
 
@@ -33,7 +36,7 @@ public class Case {
 	private List<MedicalDoc> medicalDocs;
 	private List<Doctor> doctors;
 	private List<Medication> medication;
-	//private List<InstructionDoc> idoc;			//noch nicht implementiert
+	private List<InstructionDoc> idoc;
 	
 	public Case(){	
 	}
@@ -80,8 +83,9 @@ public class Case {
 	}
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "pcase")
-	@XmlElementWrapper(name="vdatas")
-	@XmlElement(name="vdata")
+	@XmlTransient
+	//@XmlElementWrapper(name="vdatas")
+	//@XmlElement(name="vdata")
 	public List<VitalData> getVitaldata() {
 		return vitaldata;
 	}
@@ -99,8 +103,9 @@ public class Case {
 	}
 
 	@OneToMany (mappedBy="pcase")
-	@XmlElementWrapper(name="mdocs")
-	@XmlElement(name="mdoc")
+	@XmlTransient
+	//@XmlElementWrapper(name="mdocs")
+	//@XmlElement(name="mdoc")
 	public List<MedicalDoc> getMedicalDocs() {
 		return medicalDocs;
 	}
@@ -109,9 +114,9 @@ public class Case {
 	}
 	
 	@ManyToMany
-	@Transient
-	//@XmlElementWrapper(name="doctors")
-	//@XmlElement(name="doctor")
+	//@XmlTransient
+	@XmlElementWrapper(name="doctors")
+	@XmlElement(name="doctor")
 	@JoinTable(name="case_doctor")
 	public List<Doctor> getDoctors() {
 		return doctors;
@@ -120,21 +125,24 @@ public class Case {
 		this.doctors = doctors;
 	}
 
-	@XmlElementWrapper(name="medications")
-	@XmlElement(name="medication")
+	
 	@OneToMany (mappedBy="pcase")
+	@XmlTransient
+	//@XmlElementWrapper(name="medications")
+	//@XmlElement(name="medication")
 	public List<Medication> getMedication() {
 		return medication;
 	}
 	public void setMedication(List<Medication> medication) {
 		this.medication = medication;
 	}
-
-	/*public List<InstructionDoc> getIdoc() {
+	
+	@ManyToMany (mappedBy="pcase")
+	@XmlTransient
+	public List<InstructionDoc> getIdoc() {
 		return idoc;
 	}
 	public void setIdoc(List<InstructionDoc> idoc) {
 		this.idoc = idoc;
-	}*/
-	
+	}
 }

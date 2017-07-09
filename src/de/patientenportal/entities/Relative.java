@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 import org.eclipse.persistence.oxm.annotations.XmlPath;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -55,10 +56,9 @@ public class Relative {
 	}
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="relatives") 
-	//@XmlTransient
-	//@XmlInverseReference(mappedBy = "relatives")
-	@XmlElementWrapper(name="patients")
-	@XmlElement(name="patient")
+	@XmlTransient
+	//@XmlElementWrapper(name="patients")
+	//@XmlElement(name="patient")
 	public List<Patient> getPatients() {
 		return patients;
 	}

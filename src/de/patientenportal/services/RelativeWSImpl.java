@@ -4,6 +4,8 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 import de.patientenportal.entities.Relative;
+import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RelativeDAO;
 
@@ -11,26 +13,39 @@ import de.patientenportal.persistence.RelativeDAO;
 public class RelativeWSImpl implements RelativeWS {
 	
 	@Transactional
-	public Relative getRelative(int relativeID) {
-
-		if (relativeID == 0) {return null;}
+	public Relative getRelative(Accessor accessor) {
+		int id;
+		
+		try {id = (int) accessor.getObject();}
+		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		if (id == 0) 		{System.err.println("Id null"); return null;}
 		
 		else{
-			Relative relative = RelativeDAO.getRelative(relativeID);
-
-			return relative;
+			Relative relative = new Relative();
+			try {relative = RelativeDAO.getRelative(id);}
+			catch (Exception e) {System.err.println("Error: " + e);}
+		return relative;
 		}
 	}
 
-	/*@Transactional
-	public List<Relative> getRelativesByP(int patientID) {
+	@Transactional
+	public RelativeListResponse getRelativesByP(Accessor accessor) {
+		RelativeListResponse response = new RelativeListResponse();
+		int id;
 		
-		if (patientID == 0) {return null;}
+		try {id = (int) accessor.getObject();}
+		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		if (id == 0) 		{System.err.println("Id null"); return null;}
 		
 		else{
-			List<Relative> relatives = PatientDAO.getPatient(patientID).getRelatives();
-			return relatives;
+			try {
+			List<Relative> rlist = PatientDAO.getPatient(id).getRelatives();
+				response.setResponseCode("success");
+				response.setResponseList(rlist);
+			} catch (Exception e) {
+				response.setResponseCode("Error: " + e);
+			} return response;
 		}
-	}*/
+	}
 
 }
