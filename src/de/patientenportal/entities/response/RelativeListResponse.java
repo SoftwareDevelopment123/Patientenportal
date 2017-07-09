@@ -1,6 +1,5 @@
 package de.patientenportal.entities.response;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,14 +13,13 @@ public class RelativeListResponse {
 
 	private String responseCode = null;
 	private List<Relative> responseList;
-	
+
 	public RelativeListResponse(){
 	}
 	
 	public RelativeListResponse(List<Relative> relativeList){
 		this.responseList = relativeList;
 	}
-	
 	
 	public String getResponseCode() {
 		return responseCode;

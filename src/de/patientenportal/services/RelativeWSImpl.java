@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 import de.patientenportal.entities.Relative;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RelativeDAO;
@@ -13,12 +14,13 @@ import de.patientenportal.persistence.RelativeDAO;
 public class RelativeWSImpl implements RelativeWS {
 	
 	@Transactional
-	public Relative getRelative(int relativeID) {
+	public Relative getRelative(Accessor accessor) {
 
-		if (relativeID == 0) {return null;}
+		int id = (int) accessor.getObject();
+		if (id == 0) {return null;}
 		
 		else{
-			Relative relative = RelativeDAO.getRelative(relativeID);
+			Relative relative = RelativeDAO.getRelative(id);
 
 			return relative;
 		}
@@ -30,22 +32,14 @@ public class RelativeWSImpl implements RelativeWS {
 		if (patientID == 0) {return null;}
 		
 		else{
-			List<Relative> rlist = PatientDAO.getPatient(patientID).getRelatives();
-
 			RelativeListResponse response = new RelativeListResponse();
-				response.setResponseCode("send me over");
+			try {
+			List<Relative> rlist = PatientDAO.getPatient(patientID).getRelatives();
+				response.setResponseCode("success");
 				response.setResponseList(rlist);
-			
-			/*ArrayList<Relative> relatives = new ArrayList<Relative>();
-				relatives.addAll(rlist);*/
-			
-			/*System.out.println("Impl-Side: " + relatives.size());
-			for (Relative r : relatives){
-				System.out.print(r.getRelativeID());
-				System.out.print(" - " + r.getUser().getFirstname());
-				System.out.println(" - " + r.getUser().getLastname());
-			}*/	
-				
+			} catch (Exception e) {
+				response.setResponseCode("Error: " + e);
+			}
 			return response;
 		}
 	}

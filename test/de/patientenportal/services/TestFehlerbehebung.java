@@ -10,6 +10,7 @@ import javax.xml.ws.Service;
 
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
 
 public class TestFehlerbehebung {
@@ -29,9 +30,11 @@ public class TestFehlerbehebung {
 		RelativeWS rel = service.getPort(RelativeWS.class);
 				
 		// Methode 1
-		/*Relative relative = rel.getRelative(2);
+		Accessor accessor = new Accessor(2);
+		
+		Relative relative = rel.getRelative(accessor);
 		System.out.println(relative.getRelativeID());
-		for (Patient p : relative.getPatients()){
+		/*for (Patient p : relative.getPatients()){
 			System.out.print("ID: " + p.getUser().getUserId() + " - ");
 			System.out.print(p.getUser().getFirstname() + " - ");
 			System.out.print(p.getUser().getLastname()  + " - ");
@@ -39,7 +42,7 @@ public class TestFehlerbehebung {
 		}*/
 
 		// Methode 2
-		RelativeListResponse response = rel.getRelativesByP(1);
+		/*RelativeListResponse response = rel.getRelativesByP(1);
 		System.out.println(response.getResponseCode());
 		System.out.println(response.getResponseList().size());
 						
@@ -47,7 +50,7 @@ public class TestFehlerbehebung {
 				System.out.print(r.getRelativeID() + " - ");
 				System.out.print(r.getUser().getFirstname() + " - ");
 				System.out.println(r.getUser().getLastname());
-			}
+			}*/
 
 	}
 
