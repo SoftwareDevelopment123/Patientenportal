@@ -14,6 +14,7 @@ import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.PatientListResponse;
 import de.patientenportal.persistence.PatientDAO;
+import de.patientenportal.persistence.RelativeDAO;
 
 @SuppressWarnings("unused")
 public class PatientRelativeTest {
@@ -22,6 +23,8 @@ public class PatientRelativeTest {
 	public void setUp(){
 		DBCreator.main(null);
 	}*/
+	
+	// Info: manuell vorher DBCreator ausführen
 	
 	@Test
 	public void main() throws MalformedURLException{
@@ -78,9 +81,18 @@ public class PatientRelativeTest {
 
 		
 		// Get PatientList by Relative
+		List<Patient> comparePatList = RelativeDAO.getRelative(3).getPatients();
 		Accessor getPatList = new Accessor(3);
-		PatientListResponse PatList = pat.getPatientsByR(getPatList);
+		PatientListResponse patListResponse = pat.getPatientsByR(getPatList);
+		List<Patient> patList = patListResponse.getResponseList();
 		
+		int i = 0;
+		for (Patient p : comparePatList){
+			Assert.assertEquals(p.getPatientID() 			, patList.get(i).getPatientID());
+			Assert.assertEquals(p.getBloodtype() 			, patList.get(i).getBloodtype());
+			Assert.assertEquals(p.getUser().getLastname() 	, patList.get(i).getUser().getLastname());
+			i++;
+		}
 			
 		System.out.println("Success!");	
 	}	
