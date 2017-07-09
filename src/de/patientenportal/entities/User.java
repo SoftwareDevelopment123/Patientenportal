@@ -133,7 +133,7 @@ public class User {
 		this.gender = gender;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY/*, cascade=CascadeType.ALL*/)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@XmlTransient
 	public Doctor getDoctor() {
 		return doctor;
@@ -143,7 +143,7 @@ public class User {
 		this.doctor = doctor;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY/*, cascade=CascadeType.ALL*/)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@XmlTransient
 	public Patient getPatient() {
 		return patient;
@@ -153,7 +153,7 @@ public class User {
 		this.patient = patient;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY/*, cascade=CascadeType.ALL*/)
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	@XmlTransient
 	public Relative getRelative() {
 		return relative;
