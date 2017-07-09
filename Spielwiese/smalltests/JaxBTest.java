@@ -16,24 +16,13 @@ public class JaxBTest {
 
 	public static void main(String[] args) throws Exception {
 
-
-	/*	JAXBContext jc = JAXBContext.newInstance(Relative.class);        
-
+		JAXBContext jc = JAXBContext.newInstance(Relative.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       
 		Relative relative = RelativeDAO.getRelative(2);				
-
-        marshaller.marshal(relative, System.out);*/
-
-      /*  System.out.println(relative.getPatients().size());
-      
-        for (Patient p : relative.getPatients()){
-    	System.out.print(p.getPatientID());
-    	System.out.print(" - " + p.getUser().getFirstname());
-       	System.out.println(" - " + p.getUser().getLastname());
-    	}*/
-        
+        marshaller.marshal(relative, System.out);
+		System.out.println(relative.getPatients().size());
  
      /*   JAXBContext jc = JAXBContext.newInstance(Patient.class);
         Marshaller marshaller = jc.createMarshaller();

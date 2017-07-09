@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "Relative", catalog = "patientenportal")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-//@XmlRootElement (name="relative")
+@XmlRootElement (name="relative")
 
 //@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 //@XmlDiscriminatorValue("RELATIVE")
@@ -55,10 +55,10 @@ public class Relative {
 	}
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="relatives") 
-	@XmlTransient
+	//@XmlTransient
 	//@XmlInverseReference(mappedBy = "relatives")
-	//@XmlElementWrapper(name="patients")
-	//@XmlElement(name="patient")
+	@XmlElementWrapper(name="patients")
+	@XmlElement(name="patient")
 	public List<Patient> getPatients() {
 		return patients;
 	}
