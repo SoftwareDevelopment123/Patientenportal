@@ -88,8 +88,18 @@ public class CaseWSImpl implements CaseWS {
 			try {
 				User creatinguser = auth.getUserByToken(token);
 				Doctor creatingdoctor = UserDAO.getUser(creatinguser.getUserId()).getDoctor();
-				List<Doctor> doctors = new ArrayList<Doctor>();
+				List<Doctor> doctors = pcase.getDoctors();
+				
+				boolean doublecheck = false;	
+					for (Doctor d : doctors) {
+						if (d.getDoctorID() == creatingdoctor.getDoctorID()){
+							doublecheck = true;
+						}
+					}
+				if (doublecheck == false){
 					doctors.add(creatingdoctor);
+				}
+
 				pcase.setDoctors(doctors);
 				CaseDAO.createCase(pcase);
 				
