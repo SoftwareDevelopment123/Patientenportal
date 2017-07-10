@@ -135,7 +135,8 @@ public class DBCreator {
 		QName qnameO = new QName("http://services.patientenportal.de/", "OfficeWSImplService");
 		Service serviceO = Service.create(urlO, qnameO);
 		OfficeWS off = serviceO.getPort(OfficeWS.class);
-		Accessor createOffice = new Accessor(office);
+		Accessor createOffice = new Accessor();
+			createOffice.setObject(office);
 		String feedbackCO = off.createOffice(createOffice);
 		if (feedbackCO != null){
 		System.out.println("Doctors added: " + doctors.size());

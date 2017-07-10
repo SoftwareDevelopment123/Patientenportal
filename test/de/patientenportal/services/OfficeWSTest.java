@@ -24,7 +24,8 @@ public class OfficeWSTest {
 				
 		// Get Office
 		Office compareOffice = OfficeDAO.getOffice(1);
-		Accessor getOffice = new Accessor(1);
+		Accessor getOffice = new Accessor();
+			getOffice.setObject(1);
 		Office office = off.getOffice(getOffice);
 			
 			Assert.assertEquals(compareOffice.getOfficeID()				, office.getOfficeID());
@@ -49,7 +50,8 @@ public class OfficeWSTest {
 		
 		office.setName("Testoffice 2.0");
 		office.getDoctors().remove(0);
-		Accessor updateOffice = new Accessor(office);
+		Accessor updateOffice = new Accessor();
+			updateOffice.setObject(office);
 		String feedbackUO = off.updateOffice(updateOffice);
 			Assert.assertEquals("success", feedbackUO);
 		

@@ -1,11 +1,11 @@
 package de.patientenportal.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.response.Accessor;
@@ -18,45 +18,82 @@ import de.patientenportal.persistence.UserDAO;
 @WebService (endpointInterface = "de.patientenportal.services.CaseWS")
 public class CaseWSImpl implements CaseWS {
 
+	/*
+	 * Einzelnen Fall abrufen (wird theoretisch nicht benötigt)
+	 * 
+	 * Es wird explizit über das Token geprüft, ob der anfragende User auch Patient im angefragten Fall ist
+	 * 
+	 * Zugriffsbeschränkung: Patient ( noch einzurichten )
+	 * Doktor und Relative sollen nur über ihre Zugriffsrechte (Rights) Zugang zu Fällen bekommen
+	 */
+	
 	@Transactional
 	public Case getCase(Accessor accessor) {
 		int id;
+		String token;
 		
-		try {id = (int) accessor.getObject();}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		if (id == 0) 		{System.err.println("Id null"); return null;}
+		try {
+			id = (int) accessor.getObject();
+			token = (String) accessor.getToken();
+		}
+		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
+		if (token == null) 	{System.err.println("No token");		return null;}
+		if (id == 0) 		{System.err.println("Id null"); 		return null;}
 		
+		AuthenticationWSImpl auth = new AuthenticationWSImpl();
+		if (auth.authenticateToken(token) == false){
+							System.err.println("Invalid token"); 	return null;}
 		else{
-			Case pcase = new Case();
-			try {pcase = CaseDAO.getCase(id);}
+		Case pcase = new Case();
+		Patient patient = new Patient();
+			try {
+				User user = auth.getUserByToken(token);
+				patient = UserDAO.getUser(user.getUserId()).getPatient();
+				pcase = CaseDAO.getCase(id);
+			}
 			catch (Exception e) {System.err.println("Error: " + e);}
+		if (pcase.getPatient().getPatientID() != patient.getPatientID()){
+							System.err.println("Access denied");	return null;}
 		return pcase;
 		}
 	}
 
 	/*
-	 * Zugriffsbeschränkung: Patient
-	 * eigentlich reicht hier das token aus (wäre auch sicherer)
-	 * vorerst geben wir eine Patient-ID mit
+	 * Alle Fälle eines Patienten abrufen
+	 * 
+	 * Methode ist für den Patienten gedacht, um seine Fälle einzusehen.
+	 * Dementsprechend wird nur das Token benötigt, aus dem dann die zugehörige ID abgerufen wird.
+	 * So wird garantiert, dass der angemeldete User/Patient nur seine eigenen Fälle sehen kann.
+	 * 
+	 * Zugriffsbeschränkung: Patient  ( noch einzurichten )
 	 */
 	
 	@Transactional
 	public CaseListResponse getCases(Accessor accessor) {
 		CaseListResponse response = new CaseListResponse();
-		int id;
+		String token;
 		
-		try {id = (int) accessor.getObject();}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		if (id == 0) 		{System.err.println("Id null"); return null;}
+		try {token = (String) accessor.getToken();}
+		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
+		if (token == null) 	{System.err.println("No token");		return null;}
+		
+		AuthenticationWSImpl auth = new AuthenticationWSImpl();
+		if (auth.authenticateToken(token) == false){
+							System.err.println("Invalid token"); 	return null;}
 		
 		else{
+		Patient patient = new Patient();	
 			try {
-			List<Case> rlist = PatientDAO.getPatient(id).getCases();
-				response.setResponseCode("success");
-				response.setResponseList(rlist);
-			} catch (Exception e) {
-				response.setResponseCode("Error: " + e);
-			} return response;
+				User user = auth.getUserByToken(token);
+				patient = UserDAO.getUser(user.getUserId()).getPatient();
+				List<Case> rlist = PatientDAO.getPatient(patient.getPatientID()).getCases();
+					response.setResponseCode("success");
+					response.setResponseList(rlist);
+			}
+			catch (Exception e) {
+							System.err.println("Access failed");
+					response.setResponseCode("Error: " + e);}
+		return response;
 		}
 	}
 

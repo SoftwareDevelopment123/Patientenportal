@@ -8,8 +8,8 @@ public class Accessor {
 	public Accessor(){
 	}
 	
-	public Accessor(Object object){
-		this.object = object;
+	public Accessor(String token){
+		this.token = token;
 	}
 	
 	public Accessor(String token, Object object){

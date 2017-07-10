@@ -24,6 +24,7 @@ public class CaseDAO {
 				Hibernate.initialize(getcase.getDoctors());
 				Hibernate.initialize(getcase.getMedication());
 				Hibernate.initialize(getcase.getIdoc());
+				Hibernate.initialize(getcase.getPatient());
 			}
 		session.getTransaction().commit();
 		

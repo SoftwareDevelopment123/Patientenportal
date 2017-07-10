@@ -137,6 +137,9 @@ bis 09.07. (alle)
 ## To-Do
 - Deprecated Criterias anpassen (UserDAO, WebSessionDAO, ...?)
 
+- Superklasse für die Dokumente wieder einfügen?
+- Superklasse für die ListResponse-Entities
+
 - Token- und Role-Check (soweit nötig) in die Methoden einfüge
 	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
 	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen

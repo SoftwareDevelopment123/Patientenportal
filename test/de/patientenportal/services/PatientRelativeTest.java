@@ -110,7 +110,8 @@ public class PatientRelativeTest {
 		
 		// Get PatientList by Relative
 		List<Patient> comparePatList = RelativeDAO.getRelative(3).getPatients();
-		Accessor getPatList = new Accessor(3);
+		Accessor getPatList = new Accessor();
+			getPatList.setObject(3);
 		PatientListResponse patListResponse = pat.getPatientsByR(getPatList);
 		List<Patient> patList = patListResponse.getResponseList();
 		
