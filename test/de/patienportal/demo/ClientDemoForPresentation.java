@@ -2,6 +2,8 @@ package de.patienportal.demo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -30,7 +32,7 @@ import de.patientenportal.services.RegistrationWS;
 public class ClientDemoForPresentation {
 	private static   String token;
 	
-	@Before
+	@Test
 	public  void registerUser() throws MalformedURLException {
 		URL url = new URL("http://localhost:8080/registration?wsdl");
         QName qname = new QName("http://services.patientenportal.de/", "RegistrationWSImplService");
@@ -71,42 +73,46 @@ public class ClientDemoForPresentation {
 		neu.setDoctor(neuD);
 		neu.setRelative(neuR);
 		
-		RegistrationDAO.createUser(neu);
+		//RegistrationDAO.createUser(neu);
+		regWS.createUser(neu);
 		//TODO
+		System.out.println(neu.getDoctor().getDoctorID());
 		//System.out.println(regWS.createUser(neu));
 		
         
-	}
+/*	}
 
 	@Test
-	public  void loginUser() throws MalformedURLException {
+	public  void loginUser() throws MalformedURLException {*/
 		
 		String username = "Tommy";
 		String password = "123456";
 		
-		URL url = new URL("http://localhost:8080/authentication?wsdl");
-        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
-        Service service = Service.create(url, qname);
-        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+		URL url2 = new URL("http://localhost:8080/authentication?wsdl");
+        QName qname2 = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+        Service service2 = Service.create(url2, qname2);
+        AuthenticationWS authWS = service2.getPort(AuthenticationWS.class);
         
         HTTPHeaderService.putUsernamePassword(username, password, authWS);
         System.out.println(authWS.authenticateUser(ActiveRole.Doctor)); 
         token = authWS.getSessionToken(username);
         System.out.println(token);
-	}
+	/*}
 	
 	@Test
-	public void createCase() throws MalformedURLException {
-		URL url = new URL("http://localhost:8080/doctor?wsdl");
-        QName qname = new QName("http://services.patientenportal.de/", "DoctorWSImplService");
-        Service service = Service.create(url, qname);
-        DoctorWS docWS = service.getPort(DoctorWS.class);
+	public void createCase() throws MalformedURLException {*/
+		URL url3 = new URL("http://localhost:8080/doctor?wsdl");
+        QName qname3 = new QName("http://services.patientenportal.de/", "DoctorWSImplService");
+        Service service3 = Service.create(url3, qname3);
+        DoctorWS docWS = service3.getPort(DoctorWS.class);
 
         //getAllPatients
         //selectPatient
         Case newCase	= new Case();
         newCase.setTitle("Herzmuskelentzündung");
-        //newCase.setPatient(patient);
+        newCase.setPatient(neu.getPatient());
+        List<Doctor> ldoc  = Arrays.asList(neuD);
+        newCase.setDoctors(ldoc);
         newCase.setDescription("Verusacht durch Virusinfektion...");
         
         //WebService anpassen 
@@ -117,7 +123,7 @@ public class ClientDemoForPresentation {
        /* Accessor acc = new Accessor();
 		acc.setToken(token);
 		acc.setObject(1);
-		System.out.println(docWS.createCase(acc));
-        */
+		System.out.println(docWS.createCase(acc));*/
+        
 	}
 }

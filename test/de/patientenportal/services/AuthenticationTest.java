@@ -67,24 +67,23 @@ public class AuthenticationTest {
         HTTPHeaderService.putUsernamePassword(username, password, authWS);
 
      
-        System.out.println(authWS.authenticateUser(ActiveRole.Patient));
-        System.out.println(authWS.getSessionToken(username));
+        System.out.println("Begrüßung: " +authWS.authenticateUser(ActiveRole.Patient));
+        System.out.println("Token: " + authWS.getSessionToken(username));
         String tokenTest = authWS.getSessionToken(username);
-        System.out.println(authWS.authenticateToken(tokenTest+ "1"));
+       
+        System.out.println("Tokenauthentifizierung: " + authWS.authenticateToken(tokenTest));
       //  Assert.assertEquals(true, authWS.authenticateToken(authWS.getSessionToken(username)));
        
  
-        System.out.println(authWS.authenticateUser(ActiveRole.Doctor));
+        System.out.println("Anmeldung mit nicht zugeordneter Rolle: " + authWS.authenticateUser(ActiveRole.Doctor));
         
         //mit falschem Usernamen
         username = "Unbekannt";
         HTTPHeaderService.putUsernamePassword(username, password,authWS);
         
-        System.out.println(authWS.authenticateUser(ActiveRole.Patient));
+        System.out.println("Anmeldung mit nicht vorhandenem Username: " +authWS.authenticateUser(ActiveRole.Patient));
         
-        
-        HTTPHeaderService.putToken(tokenTest,authWS);
-        System.out.println(authWS.authenticateTokenHTTP());
+  
     }
 
 }
