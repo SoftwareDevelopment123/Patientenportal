@@ -2,6 +2,7 @@ package de.patientenportal.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.jws.WebService;
 import javax.transaction.Transactional;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
@@ -14,6 +15,7 @@ import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RightsDAO;
 import de.patientenportal.persistence.UserDAO;
 
+@WebService (endpointInterface = "de.patientenportal.services.CaseWS")
 public class CaseWSImpl implements CaseWS {
 
 	@Transactional
