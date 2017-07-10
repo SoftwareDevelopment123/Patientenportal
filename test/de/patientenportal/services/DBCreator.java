@@ -15,7 +15,7 @@ import de.patientenportal.persistence.*;
 public class DBCreator {
 
 	public static void main(String[] args) throws MalformedURLException {
-
+		
 		System.out.println("Creating DB-Entries ...");
 		
 		System.err.println("Setting up actors ...");
@@ -64,8 +64,8 @@ public class DBCreator {
 				// string feedback = registrationWS.createRelative(relative, id)
 				
 				
-				//RegistrationDAO.createRelative(relative);		//kommt weg
-				//user.setRelative(relative);					//kommt weg
+				RegistrationDAO.createRelative(relative);		//kommt weg
+				user.setRelative(relative);					//kommt weg
 				
 				relatives.add(relative);
 				System.out.println("User-ID " + i + " - Relative created");
@@ -88,7 +88,7 @@ public class DBCreator {
 				user.setPatient(patient);
 				System.out.println("User-ID " + i + " - Patient created");
 			}	
-			//RegistrationDAO.createUser(user);					//kommt weg
+			RegistrationDAO.createUser(user);					//kommt weg
 		}
 		
 		System.err.println("Creating Patient-Relative-Relations ...");
@@ -142,38 +142,27 @@ public class DBCreator {
 		System.out.println("Office created");}
 		
 		
-		System.err.println("Creating Cases ...");
-		i = 0;
-		for (int s = 6; s>=1; s--){
-			i++;
-			i.toString();
-			Case pcase = new Case();
-				pcase.setTitle("Case " + i);
-				pcase.setDescription("Description " + i);
-				pcase.setStatus(true);
-			
-				Patient pat = PatientDAO.getPatient(i);
-				pcase.setPatient(pat);
-			
-			if (i <= 2){
-				Doctor doc = DoctorDAO.getDoctor(3);
-				List <Doctor> doclist = new ArrayList<Doctor>();
-					doclist.add(doc);
-				pcase.setDoctors(doclist);
-			}
-			
-			else {
-				Doctor doc1 = DoctorDAO.getDoctor(1);
-				Doctor doc2 = DoctorDAO.getDoctor(2);
-				List <Doctor> doclist = new ArrayList<Doctor>();
-					doclist.add(doc1);
-					doclist.add(doc2);
-				pcase.setDoctors(doclist);
-			}
-			CaseDAO.createCase(pcase);
-			System.out.println("Case-ID " + pcase.getCaseID() + " for Patient " + pat.getPatientID());
-		}
-
+		
+		// Authentifizierung
+		System.out.println("Authentication ...");
+		String username = "user10";
+		String password = "pass10";
+		
+		URL urlA = new URL("http://localhost:8080/authentication?wsdl");
+		QName qnameA = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+		Service serviceA = Service.create(urlA, qnameA);
+		AuthenticationWS auth = serviceA.getPort(AuthenticationWS.class);
+		
+        HTTPHeaderService.putUsernamePassword(username, password, auth);
+        auth.authenticateUser(ActiveRole.Doctor);
+        String token = auth.getSessionToken(username);
+		System.out.println("Success!");
+				
+		// Fälle anlegen
+		URL urlC = new URL("http://localhost:8080/case?wsdl");
+		QName qnameC = new QName("http://services.patientenportal.de/", "CaseWSImplService");
+		Service serviceC = Service.create(urlC, qnameC);
+		CaseWS casews = serviceC.getPort(CaseWS.class);
 		
 		System.err.println("Creating Cases ...");
 		i = 0;
@@ -203,11 +192,15 @@ public class DBCreator {
 					doclist.add(doc2);
 				pcase.setDoctors(doclist);
 			}
-			CaseDAO.createCase(pcase);
-			System.out.println("Case-ID " + pcase.getCaseID() + " for Patient " + pat.getPatientID());
-		}
+			
+			Accessor accessor = new Accessor();
+				accessor.setToken(token);
+				accessor.setObject(pcase);
+			casews.createCase(accessor);
 
-		
+			System.out.println("Case for Patient " + pat.getPatientID() + " created");
+		}
+				
 		System.exit(0);
 	}	
 }
