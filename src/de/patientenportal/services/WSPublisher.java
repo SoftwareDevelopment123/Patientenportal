@@ -17,6 +17,9 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/account", new AccountWSImpl());
 		System.out.println(" Account-WebService : 				/account?wsdl");
 		
+		Endpoint.publish(URI + "/authentication", new AuthenticationWSImpl());
+		System.out.println(" Authentication-WebService : 			/authentication?wsdl");
+		
 		Endpoint.publish(URI + "/patient", new PatientWSImpl());
 		System.out.println(" Patient-WebService : 				/patient?wsdl");
 		
@@ -35,6 +38,9 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/contact", new ContactWSImpl());
 		System.out.println(" Contact-WebService : 				/contact?wsdl");
 		
+		Endpoint.publish(URI + "/case", new CaseWSImpl());
+		System.out.println(" Case-WebService : 				/case?wsdl");
+		
 /*		} catch (Exception e) {
 			System.out.println("Error - " + e);
 		} finally {
@@ -42,8 +48,7 @@ public class WSPublisher {
 			System.exit(0);
 		}*/
 
-		Endpoint.publish(URI + "/authentication", new AuthenticationWSImpl());
-		System.out.println(" Authentication-WebService : 			/authentication?wsdl");
+
 		/*
 		 * 
 		 * usw. für alle WS

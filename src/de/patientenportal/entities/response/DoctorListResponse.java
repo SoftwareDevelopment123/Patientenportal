@@ -15,8 +15,8 @@ public class DoctorListResponse {
 	public DoctorListResponse(){
 	}
 	
-	public DoctorListResponse(List<Doctor> relativeList){
-		this.responseList = relativeList;
+	public DoctorListResponse(List<Doctor> responseList){
+		this.responseList = responseList;
 	}
 	
 	public String getResponseCode() {
