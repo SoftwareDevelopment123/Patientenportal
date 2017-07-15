@@ -12,7 +12,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import de.patientenportal.entities.ActiveRole;
@@ -22,12 +21,8 @@ import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
-import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
-import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.CaseDAO;
-import de.patientenportal.persistence.PatientDAO;
-import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWS;
 import de.patientenportal.services.DoctorWS;
@@ -117,8 +112,6 @@ public class ClientDemoForPresentation {
         List<Doctor> ldoc  = Arrays.asList(UserDAO.getUserByUsername(neu.getUsername()).getDoctor());
         newCase.setDoctors(ldoc);
         newCase.setDescription("Verusacht durch Virusinfektion...");
-        
-        //WebService anpassen 
         //FIXME
         //XXX
         CaseDAO.createCase(newCase);
