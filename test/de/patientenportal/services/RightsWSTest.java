@@ -64,6 +64,7 @@ public class RightsWSTest {
 		Accessor getRights = new Accessor(token, 3);
 		
 		RightsListResponse response = rightsws.getRights(getRights);
+		int compare1 = response.getResponseList().size();
 		Assert.assertEquals("success", response.getResponseCode());
 	
 		List<Rights> rights = response.getResponseList();
@@ -96,32 +97,16 @@ public class RightsWSTest {
 		
 			Assert.assertEquals(false, rightupdated.iswRight());
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		/*	
-		Accessor getRight = new Accessor(token, 3);
-		String responsedelete= rightsws.deleteRight(getRight);
-		Assert.assertEquals("success", responsedelete);*/
 		
-		
+			Accessor deleteright = new Accessor(token, 3);
+			String feedbackDR = rightsws.deleteRight(deleteright);
+				Assert.assertEquals("success", feedbackDR);
+				Accessor Rightsafterdelete = new Accessor(token, 3);
+				
+				RightsListResponse response1 = rightsws.getRights(Rightsafterdelete);
+				int compare2 = response1.getResponseList().size();
+				Assert.assertEquals(compare1-1, compare2);
+				
 	}
 			
 }
