@@ -24,30 +24,33 @@ public class RightsWSImpl  implements RightsWS {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
 		}
-		catch (Exception e) 	{System.err.println("Invalid access");	return null;}
-		if (id == 0) 			{System.err.println("Id null");			return null;}
-		if (token == null) 		{System.err.println("No token");		return null;}
+		catch (Exception e) 						{System.err.println("Invalid access"); 	return null;}
+		if (token == null) 							{System.err.println("No token");		return null;}
+		if (id == 0) 								{System.err.println("Id null"); 		return null;}
 		
 		AuthenticationWSImpl auth = new AuthenticationWSImpl();
+		if (auth.authenticateToken(token) == false)	{System.err.println("Invalid token"); 	return null;}
+		else{
 		
-		if (auth.authenticateToken(token) == false) {System.err.println("Invalid token"); return null;}
-		// + else if authorizeToken(token) != 2 {error}
-		
-		List<Rights> rights = new ArrayList();
+		List<Rights> rights = new ArrayList<Rights>();
 		try { rights = RightsDAO.getRights(id); }
 		catch (Exception e) {System.out.println("Error: " + e);}
 		return rights;
-		
+		}
 	}
 	@Transactional
 	public String createRight(Accessor accessor) {
 		Rights right = new Rights();
+		String token;
 		
-		try {right = (Rights) accessor.getObject();}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		
+		try {token = (String) accessor.getToken();}
+		catch (Exception e) 												{System.err.println("Invalid access"); 	return null;}
+		if (token == null) 													{System.err.println("No token");		return null;}
 		if (right.getPcase()	== null									)	{return "Bitte einen Patientencase mit angeben.";}
 		if (right.getDoctor()	== null && right.getRelative()== null	)	{return "Bitte geben Sie an für wen das Recht erteilt werden soll";}
+		
+		AuthenticationWSImpl auth = new AuthenticationWSImpl();
+		if (auth.authenticateToken(token) == false){System.err.println("Invalid token"); 	return null;}
 		
 		else{
 			String response = null;
@@ -60,14 +63,19 @@ public class RightsWSImpl  implements RightsWS {
 	@Transactional
 	public String updateRight(Accessor accessor) {
 		Rights right = new Rights();
+		String token;
 		
-		try {right = (Rights) accessor.getObject();}
+		try {
+			right = (Rights) accessor.getObject();
+			token = (String) accessor.getToken();}
 		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		if (token == null) 													{System.err.println("No token");		return null;}
 		
 		String response = null;
 		try {response = RightsDAO.updateRight(right);}
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
+		
 	}
 		
 	@Transactional
