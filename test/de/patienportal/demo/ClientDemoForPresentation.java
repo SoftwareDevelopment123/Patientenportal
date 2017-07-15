@@ -28,6 +28,7 @@ import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RegistrationDAO;
+import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWS;
 import de.patientenportal.services.DoctorWS;
 import de.patientenportal.services.HTTPHeaderService;
@@ -45,7 +46,7 @@ public class ClientDemoForPresentation {
         Service service = Service.create(url, qname);
         RegistrationWS regWS = service.getPort(RegistrationWS.class);
         
-        
+        //User anlegen
         User neu = new User();
 		neu.setUsername("Tommy");
 		neu.setPassword("123456");
@@ -67,27 +68,21 @@ public class ClientDemoForPresentation {
 		neuC.setMobile("01731234567");
 		neuC.setPhone("03512646152");
 		
-		Patient neuP = new Patient();
-		neuP.setBloodtype("AB");
-		
-		Doctor neuD = new Doctor();
-		neuD.setSpecialization("Kardiologe");
-		
-		Relative neuR = new Relative();
-		
 		neu.setAddress(neuA);
 		neu.setContact(neuC);
-		neu.setPatient(neuP);
-		neu.setDoctor(neuD);
-		neu.setRelative(neuR);
-		
-		//RegistrationDAO.createUser(neu);
 		regWS.createUser(neu);
-		//TODO
-		System.out.println(neu.getDoctor().getDoctorID());
-		//System.out.println(regWS.createUser(neu));
 		
-        
+		//Doctor anlegen
+		Doctor neuD = new Doctor();
+		neuD.setSpecialization("Kardiologe");
+		int userID = UserDAO.getUserByUsername(neu.getUsername()).getUserId();
+		regWS.createDoctor(neuD, userID);
+		
+		//Patient anlegen
+		
+		Patient neuP = new Patient();
+		neuP.setBloodtype("AB");
+		regWS.createPatient(neuP, userID);
 /*	}
 
 	@Test
@@ -118,8 +113,8 @@ public class ClientDemoForPresentation {
         //selectPatient
         Case newCase	= new Case();
         newCase.setTitle("Herzmuskelentzündung");
-        newCase.setPatient(neu.getPatient());
-        List<Doctor> ldoc  = Arrays.asList(neuD);
+        newCase.setPatient(UserDAO.getUserByUsername(neu.getUsername()).getPatient());
+        List<Doctor> ldoc  = Arrays.asList(UserDAO.getUserByUsername(neu.getUsername()).getDoctor());
         newCase.setDoctors(ldoc);
         newCase.setDescription("Verusacht durch Virusinfektion...");
         
