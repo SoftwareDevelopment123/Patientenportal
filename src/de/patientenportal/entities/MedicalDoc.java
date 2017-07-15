@@ -2,8 +2,6 @@ package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.File;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +44,7 @@ public class MedicalDoc {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="patient_fk"/*, nullable=false*/)		// Testen
+	@JoinColumn(name="patient_fk")
 	public Patient getPatient() {
 		return patient;
 	}

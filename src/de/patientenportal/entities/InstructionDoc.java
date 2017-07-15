@@ -2,7 +2,6 @@ package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.io.File;
 import java.util.List;
 
 import javax.persistence.Column;

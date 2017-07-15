@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -61,8 +59,6 @@ public class Insurance {
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "insurance")
 	@XmlTransient
-	//@XmlElementWrapper(name="patients")
-	//@XmlElement(name="patient")
 	public List<Patient> getPatients() {
 		return patients;
 	}

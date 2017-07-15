@@ -145,6 +145,7 @@ bis 09.07. (alle)
 	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen
 	
 - restliche WS anlegen
+- RightsWSTest delete ergänzen
 
 - javadoc
 

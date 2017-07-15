@@ -1,14 +1,11 @@
 package de.patientenportal.services;
 
-import java.util.List;
-
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RightsListResponse;
 

@@ -74,7 +74,7 @@ public class Case {
 		this.caseDescription = description;
 	}
 
-	@Column(name = "STATUS"/*, nullable = false*/)
+	@Column(name = "STATUS")
 	public boolean isStatus() {
 		return status;
 	}
@@ -84,8 +84,6 @@ public class Case {
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "pcase")
 	@XmlTransient
-	//@XmlElementWrapper(name="vdatas")
-	//@XmlElement(name="vdata")
 	public List<VitalData> getVitaldata() {
 		return vitaldata;
 	}
@@ -104,8 +102,6 @@ public class Case {
 
 	@OneToMany (mappedBy="pcase")
 	@XmlTransient
-	//@XmlElementWrapper(name="mdocs")
-	//@XmlElement(name="mdoc")
 	public List<MedicalDoc> getMedicalDocs() {
 		return medicalDocs;
 	}
@@ -114,7 +110,6 @@ public class Case {
 	}
 	
 	@ManyToMany
-	//@XmlTransient
 	@XmlElementWrapper(name="doctors")
 	@XmlElement(name="doctor")
 	@JoinTable(name="case_doctor")
@@ -128,8 +123,6 @@ public class Case {
 	
 	@OneToMany (mappedBy="pcase")
 	@XmlTransient
-	//@XmlElementWrapper(name="medications")
-	//@XmlElement(name="medication")
 	public List<Medication> getMedication() {
 		return medication;
 	}
