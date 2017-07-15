@@ -212,3 +212,5 @@ bis 09.07. (alle)
 - Token-Authentication über HTTP Heade
 - Response-Entities verbessern
 
+
+https://mvnrepository.com/artifact/org.jboss.spec.javax.xml.ws/jboss-jaxws-api_2.2_spec/2.0.0.Final
