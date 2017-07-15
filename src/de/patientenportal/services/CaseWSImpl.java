@@ -16,6 +16,7 @@ import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RightsDAO;
 import de.patientenportal.persistence.UserDAO;
 
+
 @WebService (endpointInterface = "de.patientenportal.services.CaseWS")
 public class CaseWSImpl implements CaseWS {
 
@@ -93,6 +94,7 @@ public class CaseWSImpl implements CaseWS {
 			try {
 				User user = auth.getUserByToken(token);
 				patient = UserDAO.getUser(user.getUserId()).getPatient();
+
 				List<Case> caselist1 = PatientDAO.getPatient(patient.getPatientID()).getCases();
 				List<Case> caselist2 = new ArrayList<Case>();
 					for (Case c : caselist1){
@@ -100,7 +102,7 @@ public class CaseWSImpl implements CaseWS {
 					}
 				
 					response.setResponseCode("success");
-					
+
 					List <Case> rlist = new ArrayList<Case>();
 					for (Case c : caselist2) {
 						if (c.isStatus() == status) {
@@ -204,5 +206,6 @@ public class CaseWSImpl implements CaseWS {
 		try {response = CaseDAO.updateCase(pcase);}
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
-	}	
+	}
+
 }

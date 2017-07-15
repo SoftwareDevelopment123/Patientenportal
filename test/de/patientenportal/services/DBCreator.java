@@ -2,10 +2,13 @@ package de.patientenportal.services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.*;
@@ -13,7 +16,9 @@ import de.patientenportal.persistence.*;
 
 public class DBCreator {
 
-	public static void main(String[] args) throws MalformedURLException {
+
+	public static void main(String[] args) throws MalformedURLException, ParseException {
+
 		
 		System.out.println("Creating DB-Entries ...");
 		
@@ -38,7 +43,9 @@ public class DBCreator {
 				user.setLastname("lastname" + i);
 				user.setFirstname("firstname" + i);
 				user.setEmail("mail.address" + i + "@mailprovider.com");
-				user.setBirthdate(i + ".1.2001");
+				
+				Date geburtstag = ClientHelper.parseStringtoDate(i + ".1.2001");
+				user.setBirthdate(geburtstag);
 				user.setGender(Gender.MALE);
 				
 			Address address = new Address();
@@ -86,6 +93,7 @@ public class DBCreator {
 				RegistrationDAO.createPatient(patient);
 				user.setPatient(patient);
 				System.out.println("User-ID " + i + " - Patient created");
+	
 			}	
 			RegistrationDAO.createUser(user);					//kommt weg
 		}

@@ -2,28 +2,36 @@ package de.patientenportal.persistence;
 
 import org.junit.Test;
 import org.junit.Assert;
+
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;
+
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class VitalDataTest {
 
 	@Test
-	public void main(){
+	public void main() throws ParseException{
 		
 	//Vitaldaten anlegen
 		Case newcase = new Case("Erster Fall"	, "Wichtige Info zum ersten Fall");
 		
 		String feedbackCC1 = CaseDAO.createCase(newcase);
 			Assert.assertEquals("success", feedbackCC1);
-	
-			VitalData vitaldata1 = new VitalData("früh"		,4.5, VitalDataType.BLOODSUGAR	, newcase);
-			VitalData vitaldata2 = new VitalData("mittag"	,5.0, VitalDataType.BLOODSUGAR	, newcase);
-			VitalData vitaldata3 = new VitalData("abend"	,6.5, VitalDataType.BLOODSUGAR	, newcase);
-			VitalData vitaldata4 = new VitalData("früh"		,86.0,VitalDataType.WEIGHT		, newcase);
-			VitalData vitaldata5 = new VitalData("abend"	,70.0,VitalDataType.HEARTRATE	, newcase);
+			Date timestamp1 = ClientHelper.parseStringtoTimeStamp("01.12.2016 14:05");
+			Date timestamp2 = ClientHelper.parseStringtoTimeStamp("03.12.2016 16:25");
+			Date timestamp3 = ClientHelper.parseStringtoTimeStamp("05.12.2016 18:09");
+			
+			VitalData vitaldata1 = new VitalData(timestamp1	,4.5, VitalDataType.BLOODSUGAR	, newcase);
+			VitalData vitaldata2 = new VitalData(timestamp2	,5.0, VitalDataType.BLOODSUGAR	, newcase);
+			VitalData vitaldata3 = new VitalData(timestamp3	,6.5, VitalDataType.BLOODSUGAR	, newcase);
+			VitalData vitaldata4 = new VitalData(timestamp3	,86.0,VitalDataType.WEIGHT		, newcase);
+			VitalData vitaldata5 = new VitalData(timestamp3	,70.0,VitalDataType.HEARTRATE	, newcase);
 		
 			List<VitalData> compareme = Arrays.asList(vitaldata1, vitaldata2, vitaldata3, vitaldata4, vitaldata5);
 
@@ -65,7 +73,7 @@ public class VitalDataTest {
 	// Vitaldaten Updaten (inkl. Abruf über den Case)
 	VitalData vitaldatatoupdate = VitalDataDAO.getVitalData(vitaldata1.getVitalDataID());
 		vitaldatatoupdate.setVitalDataType(VitalDataType.WEIGHT);
-		vitaldatatoupdate.setTimestamp("9:31");
+		vitaldatatoupdate.setTimestamp(timestamp2);
 		vitaldatatoupdate.setValue(1.00001);
 			
 	String responseU = VitalDataDAO.updateVitalData(vitaldatatoupdate);
@@ -78,7 +86,7 @@ public class VitalDataTest {
 
 	VitalData changeme = compareme.get(0);
 		changeme.setVitalDataType(VitalDataType.WEIGHT);
-		changeme.setTimestamp("9:31");
+		changeme.setTimestamp(timestamp2);
 		changeme.setValue(1.00001);
 			
 		List <VitalData> newlist = CaseDAO.getCase(newcase.getCaseID()).getVitaldata();

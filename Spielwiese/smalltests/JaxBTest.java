@@ -70,20 +70,26 @@ public class JaxBTest {
         marshaller.marshal(doctor, System.out);
 		*/
 		
+
 		JAXBContext jc = JAXBContext.newInstance(CaseListResponse.class);
+
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
 		List<Case> caselist = new ArrayList<Case>();
 			caselist.add(CaseDAO.getCase(1));
 			caselist.add(CaseDAO.getCase(2));
 			caselist.add(CaseDAO.getCase(3));
+
 		
+
 		CaseListResponse response = new CaseListResponse();
 			response.setResponseCode("TestString");
 			response.setResponseList(caselist);
 			
 		marshaller.marshal(response, System.out);
 		
+
         
         System.exit(0);
         

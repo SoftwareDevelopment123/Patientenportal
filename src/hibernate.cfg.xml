@@ -23,6 +23,7 @@
 
   <!-- <property name="hbm2ddl.auto">create</property> -->
 
+
   <!-- Auflistung der gemappten Klassen -->
   <mapping class="de.patientenportal.entities.User"/>
   <mapping class="de.patientenportal.entities.Doctor"/>

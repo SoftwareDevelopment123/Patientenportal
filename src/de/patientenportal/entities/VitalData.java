@@ -1,6 +1,9 @@
 package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,13 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 //import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
 public class VitalData  {
 
 	private int vitalDataID;
-	private String timestamp;
+	private Date timestamp;
 	private Double value;
 	private VitalDataType vitalDataType;
 	private Case pcase;
@@ -27,7 +32,7 @@ public class VitalData  {
 	}
 	
 	//Konstruktor
-	public VitalData(String timestamp,Double value,VitalDataType vitalDataType, Case pcase){
+	public VitalData(Date timestamp,Double value,VitalDataType vitalDataType, Case pcase){
 		this.timestamp = timestamp;
 		this.value = value;
 		this.vitalDataType =vitalDataType;
@@ -46,10 +51,11 @@ public class VitalData  {
 	}
 	
 	@Column(name = "TIMESTAMP", length = 45)
-	public String getTimestamp() {
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 	
