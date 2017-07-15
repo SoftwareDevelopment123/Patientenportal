@@ -66,8 +66,8 @@ public class UserTest {
 
 		Service service = Service.create(url, qname);
 		RegistrationWS reg = service.getPort(RegistrationWS.class);
-			User newu = (User) reg.createUser(newuser).getObject();
-			System.out.println("User /w ID: " + newu.getUserId() + "created ");
+			reg.createUser(newuser);
+
 		}
 		catch (Exception e) { 
 			System.err.println("Zugriffsfehler");

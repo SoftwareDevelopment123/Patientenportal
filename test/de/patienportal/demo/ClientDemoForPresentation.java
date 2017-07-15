@@ -2,19 +2,14 @@ package de.patienportal.demo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
 import org.junit.Test;
-
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Address;
 import de.patientenportal.entities.Case;
@@ -24,6 +19,7 @@ import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.UserListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWS;
@@ -67,8 +63,16 @@ public class ClientDemoForPresentation {
 		
 		neu.setAddress(neuA);
 		neu.setContact(neuC);
-		User newuser = (User) regWS.createUser(neu).getObject();
-		int userID = newuser.getUserId();
+		
+		int userID = 0;
+		UserListResponse response = regWS.createUser(neu);
+		if (response.getResponseList() == null) {
+			System.out.println("Fehler: " + response.getResponseCode());
+		}
+		else {
+			System.out.println(response.getResponseCode());
+			userID = response.getResponseList().get(0).getUserId();
+		}
 		
 		//Doctor anlegen
 		Doctor neuD = new Doctor();
