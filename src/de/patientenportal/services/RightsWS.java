@@ -10,6 +10,7 @@ import javax.jws.soap.SOAPBinding.Style;
 
 import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.RightsListResponse;
 
 @WebService
 @SOAPBinding(style = Style.RPC)
@@ -17,7 +18,7 @@ public interface RightsWS {
 	
 	
 	@WebMethod
-	public List <Rights> getRights						 (@WebParam (name="Token--Case-ID") 	Accessor accessor);
+	public RightsListResponse getRights						 (@WebParam (name="Token--Case-ID") 	Accessor accessor);
 
 	@WebMethod
 	public String createRight							 (@WebParam (name="Token--Right") 		Accessor accessor);

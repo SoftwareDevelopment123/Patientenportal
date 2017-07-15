@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.RightsListResponse;
 import de.patientenportal.persistence.RightsDAO;
 
 
@@ -16,7 +17,8 @@ public class RightsWSImpl  implements RightsWS {
 	
 	//List Response ENtity anlegen wenn Superklasse erstellt wurde
 	@Transactional
-	public List <Rights> getRights(Accessor accessor) {
+	public RightsListResponse getRights(Accessor accessor) {
+		RightsListResponse response = new RightsListResponse();
 		int id;
 		String token;
 		
@@ -33,9 +35,11 @@ public class RightsWSImpl  implements RightsWS {
 		else{
 		
 		List<Rights> rights = new ArrayList<Rights>();
+		response.setResponseList(rights);
+		response.setResponseCode("success");
 		try { rights = RightsDAO.getRights(id); }
 		catch (Exception e) {System.out.println("Error: " + e);}
-		return rights;
+		return response;
 		}
 	}
 	@Transactional

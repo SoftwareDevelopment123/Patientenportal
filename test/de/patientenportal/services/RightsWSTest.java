@@ -17,6 +17,7 @@ import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.RightsListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.RelativeDAO;
 import de.patientenportal.persistence.RightsDAO;
@@ -63,9 +64,10 @@ public class RightsWSTest {
 		
 		//noch keine Responselist Entity
 		RightsListResponse response = rightsws.getRights(getRights);
+		
 		Assert.assertEquals("success", response.getResponseCode());
 	
-		List<Rights> rights = response;
+		List<Rights> rights = response.getResponseList();
 	
 		int i = 0;
 			for (Rights r : compareme){
@@ -114,19 +116,3 @@ public class RightsWSTest {
 			
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
