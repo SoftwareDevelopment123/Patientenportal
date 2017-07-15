@@ -5,7 +5,11 @@ import de.patientenportal.entities.Address;
 
 public class AddressDAO {
 
-	// Adressdaten ändern
+	/**
+	 * Datenbankzugriff zum: Ändern einer Adresse
+	 * @param updatedaddress Parameter: postalCode, street, number, City
+	 * @return
+	 */
 	public static String updateAddress(Address updatedaddress){
 		int id = updatedaddress.getAddressID();
 		if(id!=0){
