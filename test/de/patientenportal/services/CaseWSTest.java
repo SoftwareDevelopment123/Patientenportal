@@ -87,10 +87,10 @@ public class CaseWSTest {
 		
 		// hier weitermachen, GetCases wirft noch einen Fehler
 		
-		/*CaseListResponse response = casews.getCases(getCases);
+		CaseListResponse response = casews.getCases(getCases);
 			Assert.assertEquals("success", response.getResponseCode());
 		
-		List<Case> cases = response.getResponseList();
+		/*List<Case> cases = response.getResponseList();
 		
 		int i = 0;
 		for (Case c : compareme){
