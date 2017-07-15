@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "Rights", catalog = "patientenportal")
@@ -43,6 +44,7 @@ public class Rights {
 	}
 
 	@ManyToOne
+	@XmlTransient
 	public Case getPcase() {
 		return pcase;
 	}
