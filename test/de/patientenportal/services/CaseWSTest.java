@@ -82,6 +82,7 @@ public class CaseWSTest {
 		
 		List<Case> compareme = PatientDAO.getPatient(3).getCases();
 		Accessor getCases = new Accessor(token);
+
 			boolean status = true;
 			getCases.setObject(status);
 		
@@ -91,6 +92,15 @@ public class CaseWSTest {
 			Assert.assertEquals("success", response.getResponseCode());
 		
 		/*List<Case> cases = response.getResponseList();
+=======
+		
+		// hier weitermachen, GetCases wirft noch einen Fehler
+		
+		/*CaseListResponse response = casews.getCases(getCases);
+			Assert.assertEquals("success", response.getResponseCode());
+		
+		List<Case> cases = response.getResponseList();
+>>>>>>> refs/heads/Jascha
 		
 		int i = 0;
 		for (Case c : compareme){

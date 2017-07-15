@@ -1,5 +1,7 @@
 package de.patientenportal.persistence;
 
+import java.util.Date;
+
 import org.hibernate.Session;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
@@ -49,7 +51,7 @@ public class VitalDataDAO {
 		int id = updatedVitalData.getVitalDataID();
 		if(id!=0){
 				
-		String timestamp = updatedVitalData.getTimestamp();
+		Date timestamp = updatedVitalData.getTimestamp();
 		Double value = updatedVitalData.getValue();
 		VitalDataType vitalDataType = updatedVitalData.getVitalDataType();
 		Case pcase = updatedVitalData.getPcase();

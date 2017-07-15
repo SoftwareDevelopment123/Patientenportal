@@ -1,9 +1,12 @@
 package de.patientenportal.services;
 
 import java.net.URL;
+import java.util.Date;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.Address;
 import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Doctor;
@@ -25,7 +28,9 @@ public class UserTest {
 			newuser.setEmail("max.muster@mustermail.com");
 			newuser.setLastname("Mustermann");
 			newuser.setFirstname("Max");
-			newuser.setBirthdate("01.01.2000");
+			
+			Date geburtstag = ClientHelper.parseStringtoDate("01.01.2000");
+			newuser.setBirthdate(geburtstag);
 			newuser.setGender(Gender.MALE);
 		
 			Address neuA = new Address();

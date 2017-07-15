@@ -21,7 +21,7 @@ public class WebSessionTest {
 		neu.setEmail("stap.staptp@mustermail.com");
 		neu.setLastname("Stupser");
 		neu.setFirstname("Staps");
-		neu.setBirthdate("01.01.1992");
+		//neu.setBirthdate("01.01.1992");
 		neu.setGender(Gender.MALE);
 		
 		// User in der Datenbank speichern

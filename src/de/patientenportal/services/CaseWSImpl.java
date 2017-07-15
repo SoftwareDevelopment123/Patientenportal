@@ -16,6 +16,7 @@ import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RightsDAO;
 import de.patientenportal.persistence.UserDAO;
 
+
 @WebService (endpointInterface = "de.patientenportal.services.CaseWS")
 public class CaseWSImpl implements CaseWS {
 
@@ -73,11 +74,8 @@ public class CaseWSImpl implements CaseWS {
 	public CaseListResponse getCases(Accessor accessor) {
 		CaseListResponse response = new CaseListResponse();
 		String token;
-		boolean status;
 		
-		try {
-			token = (String) accessor.getToken();
-			status = (boolean) accessor.getObject();}
+		try {token = (String) accessor.getToken();}
 		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
 		if (token == null) 	{System.err.println("No token");		return null;}
 		
@@ -90,16 +88,8 @@ public class CaseWSImpl implements CaseWS {
 			try {
 				User user = auth.getUserByToken(token);
 				patient = UserDAO.getUser(user.getUserId()).getPatient();
-				List<Case> caselist = PatientDAO.getPatient(patient.getPatientID()).getCases();
+				List<Case> rlist = PatientDAO.getPatient(patient.getPatientID()).getCases();
 					response.setResponseCode("success");
-					
-					List <Case> rlist = new ArrayList<Case>();
-					for (Case c : caselist) {
-						if (c.isStatus() == status) {
-							rlist.add(c);
-						}
-					}
-
 					response.setResponseList(rlist);
 			}
 			catch (Exception e) {
@@ -196,5 +186,6 @@ public class CaseWSImpl implements CaseWS {
 		try {response = CaseDAO.updateCase(pcase);}
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
-	}	
+	}
+
 }

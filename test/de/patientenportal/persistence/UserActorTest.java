@@ -1,13 +1,20 @@
 package de.patientenportal.persistence;
 
 import org.junit.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Assert;
+
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 
 public class UserActorTest {
 
 	@Test
-	public void main() {
+	public void main() throws ParseException {
 				
 		//User anlegen (als Patient, Doktor und Relative)
 		User neu = new User();
@@ -16,7 +23,9 @@ public class UserActorTest {
 			neu.setEmail("stap.staptp@mustermail.com");
 			neu.setLastname("Stupser");
 			neu.setFirstname("Staps");
-			neu.setBirthdate("01.01.1992");
+			
+			Date geburtstag = ClientHelper.parseStringtoDate("04.12.1991");
+			neu.setBirthdate(geburtstag);
 			neu.setGender(Gender.MALE);
 			
 		Address neuA = new Address();
@@ -58,7 +67,7 @@ public class UserActorTest {
 			Assert.assertEquals("stap.staptp@mustermail.com", user.getEmail());
 			Assert.assertEquals("Stupser"					, user.getLastname());
 			Assert.assertEquals("Staps"						, user.getFirstname());
-			Assert.assertEquals("01.01.1992"				, user.getBirthdate());
+			Assert.assertEquals(geburtstag					, user.getBirthdate());
 			Assert.assertEquals(Gender.MALE					, user.getGender());
 		
 			Assert.assertEquals("Stapshausen"				, user.getAddress().getCity());
@@ -89,7 +98,7 @@ public class UserActorTest {
 			
 		//Update-Fehlermeldung-Test
 		User userupdateF = new User();
-			userupdateF.setBirthdate("01.01.0001"); 		// ID fehlt
+//			userupdateF.setBirthdate("01.01.0001"); 		// ID fehlt
 		
 		String feedbackF = UserDAO.updateUser(userupdateF);
 			Assert.assertEquals("noID", feedbackF);

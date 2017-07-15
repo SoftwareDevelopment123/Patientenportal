@@ -1,7 +1,13 @@
 package smalltests;
 
 import org.junit.Test;
+
+import java.text.ParseException;
+import java.util.Date;
+
 import org.junit.Assert;
+
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
@@ -10,7 +16,7 @@ import de.patientenportal.persistence.UserDAO;
 public class BidirektionaleOneToOnebeiPatient {
 
 	@Test
-	public void main() {
+	public void main() throws ParseException {
 		
 		//User anlegen (Patient)
 		User neu = new User();
@@ -19,7 +25,8 @@ public class BidirektionaleOneToOnebeiPatient {
 			neu.setEmail("stap.staptp@mustermail.com");
 			neu.setLastname("Stupser");
 			neu.setFirstname("Staps");
-			neu.setBirthdate("01.01.1992");
+			Date geburtstag = ClientHelper.parseStringtoDate("04.12.1991");
+			neu.setBirthdate(geburtstag);
 			neu.setGender(Gender.MALE);
 			
 		Address neuA = new Address();

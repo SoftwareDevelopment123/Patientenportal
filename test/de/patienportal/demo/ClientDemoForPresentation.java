@@ -2,7 +2,11 @@ package de.patienportal.demo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
+
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -33,7 +37,9 @@ public class ClientDemoForPresentation {
 	private static   String token;
 	
 	@Test
-	public  void registerUser() throws MalformedURLException {
+
+	public  void registerUser() throws MalformedURLException, ParseException {
+
 		URL url = new URL("http://localhost:8080/registration?wsdl");
         QName qname = new QName("http://services.patientenportal.de/", "RegistrationWSImplService");
         Service service = Service.create(url, qname);
@@ -46,7 +52,9 @@ public class ClientDemoForPresentation {
 		neu.setEmail("thomas.müller@mustermail.com");
 		neu.setLastname("Müller");
 		neu.setFirstname("Thomas");
-		neu.setBirthdate("01.01.1980");
+		
+		Date geburtstag = ClientHelper.parseStringtoDate("04.12.1991");
+		neu.setBirthdate(geburtstag);
 		neu.setGender(Gender.MALE);
 		
 		Address neuA = new Address();

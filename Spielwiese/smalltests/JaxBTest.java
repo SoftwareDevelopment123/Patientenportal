@@ -70,20 +70,33 @@ public class JaxBTest {
         marshaller.marshal(doctor, System.out);
 		*/
 		
+<<<<<<< HEAD
 		JAXBContext jc = JAXBContext.newInstance(CaseListResponse.class);
+=======
+		JAXBContext jc = JAXBContext.newInstance(Case.class);
+>>>>>>> refs/heads/Jascha
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+<<<<<<< HEAD
 		List<Case> caselist = new ArrayList<Case>();
 			caselist.add(CaseDAO.getCase(1));
 			caselist.add(CaseDAO.getCase(2));
 			caselist.add(CaseDAO.getCase(3));
+=======
+		Case pcase = CaseDAO.getCase(3);
+				
+		marshaller.marshal(pcase, System.out);
+>>>>>>> refs/heads/Jascha
 		
+<<<<<<< HEAD
 		CaseListResponse response = new CaseListResponse();
 			response.setResponseCode("TestString");
 			response.setResponseList(caselist);
 			
 		marshaller.marshal(response, System.out);
 		
+=======
+>>>>>>> refs/heads/Jascha
         
         System.exit(0);
         
