@@ -191,6 +191,7 @@ public class RightsDAO {
 			try {
 			result = session.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
+				System.err.println("Error: " + e);
 				return false;
 			} catch (Exception e) {
 				System.err.println("Error: " + e);

@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -65,32 +68,30 @@ public class UserDAO {
 			}		
 }
 		
-		@SuppressWarnings("deprecation")
 		public static User getUserByUsername (String username){  
 			
 		    Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		    User user = new User();
-		
-			try{
-			session.beginTransaction();		
-			
-			Criteria criteria =  session.createCriteria(User.class);
-					criteria.add(Restrictions.eq("username", username));
-			
-
-					user = (User) criteria.uniqueResult();
-			
-			return user;
-
-
+		    CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery <User> query = builder.createQuery(User.class);
+				
+			Root<User> user = 	query.from(User.class);
+									Predicate predicate =	builder.equal(user.get("username"),username );
+								query.select(user).where(predicate).distinct(true);
+									
+			User requestedUser;					
+			try {
+			requestedUser = session.createQuery(query).getSingleResult();
+			} catch (NoResultException e) {
+				System.err.println("Error: " + e);
+				return null;
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println("Error: " + e);
 				return null;
 			} finally {
 				session.close();
 			}
-			
+			return requestedUser;
 		}
 	
 	// Userdaten ändern
@@ -99,22 +100,22 @@ public class UserDAO {
 		int id = updateduser.getUserId();
 		if(id!=0){
 			
-		/*	String username = 	updateduser.getUsername();
+			String username = 	updateduser.getUsername();
 			String password = 	updateduser.getPassword();
 			String email = 		updateduser.getEmail();
 			String lastname = 	updateduser.getLastname();
 			String firstname = 	updateduser.getFirstname();
-			String birthdate = 	updateduser.getBirthdate();
+			Date birthdate = 	updateduser.getBirthdate();
 			Gender gender = 	updateduser.getGender();
 			Doctor doctor = 	updateduser.getDoctor();
 
-			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");*/
+			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			try{
 			session.beginTransaction();	
-			session.saveOrUpdate(updateduser);
-		/*	User usertoupdate = session.get(User.class, id);
+		//	session.saveOrUpdate(updateduser);
+			User usertoupdate = session.get(User.class, id);
 				usertoupdate.setUsername(username);
 				usertoupdate.setPassword(password);
 				usertoupdate.setEmail(email);
@@ -125,7 +126,7 @@ public class UserDAO {
 				usertoupdate.setGender(gender);
 				usertoupdate.setDoctor(doctor);
 
-				usertoupdate.setGender(gender);	*/	
+				usertoupdate.setGender(gender);		
 
 			session.getTransaction().commit();
 			

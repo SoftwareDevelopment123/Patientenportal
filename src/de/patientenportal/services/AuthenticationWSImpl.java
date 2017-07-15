@@ -97,15 +97,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	return true;
   }
   
-  @Transactional
-  public boolean authenticateTokenHTTP(){
-	  String token = getToken();
-	  deleteInvalidTokens();
-	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
-	if (sessions.size() != 1) return false;
-	extendWebSession(sessions.get(0));
-	return true;
-  }
+  
   
   @Transactional
   public User getUserByToken(String token) {
