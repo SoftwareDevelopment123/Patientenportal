@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
+import de.patientenportal.entities.Office;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.response.Accessor;
@@ -66,23 +67,34 @@ public class RightsWSTest {
 		Assert.assertEquals("success", response.getResponseCode());
 	
 		List<Rights> rights = response.getResponseList();
-		System.out.println(rights.size());
 		int i = 0;
-		/*	for (Rights r : compareme){
-				Assert.assertEquals(r.getDoctor().getDoctorID()			, rights.get(i).getDoctor().getDoctorID());
-				Assert.assertEquals(r.getPcase().getCaseID()				, rights.get(i).getPcase().getCaseID());
-				Assert.assertEquals(r.getRelative().getRelativeID()			, rights.get(i).getRelative().getRelativeID());
+			for (Rights r : compareme){
+				if(r.getDoctor()!=null){
+				Assert.assertEquals(r.getDoctor().getDoctorID()				, rights.get(i).getDoctor().getDoctorID());
+				Assert.assertEquals(r.getDoctor().getSpecialization()		, rights.get(i).getDoctor().getSpecialization());
+				Assert.assertEquals(r.getDoctor().getUser().getBirthdate()	, rights.get(i).getDoctor().getUser().getBirthdate());
+				}
+				if(r.getRelative()!=null){
+					Assert.assertEquals(r.getRelative().getRelativeID()			, rights.get(i).getRelative().getRelativeID());
+				}
 				Assert.assertEquals(r.getRightID()							, rights.get(i).getRightID());
 				i++;
 	}
-	*/	
-		/*Rights righttoupdate = rights.get(3);
-		Relative relative = RelativeDAO.getRelative(3);
-		righttoupdate.setRelative(relative);*/
-			
-			
-			
-			
+	
+		Rights righttoupdate = rights.get(0);
+		righttoupdate.setwRight(false);
+		
+		Accessor updateRight = new Accessor(token);
+		updateRight.setObject(righttoupdate);
+		String feedbackUR = rightsws.updateRight(updateRight);
+		Assert.assertEquals("success", feedbackUR);
+		
+		Accessor updatedRights = new Accessor(token, 3);
+		RightsListResponse updatedRight = rightsws.getRights(updatedRights);
+		Rights rightupdated = updatedRight.getResponseList().get(0);
+		//Rights daoright =RightsDAO.getRights(3).get(1);
+		
+			Assert.assertEquals(false, rightupdated.iswRight());
 			
 			
 			
