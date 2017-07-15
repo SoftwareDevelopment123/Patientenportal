@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWS;
@@ -65,16 +67,15 @@ public class ClientDemoForPresentation {
 		
 		neu.setAddress(neuA);
 		neu.setContact(neuC);
-		regWS.createUser(neu);
+		User newuser = (User) regWS.createUser(neu).getObject();
+		int userID = newuser.getUserId();
 		
 		//Doctor anlegen
 		Doctor neuD = new Doctor();
 		neuD.setSpecialization("Kardiologe");
-		int userID = UserDAO.getUserByUsername(neu.getUsername()).getUserId();
 		regWS.createDoctor(neuD, userID);
-		
+				
 		//Patient anlegen
-		
 		Patient neuP = new Patient();
 		neuP.setBloodtype("AB");
 		regWS.createPatient(neuP, userID);

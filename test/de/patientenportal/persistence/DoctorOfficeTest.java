@@ -87,9 +87,8 @@ public class DoctorOfficeTest {
 	
 			D1.setUser(newuser);
 		
-		String feedbackCU  = RegistrationDAO.createUser(newuser);
+		RegistrationDAO.createUser(newuser);
 		String feedbackUD = DoctorDAO.updateDoctor(D1);
-			Assert.assertEquals("success", feedbackCU);
 			Assert.assertEquals("success", feedbackUD);
 		
 		// Bidirektionaler Zugriff nach nachträglicher Verknüpfung  // ab jetzt ausgeschlossen / Transient

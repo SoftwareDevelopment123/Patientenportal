@@ -6,6 +6,7 @@ import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
 
@@ -18,20 +19,33 @@ public class RegistrationWSImpl implements RegistrationWS {
  */
 	
 	@Transactional
-	public String createUser(User user) {
+	public Accessor createUser(User user) {
+		Accessor response = new Accessor();
 		
-		if (user.getUsername()	== null){return "Bitte einen Username angeben.";}
-		if (user.getPassword()	== null){return "Kein Passwort angegeben.";}
-		if (user.getFirstname()	== null){return "Kein Vorname angegeben.";}
-		if (user.getLastname()	== null){return "Kein Nachname angegeben.";}		
-		if (user.getBirthdate()	== null){return "Kein Geburtsdatum angegeben.";}
+		if (user.getUsername()	== null){
+			response.setObject("Bitte einen Username angeben.");
+			return response;}
+		if (user.getPassword()	== null){
+			response.setObject("Kein Passwort angegeben.");
+			return response;}
+		if (user.getFirstname()	== null){
+			response.setObject("Kein Vorname angegeben.");
+			return response;}
+		if (user.getLastname()	== null){
+			response.setObject("Kein Nachname angegeben.");
+			return response;}		
+		if (user.getBirthdate()	== null){
+			response.setObject("Kein Geburtsdatum angegeben.");
+			return response;}
 				
 		else {		
 			boolean usercheck = RegistrationDAO.checkUsername(user.getUsername());
-				if (usercheck == true) 	{return "Username schon vergeben.";}
+				if (usercheck == true) 	{
+					response.setObject("Username schon vergeben.");
+					return response;}
 			
-			String feedback = RegistrationDAO.createUser(user);
-			return feedback;
+			response.setObject(RegistrationDAO.createUser(user));
+			return response;
 		}
 	}
 

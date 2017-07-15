@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 public class RegistrationDAO {
 
 	// User hinzufügen
-	public static String createUser(User user){
+	public static User createUser(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try {
@@ -21,14 +21,14 @@ public class RegistrationDAO {
 		
 		} catch (PropertyValueException e) {
 			System.err.println("Error: " + e);
-			return "NotNullError";
+			return null;
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
-			return "error";
+			return null;
 		} finally {
 			session.close();
 		}
-		return "success";
+		return user;
 	}
 
 	// Doktor hinzufügen
