@@ -82,6 +82,8 @@ public class CaseWSTest {
 		
 		List<Case> compareme = PatientDAO.getPatient(3).getCases();
 		Accessor getCases = new Accessor(token);
+			boolean status = true;
+			getCases.setObject(status);
 		
 		// hier weitermachen, GetCases wirft noch einen Fehler
 		
