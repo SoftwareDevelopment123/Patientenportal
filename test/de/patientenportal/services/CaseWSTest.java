@@ -93,7 +93,7 @@ public class CaseWSTest {
 		
 		CaseListResponse response = casews.getCases(getCases);
 			Assert.assertEquals("success", response.getResponseCode());
-		
+
 		List<Case> cases = response.getResponseList();
 		
 		int i = 0;
