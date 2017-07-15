@@ -67,6 +67,9 @@ public class CaseWSImpl implements CaseWS {
 	 * So wird garantiert, dass der angemeldete User/Patient nur seine eigenen Fälle sehen kann.
 	 * 
 	 * Zugriffsbeschränkung: Patient  ( noch einzurichten )
+	 * 
+	 * Wegen der Initialisierung der Cases wird aus der ersten Caselist(1) nochmal per ID auf die CaseDAO
+	 * zugegriffen. Alternativ müsste man im PatientDAO jeden Case noch mal getrennt initialisieren
 	 */
 	
 	@Transactional
@@ -90,11 +93,16 @@ public class CaseWSImpl implements CaseWS {
 			try {
 				User user = auth.getUserByToken(token);
 				patient = UserDAO.getUser(user.getUserId()).getPatient();
-				List<Case> caselist = PatientDAO.getPatient(patient.getPatientID()).getCases();
+				List<Case> caselist1 = PatientDAO.getPatient(patient.getPatientID()).getCases();
+				List<Case> caselist2 = new ArrayList<Case>();
+					for (Case c : caselist1){
+						caselist2.add(CaseDAO.getCase(c.getCaseID()));
+					}
+				
 					response.setResponseCode("success");
 					
 					List <Case> rlist = new ArrayList<Case>();
-					for (Case c : caselist) {
+					for (Case c : caselist2) {
 						if (c.isStatus() == status) {
 							rlist.add(c);
 						}

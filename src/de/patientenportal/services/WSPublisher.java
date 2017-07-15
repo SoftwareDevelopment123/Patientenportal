@@ -41,6 +41,9 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/case", new CaseWSImpl());
 		System.out.println(" Case-WebService : 				/case?wsdl");
 		
+		Endpoint.publish(URI + "/access", new AccessWSImpl());
+		System.out.println(" Access-WebService : 				/access?wsdl");
+		
 /*		} catch (Exception e) {
 			System.out.println("Error - " + e);
 		} finally {
