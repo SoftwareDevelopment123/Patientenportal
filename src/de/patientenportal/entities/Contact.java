@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAttribute;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -31,7 +30,6 @@ public class Contact {
 		this.contactID = contactID;
 	}
 
-	//@XmlAttribute
 	@Column(name = "PHONE", length = 15)
 	public String getPhone() {
 		return phone;
@@ -40,7 +38,6 @@ public class Contact {
 		this.phone = phone;
 	}
 
-	//@XmlAttribute
 	@Column(name = "MOBILE", length = 15)
 	public String getMobile() {
 		return mobile;
@@ -49,7 +46,6 @@ public class Contact {
 		this.mobile = mobile;
 	}
 	
-	//@XmlAttribute
 	@Column(name = "EMAIL", length = 60)
 	public String getEmail() {
 		return email;

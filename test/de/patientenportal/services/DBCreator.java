@@ -6,14 +6,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
 import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.*;
+
 
 public class DBCreator {
 

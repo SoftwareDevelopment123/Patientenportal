@@ -5,9 +5,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
-
-import de.patientenportal.entities.Gender;
-import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
 
 public class WebSessionDAO  {

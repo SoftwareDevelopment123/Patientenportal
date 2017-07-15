@@ -31,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+import java.util.Date;
+
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
@@ -52,8 +54,8 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-	private WebSession webSession;
-	
+	private WebSession webSession;	
+		
 	public User() {
 	}
 	

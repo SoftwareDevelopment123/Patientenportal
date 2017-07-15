@@ -8,25 +8,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import de.patientenportal.entities.InstructionDoc;
 
-@XmlRootElement (name="InDocListResponse")
-public class InDocResponse {
-	private String responseCode = null;
+@XmlRootElement (name="inDocListResponse")
+public class InDocListResponse extends ListResponse {
+	
 	private List<InstructionDoc> responseList;
 
-	public InDocResponse(){
+	public InDocListResponse(){
 	}
-	public InDocResponse (List<InstructionDoc> indoclist){
+	
+	public InDocListResponse (List<InstructionDoc> indoclist){
 		this.responseList = indoclist;
 	}
-	
-	public String getResponseCode() {
-		return responseCode;
-	}
-	public void setResponseCode(String responseCode) {
-		this.responseCode = responseCode;
-	}
-	
-	@XmlElementWrapper(name="instructiondocuments")
+		
+	@XmlElementWrapper(name="instructionDocuments")
 	@XmlElement(name="instructionDocument")
 	public List<InstructionDoc> getResponseList() {
 		return responseList;
@@ -34,6 +28,4 @@ public class InDocResponse {
 	public void setResponseList(List<InstructionDoc> responseList) {
 		this.responseList = responseList;
 	}
-
-
 }

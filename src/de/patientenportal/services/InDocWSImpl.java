@@ -1,17 +1,13 @@
 package de.patientenportal.services;
 
 import java.util.List;
-
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-
 import de.patientenportal.entities.InstructionDoc;
-import de.patientenportal.entities.MedicalDoc;
 import de.patientenportal.entities.response.Accessor;
-import de.patientenportal.entities.response.InDocResponse;
+import de.patientenportal.entities.response.InDocListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.InstructionDocDAO;
-
 
 @WebService (endpointInterface = "de.patientenportal.services.InDocWS")
 public class InDocWSImpl implements InDocWS{
@@ -35,8 +31,8 @@ public class InDocWSImpl implements InDocWS{
 	}
 	
 	@Transactional
-	public InDocResponse getInDocssbyC(Accessor accessor) {
-		InDocResponse response = new InDocResponse();
+	public InDocListResponse getInDocssbyC(Accessor accessor) {
+		InDocListResponse response = new InDocListResponse();
 		
 		int id;
 		try { id = (int) accessor.getObject(); }
@@ -55,8 +51,8 @@ public class InDocWSImpl implements InDocWS{
 		}
 	}
 	@Transactional
-	public InDocResponse getAllInDocs(Accessor accessor) {
-		InDocResponse response = new InDocResponse();
+	public InDocListResponse getAllInDocs(Accessor accessor) {
+		InDocListResponse response = new InDocListResponse();
 		
 		int id;
 		try { id = (int) accessor.getObject(); }
