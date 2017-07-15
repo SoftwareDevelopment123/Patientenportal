@@ -7,9 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import de.patientenportal.entities.Doctor;
 
 @XmlRootElement (name="doctorListResponse")
-public class DoctorListResponse {
+public class DoctorListResponse extends ListResponse {
 
-	private String responseCode = null;
 	private List<Doctor> responseList;
 
 	public DoctorListResponse(){
@@ -18,14 +17,7 @@ public class DoctorListResponse {
 	public DoctorListResponse(List<Doctor> responseList){
 		this.responseList = responseList;
 	}
-	
-	public String getResponseCode() {
-		return responseCode;
-	}
-	public void setResponseCode(String responseCode) {
-		this.responseCode = responseCode;
-	}
-	
+		
 	@XmlElementWrapper(name="doctors")
 	@XmlElement(name="doctor")
 	public List<Doctor> getResponseList() {
@@ -34,5 +26,4 @@ public class DoctorListResponse {
 	public void setResponseList(List<Doctor> responseList) {
 		this.responseList = responseList;
 	}
-
 }

@@ -7,9 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import de.patientenportal.entities.Relative;
 
 @XmlRootElement (name="relativeListResponse")
-public class RelativeListResponse {
+public class RelativeListResponse extends ListResponse {
 
-	private String responseCode = null;
 	private List<Relative> responseList;
 
 	public RelativeListResponse(){
@@ -17,13 +16,6 @@ public class RelativeListResponse {
 	
 	public RelativeListResponse(List<Relative> relativeList){
 		this.responseList = relativeList;
-	}
-	
-	public String getResponseCode() {
-		return responseCode;
-	}
-	public void setResponseCode(String responseCode) {
-		this.responseCode = responseCode;
 	}
 	
 	@XmlElementWrapper(name="relatives")
@@ -34,5 +26,4 @@ public class RelativeListResponse {
 	public void setResponseList(List<Relative> responseList) {
 		this.responseList = responseList;
 	}
-
 }
