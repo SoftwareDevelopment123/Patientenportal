@@ -1,8 +1,11 @@
 package smalltests;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
@@ -10,7 +13,7 @@ import de.patientenportal.persistence.UserDAO;
 
 public class CriteriaTest {
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws ParseException{
 		
 		User newuser = new User();
 			newuser.setUsername("NewUser");
@@ -39,7 +42,8 @@ public class CriteriaTest {
 		neu2.setEmail("stap.staptp@mustermail.com");
 		neu2.setLastname("Stupser");
 		neu2.setFirstname("Staps");
-		neu2.setBirthdate("01.01.1952");
+		Date geburtstag = ClientHelper.parseStringtoDate("04.12.1991");
+		neu.setBirthdate(geburtstag);
 		neu2.setGender(Gender.MALE);
 		
 		RegistrationDAO.createUser(neu2);

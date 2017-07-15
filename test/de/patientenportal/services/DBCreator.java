@@ -2,20 +2,23 @@ package de.patientenportal.services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.*;
 
 public class DBCreator {
 
-	public static void main(String[] args) throws MalformedURLException {
-
+	public static void main(String[] args) throws MalformedURLException, ParseException {
+		
 		System.out.println("Creating DB-Entries ...");
 		
 		System.err.println("Setting up actors ...");
@@ -39,7 +42,9 @@ public class DBCreator {
 				user.setLastname("lastname" + i);
 				user.setFirstname("firstname" + i);
 				user.setEmail("mail.address" + i + "@mailprovider.com");
-				user.setBirthdate(i + ".1.2001");
+				
+				Date geburtstag = ClientHelper.parseStringtoDate(i + ".1.2001");
+				user.setBirthdate(geburtstag);
 				user.setGender(Gender.MALE);
 				
 			Address address = new Address();
@@ -56,10 +61,17 @@ public class DBCreator {
 				user.setContact(contact);
 				user.setAddress(address);
 			
+			// User created = WS.createUser
+				
 			if (s >= 10) {
 				Relative relative = new Relative();
-				RegistrationDAO.createRelative(relative);
-				user.setRelative(relative);
+				// int userID = created.getID
+				// string feedback = registrationWS.createRelative(relative, id)
+				
+				
+				RegistrationDAO.createRelative(relative);		//kommt weg
+				user.setRelative(relative);					//kommt weg
+				
 				relatives.add(relative);
 				System.out.println("User-ID " + i + " - Relative created");
 			}
@@ -80,8 +92,9 @@ public class DBCreator {
 				RegistrationDAO.createPatient(patient);
 				user.setPatient(patient);
 				System.out.println("User-ID " + i + " - Patient created");
+	
 			}	
-			RegistrationDAO.createUser(user);
+			RegistrationDAO.createUser(user);					//kommt weg
 		}
 		
 		System.err.println("Creating Patient-Relative-Relations ...");
@@ -128,45 +141,35 @@ public class DBCreator {
 		QName qnameO = new QName("http://services.patientenportal.de/", "OfficeWSImplService");
 		Service serviceO = Service.create(urlO, qnameO);
 		OfficeWS off = serviceO.getPort(OfficeWS.class);
-		Accessor createOffice = new Accessor(office);
+		Accessor createOffice = new Accessor();
+			createOffice.setObject(office);
 		String feedbackCO = off.createOffice(createOffice);
 		if (feedbackCO != null){
 		System.out.println("Doctors added: " + doctors.size());
 		System.out.println("Office created");}
 		
 		
-		System.err.println("Creating Cases ...");
-		i = 0;
-		for (int s = 6; s>=1; s--){
-			i++;
-			i.toString();
-			Case pcase = new Case();
-				pcase.setTitle("Case " + i);
-				pcase.setDescription("Description " + i);
-				pcase.setStatus(true);
-			
-				Patient pat = PatientDAO.getPatient(i);
-				pcase.setPatient(pat);
-			
-			if (i <= 2){
-				Doctor doc = DoctorDAO.getDoctor(3);
-				List <Doctor> doclist = new ArrayList<Doctor>();
-					doclist.add(doc);
-				pcase.setDoctors(doclist);
-			}
-			
-			else {
-				Doctor doc1 = DoctorDAO.getDoctor(1);
-				Doctor doc2 = DoctorDAO.getDoctor(2);
-				List <Doctor> doclist = new ArrayList<Doctor>();
-					doclist.add(doc1);
-					doclist.add(doc2);
-				pcase.setDoctors(doclist);
-			}
-			CaseDAO.createCase(pcase);
-			System.out.println("Case-ID " + pcase.getCaseID() + " for Patient " + pat.getPatientID());
-		}
-
+		
+		// Authentifizierung
+		System.out.println("Authentication ...");
+		String username = "user10";
+		String password = "pass10";
+		
+		URL urlA = new URL("http://localhost:8080/authentication?wsdl");
+		QName qnameA = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+		Service serviceA = Service.create(urlA, qnameA);
+		AuthenticationWS auth = serviceA.getPort(AuthenticationWS.class);
+		
+        HTTPHeaderService.putUsernamePassword(username, password, auth);
+        auth.authenticateUser(ActiveRole.Doctor);
+        String token = auth.getSessionToken(username);
+		System.out.println("Success!");
+				
+		// Fälle anlegen
+		URL urlC = new URL("http://localhost:8080/case?wsdl");
+		QName qnameC = new QName("http://services.patientenportal.de/", "CaseWSImplService");
+		Service serviceC = Service.create(urlC, qnameC);
+		CaseWS casews = serviceC.getPort(CaseWS.class);
 		
 		System.err.println("Creating Cases ...");
 		i = 0;
@@ -196,11 +199,15 @@ public class DBCreator {
 					doclist.add(doc2);
 				pcase.setDoctors(doclist);
 			}
-			CaseDAO.createCase(pcase);
-			System.out.println("Case-ID " + pcase.getCaseID() + " for Patient " + pat.getPatientID());
-		}
+			
+			Accessor accessor = new Accessor();
+				accessor.setToken(token);
+				accessor.setObject(pcase);
+			casews.createCase(accessor);
 
-		
+			System.out.println("Case for Patient " + pat.getPatientID() + " created");
+		}
+				
 		System.exit(0);
 	}	
 }

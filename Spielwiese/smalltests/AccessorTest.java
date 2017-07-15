@@ -47,7 +47,8 @@ public class AccessorTest {
 			liste.add(id);
 			liste.add(patient);
 		
-		Accessor acc = new Accessor(liste);
+		Accessor acc = new Accessor();
+			acc.setObject(liste);
 		List<Object> getme = (List<Object>) acc.getObject();
 		
 		int getid = (int) getme.get(0);

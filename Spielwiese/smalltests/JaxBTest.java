@@ -24,7 +24,7 @@ public class JaxBTest {
 		
 		// Ergebnis: Über Relative werden Patienten mit gemapped
 
-		JAXBContext jc = JAXBContext.newInstance(Patient.class);
+		/*JAXBContext jc = JAXBContext.newInstance(Patient.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         
@@ -36,7 +36,7 @@ public class JaxBTest {
         	System.out.print(r.getRelativeID());
         	System.out.print(" - " + r.getUser().getFirstname());
            	System.out.println(" - " + r.getUser().getLastname());
-        }
+        }*/
                
         // Ergebnis: Über Patient werden Relatives nicht direkt gemapped, nur bei explizitem Abruf
 
@@ -67,13 +67,14 @@ public class JaxBTest {
         marshaller.marshal(doctor, System.out);
 		*/
 		
-	/*	JAXBContext jc = JAXBContext.newInstance(Case.class);
+		JAXBContext jc = JAXBContext.newInstance(Case.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		Case pcase = CaseDAO.getCase(3);
 				
-		marshaller.marshal(pcase, System.out);*/
+		marshaller.marshal(pcase, System.out);
 		
+        
         System.exit(0);
         
 	}

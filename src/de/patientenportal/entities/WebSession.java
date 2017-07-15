@@ -50,8 +50,6 @@ public class WebSession  {
 		this.activeRole = activeRole;
 	}
 
-
-	
 	public int getWebSessionID() {
 		return webSessionID;
 	}

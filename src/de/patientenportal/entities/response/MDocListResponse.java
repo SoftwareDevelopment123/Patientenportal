@@ -28,7 +28,7 @@ public class MDocListResponse {
 		}
 		
 		@XmlElementWrapper(name="medicaldocuments")
-		@XmlElement(name="MedicalDocument")
+		@XmlElement(name="medicalDocument")
 		public List<MedicalDoc> getResponseList() {
 			return responseList;
 		}

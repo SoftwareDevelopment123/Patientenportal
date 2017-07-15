@@ -1,6 +1,7 @@
 package de.patientenportal.persistence;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -98,7 +99,7 @@ public class UserDAO {
 		int id = updateduser.getUserId();
 		if(id!=0){
 			
-			String username = 	updateduser.getUsername();
+		/*	String username = 	updateduser.getUsername();
 			String password = 	updateduser.getPassword();
 			String email = 		updateduser.getEmail();
 			String lastname = 	updateduser.getLastname();
@@ -106,19 +107,20 @@ public class UserDAO {
 			String birthdate = 	updateduser.getBirthdate();
 			Gender gender = 	updateduser.getGender();
 
-			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
+			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");*/
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			try{
-			session.beginTransaction();				
-			User usertoupdate = session.get(User.class, id);
+			session.beginTransaction();	
+			session.saveOrUpdate(updateduser);
+		/*	User usertoupdate = session.get(User.class, id);
 				usertoupdate.setUsername(username);
 				usertoupdate.setPassword(password);
 				usertoupdate.setEmail(email);
 				usertoupdate.setLastname(lastname);
 				usertoupdate.setFirstname(firstname);	
 				usertoupdate.setBirthdate(birthdate);			
-				usertoupdate.setGender(gender);		
+				usertoupdate.setGender(gender);	*/	
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {

@@ -5,18 +5,19 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import de.patientenportal.entities.Case;
 
-import de.patientenportal.entities.InstructionDoc;
-
-@XmlRootElement (name="InDocListResponse")
-public class InDocResponse {
+@XmlRootElement (name="caseListResponse")
+public class CaseListResponse {
+	
 	private String responseCode = null;
-	private List<InstructionDoc> responseList;
+	private List<Case> responseList;
 
-	public InDocResponse(){
+	public CaseListResponse(){
 	}
-	public InDocResponse (List<InstructionDoc> indoclist){
-		this.responseList = indoclist;
+	
+	public CaseListResponse(List<Case> caseList){
+		this.responseList = caseList;
 	}
 	
 	public String getResponseCode() {
@@ -26,14 +27,12 @@ public class InDocResponse {
 		this.responseCode = responseCode;
 	}
 	
-	@XmlElementWrapper(name="instructiondocuments")
-	@XmlElement(name="instructionDocument")
-	public List<InstructionDoc> getResponseList() {
+	@XmlElementWrapper(name="cases")
+	@XmlElement(name="case")
+	public List<Case> getResponseList() {
 		return responseList;
 	}
-	public void setResponseList(List<InstructionDoc> responseList) {
+	public void setResponseList(List<Case> responseList) {
 		this.responseList = responseList;
 	}
-
-
 }

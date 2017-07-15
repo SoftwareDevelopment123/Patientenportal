@@ -27,7 +27,8 @@ public class DoctorTest {
 	
 	// Get Doctor
 	Doctor comparedoc = DoctorDAO.getDoctor(1);
-	Accessor getdoc = new Accessor(1);
+	Accessor getdoc = new Accessor();
+		getdoc.setObject(1);
 	Doctor doctor = doc.getDoctor(getdoc);
 
 		Assert.assertEquals(comparedoc.getDoctorID() 			, doctor.getDoctorID());
@@ -36,7 +37,8 @@ public class DoctorTest {
 	
 	// Get DoctorList by Case	
 	List<Doctor> compareDocList = CaseDAO.getCase(3).getDoctors();
-	Accessor getDocList = new Accessor(3);
+	Accessor getDocList = new Accessor();
+	getDocList.setObject(3);
 	DoctorListResponse docListResponse = doc.getDoctorsByC(getDocList);
 	List<Doctor> docList = docListResponse.getResponseList();
 	

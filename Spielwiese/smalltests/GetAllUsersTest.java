@@ -1,9 +1,12 @@
 package smalltests;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.Address;
 import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Gender;
@@ -18,7 +21,7 @@ public class GetAllUsersTest {
 	
 	
 	@Test
-	public void main(){
+	public void main() throws ParseException{
 		//User anlegen (Patient)
 					User neu = new User();
 				
@@ -27,7 +30,8 @@ public class GetAllUsersTest {
 					neu.setEmail("stap.staptp@mustermail.com");
 					neu.setLastname("Stupser");
 					neu.setFirstname("Staps");
-					neu.setBirthdate("01.01.1992");
+					Date geburtstag = ClientHelper.parseStringtoDate("04.12.1991");
+					neu.setBirthdate(geburtstag);
 					neu.setGender(Gender.MALE);
 					
 					RegistrationDAO.createUser(neu);
@@ -39,7 +43,8 @@ public class GetAllUsersTest {
 					neu2.setEmail("stap.staptp@mustermail.com");
 					neu2.setLastname("Stupser");
 					neu2.setFirstname("Staps");
-					neu2.setBirthdate("01.01.1952");
+					Date geburtstag2 = ClientHelper.parseStringtoDate("02.11.1951");
+					neu.setBirthdate(geburtstag2);
 					neu2.setGender(Gender.MALE);
 					
 					RegistrationDAO.createUser(neu2);
