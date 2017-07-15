@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class ClientHelper {
 
-	/**Wandelt ein als String übergebenes Datum in ein Datum vom Typ date um.
+	/**Wandelt ein als <code>String</code> übergebenes Datum in ein Datum vom Typ <code>Date</code> um.
 	 * 
 	 * @param dateAsString
 	 * @return
@@ -19,6 +19,13 @@ public class ClientHelper {
 	      return date;	
 	}
 	
+	/**Wandelt einen als <code>String</code> übergebenen Timestamp 
+	 * in ein Timestamp vom Typ <code>Date</code> um.
+	 * 
+	 * @param timeStampAsString
+	 * @return
+	 * @throws ParseException
+	 */
 	public static Date parseStringtoTimeStamp(String timeStampAsString) throws ParseException{
 		String pattern = "MM.dd.yyyy HH:mm";
 	    SimpleDateFormat format = new SimpleDateFormat(pattern);
