@@ -6,7 +6,7 @@ import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
-import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.UserListResponse;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
 
@@ -19,33 +19,35 @@ public class RegistrationWSImpl implements RegistrationWS {
  */
 	
 	@Transactional
-	public Accessor createUser(User user) {
-		Accessor response = new Accessor();
+	public UserListResponse createUser(User user) {
+		UserListResponse response = new UserListResponse();
 		
 		if (user.getUsername()	== null){
-			response.setObject("Bitte einen Username angeben.");
+			response.setResponseCode("Bitte einen Username angeben.");
 			return response;}
 		if (user.getPassword()	== null){
-			response.setObject("Kein Passwort angegeben.");
+			response.setResponseCode("Kein Passwort angegeben.");
 			return response;}
 		if (user.getFirstname()	== null){
-			response.setObject("Kein Vorname angegeben.");
+			response.setResponseCode("Kein Vorname angegeben.");
 			return response;}
 		if (user.getLastname()	== null){
-			response.setObject("Kein Nachname angegeben.");
+			response.setResponseCode("Kein Nachname angegeben.");
 			return response;}		
 		if (user.getBirthdate()	== null){
-			response.setObject("Kein Geburtsdatum angegeben.");
+			response.setResponseCode("Kein Geburtsdatum angegeben.");
 			return response;}
 				
 		else {		
 			boolean usercheck = RegistrationDAO.checkUsername(user.getUsername());
 				if (usercheck == true) 	{
-					response.setObject("Username schon vergeben.");
+					response.setResponseCode("Username schon vergeben.");
 					return response;}
 			
-			response.setObject(RegistrationDAO.createUser(user));
-			return response;
+				User newuser = RegistrationDAO.createUser(user);
+				response.getResponseList().add(newuser);
+				response.setResponseCode("success");
+				return response;
 		}
 	}
 
