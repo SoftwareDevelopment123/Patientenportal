@@ -59,8 +59,6 @@ public class Insurance {
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "insurance")
 	@XmlTransient
-	//@XmlElementWrapper(name="patients")
-	//@XmlElement(name="patient")
 	public List<Patient> getPatients() {
 		return patients;
 	}

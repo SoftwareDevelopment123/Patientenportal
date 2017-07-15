@@ -3,14 +3,9 @@ package de.patientenportal.entities;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlValue;
-import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
-import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
-import org.eclipse.persistence.oxm.annotations.XmlPath;
+
 
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
@@ -20,14 +15,6 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlRootElement (name="relative")
 
-//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-//@XmlDiscriminatorValue("RELATIVE")
-
-/*
- * Readme
- * https://stackoverflow.com/questions/22509921/jax-ws-hibernate-jaxb-how-to-avoid-lazyinitializationexception-during-marsh
- * 
- */
 public class Relative {
 	
 	private int relativeID;
@@ -57,8 +44,6 @@ public class Relative {
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy="relatives") 
 	@XmlTransient
-	//@XmlElementWrapper(name="patients")
-	//@XmlElement(name="patient")
 	public List<Patient> getPatients() {
 		return patients;
 	}
