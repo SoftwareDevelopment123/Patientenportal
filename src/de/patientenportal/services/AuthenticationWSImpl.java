@@ -16,6 +16,7 @@ import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.persistence.WebSessionDAO;
 
@@ -108,7 +109,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
   }
   
   @Transactional
-  public User getUserByToken(String token) {
+  public static User getUserByToken(String token) {
 	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
 	if (sessions.size() != 1) return null;
 	return sessions.get(0).getUser();
@@ -225,5 +226,37 @@ public static String getToken(){
 	  return sessions.get(0).getActiveRole();
   }
   
+  /**
+   * Diese Methode führt in 3 Stufen Authentifizierung, Authorisierung und Prüfung der Schreibrechte (falls benötigt) durch.
+   * 
+   * @param accessor	token und (falls benätigt) CaseID
+   * @param expected	erlaubte Rollen für die Methode
+   * @param wRightcheck true, wenn für die Methode Schreibrechte zum Fall gefordert sind
+   * @return
+   */
+  
+  public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, boolean wRightcheck){
+	  	String token = accessor.getToken();
+	  
+	  	AuthenticationWSImpl auth = new AuthenticationWSImpl();
+		if (auth.authenticateToken(token) == false) {
+			System.err.println("Invalid token");
+			return "Authentifizierung fehlgeschlagen.";}
+		
+		ActiveRole role = AuthenticationWSImpl.getActiveRole(token);
+		
+		if (!expected.contains(role) == true) {
+			System.err.println("No Access for this role");
+			return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
+		
+		if (wRightcheck == true){
+			AccessWSImpl acc = new AccessWSImpl();
+			if (acc.checkWRight(accessor) == false) {
+				System.err.println("No Writing-Rights for this Case");
+				return "Keine Schreibrechte für diesen Fall";
+			}
+		}
+	  return null;
+  }
   
 }		
