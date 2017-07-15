@@ -1,5 +1,6 @@
 package de.patientenportal.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
@@ -66,14 +67,20 @@ public class CaseWSImpl implements CaseWS {
 	 * So wird garantiert, dass der angemeldete User/Patient nur seine eigenen Fälle sehen kann.
 	 * 
 	 * Zugriffsbeschränkung: Patient  ( noch einzurichten )
+	 * 
+	 * Wegen der Initialisierung der Cases wird aus der ersten Caselist(1) nochmal per ID auf die CaseDAO
+	 * zugegriffen. Alternativ müsste man im PatientDAO jeden Case noch mal getrennt initialisieren
 	 */
 	
 	@Transactional
 	public CaseListResponse getCases(Accessor accessor) {
 		CaseListResponse response = new CaseListResponse();
 		String token;
+		boolean status;
 		
-		try {token = (String) accessor.getToken();}
+		try {
+			token = (String) accessor.getToken();
+			status = (boolean) accessor.getObject();}
 		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
 		if (token == null) 	{System.err.println("No token");		return null;}
 		
@@ -86,8 +93,21 @@ public class CaseWSImpl implements CaseWS {
 			try {
 				User user = auth.getUserByToken(token);
 				patient = UserDAO.getUser(user.getUserId()).getPatient();
-				List<Case> rlist = PatientDAO.getPatient(patient.getPatientID()).getCases();
+				List<Case> caselist1 = PatientDAO.getPatient(patient.getPatientID()).getCases();
+				List<Case> caselist2 = new ArrayList<Case>();
+					for (Case c : caselist1){
+						caselist2.add(CaseDAO.getCase(c.getCaseID()));
+					}
+				
 					response.setResponseCode("success");
+					
+					List <Case> rlist = new ArrayList<Case>();
+					for (Case c : caselist2) {
+						if (c.isStatus() == status) {
+							rlist.add(c);
+						}
+					}
+
 					response.setResponseList(rlist);
 			}
 			catch (Exception e) {
@@ -184,5 +204,5 @@ public class CaseWSImpl implements CaseWS {
 		try {response = CaseDAO.updateCase(pcase);}
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
-	}
+	}	
 }

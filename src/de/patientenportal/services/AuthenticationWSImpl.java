@@ -6,16 +6,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.http.HTTPException;
-
 import org.hibernate.criterion.Restrictions;
-
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
@@ -35,9 +31,9 @@ import de.patientenportal.persistence.WebSessionDAO;
 public class AuthenticationWSImpl implements AuthenticationWS {
 
   @Resource
-static
-  WebServiceContext wsctx;
+  static WebServiceContext wsctx;
 		
+  @SuppressWarnings("rawtypes")
   @Transactional
   public String authenticateUser(ActiveRole activeRole){ //(String username, String password) {
 	
@@ -204,7 +200,8 @@ static
   } 
 
        
-  public static String getToken(){
+  @SuppressWarnings("rawtypes")
+public static String getToken(){
 
 		MessageContext mctx = wsctx.getMessageContext();
 		
@@ -222,4 +219,11 @@ static
 	    return null;
 	}
 		
+  public static ActiveRole getActiveRole(String token){
+	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+		if (sessions.size() != 1) return null;
+	  return sessions.get(0).getActiveRole();
+  }
+  
+  
 }		

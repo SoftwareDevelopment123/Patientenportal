@@ -1,15 +1,18 @@
 package smalltests;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.entities.response.CaseListResponse;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.*;
 import de.patientenportal.services.RelativeWSImpl;
 
 
+@SuppressWarnings("unused")
 public class JaxBTest {
 
 	public static void main(String[] args) throws Exception {
@@ -67,12 +70,19 @@ public class JaxBTest {
         marshaller.marshal(doctor, System.out);
 		*/
 		
-		JAXBContext jc = JAXBContext.newInstance(Case.class);
+		JAXBContext jc = JAXBContext.newInstance(CaseListResponse.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		Case pcase = CaseDAO.getCase(3);
-				
-		marshaller.marshal(pcase, System.out);
+		List<Case> caselist = new ArrayList<Case>();
+			caselist.add(CaseDAO.getCase(1));
+			caselist.add(CaseDAO.getCase(2));
+			caselist.add(CaseDAO.getCase(3));
+		
+		CaseListResponse response = new CaseListResponse();
+			response.setResponseCode("TestString");
+			response.setResponseList(caselist);
+			
+		marshaller.marshal(response, System.out);
 		
         
         System.exit(0);

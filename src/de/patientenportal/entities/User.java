@@ -23,6 +23,8 @@ import org.hibernate.annotations.NamedQuery;
 import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Date;
+
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
@@ -44,8 +46,8 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-	private WebSession webSession;
-	
+	private WebSession webSession;	
+		
 	public User() {
 	}
 	

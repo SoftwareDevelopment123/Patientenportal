@@ -105,6 +105,7 @@ public class UserDAO {
 			String firstname = 	updateduser.getFirstname();
 			String birthdate = 	updateduser.getBirthdate();
 			Gender gender = 	updateduser.getGender();
+			Doctor doctor = 	updateduser.getDoctor();
 
 			System.out.println("Updating User /w ID "+ id +" ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();
@@ -118,7 +119,8 @@ public class UserDAO {
 				usertoupdate.setLastname(lastname);
 				usertoupdate.setFirstname(firstname);	
 				usertoupdate.setBirthdate(birthdate);			
-				usertoupdate.setGender(gender);		
+				usertoupdate.setGender(gender);
+				usertoupdate.setDoctor(doctor);
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {

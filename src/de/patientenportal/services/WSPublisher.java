@@ -7,10 +7,11 @@ public class WSPublisher {
 	public static void main(String[] args) {
 
 		String URI = "http://localhost:8080";
-
+	
+		System.out.println("Starting Web-Services ...");
 		System.out.println("Web-Services running on " + URI);
 		
-//		try {
+		try {
 		Endpoint.publish(URI + "/registration", new RegistrationWSImpl());
 		System.out.println(" Registration-WebService : 			/registration?wsdl");
 		
@@ -44,18 +45,14 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/rights", new RightsWSImpl());
 		System.out.println(" Rights-WebService : 				/rights?wsdl");
 		
-/*		} catch (Exception e) {
-			System.out.println("Error - " + e);
-		} finally {
-			System.out.println("Shutting down WS (for testing only)...");
+		Endpoint.publish(URI + "/access", new AccessWSImpl());
+		System.out.println(" Access-WebService : 				/access?wsdl");
+		
+		} catch (Exception e) {
+			System.err.println("Error - " + e);
+			System.err.println("Shutting down WS (for testing only)...");
 			System.exit(0);
-		}*/
-
-
-		/*
-		 * 
-		 * usw. für alle WS
-		 * 
-		 */
+		} 
+		System.out.println("... Web-Services started successfully!");
 	}
 }
