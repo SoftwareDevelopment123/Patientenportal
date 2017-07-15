@@ -14,9 +14,11 @@ import org.junit.Test;
 
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
+import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.Rights;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.CaseDAO;
+import de.patientenportal.persistence.RelativeDAO;
 import de.patientenportal.persistence.RightsDAO;
 
 public class RightsWSTest {
@@ -49,7 +51,7 @@ public class RightsWSTest {
 	}
 	
 	@Test
-	public void getRights(){
+	public void main() throws MalformedURLException {
 		
 		URL urlR = new URL("http://localhost:8080/rights?wsdl");
 		QName qnameR = new QName("http://services.patientenportal.de/", "RightsWSImplService");
@@ -73,30 +75,44 @@ public class RightsWSTest {
 				Assert.assertEquals(r.getRightID()							, rights.get(i).getRightID());
 				i++;
 	}
-	
-	}	
-	@Test		
-	public void deleteRight(){
-		URL urlR = new URL("http://localhost:8080/rights?wsdl");
-		QName qnameR = new QName("http://services.patientenportal.de/", "RightsWSImplService");
-		Service serviceR = Service.create(urlR, qnameR);
-		RightsWS rightsws = serviceR.getPort(RightsWS.class);
 		
-		
+		Rights righttoupdate = rights.get(3);
+		Relative relative = RelativeDAO.getRelative(3);
+		righttoupdate.setRelative(relative);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		Accessor getRight = new Accessor(token, 3);
-		String response= rightsws.deleteRight(getRight);
-		
+		String responsedelete= rightsws.deleteRight(getRight);
+		Assert.assertEquals("success", responsedelete);
 		
 		
 	}
 			
-			
-			
-			
-			
-			
-			
-	}
+}
 	
 	
 	
