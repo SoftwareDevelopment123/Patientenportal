@@ -35,10 +35,14 @@ public class RightsWSImpl  implements RightsWS {
 		else{
 		
 		List<Rights> rights = new ArrayList<Rights>();
-		response.setResponseList(rights);
-		response.setResponseCode("success");
-		try { rights = RightsDAO.getRights(id); }
+		try { 
+			rights = RightsDAO.getRights(id); 
+			response.setResponseList(rights);
+			response.setResponseCode("success");
+		}
 		catch (Exception e) {System.out.println("Error: " + e);}
+		
+		
 		return response;
 		}
 	}
