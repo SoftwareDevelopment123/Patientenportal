@@ -101,10 +101,10 @@ public class FtpMethodenInDocs {
             outputStream1.close();
  
             if (success) {
-                System.out.println("The medicaldocument: "+indoctodownload.getTitle()+indoctodownload.getFileType()+" has been downloaded sucessfully.");
+                System.out.println("The Instruction Document: "+indoctodownload.getTitle()+indoctodownload.getFileType()+" has been downloaded sucessfully.");
             }
             if (!success){
-            	System.out.println("The medicaldocument: "+indoctodownload.getTitle()+indoctodownload.getFileType()+" has not been found on the server.");
+            	System.out.println("The Instruction Document: "+indoctodownload.getTitle()+indoctodownload.getFileType()+" has not been found on the server.");
             	downloadfileto.delete();
             }
         } catch (IOException ex) {

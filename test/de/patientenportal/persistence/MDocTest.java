@@ -13,12 +13,7 @@ import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 public class MDocTest {
 
-	/*
-	 * 
-	 * Das hier kann alles in den DocumentsTest, zusammen mit allen Dokumenten-Funktionen (sobalt das klappt)
-	 * 
-	 */
-	//Audführliche KOmmentar in InDocTest
+	//Audführliche Kommentar in InDocTest
 	@Test
 	public void main() throws IOException{
 		
@@ -73,10 +68,6 @@ public class MDocTest {
 			Assert.assertEquals(3, patdocs.size());
 		
 		//Upload der Files geschieht nun direkt bei create kann ausgelagert werden falls nötig
-		/*FtpMethodenMDocs.uploadMDoc(mdoc1);
-		FtpMethodenMDocs.uploadMDoc(mdoc2);
-		FtpMethodenMDocs.uploadMDoc(mdoc3);*/
-		
 		//Download der Files
 		FtpMethodenMDocs.downloadFile(mdoc1);
 		FtpMethodenMDocs.downloadFile(mdoc2);

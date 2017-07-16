@@ -8,7 +8,6 @@ import de.patientenportal.entities.Case;
 import de.patientenportal.entities.InstructionDoc;
 import de.patientenportal.entities.Patient;
 import de.patientenpotal.ftpconnection.FtpMethodenInDocs;
-import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 public class InDocTest {
 //Kommentare sind auch für MDOC Test gültig
@@ -24,7 +23,7 @@ public class InDocTest {
 			Case case1 = new Case("Impfpass","erklärt sich von selbst");
 			CaseDAO.createCase(case1);
 			
-			//Serverzugangsdaten mit falscher Variante
+			//Serverzugangsdaten mit falscher Variante, die auskommentiert ist
 			String serveruser1 = new String("admin");
 			String passwort1 = new String("12345");
 			//String passwort2 =new String("1234");
@@ -48,6 +47,7 @@ public class InDocTest {
 				indoc3.setFileType("jpg");
 				
 				//InstructiondocDAO wird augerufen und die Objekt bei Hibernate erzeugt
+				//Dabei wird gleichzeitig die FtpMethodenInDocs.uploadInstructionDoc() Methode aufgerufen
 			String feedbackIMD1 = InstructionDocDAO.createInstructionDoc(indoc1);
 				Assert.assertEquals("success", feedbackIMD1);
 			String feedbackIMD2 = InstructionDocDAO.createInstructionDoc(indoc2);
@@ -60,18 +60,13 @@ public class InDocTest {
 				Assert.assertEquals(indoc1.getInstructionDocID() , test.getInstructionDocID());
 				Assert.assertEquals(indoc1.getTitle(), test.getTitle());
 			
-			//Upload der Files genaueres siehe de.patientenportal.ftpconnection FTPMethodenInDocs
-		/*	FtpMethodenInDocs.uploadInstructionDoc(indoc1);
-			FtpMethodenInDocs.uploadInstructionDoc(indoc2);
-			FtpMethodenInDocs.uploadInstructionDoc(indoc3);*/
-			
 			//Download der Files
 			FtpMethodenInDocs.downloadInstructionDoc(indoc1);
 			FtpMethodenInDocs.downloadInstructionDoc(indoc2);
 			FtpMethodenInDocs.downloadInstructionDoc(indoc3);
 			
 			//Anzeigen aller Files auf dem Server
-			FtpMethodenMDocs.showAllFiles(serveruser1, passwort1);
+			FtpMethodenInDocs.showAllFiles(serveruser1, passwort1);
 		}
 	
 	}
