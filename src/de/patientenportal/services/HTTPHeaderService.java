@@ -24,17 +24,5 @@ public class HTTPHeaderService {
 	        headers.put("Username", Collections.singletonList(username));
 	        headers.put("Password", Collections.singletonList(password));
 	        req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
-	}
-	
-	public static void putToken(String token, AuthenticationWS authWS){
-		
-		Map<String, Object> req_ctx = ((BindingProvider)authWS).getRequestContext();
-        req_ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
-
-        Map<String, List<String>> headers = new HashMap<String, List<String>>();
-        headers.put("Token", Collections.singletonList(token));
-        req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
-	}
-	
-	
+	}	
 }
