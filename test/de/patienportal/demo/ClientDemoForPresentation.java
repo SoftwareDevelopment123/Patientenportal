@@ -113,7 +113,7 @@ public class ClientDemoForPresentation {
         //selectPatient
         Case newCase	= new Case();
         newCase.setTitle("Herzmuskelentzündung");
-        newCase.setPatient(UserDAO.getUserByUsername(neu.getUsername()).getPatient());
+        newCase.setPatient(UserDAO.getUserByUsername("Tommy").getPatient());
         List<Doctor> ldoc  = Arrays.asList(UserDAO.getUserByUsername(neu.getUsername()).getDoctor());
         newCase.setDoctors(ldoc);
         newCase.setDescription("Verusacht durch Virusinfektion...");
