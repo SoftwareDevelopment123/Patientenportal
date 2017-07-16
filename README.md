@@ -135,6 +135,9 @@ bis 09.07. (alle)
 - DateiServerZugriff funktioniert (bei Jan, hier vllt noch eine Anleitung einfügen)
 
 ## To-Do
+- getCase jetzt für alle, je nach Zugriffsrolle jetzt mit Access-Check
+- Access-Check in alle Untermethoden für Case-Zugriff
+
 - Deprecated Criterias anpassen (UserDAO, WebSessionDAO, ...?)
 
 - Superklasse für die Dokumente wieder einfügen?

@@ -12,6 +12,8 @@ import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 import org.hibernate.criterion.Restrictions;
+
+import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
@@ -227,21 +229,21 @@ public static String getToken(){
    * @return
    */
   
-  public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, boolean wRightcheck){
+  public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, Access access){
 	  	String token = accessor.getToken();
 	  
 	  	AuthenticationWSImpl auth = new AuthenticationWSImpl();
 		if (auth.authenticateToken(token) == false) {
 			System.err.println("Invalid token");
-			return "Authentifizierung fehlgeschlagen.";}
+				return "Authentifizierung fehlgeschlagen.";}
 		
 		ActiveRole role = AuthenticationWSImpl.getActiveRole(token);
 		
 		if (!expected.contains(role) == true) {
 			System.err.println("No Access for this role");
-			return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
+				return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
 		
-		if (wRightcheck == true){
+		if (access == Access.WriteCase){
 			AccessWSImpl acc = new AccessWSImpl();
 			if (acc.checkWRight(accessor) == false) {
 				System.err.println("No Writing-Rights for this Case");
