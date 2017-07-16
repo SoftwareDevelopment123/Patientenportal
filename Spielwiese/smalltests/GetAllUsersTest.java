@@ -7,10 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import de.patienportal.demo.ClientHelper;
-import de.patientenportal.entities.Address;
-import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Gender;
-import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
@@ -65,12 +62,12 @@ public class GetAllUsersTest {
 				//
 				//RegistrationDAO.createUser(neu3);
 		
-				List<User> ulist = UserDAO.getAllUsers();
+			/*	List<User> ulist = UserDAO.getAllUsers();
 				System.out.println(ulist);
 				int i = 0;
 				for (User u : ulist){
 					System.out.println(u.getUsername());
-					i++;
+					i++;*/
 				}
 }
-}
+
