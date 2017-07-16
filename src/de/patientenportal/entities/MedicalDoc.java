@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "MedicalDoc", catalog = "patientenportal")
+@XmlRootElement (name="medicalDoc")
 public class MedicalDoc {
 
 	private int medDocID;

@@ -87,7 +87,7 @@ public class JaxBTest {
 			
 		marshaller.marshal(response, System.out);*/
 		
-		JAXBContext jc = JAXBContext.newInstance(RightsListResponse.class);
+		/*JAXBContext jc = JAXBContext.newInstance(RightsListResponse.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
@@ -98,9 +98,23 @@ public class JaxBTest {
 			response.setResponseCode("TestString");
 			response.setResponseList(rightslist);
 			
-		marshaller.marshal(response, System.out);
+		marshaller.marshal(response, System.out);*/
 		
+		JAXBContext jc = JAXBContext.newInstance(Medication.class);
+        Marshaller marshaller = jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        Medication m = new Medication();
+        	m.setDosage("viel");
+        	m.setDuration("lange");
+        	m.setMedicine(MedicineDAO.getMedicine(1));
+        	m.setPcase(CaseDAO.getCase(1));
+        	m.setPrescribedBy(DoctorDAO.getDoctor(1));
+			
+		marshaller.marshal(m, System.out);
         
+		MedicationDAO.createMedication(m);
+		
         System.exit(0);
         
 	}

@@ -11,10 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
 @Table(name = "InstructionDoc", catalog = "patientenportal")
+@XmlRootElement (name="instructiondoc")
 public class InstructionDoc {
 	
 	private int instructionDocID;
