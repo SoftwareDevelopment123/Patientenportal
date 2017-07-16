@@ -272,6 +272,7 @@ public class CaseWSImpl implements CaseWS {
 		} 
 		catch (Exception e) {System.err.println("Invalid access");	return null;}
 		if (token == null) 	{System.err.println("No token");		return null;}
+		if (pcase == null)	{System.err.println("No Case");			return null;}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
 		accessor.setObject(pcase.getCaseID());
