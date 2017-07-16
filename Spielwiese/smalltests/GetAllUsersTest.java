@@ -2,7 +2,7 @@ package smalltests;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
+//import java.util.List;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
-import de.patientenportal.persistence.UserDAO;
+//import de.patientenportal.persistence.UserDAO;
 
 
 

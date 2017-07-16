@@ -2,17 +2,10 @@ package de.patientenportal.services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-import javax.xml.ws.handler.MessageContext;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
