@@ -10,7 +10,35 @@ import de.patientenportal.entities.Office;
 
 public class OfficeDAO {
 
-	// Office abrufen
+	
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Office
+	 * @param Office, das anzulegende Office
+	 * @return String "success"
+	 */
+	public static String createOffice(Office office){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		try{
+		session.beginTransaction();
+		session.save(office);
+		session.getTransaction().commit();
+		
+		} catch(Exception e) {
+			System.err.println("Error: " + e);
+			return "error";
+			
+		} finally{
+			session.close();
+		}	
+		return "success";
+	}
+	
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Office
+	 * @param officeID, des aufzurufenden Office
+	 * @return Office
+	 */
 	public static Office getOffice(int officeID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Office office = new Office();
@@ -34,7 +62,11 @@ public class OfficeDAO {
 		return office;		
 	}
 	
-	// Officedaten ändern
+	/**
+	 * Datenbankzugriff zum: Ändern eines Office
+	 * @param Office, das vollständige geänderte Office Objekt
+	 * @return String "success"
+	 */
 	public static String updateOffice(Office updatedoffice){
 		int id = updatedoffice.getOfficeID();
 		if(id!=0){
@@ -66,26 +98,11 @@ public class OfficeDAO {
 		}
 	}
 	
-	// Office hinzufügen
-	public static String createOffice(Office office){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-
-		try{
-		session.beginTransaction();
-		session.save(office);
-		session.getTransaction().commit();
-		
-		} catch(Exception e) {
-			System.err.println("Error: " + e);
-			return "error";
-			
-		} finally{
-			session.close();
-		}	
-		return "success";
-	}
-	
-	//Office löschen
+	/**
+	 * Datenbankzugriff zum: Löschen eines Office
+	 * @param officeID, des zu löschenden Office
+	 * @return String "success"
+	 */
 	public static String deleteOffice(int officeID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
