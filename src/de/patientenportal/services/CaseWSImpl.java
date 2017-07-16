@@ -23,15 +23,16 @@ import de.patientenportal.persistence.UserDAO;
 @WebService (endpointInterface = "de.patientenportal.services.CaseWS")
 public class CaseWSImpl implements CaseWS {
 
-	/*
-	 * Einzelnen Fall vollständig abrufen
+	/**
+	 * <b>Einzelnen Fall vollständig abrufen</b><br>
+	 * Der Patient kann nur seine eigenen Fälle über diese Methode aufrufen.<br>
+	 * Bei Doktoren und Verwandten wird geprüft, ob man beim angefragten Fall Leserechte hat.<br>
+	 *  
+	 * Zugriffsbeschränkung: <code>Patient, Doctor, Relative</code>
 	 * 
-	 * Der Patient kann nur seine eigenen Fälle über diese Methode aufrufen.
-	 * Bei Doktoren und Verwandten wird geprüft, ob man beim angefragten Fall Leserechte hat.
-	 * 
-	 * Zugriffsbeschränkung: Patient, Doctor, Relative
+	 * @param Accessor mit <code>String</code> token und <code>int</code> caseID
+	 * @return <code>Case</code> mit dem angefragten Fall
 	 */
-
 	@Transactional
 	public Case getCase(Accessor accessor) {
 		int id;
@@ -91,24 +92,21 @@ public class CaseWSImpl implements CaseWS {
 		}
 	}
 
-	/*
-	 * Alle Fälle eines Patienten abrufen
+	/**
+	 * <b>Alle Fälle eines Patienten abrufen</b><br>
+	 * Methode ist für den Patienten gedacht, um seine Fälle einzusehen.<br>
+	 * Dementsprechend wird nur das Token benötigt, aus dem dann die ihm zugehörige ID abgerufen wird.<br>
 	 * 
-	 * Methode ist für den Patienten gedacht, um seine Fälle einzusehen.
-	 * Dementsprechend wird nur das Token benötigt, aus dem dann die zugehörige ID abgerufen wird.
-	 * So wird garantiert, dass der angemeldete User/Patient nur seine eigenen Fälle sehen kann.
+	 * Zugriffsbeschränkung: <code>Patient</code>
 	 * 
-	 * Zugriffsbeschränkung: Patient
-	 * 
-	 * Wegen der Initialisierung der Cases wird aus der ersten Caselist(1) nochmal per ID auf die CaseDAO
-	 * zugegriffen. Alternativ müsste man im PatientDAO jeden Case noch mal getrennt initialisieren
+	 * @param Accessor mit <code>String</code> token und <code>boolean</code> status
+	 * @return <code>CaseListResponse</code> mit allen Fällen mit entsprechendem Status
 	 */
-	
 	@Transactional
 	public CaseListResponse getCases(Accessor accessor) {
 		CaseListResponse response = new CaseListResponse();
 		String token;
-		boolean status;
+		boolean status = true;
 		
 		try {
 			token = (String) accessor.getToken();
@@ -153,16 +151,17 @@ public class CaseWSImpl implements CaseWS {
 		}
 	}
 
-	/*
-	 * Neuen Fall anlegen
-	 * 
-	 * Zugriffsbeschränkung: Doctor
-	 *
+	/**
+	 * <b>Neuen Fall anlegen</b><br>
 	 * Der erstellende Doktor bekommt direkt Lese- und Schreibrechte im erstellten Fall und
 	 * wird der Doktorliste des Falls hinzugefügt. Hier wird sichergestellt, dass auch mitgegebene Doktoren
-	 * dem Fall hinzugefügt werden. Diese bekommen aber nicht automatisch Lese- und Schreibrechte
+	 * dem Fall hinzugefügt werden. Diese bekommen aber nicht automatisch Lese- und Schreibrechte.<br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Doctor</code>
+	 *
+	 * @param Accessor mit <code>String</code> token und dem zu erstellenden <code>Case</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
 	 */
-	
 	@Transactional
 	public String createCase(Accessor accessor) {
 		Case pcase = new Case();
@@ -213,14 +212,17 @@ public class CaseWSImpl implements CaseWS {
 		}
 	}
 
-	/*
-	 * Fall löschen
+	/**
+	 * <b>Fall löschen</b><br>
+	 * Fälle sollten eigentlich nicht gelöscht, sondern nur geschlossen werden.<br>
+	 * Zur Vollständigkeit ist diese Methode trotzdem vorhanden, die Berechtigung für den Doctor
+	 * kann ggf. noch entfernt werden.
 	 * 
-	 * Zugriffsbeschränkung: Doctor (unter Vorbehalt)
+	 * Zugriffsbeschränkung: <code>Doctor</code> (unter Vorbehalt) mit Schreibrecht beim Fall
 	 * 
-	 * Das sollte niemand können, bzw. das Recht sollten höchstens Doktoren mit Schreibrecht haben
+	 * @param Accessor mit <code>String</code> token und <code>int</code> caseID
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
 	 */
-	
 	@Transactional
 	public String deleteCase(Accessor accessor) {
 		int id;
@@ -249,10 +251,16 @@ public class CaseWSImpl implements CaseWS {
 		}
 	}
 
-	/*
-	 * Zugriffsbeschränkung: Doktoren mit Schreibrecht
+	/**
+	 * <b>Fall updaten</b><br>
+	 * Hier ist zu beachten, dass möglichst eine Vollständige <code>Case</code>-Entity mitgegeben
+	 * werden sollte.<br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Doctor</code> mit Schreibrecht beim Fall
+	 *
+	 * @param Accessor mit <code>String</code> token und dem zu ändernden <code>Case</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
 	 */
-	
 	@Transactional
 	public String updateCase(Accessor accessor) {
 		Case pcase = new Case();
