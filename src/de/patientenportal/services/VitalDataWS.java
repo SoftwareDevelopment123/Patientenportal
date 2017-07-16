@@ -6,7 +6,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import de.patientenportal.entities.VitalData;
+import de.patientenportal.entities.VitalDataType;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.VitalDataListResponse;
 
@@ -15,10 +15,8 @@ import de.patientenportal.entities.response.VitalDataListResponse;
 public interface VitalDataWS {
 
 	@WebMethod
-	public VitalDataListResponse getVitalDatabyC	(@WebParam (name="Token--CaseID") Accessor accessor);
-	//Access.ReadCase
-	@WebMethod
-	public VitalDataListResponse getVitalDatabyP 	(@WebParam (name="Token") Accessor accessor);
+	public VitalDataListResponse getVitalDatabyC	(@WebParam (name="Token--CaseID") Accessor accessor,
+													 @WebParam (name="VitalDataType") VitalDataType vDtype);
 	
 	@WebMethod
 	public String createVitalData					(@WebParam (name="Token--VitalData") Accessor accessor);
