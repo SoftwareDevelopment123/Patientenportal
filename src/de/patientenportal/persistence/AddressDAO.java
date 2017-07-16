@@ -8,7 +8,11 @@ public class AddressDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern einer Adresse
 	 * @param updatedaddress Parameter: postalCode, street, number, City
+<<<<<<< HEAD
 	 * @return String "success"
+=======
+	 * @return
+>>>>>>> refs/heads/Jascha
 	 */
 	public static String updateAddress(Address updatedaddress){
 		int id = updatedaddress.getAddressID();
