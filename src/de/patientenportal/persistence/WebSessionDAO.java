@@ -35,6 +35,7 @@ public class WebSessionDAO  {
 		}
 	
 	//Gibt WebSession zurück die bestimmtem Kriterium entsprechen - bsp. ungültig
+	@SuppressWarnings("unchecked")
 	public static List<WebSession> findByCriteria(Criterion...criterion){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -42,6 +43,7 @@ public class WebSessionDAO  {
 		try{
 		session.beginTransaction();
 		
+		@SuppressWarnings("deprecation")
 		Criteria crit = session.createCriteria(WebSession.class);  
 	    for (Criterion c : criterion) {  
 	        crit.add(c);  
