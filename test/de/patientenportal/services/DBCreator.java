@@ -149,6 +149,44 @@ public class DBCreator {
 		System.out.println("Doctors added: " + doctors.size());
 		System.out.println("Office created");}
 		
+		//XXX
+		URL urlMedicine = new URL("http://localhost:8080/medicine?wsdl");
+		QName qnameMed = new QName("http://services.patientenportal.de/", "MedicineWSImplService");
+		Service serviceMed = Service.create(urlMedicine, qnameMed);
+		MedicineWS medws = serviceMed.getPort(MedicineWS.class);
+		Accessor createMedicine = new Accessor();
+		System.err.println("Develop Medicine ...");
+		
+		for(int zahl = 5 ; zahl>=1 ; zahl--){
+		Medicine medicine = new Medicine();
+			medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
+			medicine.setActiveIngredient("Krankium"+zahl);
+			medicine.setName("InnovativerName"+zahl);
+			
+			List <Medication> dieliste = new ArrayList();
+			for(int zahli = 3; zahli>=1;zahli--){
+				Medication medication1 = new Medication();
+				medication1.setDosage("212"+zahli);
+				medication1.setDuration("extremslange Stunden:"+zahli);
+			
+				Case medicationcase = CaseDAO.getCase(zahli);
+				medication1.setPcase(medicationcase);
+			
+				Doctor doc = DoctorDAO.getDoctor(zahli);
+				medication1.setPrescribedBy(doc);
+			
+				dieliste.add(medication1);
+				}
+			medicine.setMedication(dieliste);
+			
+			createMedicine.setObject(medicine);
+			String feedbackME = medws.createMedicine(createMedicine);
+			if (feedbackCO != null){
+			System.out.println("Medicines added: " + medicine.getName());
+			}
+		}
+		//XXX	
+		
 		
 		
 		// Authentifizierung
@@ -208,7 +246,12 @@ public class DBCreator {
 
 			System.out.println("Case for Patient " + pat.getPatientID() + " created");
 		}
-				
+		
+		
+		
+		
+		
+		
 		System.exit(0);
 	}	
 }
