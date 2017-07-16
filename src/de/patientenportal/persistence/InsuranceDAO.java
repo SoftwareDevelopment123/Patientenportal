@@ -1,19 +1,24 @@
 package de.patientenportal.persistence;
 
 import de.patientenportal.entities.Insurance;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 public class InsuranceDAO {
 	
-	// Insurance über ID abrufen
-	public static Insurance getInsurance(int InsuranceID){
+	/**
+	 * Datenbankzugriff zum: Aufrufen einer Insurance
+	 * @param insuranceID
+	 * @return Insurance
+	 */
+	public static Insurance getInsurance(int insuranceID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Insurance insurance = new Insurance();
 		
 		try{
 		session.beginTransaction();		
-		insurance = (Insurance)session.get(Insurance.class, InsuranceID);
+		insurance = (Insurance)session.get(Insurance.class, insuranceID);
 			if (insurance != null){
 				Hibernate.initialize(insurance.getPatients());			// LAZY-HIBERNATE-MAGIC
 			}
@@ -28,8 +33,11 @@ public class InsuranceDAO {
 			
 		return insurance;
 	}	
-
-	// Insurance anlegen
+	/**
+	 * Datenbankzugriff zum: Anlegen einer Insurance
+	 * @param Insurance, die anzulegende Insurance 
+	 * @return String "success"
+	 */
 	public static String createInsurance(Insurance insurance) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -47,7 +55,11 @@ public class InsuranceDAO {
 		return "success";	
 	}
 	
-	// Insurance Update
+	/**
+	 * Datenbankzugriff zum: Ändern einer Insurance
+	 * @param Insurance, die zu ändernde Insurance, diese muss vollständig sein
+	 * @return String "success"
+	 */
 	public static String updateInsurance(Insurance updatedinsurance){
 		int id = updatedinsurance.getInsuranceID();
 		if(id!=0){
@@ -75,14 +87,17 @@ public class InsuranceDAO {
 			return "noID";
 		}
 	}
-	
-	// Insurance löschen 
-	public static String deleteInsurance(int InsuranceID){
+	/**
+	 * Datenbankzugriff zum: Löschen einer Insurance
+	 * @param insuranceID der zu löschenden Insurance
+	 * @return String "success"
+	 */
+	public static String deleteInsurance(int insuranceID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try{
 		session.beginTransaction();
-		Insurance insurance = (Insurance)session.get(Insurance.class, InsuranceID);
+		Insurance insurance = (Insurance)session.get(Insurance.class, insuranceID);
 		session.delete(insurance);
 		session.getTransaction().commit();
 		

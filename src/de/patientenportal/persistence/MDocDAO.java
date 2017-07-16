@@ -6,8 +6,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 
 import de.patientenportal.entities.Case;
@@ -18,9 +16,12 @@ import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 public class MDocDAO {
 	
-	// MedicalDoc anlegen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Medical-Documents
+	 * @param newMDoc, das anzulegende MedicalDoc
+	 * @return String "success"
+	 */
 	public static String createMDoc(MedicalDoc newMDoc) {
-		//newMDoc.getFile().delete();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 				
 		try{
@@ -37,8 +38,12 @@ public class MDocDAO {
 		}
 		return "success";
 	}
-	
-	//Medicaldocument abrufen
+
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Medical-Documents
+	 * @param medDocID, des aufzurufenden MedicalDocs
+	 * @return MedicalDoc
+	 */
 	public static MedicalDoc getMedicalDoc (int medDocID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		MedicalDoc mediacaldoc = new MedicalDoc();
@@ -59,7 +64,12 @@ public class MDocDAO {
 		return mediacaldoc;
 		
 	}
-	//Medicaldocument ändern
+
+	/**
+	 * Datenbankzugriff zum: Ändern eines Medical-Documents
+	 * @param MedicalDoc, das vollständige geänderte Medical-Document
+	 * @return MedicalDoc
+	 */
 	public static String updateMedicalDoc(MedicalDoc updatedmedicaldoc){
 		int id = updatedmedicaldoc.getMedDocID();
 		if(id!=0){
@@ -99,8 +109,11 @@ public class MDocDAO {
 	}	
 }
 		
-	//Medicaldocument löschen
-		
+	/**
+	 * Datenbankzugriff zum: Löschen eines Medical-Documents
+	 * @param medDocID, des zu löschenden Medical-Documents
+	 * @return String "success"
+	 */
 		public static String deleteMedicalDoc(int medDocID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -119,8 +132,12 @@ public class MDocDAO {
 			return "success";
 		}	
 		
-		
-		public static List<MedicalDoc> getMDocs(int DoctorID){
+	/**
+	* Datenbankzugriff zum: Aufrufen meherer Medical-Documents anhand einer Doctor ID
+	* @param doctorID, des Arztes
+	* @return List<MedicalDoc>
+	*/
+		public static List<MedicalDoc> getMDocs(int doctorID){
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -129,8 +146,7 @@ public class MDocDAO {
 				
 			Root<MedicalDoc> mdoc = 	query.from(MedicalDoc.class);
 							
-									//Doctor_fk richtig ?
-									Predicate idP = builder.equal(mdoc.get("doctor_fk"), DoctorID);
+									Predicate idP = builder.equal(mdoc.get("doctor_fk"), doctorID);
 									query.select(mdoc).where(idP).distinct(true);
 				
 			List <MedicalDoc> result;					

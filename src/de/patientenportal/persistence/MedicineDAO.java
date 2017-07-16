@@ -1,12 +1,20 @@
 package de.patientenportal.persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+
 import de.patientenportal.entities.Medicine;
 
 public class MedicineDAO {
 	
-	//Medicine anlegen
+	/**
+	 * Datenbankzugriff zum: Anlegen einer Medicine
+	 * @param Medicine, die anzulegende Medicine
+	 * @return String "success"
+	 */
 	public static String createMedicine(Medicine newMedicine) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -24,14 +32,18 @@ public class MedicineDAO {
 		return "success";
 	}
 
-	//Medicine abrufen
-	public static Medicine getMedicine (int MedicineID){
+	/**
+	 * Datenbankzugriff zum: Aufrufen einer Medicine
+	 * @param medicineID, der aufzurufenden Medicine
+	 * @return Medicine
+	 */
+	public static Medicine getMedicine (int medicineID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Medicine medicine = new Medicine();
 
 		try{
 		session.beginTransaction();		
-		medicine = (Medicine)session.get(Medicine.class, MedicineID);
+		medicine = (Medicine)session.get(Medicine.class, medicineID);
 		
 		if (medicine != null){
 			Hibernate.initialize(medicine.getMedication());
@@ -48,8 +60,11 @@ public class MedicineDAO {
 		}
 		return medicine;
 	}		
-		
-	//Medicine ändern
+	/**
+	 * Datenbankzugriff zum: Ändern einer Medicine
+	 * @param Medicine, das vollständige geänderte Medicine Objekt
+	 * @return String "success"
+	 */
 	public static String updateMedicine(Medicine updatedmedicine){
 		int id = updatedmedicine.getMedicineID();
 		if(id!=0){
@@ -80,9 +95,11 @@ public class MedicineDAO {
 			return "noID";
 		}	
 	}	
-		
-	//Medicine löschen
-		
+	/**
+	 * Datenbankzugriff zum: Löschen einer Medicine
+	 * @param medicineID, der zu löschenden Medicine
+	 * @return String "success"
+	 */
 		public static String deleteMedicine(int medicineID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -100,6 +117,29 @@ public class MedicineDAO {
 			session.close();
 			}
 			return "success";
+		}
+		/**
+		 * Datenbankzugriff zum: Aufrufen aller Medicine Objekte
+		 * @param 
+		 * @return List<Medicine>
+		 */
+		@SuppressWarnings("unchecked")
+		public static List<Medicine> getAllMedicine(){
+			Session session = HibernateUtil.getSessionFactory().openSession(); 
+			
+			List<Medicine> meds = new ArrayList<Medicine>();
+			try{
+			session.beginTransaction();
+			meds = session.createQuery("FROM medicine").list(); 
+		    session.getTransaction().commit();				
+		    
+			} catch (Exception e) {
+				System.err.println("Error: " + e);
+				return null;
+			} finally {
+				session.close();
+			}
+		    return meds;
 		}
 		
 }

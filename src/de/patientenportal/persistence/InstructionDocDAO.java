@@ -61,7 +61,7 @@ public class InstructionDocDAO {
 		
 	/**
 	 * Datenbankzugriff zum: Ändern eines Instruction-Documents
-	 * @param InstructionDoc, das geänderte Instruction-Document
+	 * @param InstructionDoc, das vollständige geänderte Instruction-Document
 	 * @return String "success"
 	 */
 		public static String updateInstructionDoc(InstructionDoc updatedinstructiondoc){
@@ -101,15 +101,15 @@ public class InstructionDocDAO {
 		
 	/**
 	 * Datenbankzugriff zum: Löschen eines Instruction-Documents
-	 * @param InstructionDocID, das zu löschende Instruction-Document
+	 * @param instructionDocID, das zu löschende Instruction-Document
 	 * @return String "success"
 	 */
-		public static String deleteInstructionDoc(int InstructionDocID){
+		public static String deleteInstructionDoc(int instructionDocID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
 			try{
 			session.beginTransaction();
-				InstructionDoc instructiondoc = (InstructionDoc)session.get(InstructionDoc.class, InstructionDocID);
+				InstructionDoc instructiondoc = (InstructionDoc)session.get(InstructionDoc.class, instructionDocID);
 			session.delete(instructiondoc);
 			session.getTransaction().commit();
 			

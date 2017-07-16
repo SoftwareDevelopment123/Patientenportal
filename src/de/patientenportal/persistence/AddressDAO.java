@@ -48,7 +48,6 @@ public class AddressDAO {
 	 * @param addressID from Address to delete 
 	 * @return String "success"
 	 */
-	// Adresse löschen
 	public static String deleteAddress(int addressID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 

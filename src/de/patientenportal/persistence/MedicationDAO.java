@@ -9,7 +9,11 @@ import de.patientenportal.entities.Medicine;
 
 public class MedicationDAO {
 
-	//Medication anlegen
+	/**
+	 * Datenbankzugriff zum: Anlegen einer Medication
+	 * @param Medication, die anzulegende Medication
+	 * @return String "success"
+	 */
 	public static String createMedication(Medication newMedication) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -27,7 +31,11 @@ public class MedicationDAO {
 		return "success";
 	}
 
-	//Medication abrufen
+	/**
+	 * Datenbankzugriff zum: Aufrufen einer Medication
+	 * @param medicationID, der aufzurufenden Medication
+	 * @return Medication
+	 */
 	public static Medication getMedication (int medicationID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Medication medication = new Medication();
@@ -54,7 +62,11 @@ public class MedicationDAO {
 		
 	}
 	
-	//Medication ändern
+	/**
+	 * Datenbankzugriff zum: Ändern einer Medication
+	 * @param Medication, das vollständige geänderte Medication Objekt
+	 * @return String "success"
+	 */
 	public static String updateMedication(Medication updatedmedication){
 		int id = updatedmedication.getMedicationID();
 		if(id!=0){
@@ -90,7 +102,11 @@ public class MedicationDAO {
 		}	
 	}		
 		
-	//Medication löschen		
+	/**
+	 * Datenbankzugriff zum: Löschen eines Instruction-Documents
+	 * @param medicationID, die ID der zu löschende Medication
+	 * @return String "success"
+	 */	
 	public static String deleteMedication(int medicationID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
