@@ -15,10 +15,13 @@ import org.hibernate.criterion.Restrictions;
 
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
+import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Gender;
+import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
 import de.patientenportal.entities.response.Accessor;
+import de.patientenportal.persistence.RightsDAO;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.persistence.WebSessionDAO;
 
@@ -231,6 +234,7 @@ public static String getToken(){
   
   public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, Access access){
 	  	String token = accessor.getToken();
+	  	int actorID = 0;
 	  
 	  	AuthenticationWSImpl auth = new AuthenticationWSImpl();
 		if (auth.authenticateToken(token) == false) {
@@ -238,19 +242,57 @@ public static String getToken(){
 				return "Authentifizierung fehlgeschlagen.";}
 		
 		ActiveRole role = AuthenticationWSImpl.getActiveRole(token);
-		
-		if (!expected.contains(role) == true) {
+		if (expected.contains(role) == false) {
 			System.err.println("No Access for this role");
 				return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
 		
 		if (access == Access.WriteCase){
-			AccessWSImpl acc = new AccessWSImpl();
-			if (acc.checkWRight(accessor) == false) {
-				System.err.println("No Writing-Rights for this Case");
-				return "Keine Schreibrechte für diesen Fall";
+			boolean wcheck = false;
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			if (role == ActiveRole.Doctor){
+				Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
+				actorID = doctor.getDoctorID();
+
+				wcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
+				if (wcheck == false) {
+					System.err.println("No Access to this case");
+					return  "Kein Schreibzugriff für diesen Fall";}
+			}
+			
+			if (role == ActiveRole.Relative){
+				Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
+				actorID = relative.getRelativeID();
+				
+				wcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
+				if (wcheck == false) {
+					System.err.println("No Access to this case");
+					return  "Kein Schreibzugriff für diesen Fall";}
+			}
+		}
+			
+		if (access == Access.ReadCase){
+			boolean rcheck = false;
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			if (role == ActiveRole.Doctor){
+				Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
+				actorID = doctor.getDoctorID();
+
+				rcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
+				if (rcheck == false) {
+					System.err.println("No Access to this case");
+					return  "Kein Lesezugriff für diesen Fall";}
+			}
+			
+			if (role == ActiveRole.Relative){
+				Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
+				actorID = relative.getRelativeID();
+				
+				rcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
+				if (rcheck == false) {
+					System.err.println("No Access to this case");
+					return  "Kein Lesezugriff für diesen Fall";}
 			}
 		}
 	  return null;
   }
-  
-}		
+}

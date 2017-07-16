@@ -1,9 +1,12 @@
 package de.patientenportal.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+
+import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
@@ -123,30 +126,12 @@ public class AccessWSImpl implements AccessWS {
 		if (id == 0)		{System.err.println("No Patient-ID");	return false;}
 		if (token == null) 	{System.err.println("No token");		return false;}
 		
-		AuthenticationWSImpl auth = new AuthenticationWSImpl();
-		if (auth.authenticateToken(token) == false){
-							System.err.println("Invalid token"); 	return false;}
-		
-		if (AuthenticationWSImpl.getActiveRole(token) == ActiveRole.Patient){
-			System.out.println("Wrong Web-Service!");
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Relative);
+		String response = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
+		if (response != null) {
+			System.err.println(response);
 			return false;
 		}
-		
-		User user = auth.getUserByToken(token);
-		
-		if (AuthenticationWSImpl.getActiveRole(token) == ActiveRole.Doctor){
-			Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
-			return RightsDAO.checkDocWRight(doctor.getDoctorID(), id);
-		}
-		
-		if (AuthenticationWSImpl.getActiveRole(token) == ActiveRole.Relative){
-			Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
-			return RightsDAO.checkRelWRight(relative.getRelativeID(), id);
-		}
-		
-		else {
-			System.err.println("Error: you should not get here by Service-Logic.");
-			return false;
-		}
+		return true;
 	}
 }

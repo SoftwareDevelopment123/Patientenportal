@@ -6,6 +6,8 @@ import org.junit.Assert;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import de.patientenportal.entities.Access;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Relative;
@@ -65,17 +67,17 @@ public class AccessTest {
 		
 		// checkWRights-Test für Doktoren
 			// Existierende Kombinationen (doctorID, caseID)
-			Assert.assertTrue	(RightsDAO.checkDocWRight(D1.getDoctorID() , case1.getCaseID()));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(D1.getDoctorID() , case2.getCaseID()));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(D1.getDoctorID() , case4.getCaseID()));
-			Assert.assertTrue	(RightsDAO.checkDocWRight(D1.getDoctorID() , case5.getCaseID()));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(D2.getDoctorID() , case3.getCaseID()));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(D2.getDoctorID() , case5.getCaseID()));
+			Assert.assertTrue	(RightsDAO.checkDocRight(D1.getDoctorID() , case1.getCaseID(), Access.WriteCase));
+			Assert.assertFalse	(RightsDAO.checkDocRight(D1.getDoctorID() , case2.getCaseID(), Access.WriteCase));
+			Assert.assertFalse	(RightsDAO.checkDocRight(D1.getDoctorID() , case4.getCaseID(), Access.WriteCase));
+			Assert.assertTrue	(RightsDAO.checkDocRight(D1.getDoctorID() , case5.getCaseID(), Access.WriteCase));
+			Assert.assertFalse	(RightsDAO.checkDocRight(D2.getDoctorID() , case3.getCaseID(), Access.WriteCase));
+			Assert.assertFalse	(RightsDAO.checkDocRight(D2.getDoctorID() , case5.getCaseID(), Access.WriteCase));
 
 			// ungültige Kombinationen (sollen auch einfach False zurückgben)
-			Assert.assertFalse	(RightsDAO.checkDocWRight(D1.getDoctorID()	, case3.getCaseID()));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(5					, 55));
-			Assert.assertFalse	(RightsDAO.checkDocWRight(188				, 23));
+			Assert.assertFalse	(RightsDAO.checkDocRight(D1.getDoctorID()	, case3.getCaseID(), Access.WriteCase));
+			Assert.assertFalse	(RightsDAO.checkDocRight(5					, 55, Access.WriteCase));
+			Assert.assertFalse	(RightsDAO.checkDocRight(188				, 23, Access.WriteCase));
 	
 		// Ausgabe-Test
 		/*System.out.println("Alle einsehbaren Fälle von Doktor 1");
@@ -111,9 +113,9 @@ public class AccessTest {
 			i++;
 		}
 		
-		Assert.assertTrue	(RightsDAO.checkRelWRight(R1.getRelativeID() , case1.getCaseID()));
-		Assert.assertFalse	(RightsDAO.checkRelWRight(R1.getRelativeID() , case2.getCaseID()));
-		Assert.assertFalse	(RightsDAO.checkRelWRight(R1.getRelativeID() , case3.getCaseID()));
+		Assert.assertTrue	(RightsDAO.checkRelRight(R1.getRelativeID() , case1.getCaseID(), Access.WriteCase));
+		Assert.assertFalse	(RightsDAO.checkRelRight(R1.getRelativeID() , case2.getCaseID(), Access.WriteCase));
+		Assert.assertFalse	(RightsDAO.checkRelRight(R1.getRelativeID() , case3.getCaseID(), Access.WriteCase));
 		
 		// Ausgabe-Test
 		/*System.out.println("/////////////////////////////////////");

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+
+import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Medicine;
 import de.patientenportal.entities.response.Accessor;
@@ -27,7 +29,7 @@ public class MedicineWSImpl implements MedicineWS {
 		if (id == 0) 		{System.err.println("Id null"); 		return null;}
 		
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		if (authResponse != null) {
 			System.err.println(authResponse);
 			return null;
@@ -59,7 +61,7 @@ public class MedicineWSImpl implements MedicineWS {
 		if (medi.getActiveIngredient()	== null){return "Keine Angaben zu den Inhaltsstoffen.";}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		if (authResponse != null) {
 			System.err.println(authResponse);
 			return authResponse;
@@ -90,7 +92,7 @@ public class MedicineWSImpl implements MedicineWS {
 		if (id == 0) 		{System.err.println("Id null"); 		return "Keine ID angegeben";}
 		
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		if (authResponse != null) {
 			System.err.println(authResponse);
 			return authResponse;
@@ -117,7 +119,7 @@ public class MedicineWSImpl implements MedicineWS {
 		if (token == null) 	{System.err.println("No token");		return null;}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		if (authResponse != null) {
 			System.err.println(authResponse);
 			return authResponse;
@@ -143,7 +145,7 @@ public class MedicineWSImpl implements MedicineWS {
 		if (token == null) 	{System.err.println("No token");		return null;}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		if (authResponse != null) {
 			System.err.println(authResponse);
 			response.setResponseCode(authResponse);
