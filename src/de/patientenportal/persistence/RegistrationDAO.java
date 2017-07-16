@@ -10,7 +10,11 @@ import javax.persistence.criteria.Root;
 
 public class RegistrationDAO {
 
-	// User hinzufügen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Users
+	 * @param User, das anzulegende Office
+	 * @return User, der erzeugte User
+	 */
 	public static User createUser(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -31,7 +35,11 @@ public class RegistrationDAO {
 		return user;
 	}
 
-	// Doktor hinzufügen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Doctors
+	 * @param Doctor, der anzulegende Doctor
+	 * @return String "success"
+	 */
 	public static String createDoctor(Doctor doctor) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -52,7 +60,11 @@ public class RegistrationDAO {
 		return "success";
 	}
 	
-	// Patient hinzufügen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Patient
+	 * @param Patient, der anzulegende Patient
+	 * @return String "success"
+	 */
 	public static String createPatient(Patient patient) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -73,7 +85,11 @@ public class RegistrationDAO {
 		return "success";
 	}
 		
-	// Relative hinzufügen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Relative
+	 * @param Relative, der anzulegende Relative
+	 * @return String "success"
+	 */
 	public static String createRelative(Relative relative) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -94,7 +110,11 @@ public class RegistrationDAO {
 		return "success";
 	}
 
-	// Prüfen, ob der Username schon vergeben ist
+	/**
+	 * Datenbankzugriff zum: Überprüfen ob der Username schon vorhanden ist
+	 * @param Patient, der anzulegende Patient
+	 * @return boolean, true bedeutet der USername ist bereits vergeben
+	 */
 	public static boolean checkUsername(String username){
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();

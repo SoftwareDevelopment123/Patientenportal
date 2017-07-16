@@ -12,15 +12,18 @@ import de.patientenportal.entities.*;
 
 public class UserDAO {
 	
-
-	// User abrufen
-	public static User getUser(int user_id){
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Users mit der UserID
+	 * @param userID, des aufzurufenden Users
+	 * @return User
+	 */
+	public static User getUser(int userID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		User user = new User();
 		
 		try{
 		session.beginTransaction();		
-		user = (User)session.get(User.class, user_id);
+		user = (User)session.get(User.class, userID);
 		session.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -31,33 +34,11 @@ public class UserDAO {
 		}
 		return user;
 	}
-	
-	// Alle User abrufen - Kann weg?
-	//private Class<T> persistentClass;
-
-/*		public static List<User> getAllUsers(){
-			Session session = HibernateUtil.getSessionFactory().openSession();
-		//	User user = new User();
-			try{
-			session.beginTransaction();		
-			
-			
-			@SuppressWarnings("deprecation")
-			Criteria criteria = session.createCriteria(User.class);
-			
-			
-			session.getTransaction().commit();
-			
-			return criteria.list();
-			
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return null;
-			} finally {
-				session.close();
-			}		
-		}*/
-		
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Users mit dem Username
+	 * @param username, des aufzurufenden Users
+	 * @return User
+	 */	
 	public static User getUserByUsername (String username){  
 			
 	    Session session = HibernateUtil.getSessionFactory().openSession();
@@ -84,7 +65,11 @@ public class UserDAO {
 		return requestedUser;
 	}
 	
-	// Userdaten ändern
+	/**
+	 * Datenbankzugriff zum: Ändern eines Users
+	 * @param User, das vollständige geänderte User Objekt
+	 * @return String "success"
+	 */	
 	//kann man mit SaveOrUpdate anpassen! Siehe WebSessionDAO!
 	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();
@@ -134,13 +119,17 @@ public class UserDAO {
 		}
 	}		
 	
-	// User löschen
-	public static String deleteUser(int user_id){
+	/**
+	 * Datenbankzugriff zum: Löschen eines Users
+	 * @param userID, des zu löschenden Users
+	 * @return String "success"
+	 */
+	public static String deleteUser(int userID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try{
 		session.beginTransaction();
-		User user = (User)session.get(User.class, user_id);
+		User user = (User)session.get(User.class, userID);
 		session.delete(user);
 		session.getTransaction().commit();
 		

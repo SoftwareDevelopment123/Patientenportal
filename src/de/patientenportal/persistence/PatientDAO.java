@@ -9,7 +9,11 @@ import de.patientenportal.entities.Relative;
 
 public class PatientDAO {
 
-	// Patient abrufen
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Patients
+	 * @param patientID, des aufzurufenden Patients
+	 * @return Patient
+	 */
 	public static Patient getPatient(int patientID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Patient patient = new Patient();
@@ -19,14 +23,9 @@ public class PatientDAO {
 		patient = (Patient)session.get(Patient.class, patientID);
 		
 			if (patient != null){
-				Hibernate.initialize(patient.getRelatives());				// LAZY-HIBERNATE-MAGIC
+				Hibernate.initialize(patient.getRelatives());				
 				Hibernate.initialize(patient.getCases());
 				Hibernate.initialize(patient.getMedicalDocs());
-				
-				/*for (Relative r : patient.getRelatives()){				// Zu Testzwecken eingefügt, nicht für finale version
-					Hibernate.initialize(r.getPatients());
-				}*/
-				
 			}
 		
 		session.getTransaction().commit();
@@ -39,7 +38,11 @@ public class PatientDAO {
 		return patient;
 	}
 	
-	// Patient ändern
+	/**
+	 * Datenbankzugriff zum: Ändern eines Patients
+	 * @param Patient, das vollständige geänderte Patient Objekt
+	 * @return String "success"
+	 */
 	public static String updatePatient (Patient updatedpatient){
 		int id = updatedpatient.getPatientID();
 		if(id!=0){
@@ -70,7 +73,11 @@ public class PatientDAO {
 		}
 	}
 	
-	//Patient löschen
+	/**
+	 * Datenbankzugriff zum: Löschen eines Patients
+	 * @param patientID, des zu löschenden Patient
+	 * @return String "success"
+	 */
 	public static String deletePatient (int patientID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 

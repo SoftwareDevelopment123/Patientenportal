@@ -7,7 +7,11 @@ import de.patientenportal.entities.*;
 
 public class RelativeDAO {
 
-	// Relative abrufen
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Relative
+	 * @param relativeID, des aufzurufenden Relatives
+	 * @return Relative
+	 */
 	public static Relative getRelative(int relativeID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Relative relative = new Relative();
@@ -17,7 +21,7 @@ public class RelativeDAO {
 		relative = (Relative)session.get(Relative.class, relativeID);
 		
 			if (relative != null){
-				Hibernate.initialize(relative.getPatients());				// LAZY-HIBERNATE-MAGIC
+				Hibernate.initialize(relative.getPatients());
 			}
 			
 		session.getTransaction().commit();
@@ -32,7 +36,11 @@ public class RelativeDAO {
 		return relative;
 	}
 	
-	// Relative ändern
+	/**
+	 * Datenbankzugriff zum: Ändern eines Relatives
+	 * @param Relative, das vollständige geänderte Relative Objekt
+	 * @return String "success"
+	 */	
 	public static String updateRelative (Relative updatedrelative){
 		int id = updatedrelative.getRelativeID();
 		if(id!=0){
@@ -59,8 +67,12 @@ public class RelativeDAO {
 			return "noID";
 		}
 	}
-
-	// Relative löschen
+	
+	/**
+	 * Datenbankzugriff zum: Löschen eines Relatives
+	 * @param relativeID, des zu löschenden Relatives
+	 * @return String "success"
+	 */
 	public static String deleteRelative (int relativeID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 			
