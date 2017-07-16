@@ -14,18 +14,13 @@ import de.patientenportal.entities.WebSession;
 public class WebSessionDAO  {
 	
 
-<<<<<<< HEAD
-	
-	public static WebSession createWebSession(WebSession websession) {
-=======
 	/**
 	 * Anlegen einer Websession, muss noch überarbeitet werden
 	 * @param Websession, die anzulegende Websession
 	 * @return WebSession
 	 * @since Beta 1.2
 	 */
-	public static WebSession createWebSession(WebSession entity) {
->>>>>>> branch 'Development' of https://github.com/SoftwareDevelopment123/Patientenportal.git
+	public static WebSession createWebSession(WebSession websession) {
 		WebSession ws = new WebSession();
 		ws.setUser(websession.getUser());
 		ws.setToken(websession.getToken());
@@ -48,19 +43,8 @@ public class WebSessionDAO  {
 		return ws;
 		}	
 	
-<<<<<<< HEAD
 	public static List<WebSession> getExpiredWebSessions(){
-=======
-	/**
-	 * Gibt WebSession zurück die bestimmtem Kriterium entsprechen - bsp. ungültig
-	 * @param Criterion, Kriterien 
-	 * @return List<WebSession>
-	 * @since Beta 1.2
-	 */
-	@SuppressWarnings("unchecked")
-	public static List<WebSession> findByCriteria(Criterion...criterion){
->>>>>>> branch 'Development' of https://github.com/SoftwareDevelopment123/Patientenportal.git
-		
+
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 	    CriteriaBuilder builder = session.getCriteriaBuilder();
