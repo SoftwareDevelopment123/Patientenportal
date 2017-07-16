@@ -48,8 +48,13 @@ public class MedicationWSImpl implements MedicationWS {
 		else{
 			try {
 			List<Medication> mlist =  CaseDAO.getCase(id).getMedication();
+			List <Medication> medlist = new ArrayList<Medication>();
+			for(Medication m: mlist){
+				medlist.add(MedicationDAO.getMedication(m.getMedicationID()));
+			}
+			
 				response.setResponseCode("success");
-				response.setResponseList(mlist);
+				response.setResponseList(medlist);
 			} catch (Exception e) {
 				response.setResponseCode("Error: " + e);
 			} return response;
