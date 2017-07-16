@@ -1,6 +1,5 @@
 package smalltests;
 
-import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWSImpl;
 
 public class GetTokenTest {
