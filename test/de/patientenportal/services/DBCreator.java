@@ -149,43 +149,7 @@ public class DBCreator {
 		System.out.println("Doctors added: " + doctors.size());
 		System.out.println("Office created");}
 		
-		//XXX
-		URL urlMedicine = new URL("http://localhost:8080/medicine?wsdl");
-		QName qnameMed = new QName("http://services.patientenportal.de/", "MedicineWSImplService");
-		Service serviceMed = Service.create(urlMedicine, qnameMed);
-		MedicineWS medws = serviceMed.getPort(MedicineWS.class);
-		Accessor createMedicine = new Accessor();
-		System.err.println("Develop Medicine ...");
 		
-		for(int zahl = 5 ; zahl>=1 ; zahl--){
-		Medicine medicine = new Medicine();
-			medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
-			medicine.setActiveIngredient("Krankium"+zahl);
-			medicine.setName("InnovativerName"+zahl);
-			
-			List <Medication> dieliste = new ArrayList();
-			for(int zahli = 3; zahli>=1;zahli--){
-				Medication medication1 = new Medication();
-				medication1.setDosage("212"+zahli);
-				medication1.setDuration("extremslange Stunden:"+zahli);
-			
-				Case medicationcase = CaseDAO.getCase(zahli);
-				medication1.setPcase(medicationcase);
-			
-				Doctor doc = DoctorDAO.getDoctor(zahli);
-				medication1.setPrescribedBy(doc);
-			
-				dieliste.add(medication1);
-				}
-			medicine.setMedication(dieliste);
-			
-			createMedicine.setObject(medicine);
-			String feedbackME = medws.createMedicine(createMedicine);
-			if (feedbackCO != null){
-			System.out.println("Medicines added: " + medicine.getName());
-			}
-		}
-		//XXX	
 		
 		
 		
@@ -247,7 +211,64 @@ public class DBCreator {
 			System.out.println("Case for Patient " + pat.getPatientID() + " created");
 		}
 		
-		
+		//XXX
+				URL urlMedicine = new URL("http://localhost:8080/medicine?wsdl");
+				QName qnameMed = new QName("http://services.patientenportal.de/", "MedicineWSImplService");
+				Service serviceMed = Service.create(urlMedicine, qnameMed);
+				MedicineWS medws = serviceMed.getPort(MedicineWS.class);
+				
+				URL urlMedication = new URL("http://localhost:8080/medication?wsdl");
+				QName qnameMedica = new QName("http://services.patientenportal.de/", "MedicationWSImplService");
+				Service serviceMedica = Service.create(urlMedication, qnameMedica);
+				MedicationWS medicaws = serviceMedica.getPort(MedicationWS.class);
+				
+				Accessor createMedication = new Accessor(token);
+				Accessor createMedicine = new Accessor(token);
+				System.err.println("Develop Medicine ...");
+				
+				for(int zahl = 1 ; zahl<=6 ; zahl++){
+				Medicine medicine = new Medicine();
+					medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
+					medicine.setActiveIngredient("Krankium"+zahl);
+					medicine.setName("InnovativerName"+zahl);
+					createMedicine.setObject(medicine);
+					medws.createMedicine(createMedicine);
+					System.out.println("Medicines added: " + medicine.getName());
+					
+					
+					//for (int zahli = 6; zahli>=1 ; zahli--){
+						Medication medication1 = new Medication();
+						medication1.setDosage("212"+zahl);
+						medication1.setDuration("extremslange Stunden:"+zahl);
+						medication1.setPcase(CaseDAO.getCase(zahl));
+						medication1.setMedicine(MedicineDAO.getMedicine(zahl));
+						
+						createMedication.setObject(medication1);
+						medicaws.createMedication(createMedication);
+						System.out.println("Medicationes added: " + medication1.getDosage());
+					//}
+					
+				}
+				/*	List <Medication> dieliste = new ArrayList();
+					for(int zahli = 3; zahli>=1;zahli--){
+						Medication medication1 = new Medication();
+						medication1.setDosage("212"+zahli);
+						medication1.setDuration("extremslange Stunden:"+zahli);
+					
+						Case medicationcase = CaseDAO.getCase(zahli);
+						medication1.setPcase(medicationcase);
+					
+						Doctor doc = DoctorDAO.getDoctor(zahli);
+						medication1.setPrescribedBy(doc);
+					
+						dieliste.add(medication1);
+						}
+					medicine.setMedication(dieliste);
+					*/
+					
+					
+				
+				//XXX	
 		
 		
 		

@@ -9,10 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "Rights", catalog = "patientenportal")
+@XmlRootElement (name="rights")
 public class Rights {
 
 	private int rightID;

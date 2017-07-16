@@ -15,9 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
+@XmlRootElement (name="vitalData")
 public class VitalData  {
 
 	private int vitalDataID;
