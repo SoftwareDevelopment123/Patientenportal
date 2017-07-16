@@ -9,8 +9,13 @@ import de.patientenportal.entities.WebSession;
 
 public class WebSessionDAO  {
 	
-//quick and dirty... muss noch überarbeitet werden
-	
+
+	/**
+	 * Anlegen einer Websession, muss noch überarbeitet werden
+	 * @param Websession, die anzulegende Websession
+	 * @return WebSession
+	 * @since Beta 1.2
+	 */
 	public static WebSession createWebSession(WebSession entity) {
 		WebSession ws = new WebSession();
 		ws.setUser(entity.getUser());
@@ -34,7 +39,12 @@ public class WebSessionDAO  {
 		return ws;
 		}
 	
-	//Gibt WebSession zurück die bestimmtem Kriterium entsprechen - bsp. ungültig
+	/**
+	 * Gibt WebSession zurück die bestimmtem Kriterium entsprechen - bsp. ungültig
+	 * @param Criterion, Kriterien 
+	 * @return List<WebSession>
+	 * @since Beta 1.2
+	 */
 	@SuppressWarnings("unchecked")
 	public static List<WebSession> findByCriteria(Criterion...criterion){
 		
@@ -64,7 +74,11 @@ public class WebSessionDAO  {
 		
 	}
 	
-	// WS löschen
+	/**
+	 * Löschen einer Websession
+	 * @param WebSession, die zu löschende Websession
+	 * @return String "success"
+	 */
 	public static String deleteWS(WebSession ws){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -82,7 +96,11 @@ public class WebSessionDAO  {
 		return "success";
 	}
 	
-	// Userdaten ändern
+	/**
+	 * Ändern einer Websession
+	 * @param WebSession, die zu löschende Websession
+	 * @return String "success"
+	 */	
 	public static String updateWS(WebSession ws){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
