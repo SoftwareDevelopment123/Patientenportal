@@ -111,6 +111,7 @@ public class MedicationWSImpl implements MedicationWS {
 		if (medication.getDuration()	== null)		{return "Keine Verschreibungsdauer angegeben.";}
 		
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		accessor.setObject(medication.getPcase().getCaseID());
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 		if (authResponse != null) {
 			System.err.println(authResponse);
@@ -173,6 +174,7 @@ public class MedicationWSImpl implements MedicationWS {
 		if (token == null) 	{System.err.println("No token");		return null;}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		accessor.setObject(medication.getPcase().getCaseID());
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 		if (authResponse != null) {
 			System.err.println(authResponse);
