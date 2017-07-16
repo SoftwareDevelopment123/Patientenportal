@@ -39,7 +39,6 @@ public class VitalDataWSImpl implements VitalDataWS {
 			System.err.println(authResponse);
 			return null;
 		}
-
 		else{
 			try {
 			List<VitalData> vdlist = new ArrayList<VitalData>();	
@@ -59,12 +58,6 @@ public class VitalDataWSImpl implements VitalDataWS {
 	}
 
 	@Transactional
-	public VitalDataListResponse getVitalDatabyP(Accessor accessor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Transactional
 	public String createVitalData(Accessor accessor) {
 		VitalData vitalData = new VitalData();
 		String token;
@@ -73,8 +66,8 @@ public class VitalDataWSImpl implements VitalDataWS {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();
 		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
+		catch (Exception e) 						{return "Falscher Input";}
+		if (token == null) 							{return "Kein Token angegeben";}
 		if (vitalData.getValue()		== null)	{return "Bitte eine Wert angeben.";}
 		if (vitalData.getVitalDataType()== null)	{return "Kein Vitaldatentyp zugeordnet.";}
 		if (vitalData.getTimestamp()	== null)	{return "Kein Zeitstempel angegeben.";}
@@ -87,7 +80,6 @@ public class VitalDataWSImpl implements VitalDataWS {
 			System.err.println(authResponse);
 			return authResponse;
 		}
-		
 		else { 
 			String response = null;
 			try {
@@ -118,7 +110,6 @@ public class VitalDataWSImpl implements VitalDataWS {
 			System.err.println(authResponse);
 			return authResponse;
 		}
-
 		else{
 			String response = null;
 			try {response = VitalDataDAO.deleteVitalData(id);}
@@ -136,8 +127,8 @@ public class VitalDataWSImpl implements VitalDataWS {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();
 		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
+		catch (Exception e) {System.err.println("Invalid access");	return "Falscher Input";}
+		if (token == null) 	{System.err.println("No token");		return "Kein Token angegeben";}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
 		accessor.setObject(vitalData.getPcase().getCaseID());
@@ -146,7 +137,6 @@ public class VitalDataWSImpl implements VitalDataWS {
 			System.err.println(authResponse);
 			return authResponse;
 		}
-		
 		else {
 		String response = null;
 		try {response = VitalDataDAO.updateVitalData(vitalData);}

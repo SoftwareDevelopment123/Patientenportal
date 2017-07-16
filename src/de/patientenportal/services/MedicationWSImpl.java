@@ -104,8 +104,8 @@ public class MedicationWSImpl implements MedicationWS {
 			medication = (Medication) accessor.getObject();
 			token = (String) accessor.getToken();
 		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
+		catch (Exception e) {System.err.println("Invalid access");	return "Invalid access";}
+		if (token == null) 	{System.err.println("No token");		return "No token";}
 		if (medication.getMedicine()	== null)		{return "Bitte eine Medikament angeben.";}
 		if (medication.getDosage()		== null)		{return "Keine Dosierungsempfehlung angegeben.";}
 		if (medication.getDuration()	== null)		{return "Keine Verschreibungsdauer angegeben.";}

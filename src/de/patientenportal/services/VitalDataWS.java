@@ -17,9 +17,6 @@ public interface VitalDataWS {
 	@WebMethod
 	public VitalDataListResponse getVitalDatabyC	(@WebParam (name="Token--CaseID") Accessor accessor,
 													 @WebParam (name="VitalDataType") VitalDataType vDtype);
-	//Access.ReadCase
-	@WebMethod
-	public VitalDataListResponse getVitalDatabyP 	(@WebParam (name="Token") Accessor accessor);
 	
 	@WebMethod
 	public String createVitalData					(@WebParam (name="Token--VitalData") Accessor accessor);
