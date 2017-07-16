@@ -8,9 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "Medicine", catalog = "patientenportal")
@@ -66,13 +65,11 @@ public class Medicine {
 	}
 
 	@OneToMany(mappedBy="medicine")
-	@XmlElementWrapper(name="medications")
-	@XmlElement(name="medication")
+	@XmlTransient
 	public List<Medication> getMedication() {
 		return medication;
 	}
 	public void setMedication(List<Medication> medication) {
 		this.medication = medication;
 	}
-	
 }

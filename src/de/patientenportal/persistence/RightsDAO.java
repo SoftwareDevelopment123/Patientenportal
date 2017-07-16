@@ -9,6 +9,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 //import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
+
+import de.patientenportal.entities.Access;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Rights;
 
@@ -140,7 +142,14 @@ public class RightsDAO {
 		
 		List<Case> cases = new ArrayList<Case>();
 		for (Rights it : result){
-			cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
+			Case c = CaseDAO.getCase(it.getPcase().getCaseID());
+			c.setIdoc(null);
+			c.setMedicalDocs(null);
+			c.setMedication(null);
+			c.setVitaldata(null);
+			cases.add(c);
+			//old
+			//cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
 		}
 		return cases;	
 	}
@@ -168,13 +177,20 @@ public class RightsDAO {
 				
 		List<Case> cases = new ArrayList<Case>();
 		for (Rights it : result){
-			cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
+			Case c = CaseDAO.getCase(it.getPcase().getCaseID());
+			c.setIdoc(null);
+			c.setMedicalDocs(null);
+			c.setMedication(null);
+			c.setVitaldata(null);
+			cases.add(c);
+			//old
+			//cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
 		}
 		return cases;	
 	}
 	
 	// Prüfen, ob ich (Doctor) beim angegebenen Fall Schreibrechte habe
-		public static boolean checkDocWRight(int doctorID, int caseID){
+		public static boolean checkDocRight(int doctorID, int caseID, Access access){
 				
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -182,10 +198,14 @@ public class RightsDAO {
 			CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
 				
 			Root<Rights> right = 	query.from(Rights.class);
-										Predicate idP = 	builder.equal(right.get("doctor"), doctorID);
-										Predicate pcaseP = 	builder.equal(right.get("pcase"), caseID);
-										Predicate wRightP = builder.equal(right.get("wRight"), true);
-									query.select(right).where(idP,pcaseP,wRightP).distinct(true);
+										Predicate 	idP =    builder.equal(right.get("doctor"), doctorID);
+										Predicate 	pcaseP = builder.equal(right.get("pcase"), caseID);
+										Predicate 	rightP = null;
+										if (access == Access.WriteCase){
+													rightP = builder.equal(right.get("wRight"), true);}
+										if (access == Access.ReadCase){
+													rightP = builder.equal(right.get("rRight"), true);}
+									query.select(right).where(idP,pcaseP,rightP).distinct(true);
 									
 			Rights result;					
 			try {
@@ -204,17 +224,21 @@ public class RightsDAO {
 		}
 
 	// Prüfen, ob ich (Relative) beim angegebenen Fall Schreibrechte habe
-	public static boolean checkRelWRight(int relativeID, int caseID){
+	public static boolean checkRelRight(int relativeID, int caseID, Access access){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
 			
 		Root<Rights> right = 	query.from(Rights.class);
-									Predicate idP = 	builder.equal(right.get("relative"), relativeID);
-									Predicate pcaseP = 	builder.equal(right.get("pcase"), caseID);
-									Predicate wRightP = builder.equal(right.get("wRight"), true);
-								query.select(right).where(idP,pcaseP,wRightP).distinct(true);
+									Predicate	idP = 	 builder.equal(right.get("relative"), relativeID);
+									Predicate 	pcaseP = builder.equal(right.get("pcase"), caseID);
+									Predicate 	rightP = null;
+									if (access == Access.WriteCase){
+												rightP = builder.equal(right.get("wRight"), true);}
+									if (access == Access.ReadCase){
+												rightP = builder.equal(right.get("rRight"), true);}
+								query.select(right).where(idP,pcaseP,rightP).distinct(true);
 								
 		Rights result;					
 		try {
