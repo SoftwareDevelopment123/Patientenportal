@@ -7,40 +7,27 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
-
 import javax.persistence.CascadeType;
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
-
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
-@SuppressWarnings("static-access")
 @XmlRootElement (name="user")
 public class User {
 
 	private int userID;
 	private String username;
-	//public static String username;
 	private String password;
 	private String email;
 	private String lastname;
@@ -52,8 +39,8 @@ public class User {
 	private	Relative relative;
 	private Address address;
 	private Contact contact;
-	private WebSession webSession;
-	
+	private WebSession webSession;	
+		
 	public User() {
 	}
 	

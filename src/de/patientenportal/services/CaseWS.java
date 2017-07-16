@@ -5,6 +5,7 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
+
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.CaseListResponse;
@@ -13,6 +14,7 @@ import de.patientenportal.entities.response.CaseListResponse;
 @SOAPBinding(style = Style.RPC)
 public interface CaseWS {
 
+	
 	@WebMethod
 	public Case getCase					(@WebParam (name="Token--Case-ID") 	Accessor accessor);
 	

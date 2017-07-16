@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-//import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,11 +26,9 @@ public class VitalData  {
 	private VitalDataType vitalDataType;
 	private Case pcase;
 
-	//Standardkonstruktor
 	public VitalData(){
 	}
 	
-	//Konstruktor
 	public VitalData(Date timestamp,Double value,VitalDataType vitalDataType, Case pcase){
 		this.timestamp = timestamp;
 		this.value = value;

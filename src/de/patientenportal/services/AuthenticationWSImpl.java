@@ -6,20 +6,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.http.HTTPException;
-
 import org.hibernate.criterion.Restrictions;
-
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.WebSession;
+import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.persistence.WebSessionDAO;
 
@@ -35,9 +32,9 @@ import de.patientenportal.persistence.WebSessionDAO;
 public class AuthenticationWSImpl implements AuthenticationWS {
 
   @Resource
-static
-  WebServiceContext wsctx;
+  static WebServiceContext wsctx;
 		
+  @SuppressWarnings("rawtypes")
   @Transactional
   public String authenticateUser(ActiveRole activeRole){ //(String username, String password) {
 	
@@ -94,25 +91,17 @@ static
    */
   @Transactional
   public boolean authenticateToken(String token){	
-	  deleteInvalidTokens();
+	  deleteExpiredWebSession();
 	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
 	if (sessions.size() != 1) return false; //throw new HTTPException(401);
 	extendWebSession(sessions.get(0));
 	return true;
   }
   
-  @Transactional
-  public boolean authenticateTokenHTTP(){
-	  String token = getToken();
-	  deleteInvalidTokens();
-	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
-	if (sessions.size() != 1) return false;
-	extendWebSession(sessions.get(0));
-	return true;
-  }
+  
   
   @Transactional
-  public User getUserByToken(String token) {
+  public static User getUserByToken(String token) {
 	List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
 	if (sessions.size() != 1) return null;
 	return sessions.get(0).getUser();
@@ -186,12 +175,12 @@ static
   }
   
   //Löscht abgelaufene Token
-  private void deleteInvalidTokens() {
-	List<WebSession> invalidSessions = WebSessionDAO.findByCriteria(Restrictions.or(
-			Restrictions.isNull("validtill"),
-			Restrictions.le("validtill", Calendar.getInstance().getTime())));
-	for(WebSession ws: invalidSessions) {
+  public void deleteExpiredWebSession() {
+	List<WebSession> expiredSessions = WebSessionDAO.getExpiredWebSessions();
+
+	for(WebSession ws: expiredSessions) {
 		WebSessionDAO.deleteWS(ws);
+	System.out.println("Abgelaufene Websessions gelöscht!");
 	}
   }
   
@@ -204,7 +193,8 @@ static
   } 
 
        
-  public static String getToken(){
+  @SuppressWarnings("rawtypes")
+public static String getToken(){
 
 		MessageContext mctx = wsctx.getMessageContext();
 		
@@ -222,4 +212,43 @@ static
 	    return null;
 	}
 		
+  public static ActiveRole getActiveRole(String token){
+	  List<WebSession> sessions = WebSessionDAO.findByCriteria(Restrictions.eq("token", token));
+		if (sessions.size() != 1) return null;
+	  return sessions.get(0).getActiveRole();
+  }
+  
+  /**
+   * Diese Methode führt in 3 Stufen Authentifizierung, Authorisierung und Prüfung der Schreibrechte (falls benötigt) durch.
+   * 
+   * @param accessor	token und (falls benätigt) CaseID
+   * @param expected	erlaubte Rollen für die Methode
+   * @param wRightcheck true, wenn für die Methode Schreibrechte zum Fall gefordert sind
+   * @return
+   */
+  
+  public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, boolean wRightcheck){
+	  	String token = accessor.getToken();
+	  
+	  	AuthenticationWSImpl auth = new AuthenticationWSImpl();
+		if (auth.authenticateToken(token) == false) {
+			System.err.println("Invalid token");
+			return "Authentifizierung fehlgeschlagen.";}
+		
+		ActiveRole role = AuthenticationWSImpl.getActiveRole(token);
+		
+		if (!expected.contains(role) == true) {
+			System.err.println("No Access for this role");
+			return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
+		
+		if (wRightcheck == true){
+			AccessWSImpl acc = new AccessWSImpl();
+			if (acc.checkWRight(accessor) == false) {
+				System.err.println("No Writing-Rights for this Case");
+				return "Keine Schreibrechte für diesen Fall";
+			}
+		}
+	  return null;
+  }
+  
 }		

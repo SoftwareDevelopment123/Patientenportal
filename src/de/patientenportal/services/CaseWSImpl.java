@@ -1,8 +1,11 @@
 package de.patientenportal.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Patient;
@@ -23,10 +26,10 @@ public class CaseWSImpl implements CaseWS {
 	 * 
 	 * Es wird explizit über das Token geprüft, ob der anfragende User auch Patient im angefragten Fall ist
 	 * 
-	 * Zugriffsbeschränkung: Patient ( noch einzurichten )
+	 * Zugriffsbeschränkung: Patient
 	 * Doktor und Relative sollen nur über ihre Zugriffsrechte (Rights) Zugang zu Fällen bekommen
 	 */
-	
+
 	@Transactional
 	public Case getCase(Accessor accessor) {
 		int id;
@@ -40,20 +43,24 @@ public class CaseWSImpl implements CaseWS {
 		if (token == null) 	{System.err.println("No token");		return null;}
 		if (id == 0) 		{System.err.println("Id null"); 		return null;}
 		
-		AuthenticationWSImpl auth = new AuthenticationWSImpl();
-		if (auth.authenticateToken(token) == false){
-							System.err.println("Invalid token"); 	return null;}
-		else{
-		Case pcase = new Case();
-		Patient patient = new Patient();
-			try {
-				User user = auth.getUserByToken(token);
-				patient = UserDAO.getUser(user.getUserId()).getPatient();
-				pcase = CaseDAO.getCase(id);
-			}
-			catch (Exception e) {System.err.println("Error: " + e);}
-		if (pcase.getPatient().getPatientID() != patient.getPatientID()){
-							System.err.println("Access denied");	return null;}
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
+		String response = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		if (response != null) {
+			System.err.println(response);
+			return null;
+		}
+
+		else {
+			Case pcase = new Case();
+			Patient patient = new Patient();
+				try {
+					User user = AuthenticationWSImpl.getUserByToken(token);
+					patient = UserDAO.getUser(user.getUserId()).getPatient();
+					pcase = CaseDAO.getCase(id);
+				}
+				catch (Exception e) {	System.err.println("Error: " + e);		return null;}
+				if (pcase.getPatient().getPatientID() != patient.getPatientID()){
+										System.err.println("Access denied");	return null;}
 		return pcase;
 		}
 	}
@@ -65,40 +72,69 @@ public class CaseWSImpl implements CaseWS {
 	 * Dementsprechend wird nur das Token benötigt, aus dem dann die zugehörige ID abgerufen wird.
 	 * So wird garantiert, dass der angemeldete User/Patient nur seine eigenen Fälle sehen kann.
 	 * 
-	 * Zugriffsbeschränkung: Patient  ( noch einzurichten )
+	 * Zugriffsbeschränkung: Patient
+	 * 
+	 * Wegen der Initialisierung der Cases wird aus der ersten Caselist(1) nochmal per ID auf die CaseDAO
+	 * zugegriffen. Alternativ müsste man im PatientDAO jeden Case noch mal getrennt initialisieren
 	 */
 	
 	@Transactional
 	public CaseListResponse getCases(Accessor accessor) {
 		CaseListResponse response = new CaseListResponse();
 		String token;
+		boolean status;
 		
-		try {token = (String) accessor.getToken();}
+		try {
+			token = (String) accessor.getToken();
+			status = (boolean) accessor.getObject();}
 		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
 		if (token == null) 	{System.err.println("No token");		return null;}
 		
-		AuthenticationWSImpl auth = new AuthenticationWSImpl();
-		if (auth.authenticateToken(token) == false){
-							System.err.println("Invalid token"); 	return null;}
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		if (authResponse != null) {
+			System.err.println(authResponse);
+			response.setResponseCode(authResponse);
+			return response;
+		}
 		
 		else{
-		Patient patient = new Patient();	
-			try {
-				User user = auth.getUserByToken(token);
-				patient = UserDAO.getUser(user.getUserId()).getPatient();
-				List<Case> rlist = PatientDAO.getPatient(patient.getPatientID()).getCases();
-					response.setResponseCode("success");
+			Patient patient = new Patient();	
+				try {
+					User user = AuthenticationWSImpl.getUserByToken(token);
+					patient = UserDAO.getUser(user.getUserId()).getPatient();
+
+					List<Case> caselist1 = PatientDAO.getPatient(patient.getPatientID()).getCases();
+					List<Case> caselist2 = new ArrayList<Case>();
+						for (Case c : caselist1){
+							caselist2.add(CaseDAO.getCase(c.getCaseID()));
+						}
+				
+						response.setResponseCode("success");
+
+						List <Case> rlist = new ArrayList<Case>();
+						for (Case c : caselist2) {
+							if (c.isStatus() == status) {
+								rlist.add(c);
+							}
+						}
 					response.setResponseList(rlist);
-			}
-			catch (Exception e) {
-							System.err.println("Access failed");
+				}
+				catch (Exception e) {
+					System.err.println("Access failed");
 					response.setResponseCode("Error: " + e);}
-		return response;
+			return response;
 		}
 	}
 
 	/*
+	 * Neuen Fall anlegen
+	 * 
 	 * Zugriffsbeschränkung: Doctor
+	 *
+	 * Der erstellende Doktor bekommt direkt Lese- und Schreibrechte im erstellten Fall und
+	 * wird der Doktorliste des Falls hinzugefügt. Hier wird sichergestellt, dass auch mitgegebene Doktoren
+	 * dem Fall hinzugefügt werden. Diese bekommen aber nicht automatisch Lese- und Schreibrechte
 	 */
 	
 	@Transactional
@@ -115,15 +151,17 @@ public class CaseWSImpl implements CaseWS {
 		if (pcase.getTitle()	== null)	{return "Bitte einen Titel angeben.";}
 		if (pcase.getPatient()	== null)	{return "Kein Patient angegeben.";}
 
-		AuthenticationWSImpl auth = new AuthenticationWSImpl();
-		if (auth.authenticateToken(token) == false) {System.err.println("Invalid token"); return "Authentifizierung fehlgeschlagen.";}
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, false);
+		if (authResponse != null) {
+			System.err.println(authResponse);
+			return authResponse;
+		}
 		
-		// else if -- Doktor-Role-check 
-		
-		else{
+		else { 
 			String response = null;
 			try {
-				User creatinguser = auth.getUserByToken(token);
+				User creatinguser = AuthenticationWSImpl.getUserByToken(token);
 				Doctor creatingdoctor = UserDAO.getUser(creatinguser.getUserId()).getDoctor();
 				List<Doctor> doctors = pcase.getDoctors();
 				
@@ -150,17 +188,33 @@ public class CaseWSImpl implements CaseWS {
 	}
 
 	/*
+	 * Fall löschen
+	 * 
+	 * Zugriffsbeschränkung: Doctor (unter Vorbehalt)
+	 * 
 	 * Das sollte niemand können, bzw. das Recht sollten höchstens Doktoren mit Schreibrecht haben
 	 */
 	
 	@Transactional
 	public String deleteCase(Accessor accessor) {
 		int id;
+		String token;
 		
-		try {id = (int) accessor.getObject();}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		if (id == 0) 		{System.err.println("Id null"); return null;}
+		try {
+			id = (int) accessor.getObject();
+			token = (String) accessor.getToken();
+		}
+		catch (Exception e) {System.err.println("Invalid access"); 	return "Falscher Input";}
+		if (token == null) 	{System.err.println("No token");		return "Kein Token angegeben";}
+		if (id == 0) 		{System.err.println("Id null"); 		return "Keine ID angegeben";}
 		
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		String response1 = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, true);
+		if (response1 != null) {
+			System.err.println(response1);
+			return response1;
+		}
+
 		else{
 			String response = null;
 			try {response = CaseDAO.deleteCase(id);}
@@ -176,13 +230,27 @@ public class CaseWSImpl implements CaseWS {
 	@Transactional
 	public String updateCase(Accessor accessor) {
 		Case pcase = new Case();
+		String token;
 		
-		try {pcase = (Case) accessor.getObject();}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
+		try {
+			pcase = (Case) accessor.getObject();
+			token = (String) accessor.getToken();
+		} 
+		catch (Exception e) {System.err.println("Invalid access");	return null;}
+		if (token == null) 	{System.err.println("No token");		return null;}
+
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, true);
+		if (authResponse != null) {
+			System.err.println(authResponse);
+			return authResponse;
+		}
 		
+		else {
 		String response = null;
 		try {response = CaseDAO.updateCase(pcase);}
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
+		}
 	}
 }

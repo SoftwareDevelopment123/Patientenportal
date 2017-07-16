@@ -9,9 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import de.patientenportal.entities.MedicalDoc;
 
 @XmlRootElement (name="mDocListResponse")
-public class MDocListResponse {
+public class MDocListResponse extends ListResponse {
 
-		private String responseCode = null;
 		private List<MedicalDoc> responseList;
 
 		public MDocListResponse(){
@@ -19,15 +18,8 @@ public class MDocListResponse {
 		public MDocListResponse(List<MedicalDoc> mdoclist){
 			this.responseList = mdoclist;
 		}
-		
-		public String getResponseCode() {
-			return responseCode;
-		}
-		public void setResponseCode(String responseCode) {
-			this.responseCode = responseCode;
-		}
-		
-		@XmlElementWrapper(name="medicaldocuments")
+				
+		@XmlElementWrapper(name="medicalDocuments")
 		@XmlElement(name="medicalDocument")
 		public List<MedicalDoc> getResponseList() {
 			return responseList;
@@ -35,7 +27,5 @@ public class MDocListResponse {
 		public void setResponseList(List<MedicalDoc> responseList) {
 			this.responseList = responseList;
 		}
-
-
 }
 

@@ -2,6 +2,7 @@ package de.patientenportal.services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -80,16 +81,21 @@ public class CaseWSTest {
 		Service serviceC = Service.create(urlC, qnameC);
 		CaseWS casews = serviceC.getPort(CaseWS.class);
 		
-		List<Case> compareme = PatientDAO.getPatient(3).getCases();
+		List<Case> comparemePre = PatientDAO.getPatient(3).getCases();
+		List<Case> compareme = new ArrayList<Case>();
+		for (Case c : comparemePre) {
+			compareme.add(CaseDAO.getCase(c.getCaseID()));
+		}
+		
 		Accessor getCases = new Accessor(token);
+			boolean status = true;
+			getCases.setObject(status);
 		
-		// hier weitermachen, GetCases wirft noch einen Fehler
-		
-		/*CaseListResponse response = casews.getCases(getCases);
+		CaseListResponse response = casews.getCases(getCases);
 			Assert.assertEquals("success", response.getResponseCode());
 		
 		List<Case> cases = response.getResponseList();
-		
+
 		int i = 0;
 		for (Case c : compareme){
 			Assert.assertEquals(c.getCaseID()							, cases.get(i).getCaseID());
@@ -97,8 +103,8 @@ public class CaseWSTest {
 			Assert.assertEquals(c.getDescription()						, cases.get(i).getDescription());
 			Assert.assertEquals(c.getPatient().getBloodtype()			, cases.get(i).getPatient().getBloodtype());
 			Assert.assertEquals(c.getPatient().getUser().getFirstname()	, cases.get(i).getPatient().getUser().getFirstname());
+			Assert.assertEquals(c.getDoctors().size()					, cases.get(i).getDoctors().size());
 			i++;
-		}*/
-		
+		}
 	}
 }

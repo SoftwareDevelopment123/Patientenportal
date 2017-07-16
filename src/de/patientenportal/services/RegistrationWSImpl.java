@@ -6,6 +6,7 @@ import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
+import de.patientenportal.entities.response.UserListResponse;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
 
@@ -18,20 +19,35 @@ public class RegistrationWSImpl implements RegistrationWS {
  */
 	
 	@Transactional
-	public String createUser(User user) {
+	public UserListResponse createUser(User user) {
+		UserListResponse response = new UserListResponse();
 		
-		if (user.getUsername()	== null){return "Bitte einen Username angeben.";}
-		if (user.getPassword()	== null){return "Kein Passwort angegeben.";}
-		if (user.getFirstname()	== null){return "Kein Vorname angegeben.";}
-		if (user.getLastname()	== null){return "Kein Nachname angegeben.";}		
-		if (user.getBirthdate()	== null){return "Kein Geburtsdatum angegeben.";}
+		if (user.getUsername()	== null){
+			response.setResponseCode("Bitte einen Username angeben.");
+			return response;}
+		if (user.getPassword()	== null){
+			response.setResponseCode("Kein Passwort angegeben.");
+			return response;}
+		if (user.getFirstname()	== null){
+			response.setResponseCode("Kein Vorname angegeben.");
+			return response;}
+		if (user.getLastname()	== null){
+			response.setResponseCode("Kein Nachname angegeben.");
+			return response;}		
+		if (user.getBirthdate()	== null){
+			response.setResponseCode("Kein Geburtsdatum angegeben.");
+			return response;}
 				
 		else {		
 			boolean usercheck = RegistrationDAO.checkUsername(user.getUsername());
-				if (usercheck == true) 	{return "Username schon vergeben.";}
+				if (usercheck == true) 	{
+					response.setResponseCode("Username schon vergeben.");
+					return response;}
 			
-			String feedback = RegistrationDAO.createUser(user);
-			return feedback;
+				User newuser = RegistrationDAO.createUser(user);
+				response.getResponseList().add(newuser);
+				response.setResponseCode("success");
+				return response;
 		}
 	}
 

@@ -1,21 +1,13 @@
 package de.patientenportal.services;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
-import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
-import de.patientenportal.entities.ActiveRole;
 
 
 public class HTTPHeaderService {

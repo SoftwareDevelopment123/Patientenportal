@@ -143,23 +143,19 @@ bis 09.07. (alle)
 - Token- und Role-Check (soweit nötig) in die Methoden einfüge
 	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
 	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen
+	
+- restliche WS anlegen
+- RightsWSTest delete ergänzen
 
-- Enum für Gender einfügen
+- javadoc
+
+- API in der wsdl?
 
 - Websession anpassen
 
-- Dokumente fertig anlegen und mit Case Verknüpfen
-	- bei den Dokumenten fehlt noch das create!? (bei MDoc eingefügt - Stefan)
-	- Spalten aus der Superklasse werden (noch) nicht in die Datenbank übernommen, da müssen wir noch was machen
-	- Entities: Case-Verknüpfung von Dokumenten in die Superklasse?
-	- InstructiondocDAO MDOC Test achte dabei ob vererbte Sachen geändert werden können und wie es angelegt wird --Jan
-
-- Login-Logik implementieren (bzw mal dieses System recherchieren, dass der Betreuer uns bei der zwischenpräsentation genannt hat)
-	- RBAM (role based access model)!
-
-- Funktion: Einfügen von Dokumenten in die DB prüfen
-
 - Timestamp bei den Dokumenten/VitalData und Datumsformat bei Birthdate
+
+- Suchfunktionen
 
 ## Anmerkungen
 - Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
@@ -217,3 +213,5 @@ bis 09.07. (alle)
 - Token-Authentication über HTTP Heade
 - Response-Entities verbessern
 
+
+https://mvnrepository.com/artifact/org.jboss.spec.javax.xml.ws/jboss-jaxws-api_2.2_spec/2.0.0.Final

@@ -140,7 +140,7 @@ public class RightsDAO {
 		
 		List<Case> cases = new ArrayList<Case>();
 		for (Rights it : result){
-			cases.add(it.getPcase());
+			cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
 		}
 		return cases;	
 	}
@@ -168,7 +168,7 @@ public class RightsDAO {
 				
 		List<Case> cases = new ArrayList<Case>();
 		for (Rights it : result){
-			cases.add(it.getPcase());
+			cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
 		}
 		return cases;	
 	}
@@ -191,6 +191,7 @@ public class RightsDAO {
 			try {
 			result = session.createQuery(query).getSingleResult();
 			} catch (NoResultException e) {
+				System.err.println("Error: " + e);
 				return false;
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
