@@ -5,14 +5,16 @@ import java.util.List;
 
 import org.hibernate.Session;
 import de.patientenportal.entities.InstructionDoc;
-import de.patientenportal.entities.User;
 import de.patientenpotal.ftpconnection.FtpMethodenInDocs;
-import de.patientenpotal.ftpconnection.FtpMethodenMDocs;
 
 
 public class InstructionDocDAO {
 
-	// InstructionDoc anlegen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Instruction-Documents
+	 * @param InstructionDoc, das anzulegende InstructionDoc
+	 * @return String "success"
+	 */
 		public static String createInstructionDoc(InstructionDoc newInstructionDoc) {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -32,7 +34,11 @@ public class InstructionDocDAO {
 		}
 	
 	
-	//InstructionDoc abrufen
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Instruction-Documents
+	 * @param instructionDocid, des aufzurufenden InstructionDocs
+	 * @return InstructionDoc
+	 */
 		public static InstructionDoc getInstructionDoc (int instructionDocid){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			InstructionDoc instructiondoc = new InstructionDoc();
@@ -52,8 +58,12 @@ public class InstructionDocDAO {
 				
 			return instructiondoc;
 			}
-
-	//InstructionDoc ändern
+		
+	/**
+	 * Datenbankzugriff zum: Ändern eines Instruction-Documents
+	 * @param InstructionDoc, das geänderte Instruction-Document
+	 * @return String "success"
+	 */
 		public static String updateInstructionDoc(InstructionDoc updatedinstructiondoc){
 			int id = updatedinstructiondoc.getInstructionDocID();
 			if(id!=0){
@@ -89,8 +99,11 @@ public class InstructionDocDAO {
 			}	
 		}
 		
-	//InstructionDoc löschen
-		
+	/**
+	 * Datenbankzugriff zum: Löschen eines Instruction-Documents
+	 * @param InstructionDocID, das zu löschende Instruction-Document
+	 * @return String "success"
+	 */
 		public static String deleteInstructionDoc(int InstructionDocID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -109,7 +122,11 @@ public class InstructionDocDAO {
 				
 			return "success";
 		}
-	
+	/**
+	 * Datenbankzugriff zum: Aufrufen aller Instruction-Documents
+	 * @param 
+	 * @return List<InstructionDoc> , alle InstructionDocuments
+	 */
 	@SuppressWarnings("unchecked")
 	public static List<InstructionDoc> getAllIDocs(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 

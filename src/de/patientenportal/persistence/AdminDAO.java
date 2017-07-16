@@ -12,6 +12,11 @@ import de.patientenportal.entities.*;
 @SuppressWarnings("unchecked")
 public class AdminDAO {
 
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller User
+	 * @param Null
+	 * @return List<User>
+	 */
 	public static List<User> getAllUsers(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();
@@ -20,7 +25,11 @@ public class AdminDAO {
 	    session.close();
 	    return users;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Doktoren
+	 * @param Null
+	 * @return List<Doctor>
+	 */
 	public static List<Doctor> getAllDoctors(){
 		Session session = HibernateUtil.getSessionFactory().openSession();   	 
 		session.beginTransaction();
@@ -29,7 +38,11 @@ public class AdminDAO {
 	    session.close();
 	    return doctors;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Relatives
+	 * @param Null
+	 * @return List<Relative>
+	 */
 	public static List<Relative> getAllRelatives(){
 		Session session = HibernateUtil.getSessionFactory().openSession();	 
 		session.beginTransaction();
@@ -38,7 +51,11 @@ public class AdminDAO {
 	    session.close();
 	    return relatives;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Patienten
+	 * @param Null
+	 * @return List<Patient>
+	 */
 	public static List<Patient> getAllPatients(){
 		Session session = HibernateUtil.getSessionFactory().openSession();    	 
 		session.beginTransaction();
@@ -48,7 +65,11 @@ public class AdminDAO {
 		
 	    return patients;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Offices
+	 * @param Null
+	 * @return List<Office>
+	 */
 	public static List<Office> getAllOffices(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();
@@ -57,7 +78,11 @@ public class AdminDAO {
 	    session.close();
 	    return offices;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Insurances
+	 * @param Null
+	 * @return List<Insurance>
+	 */
 	public static List<Insurance> getAllInsurances(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();
@@ -66,7 +91,11 @@ public class AdminDAO {
 	    session.close();
 	    return insurances;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Adresses
+	 * @param Null
+	 * @return List<Address>
+	 */
 	public static List<Address> getAllAddresses(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();
@@ -75,7 +104,11 @@ public class AdminDAO {
 	    session.close();
 	    return addresses;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Contacts
+	 * @param Null
+	 * @return List<Contact>
+	 */
 	public static List<Contact> getAllContacts(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();
@@ -84,7 +117,11 @@ public class AdminDAO {
 	    session.close();
 	    return contacts;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Cases
+	 * @param Null
+	 * @return List<Case>
+	 */
 	public static List<Case> getAllCases(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();
@@ -93,7 +130,11 @@ public class AdminDAO {
 	    session.close();
 	    return cases;
 	}
-	
+	/**
+	 * Datenbankzugriff zum: Ausgeben aller Rights
+	 * @param Null
+	 * @return List<Rights>
+	 */
 	public static List<Rights> getAllRights(){
 		Session session = HibernateUtil.getSessionFactory().openSession(); 
 		session.beginTransaction();

@@ -8,7 +8,11 @@ import de.patientenportal.entities.Office;
 @SuppressWarnings("unused")
 public class DoctorDAO {
 	
-	// Doktor abrufen
+	/**
+	 * Datenbankzugriff zum: Aufrufen eines Doktors
+	 * @param doctorID
+	 * @return Doctor der gesuchte Doctor wird zurückgegeben
+	 */
 	public static Doctor getDoctor(int doctorID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Doctor doctor = new Doctor();
@@ -35,6 +39,11 @@ public class DoctorDAO {
 	}	
 	
 	// Doktordaten ändern
+	/**
+	 * Datenbankzugriff zum: Ändern eines Doctors
+	 * @param Doctor der geänderte Doctor
+	 * @return String "success"
+	 */
 	public static String updateDoctor(Doctor updateddoctor){
 		int id = updateddoctor.getDoctorID();
 		if(id!=0){
@@ -62,7 +71,11 @@ public class DoctorDAO {
 			return "noID";
 		}
 	}
-
+	/**
+	 * Datenbankzugriff zum: Löschen eines Doctors
+	 * @param doctorID des zu löschenden Doctors
+	 * @return String "success"
+	 */
 	public static String deleteDoctor(int doctor_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 

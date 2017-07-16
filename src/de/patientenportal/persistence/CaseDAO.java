@@ -9,7 +9,11 @@ import de.patientenportal.entities.Patient;
 
 public class CaseDAO {
 
-	// Fall abrufen
+	/**
+	 * Datenbankzugriff zum: Ausgeben eines Falls anhand der FallID, Es wird dabei Lazy Loading genutzt
+	 * @param caseID
+	 * @return Case
+	 */
 	public static Case getCase(int caseID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Case getcase = new Case();
@@ -19,7 +23,7 @@ public class CaseDAO {
 		getcase = (Case)session.get(Case.class, caseID);	
 		
 			if (getcase != null){
-				Hibernate.initialize(getcase.getVitaldata());		// LAZY-HIBERNATE-MAGIC
+				Hibernate.initialize(getcase.getVitaldata());		
 				Hibernate.initialize(getcase.getMedicalDocs());
 				Hibernate.initialize(getcase.getDoctors());
 				Hibernate.initialize(getcase.getMedication());
@@ -38,6 +42,11 @@ public class CaseDAO {
 		}
 	
 	// Falldaten ändern
+	/**
+	 * Datenbankzugriff zum: Ändern eines Falls
+	 * @param updatedcase der Case der die Neuerungen enthält, er muss vollständig sein und darf nicht nur die Änderungen enthalten
+	 * @return String "success"
+	 */
 	public static String updateCase(Case updatedcase){
 		int id = updatedcase.getCaseID();
 		if(id!=0){
@@ -73,7 +82,11 @@ public class CaseDAO {
 		}
 	}
 	
-	// Fall anlegen
+	/**
+	 * Datenbankzugriff zum: Anlegen eines Falls
+	 * @param Case das anzulegende Case Objekt
+	 * @return String "success"
+	 */
 	public static String createCase(Case newcase) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -91,7 +104,11 @@ public class CaseDAO {
 		return "success";
 	}
 	
-	// Fall löschen
+	/**
+	 * Datenbankzugriff zum: Löschen eines Falls
+	 * @param caseID die caseID des zu löschenden Cases
+	 * @return String "success"
+	 */
 	public static String deleteCase(int caseID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
