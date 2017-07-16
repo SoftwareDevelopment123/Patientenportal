@@ -9,7 +9,11 @@ import de.patientenportal.entities.VitalDataType;
 
 public class VitalDataDAO {
 	
-	// VitalData abrufen
+	/**
+	 * Datenbankzugriff zum: Aufrufen von Vitaldaten
+	 * @param vitalDataID, der aufzurufenden Vitaldaten
+	 * @return VitalData
+	 */
 	public static VitalData getVitalData(int vitalDataID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		VitalData vitalData = new VitalData();
@@ -28,7 +32,11 @@ public class VitalDataDAO {
 		return vitalData;
 	}
 
-	// VitalData hinzufügen
+	/**
+	 * Datenbankzugriff zum: Hinzufügen/Anzulegenden von Vitaldaten
+	 * @param vitalData, der hinzufügenden Vitaldaten
+	 * @return String "success"
+	 */
 	public static String add(VitalData vitalData) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -46,7 +54,11 @@ public class VitalDataDAO {
 		return "success";
 	}
 	
-	// VitalData ändern
+	/**
+	 * Datenbankzugriff zum: Ändern von Vitaldaten
+	 * @param VitalData, der zu ändernden Vitaldaten
+	 * @return String "success"
+	 */
 	public static String updateVitalData (VitalData updatedVitalData){
 		int id = updatedVitalData.getVitalDataID();
 		if(id!=0){
@@ -81,7 +93,11 @@ public class VitalDataDAO {
 		}
 	}
 	
-	//VitalData löschen
+	/**
+	 * Datenbankzugriff zum: Löschen eines Vitaldaten
+	 * @param vitalDataID, der zu ändernden Vitaldaten
+	 * @return String "success"
+	 */
 	public static String deleteVitalData (int vitalDataID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
