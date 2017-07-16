@@ -236,7 +236,7 @@ public class DBCreator {
 					System.out.println("Medicines added: " + medicine.getName());
 					
 					
-					//for (int zahli = 6; zahli>=1 ; zahli--){
+					for (int zahli = 6; zahli>=1 ; zahli--){
 						Medication medication1 = new Medication();
 						medication1.setDosage("212"+zahl);
 						medication1.setDuration("extremslange Stunden:"+zahl);
@@ -246,26 +246,10 @@ public class DBCreator {
 						createMedication.setObject(medication1);
 						medicaws.createMedication(createMedication);
 						System.out.println("Medicationes added: " + medication1.getDosage());
-					//}
+					}
 					
 				}
-				/*	List <Medication> dieliste = new ArrayList();
-					for(int zahli = 3; zahli>=1;zahli--){
-						Medication medication1 = new Medication();
-						medication1.setDosage("212"+zahli);
-						medication1.setDuration("extremslange Stunden:"+zahli);
-					
-						Case medicationcase = CaseDAO.getCase(zahli);
-						medication1.setPcase(medicationcase);
-					
-						Doctor doc = DoctorDAO.getDoctor(zahli);
-						medication1.setPrescribedBy(doc);
-					
-						dieliste.add(medication1);
-						}
-					medicine.setMedication(dieliste);
-					*/
-					
+				
 					
 				
 				//XXX	
