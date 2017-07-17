@@ -144,6 +144,8 @@ bis 16.07. (alle)
 
 ## To-Do
 
+- Login-Daten abschneiden oder in eigene Entity (weeschn dor Sischerheid!)
+
 - Superklasse für die Dokumente wieder einfügen?
 
 - inDoc und medDoc - WS (inkl. Impl.) überprüfen
