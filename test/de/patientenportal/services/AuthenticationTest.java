@@ -2,13 +2,10 @@ package de.patientenportal.services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
@@ -16,6 +13,7 @@ import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
 
 
+@SuppressWarnings("unused")
 public class AuthenticationTest {
 	private static final String WS_URL = "http://localhost:8080/authentication?wsdl";
 	

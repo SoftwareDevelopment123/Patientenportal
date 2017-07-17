@@ -3,7 +3,6 @@
 **Automatische Tabellen-Generierung für Hibernate ist in der Konfig momentan deaktiviert!**  
   --> einfach wieder bei Bedarf einkommentieren!
 
-
 Nicht im Development-Branch arbeiten!
 
 - Wenn ihr mit Programmieren startet, checked euren Branch und merged dann von "Development"
@@ -12,19 +11,20 @@ Nicht im Development-Branch arbeiten!
 ## Fortschrittsstand
 
 Fertig und überprüft:
-DAO	-	User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine, VitalData
-WS	-	
+DAO	-	User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine, VitalData, InstructionalDoc und MedicalDoc
+WS	-	Access, Account, Address, Case, Contact, Doctor
 
 Fertig:
-DAO	- InstructionalDoc und MedicalDoc (inkl. Tests) + Case-Verknüpfung
-WS	- RegistrationWS, AccountWS, PatientWS, RelativeWS, DoctorWS, OfficeWS, AddressWS, ContactWS (getestet, token/rolecheck fehlt noch)
+
 
 in Arbeit:
-DAO	-	finale Prüfung (z.B. criteria anpassen)
-WS	-	
+WS	- MedicationWS, VitalDataWS
+TokenRoleAccessCheck - ab InDoc bis VitalData noch vervollständigen und überprüfen
 
 Fehlt noch:
-WS	-	restliche ws
+WS	- JavaDoc für alle WS ab InDoc, Überprüfung InDocWS und beide Doc-Impl
+Tests - WS-Tests vervollständigen, einen Test für die Funktion des tokenRoleAccesscheck Schreiben
+Wiki -  ;)
 
 
 ## Dokumentation
@@ -150,7 +150,6 @@ bis 16.07. (alle)
 	- inDocWS ist noch leer - dementsprechend müsste hier auch der Test noch fehlen
 	- in beiden Impl fehlt noch der tokenRoleAccessCheck (sollte Jan machen, er weiß genau was da stehen muss)
 	
-
 - Token- und Role-Check (soweit nötig) in die Methoden einfüge
 	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
 	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen

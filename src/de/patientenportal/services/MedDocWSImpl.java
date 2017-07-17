@@ -4,24 +4,12 @@ import java.util.List;
 
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-
-import de.patientenportal.entities.Address;
 import de.patientenportal.entities.MedicalDoc;
-import de.patientenportal.entities.Patient;
-import de.patientenportal.entities.Relative;
-import de.patientenportal.entities.User;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MDocListResponse;
-import de.patientenportal.entities.response.RelativeListResponse;
-import de.patientenportal.persistence.AddressDAO;
 import de.patientenportal.persistence.CaseDAO;
-import de.patientenportal.persistence.DoctorDAO;
 import de.patientenportal.persistence.MDocDAO;
-import de.patientenportal.persistence.OfficeDAO;
 import de.patientenportal.persistence.PatientDAO;
-import de.patientenportal.persistence.RegistrationDAO;
-import de.patientenportal.persistence.RelativeDAO;
-import de.patientenportal.persistence.UserDAO;
 
 @WebService (endpointInterface = "de.patientenportal.services.MedDocWS")
 public class MedDocWSImpl implements MedDocWS{

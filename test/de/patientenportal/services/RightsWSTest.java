@@ -3,15 +3,12 @@ package de.patientenportal.services;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Office;
@@ -23,6 +20,7 @@ import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.RelativeDAO;
 import de.patientenportal.persistence.RightsDAO;
 
+@SuppressWarnings("unused")
 public class RightsWSTest {
 
 	private String token;

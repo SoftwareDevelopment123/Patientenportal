@@ -3,11 +3,8 @@ package de.patientenportal.persistence;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.junit.Assert;
-
 import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 

@@ -3,21 +3,17 @@ package de.patientenportal.services;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Medication;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MedicationListResponse;
 import de.patientenportal.persistence.CaseDAO;
-import de.patientenportal.persistence.MedicationDAO;
 import de.patientenportal.persistence.PatientDAO;
 
 public class MedicationWSTest {

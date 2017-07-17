@@ -6,7 +6,6 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import de.patientenportal.entities.User;
-import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.UserListResponse;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Doctor;

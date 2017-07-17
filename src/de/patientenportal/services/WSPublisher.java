@@ -59,7 +59,7 @@ public class WSPublisher {
 		
 		} catch (Exception e) {
 			System.err.println("Error - " + e);
-			System.err.println("Shutting down WS (for testing only)...");
+			System.err.println("Shutting down WS ...");
 			System.exit(0);
 		} 
 		System.out.println("... Web-Services started successfully!");
