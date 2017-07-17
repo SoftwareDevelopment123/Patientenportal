@@ -12,7 +12,7 @@ Nicht im Development-Branch arbeiten!
 ## Fortschrittsstand
 
 Fertig und überprüft:
-DAO	-	(bis auf die Interfaces) User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine, VitalData
+DAO	-	User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine, VitalData
 WS	-	
 
 Fertig:
@@ -134,14 +134,17 @@ bis 09.07. (alle)
 - Token / Authentication / Authorization / Login / Logout funktioniert
 - DateiServerZugriff funktioniert (bei Jan, hier vllt noch eine Anleitung einfügen)
 
-## To-Do
-- getCase jetzt für alle, je nach Zugriffsrolle jetzt mit Access-Check
-- Access-Check in alle Untermethoden für Case-Zugriff
+bis 16.07. (alle)
+- Finalisierung
 
-- Deprecated Criterias anpassen (UserDAO, WebSessionDAO, ...?)
+18.07. (Stefan)
+- Alle DAOs überprüft, anpassungen in den JavaDocs gemacht (@return war falsch)
+	- beim WebSessionDAO sollte Jascha nochmal drüberschauen, ob alles passt (auch JavaDoc)
+	- JavaDoc beim RightsDAO eingefügt (hatte noch gefehlt)
+
+## To-Do
 
 - Superklasse für die Dokumente wieder einfügen?
-- Superklasse für die ListResponse-Entities
 
 - Token- und Role-Check (soweit nötig) in die Methoden einfüge
 	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
@@ -151,12 +154,6 @@ bis 09.07. (alle)
 - RightsWSTest delete ergänzen
 
 - javadoc
-
-- API in der wsdl?
-
-- Websession anpassen
-
-- Timestamp bei den Dokumenten/VitalData und Datumsformat bei Birthdate
 
 - Suchfunktionen
 
@@ -205,17 +202,13 @@ bis 09.07. (alle)
 	- entweder Lösung in der Unit-Logik finden, Tests zusammenfassen oder einfach ohne Suite arbeiten (wäre schade)
 	- beheben wir durch den ID-Abruf aus dem Objekt vom Anlegen
 
-## Logik für die Service-Schicht
-- Verknüpfungen löschen bei delete
-- Keine eigene DAO-Abfrage für Case-Status, lieber "aussortieren" in der WS-Logik?
-- Bei Create-Case auch dem erstellenden Doktor Lese-/Schreibrechte mitgeben
+- getCase jetzt für alle, je nach Zugriffsrolle jetzt mit Access-Check
+- Access-Check in alle Untermethoden für Case-Zugriff
 
 ## Ausblick
 
 - DAO - Interfaces und non-static DAO
-- Token-Authentication über HTTP Heade
+- Token-Authentication über HTTP Header
 - Response-Entities verbessern
 - fallunabhängige Vitaldaten
 
-
-https://mvnrepository.com/artifact/org.jboss.spec.javax.xml.ws/jboss-jaxws-api_2.2_spec/2.0.0.Final

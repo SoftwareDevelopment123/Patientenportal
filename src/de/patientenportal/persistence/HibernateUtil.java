@@ -3,6 +3,12 @@ package de.patientenportal.persistence;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
 
+/**
+ *  Hilfsmethode für den Aufbau der Session mit der Datenbank. <br>
+ *  Hier erfolgt der Zugriff auf die hibernate.cfg.xml
+ *  
+ *  @return SessionFactory
+ */
 public class HibernateUtil {
 	
 	private static final SessionFactory sessionFactory;

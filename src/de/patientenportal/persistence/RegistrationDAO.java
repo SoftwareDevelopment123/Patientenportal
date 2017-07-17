@@ -13,7 +13,7 @@ public class RegistrationDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Users
 	 * @param User, das anzulegende Office
-	 * @return User, der erzeugte User
+	 * @return der erzeugte <code>User</code>
 	 */
 	public static User createUser(User user){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -38,7 +38,7 @@ public class RegistrationDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Doctors
 	 * @param Doctor, der anzulegende Doctor
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createDoctor(Doctor doctor) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -63,7 +63,7 @@ public class RegistrationDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Patient
 	 * @param Patient, der anzulegende Patient
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createPatient(Patient patient) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -88,7 +88,7 @@ public class RegistrationDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Relative
 	 * @param Relative, der anzulegende Relative
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createRelative(Relative relative) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -113,7 +113,7 @@ public class RegistrationDAO {
 	/**
 	 * Datenbankzugriff zum: Überprüfen ob der Username schon vorhanden ist
 	 * @param Patient, der anzulegende Patient
-	 * @return boolean, true bedeutet der USername ist bereits vergeben
+	 * @return <code>boolean</code> true, wenn der Username bereits vergeben ist
 	 */
 	public static boolean checkUsername(String username){
 			
@@ -142,5 +142,4 @@ public class RegistrationDAO {
 			
 		return true;	
 	}
-	
 }

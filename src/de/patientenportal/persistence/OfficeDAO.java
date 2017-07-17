@@ -14,7 +14,7 @@ public class OfficeDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Office
 	 * @param Office, das anzulegende Office
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createOffice(Office office){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -65,7 +65,7 @@ public class OfficeDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern eines Office
 	 * @param Office, das vollständige geänderte Office Objekt
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateOffice(Office updatedoffice){
 		int id = updatedoffice.getOfficeID();
@@ -101,7 +101,7 @@ public class OfficeDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Office
 	 * @param officeID, des zu löschenden Office
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteOffice(int officeID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -121,5 +121,4 @@ public class OfficeDAO {
 		}
 		return "success";
 	}
-
 }

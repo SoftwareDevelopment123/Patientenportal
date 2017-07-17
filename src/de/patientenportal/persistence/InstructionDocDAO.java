@@ -13,7 +13,7 @@ public class InstructionDocDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Instruction-Documents
 	 * @param InstructionDoc, das anzulegende InstructionDoc
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 		public static String createInstructionDoc(InstructionDoc newInstructionDoc) {
 			Session session = HibernateUtil.getSessionFactory().openSession();
@@ -32,7 +32,6 @@ public class InstructionDocDAO {
 			}
 			return "success";
 		}
-	
 	
 	/**
 	 * Datenbankzugriff zum: Aufrufen eines Instruction-Documents
@@ -62,7 +61,7 @@ public class InstructionDocDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern eines Instruction-Documents
 	 * @param InstructionDoc, das vollständige geänderte Instruction-Document
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 		public static String updateInstructionDoc(InstructionDoc updatedinstructiondoc){
 			int id = updatedinstructiondoc.getInstructionDocID();
@@ -102,7 +101,7 @@ public class InstructionDocDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Instruction-Documents
 	 * @param instructionDocID, das zu löschende Instruction-Document
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 		public static String deleteInstructionDoc(int instructionDocID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
@@ -122,10 +121,11 @@ public class InstructionDocDAO {
 				
 			return "success";
 		}
+
 	/**
 	 * Datenbankzugriff zum: Aufrufen aller Instruction-Documents
 	 * @param 
-	 * @return List<InstructionDoc> , alle InstructionDocuments
+	 * @return  <code>List (InstructionDoc)</code> , alle InstructionDocuments
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<InstructionDoc> getAllIDocs(){
@@ -145,5 +145,4 @@ public class InstructionDocDAO {
 		}
 	    return docs;
 	}
-		
 }

@@ -10,7 +10,7 @@ import de.patientenportal.entities.Patient;
 public class CaseDAO {
 
 	/**
-	 * Datenbankzugriff zum: Ausgeben eines Falls anhand der FallID, Es wird dabei Lazy Loading genutzt
+	 * Datenbankzugriff zum: Ausgeben eines Falls anhand der FallID. Dabei werden Lazy-Loading-Felder für den Zugriff initialisiert.
 	 * @param caseID
 	 * @return Case
 	 */
@@ -41,11 +41,10 @@ public class CaseDAO {
 		return getcase;
 		}
 	
-	// Falldaten ändern
 	/**
 	 * Datenbankzugriff zum: Ändern eines Falls
-	 * @param updatedcase der Case der die Neuerungen enthält, er muss vollständig sein und darf nicht nur die Änderungen enthalten
-	 * @return String "success"
+	 * @param updatedcase der Case der die Neuerungen enthält, er sollte vollständig sein und darf nicht nur die Änderungen enthalten.
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateCase(Case updatedcase){
 		int id = updatedcase.getCaseID();
@@ -85,7 +84,7 @@ public class CaseDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Falls
 	 * @param Case das anzulegende Case Objekt
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createCase(Case newcase) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -107,7 +106,7 @@ public class CaseDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Falls
 	 * @param caseID die caseID des zu löschenden Cases
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteCase(int caseID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -126,5 +125,4 @@ public class CaseDAO {
 		}
 		return "success";
 	}
-	
 }

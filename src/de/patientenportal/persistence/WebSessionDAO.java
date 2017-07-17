@@ -15,7 +15,7 @@ public class WebSessionDAO  {
 	
 
 	/**
-	 * Anlegen einer Websession, muss noch überarbeitet werden
+	 * Anlegen einer Websession
 	 * @param Websession, die anzulegende Websession
 	 * @return WebSession
 	 * @since Beta 1.2
@@ -30,9 +30,9 @@ public class WebSessionDAO  {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		try{
-		session.beginTransaction();
-		session.save(websession);
-		session.getTransaction().commit();
+			session.beginTransaction();
+			session.save(websession);
+			session.getTransaction().commit();
 		
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
@@ -97,12 +97,10 @@ public class WebSessionDAO  {
 		return result;
 	}
 	
-
-	
 	/**
 	 * Löschen einer Websession
 	 * @param WebSession, die zu löschende Websession
-	 * @return String "success"
+	 * @return String <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteWS(WebSession ws){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -124,7 +122,7 @@ public class WebSessionDAO  {
 	/**
 	 * Ändern einer Websession
 	 * @param WebSession, die zu löschende Websession
-	 * @return String "success"
+	 * @return String <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */	
 	public static String updateWS(WebSession ws){
 		Session session = HibernateUtil.getSessionFactory().openSession();

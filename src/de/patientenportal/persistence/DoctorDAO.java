@@ -22,10 +22,9 @@ public class DoctorDAO {
 		doctor = (Doctor)session.get(Doctor.class, doctorID);
 		
 			if (doctor != null){
-
 				Hibernate.initialize(doctor.getOffice());
-
 			}
+			
 		session.getTransaction().commit();
 	
 		} catch (Exception e) {
@@ -38,25 +37,22 @@ public class DoctorDAO {
 		return doctor;
 	}	
 	
-	// Doktordaten ändern
 	/**
 	 * Datenbankzugriff zum: Ändern eines Doctors
 	 * @param Doctor der geänderte Doctor
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateDoctor(Doctor updateddoctor){
 		int id = updateddoctor.getDoctorID();
 		if(id!=0){
 					
 			String specialization = updateddoctor.getSpecialization();
-			//Office office = updateddoctor.getOffice();								//geändert, ab jetzt über Office
 		
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			try{
 			session.beginTransaction();				
 			Doctor doctortoupdate = session.get(Doctor.class, id);
 				doctortoupdate.setSpecialization(specialization);
-				//doctortoupdate.setOffice(office);
 			session.getTransaction().commit();
 			
 			} catch (Exception e) {
@@ -74,7 +70,7 @@ public class DoctorDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Doctors
 	 * @param doctorID des zu löschenden Doctors
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteDoctor(int doctor_id){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -93,5 +89,4 @@ public class DoctorDAO {
 			}
 		return "success";
 	}
-	
 }

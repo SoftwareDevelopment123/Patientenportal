@@ -41,7 +41,7 @@ public class PatientDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern eines Patients
 	 * @param Patient, das vollständige geänderte Patient Objekt
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updatePatient (Patient updatedpatient){
 		int id = updatedpatient.getPatientID();
@@ -76,7 +76,7 @@ public class PatientDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Patients
 	 * @param patientID, des zu löschenden Patient
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deletePatient (int patientID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -95,5 +95,4 @@ public class PatientDAO {
 		}
 		return "success";
 	}	
-
 }

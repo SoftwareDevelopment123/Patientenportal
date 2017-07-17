@@ -12,11 +12,17 @@ import org.hibernate.Session;
 
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.Case;
+import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.Rights;
 
 public class RightsDAO {
 	
-	// Alle Rechte zu einem Fall ausgeben
+	/**
+	 * Datenbankzugriff zum: Abruf aller Rechte zu einem Fall
+	 * @param <code>int</code> caseID des betroffenen Falls
+	 * @return <code>List Rights</code>
+	 */
 	public static List<Rights> getRights(int caseID){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -30,7 +36,7 @@ public class RightsDAO {
 			
 		List <Rights> result;					
 		try {
-		result = session.createQuery(query).getResultList();
+			result = session.createQuery(query).getResultList();
 		} catch (Exception e) {
 			return null;
 		} finally {
@@ -40,23 +46,30 @@ public class RightsDAO {
 		return result;	
 	}
 
-	// Recht hinzufügen
+	/**
+	 * Datenbankzugriff zum: Erstellen eines Rechts (Eintrag in der DB)
+	 * 
+	 * @param rights - Entity mit dem zu erstellenden Recht <br>
+	 * Parameter : 	<code>int</code> rightID <br>
+					<code>Case</code> pcase <br>
+					<code>Doctor</code> doctor ODER <code>Relative</code> relative <br>
+					<code>boolean</code> rRight <br>
+					<code>boolean</code> wRight <br>
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 */
 	public static String createRight(Rights right){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
-		if (right.getPcase() == null){					// Alternative zu unten
+		if (right.getPcase() == null){
 			return "no case defined";
 		}
 		
 		try {
-		session.beginTransaction();
-		session.save(right);
-		session.getTransaction().commit();
+			session.beginTransaction();
+			session.save(right);
+			session.getTransaction().commit();
 		
-		} /*catch (PropertyValueException e) {			// später implementieren, dass die Datenbank notnull vorraussetzt
-			System.err.println("Error: " + e);
-			return "NotNullError";
-		}*/ catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Error: " + e);
 			return "error";
 		} finally {
@@ -65,12 +78,13 @@ public class RightsDAO {
 		return "success";
 	}
 	
-	/*
-	 * Recht ändern
-	 *  Sinnvollerweise soll nur wRight bearbeitet werden können 
-	 *  Zum Entfernen wird das ganze Recht gelöscht
+	/**
+	 * Datenbankzugriff zum: Ändern eines Rechts <br>
+	 * Sinnvollerweise kann nur das Schreibrecht bearbeitet werden, in anderen Use-Cases sollte ein neues Recht angelegt,
+	 * bzw., dieses gelöscht werden.
+	 * @param rights Entity des betroffenen Rechts
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
- 
 	public static String updateRight(Rights updatedright){
 		int id = updatedright.getRightID();
 		if(id!=0){
@@ -99,7 +113,12 @@ public class RightsDAO {
 		}
 	}
 	
-	// Recht entfernen
+	/**
+	 * Datenbankzugriff zum: Entfernen eines Rechts <br>
+
+	 * @param <code>int</code> rightID des betroffenen Rechts
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 */
 	public static String removeRight(int rightID){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -118,8 +137,14 @@ public class RightsDAO {
 		}
 		return "success";
 	}
-
-	// Prüfen, bei welchen Fällen ich (als Doktor) Leserechte habe
+	
+	/**
+	 * Datenbankzugriff zum: Abruf aller Fälle, bei denen ein Doktor Leserechte hat.<br>
+	 * Da hier oft eine große Menge an Daten abgerufen wird, werden primär nicht benötigte Informationen auf <code>null</code>
+	 * gesetzt und können mit getCase dann vollständig abgerufen werden, falls benötigt.
+	 * @param
+	 * @return <code> List Case </code>
+	 */
 	public static List<Case> getDocRCases(int doctorID){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -145,16 +170,26 @@ public class RightsDAO {
 			Case c = CaseDAO.getCase(it.getPcase().getCaseID());
 			c.setIdoc(null);
 			c.setMedicalDocs(null);
+			c.setIdoc(null);
 			c.setMedication(null);
 			c.setVitaldata(null);
 			cases.add(c);
-			//old
-			//cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
+			
+			/*
+			 *  -- old Version --
+			 * cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
+			 */
 		}
 		return cases;	
 	}
 	
-	// Prüfen, bei welchen Fällen ich (als Verwandter) Leserechte habe
+	/**
+	 * Datenbankzugriff zum: Abruf aller Fälle, bei denen ein Verwandter Leserechte hat. <br>
+	 * Da hier oft eine große Menge an Daten abgerufen wird, werden primär nicht benötigte Informationen auf <code>null</code>
+	 * gesetzt und können mit getCase dann vollständig abgerufen werden, falls benötigt.
+	 * @param
+	 * @return <code> List Case </code>
+	 */
 	public static List<Case> getRelRCases(int relativeID){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -180,50 +215,62 @@ public class RightsDAO {
 			Case c = CaseDAO.getCase(it.getPcase().getCaseID());
 			c.setIdoc(null);
 			c.setMedicalDocs(null);
+			c.setIdoc(null);
 			c.setMedication(null);
 			c.setVitaldata(null);
 			cases.add(c);
-			//old
-			//cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
+			
+			/*
+			 *  -- old Version --
+			 * cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
+			 */
 		}
 		return cases;	
 	}
 	
-	// Prüfen, ob ich (Doctor) beim angegebenen Fall Schreibrechte habe
-		public static boolean checkDocRight(int doctorID, int caseID, Access access){
-				
-			Session session = HibernateUtil.getSessionFactory().openSession();
+	/**
+	 * Datenbankzugriff zum: Prüfen, ob ein Doktor beim gegebenen Fall Lese- oder Schreibrechte hat.
+	 * @param access <code>Access</code> Enum: WriteCase oder ReadCase, je nach Prüfung
+	 * @return <code> boolean</code> true, wenn der Doktor Lese-, bzw. Schreibrechte hat
+	 */
+	public static boolean checkDocRight(int doctorID, int caseID, Access access){
+			
+		Session session = HibernateUtil.getSessionFactory().openSession();
 
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
-				
-			Root<Rights> right = 	query.from(Rights.class);
-										Predicate 	idP =    builder.equal(right.get("doctor"), doctorID);
-										Predicate 	pcaseP = builder.equal(right.get("pcase"), caseID);
-										Predicate 	rightP = null;
-										if (access == Access.WriteCase){
-													rightP = builder.equal(right.get("wRight"), true);}
-										if (access == Access.ReadCase){
-													rightP = builder.equal(right.get("rRight"), true);}
-									query.select(right).where(idP,pcaseP,rightP).distinct(true);
-									
-			Rights result;					
-			try {
-			result = session.createQuery(query).getSingleResult();
-			} catch (NoResultException e) {
-				System.err.println("Error: " + e);
-				return false;
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return false;
-			} finally {
-				session.close();
-			}
-					
-			return result.iswRight();	
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery <Rights> query = builder.createQuery(Rights.class);
+			
+		Root<Rights> right = 	query.from(Rights.class);
+									Predicate 	idP =    builder.equal(right.get("doctor"), doctorID);
+									Predicate 	pcaseP = builder.equal(right.get("pcase"), caseID);
+									Predicate 	rightP = null;
+									if (access == Access.WriteCase){
+												rightP = builder.equal(right.get("wRight"), true);}
+									if (access == Access.ReadCase){
+												rightP = builder.equal(right.get("rRight"), true);}
+								query.select(right).where(idP,pcaseP,rightP).distinct(true);
+								
+		Rights result;					
+		try {
+		result = session.createQuery(query).getSingleResult();
+		} catch (NoResultException e) {
+			System.err.println("Error: " + e);
+			return false;
+		} catch (Exception e) {
+			System.err.println("Error: " + e);
+			return false;
+		} finally {
+			session.close();
 		}
+				
+		return result.iswRight();	
+	}
 
-	// Prüfen, ob ich (Relative) beim angegebenen Fall Schreibrechte habe
+	/**
+	 * Datenbankzugriff zum: Prüfen, ob ein Verwandter beim gegebenen Fall Lese- oder Schreibrechte hat.
+	 * @param access <code>Access</code> Enum: WriteCase oder ReadCase, je nach Prüfung
+	 * @return <code> boolean</code> true, wenn der Verwandter Lese-, bzw. Schreibrechte hat
+	 */
 	public static boolean checkRelRight(int relativeID, int caseID, Access access){
 			
 		Session session = HibernateUtil.getSessionFactory().openSession();

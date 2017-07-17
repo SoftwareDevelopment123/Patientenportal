@@ -8,11 +8,7 @@ public class AddressDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern einer Adresse
 	 * @param updatedaddress Parameter: postalCode, street, number, City
-<<<<<<< HEAD
-	 * @return String "success"
-=======
-	 * @return
->>>>>>> refs/heads/Jascha
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateAddress(Address updatedaddress){
 		int id = updatedaddress.getAddressID();
@@ -50,7 +46,7 @@ public class AddressDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen einer Adresse
 	 * @param addressID from Address to delete 
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteAddress(int addressID){
 		Session session = HibernateUtil.getSessionFactory().openSession();

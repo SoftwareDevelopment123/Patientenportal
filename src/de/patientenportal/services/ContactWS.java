@@ -5,16 +5,15 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-import de.patientenportal.entities.Contact;
+import de.patientenportal.entities.response.Accessor;
 
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface ContactWS {
 
 	@WebMethod
-	public String updateContact		(@WebParam (name="Contact")Contact contact);
+	public String updateContact		(@WebParam (name="Token--Contact")Accessor accessor);
 	
 	@WebMethod
-	public String deleteContact		(@WebParam (name="Contact-ID")int contactID);
-
+	public String deleteContact		(@WebParam (name="Token--ContactID")Accessor accessor);
 }

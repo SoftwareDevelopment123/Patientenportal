@@ -35,7 +35,7 @@ public class VitalDataDAO {
 	/**
 	 * Datenbankzugriff zum: Hinzufügen/Anzulegenden von Vitaldaten
 	 * @param vitalData, der hinzufügenden Vitaldaten
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String add(VitalData vitalData) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -57,7 +57,7 @@ public class VitalDataDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern von Vitaldaten
 	 * @param VitalData, der zu ändernden Vitaldaten
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateVitalData (VitalData updatedVitalData){
 		int id = updatedVitalData.getVitalDataID();
@@ -96,7 +96,7 @@ public class VitalDataDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Vitaldaten
 	 * @param vitalDataID, der zu ändernden Vitaldaten
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteVitalData (int vitalDataID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();

@@ -19,7 +19,7 @@ public class MDocDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Medical-Documents
 	 * @param newMDoc, das anzulegende MedicalDoc
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createMDoc(MedicalDoc newMDoc) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -106,13 +106,13 @@ public class MDocDAO {
 		}
 		else {
 		return "noID";
-	}	
-}
+		}	
+	}
 		
 	/**
 	 * Datenbankzugriff zum: Löschen eines Medical-Documents
 	 * @param medDocID, des zu löschenden Medical-Documents
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 		public static String deleteMedicalDoc(int medDocID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
@@ -159,6 +159,5 @@ public class MDocDAO {
 			}
 
 			return result;	
-		}
-		
+		}	
 }

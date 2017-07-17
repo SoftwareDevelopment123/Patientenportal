@@ -34,6 +34,7 @@ public class UserDAO {
 		}
 		return user;
 	}
+
 	/**
 	 * Datenbankzugriff zum: Aufrufen eines Users mit dem Username
 	 * @param username, des aufzurufenden Users
@@ -68,9 +69,8 @@ public class UserDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern eines Users
 	 * @param User, das vollständige geänderte User Objekt
-	 * @return String "success"
+	 * @return code>String</code> mit Erfolgsmeldung oder Fehler
 	 */	
-	//kann man mit SaveOrUpdate anpassen! Siehe WebSessionDAO!
 	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();
 		if(id!=0){
@@ -89,7 +89,6 @@ public class UserDAO {
 			
 			try{
 			session.beginTransaction();	
-		//	session.saveOrUpdate(updateduser);
 			User usertoupdate = session.get(User.class, id);
 				usertoupdate.setUsername(username);
 				usertoupdate.setPassword(password);
@@ -122,7 +121,7 @@ public class UserDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Users
 	 * @param userID, des zu löschenden Users
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteUser(int userID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -141,5 +140,4 @@ public class UserDAO {
 		}
 		return "success";
 	}
-
 }

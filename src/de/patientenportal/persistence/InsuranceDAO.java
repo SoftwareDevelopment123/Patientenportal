@@ -19,9 +19,11 @@ public class InsuranceDAO {
 		try{
 		session.beginTransaction();		
 		insurance = (Insurance)session.get(Insurance.class, insuranceID);
+		
 			if (insurance != null){
-				Hibernate.initialize(insurance.getPatients());			// LAZY-HIBERNATE-MAGIC
+				Hibernate.initialize(insurance.getPatients());
 			}
+			
 		session.getTransaction().commit();
 	
 		} catch (Exception e) {
@@ -33,10 +35,11 @@ public class InsuranceDAO {
 			
 		return insurance;
 	}	
+
 	/**
 	 * Datenbankzugriff zum: Anlegen einer Insurance
 	 * @param Insurance, die anzulegende Insurance 
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createInsurance(Insurance insurance) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -58,7 +61,7 @@ public class InsuranceDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern einer Insurance
 	 * @param Insurance, die zu ändernde Insurance, diese muss vollständig sein
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateInsurance(Insurance updatedinsurance){
 		int id = updatedinsurance.getInsuranceID();
@@ -87,10 +90,11 @@ public class InsuranceDAO {
 			return "noID";
 		}
 	}
+
 	/**
 	 * Datenbankzugriff zum: Löschen einer Insurance
 	 * @param insuranceID der zu löschenden Insurance
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteInsurance(int insuranceID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -109,5 +113,4 @@ public class InsuranceDAO {
 		}
 		return "success";
 	}
-	
 }

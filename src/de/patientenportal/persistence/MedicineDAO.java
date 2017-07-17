@@ -13,7 +13,7 @@ public class MedicineDAO {
 	/**
 	 * Datenbankzugriff zum: Anlegen einer Medicine
 	 * @param Medicine, die anzulegende Medicine
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createMedicine(Medicine newMedicine) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -60,10 +60,11 @@ public class MedicineDAO {
 		}
 		return medicine;
 	}		
+
 	/**
 	 * Datenbankzugriff zum: Ändern einer Medicine
 	 * @param Medicine, das vollständige geänderte Medicine Objekt
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateMedicine(Medicine updatedmedicine){
 		int id = updatedmedicine.getMedicineID();
@@ -95,10 +96,11 @@ public class MedicineDAO {
 			return "noID";
 		}	
 	}	
+
 	/**
 	 * Datenbankzugriff zum: Löschen einer Medicine
 	 * @param medicineID, der zu löschenden Medicine
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 		public static String deleteMedicine(int medicineID){
 			Session session = HibernateUtil.getSessionFactory().openSession();
@@ -118,6 +120,7 @@ public class MedicineDAO {
 			}
 			return "success";
 		}
+
 		/**
 		 * Datenbankzugriff zum: Aufrufen aller Medicine Objekte
 		 * @param 
@@ -140,6 +143,5 @@ public class MedicineDAO {
 				session.close();
 			}
 		    return meds;
-		}
-		
+		}	
 }

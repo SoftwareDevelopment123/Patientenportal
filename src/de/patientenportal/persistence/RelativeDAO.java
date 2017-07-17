@@ -39,7 +39,7 @@ public class RelativeDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern eines Relatives
 	 * @param Relative, das vollständige geänderte Relative Objekt
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */	
 	public static String updateRelative (Relative updatedrelative){
 		int id = updatedrelative.getRelativeID();
@@ -71,7 +71,7 @@ public class RelativeDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Relatives
 	 * @param relativeID, des zu löschenden Relatives
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteRelative (int relativeID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -90,5 +90,4 @@ public class RelativeDAO {
 		}
 		return "success";
 	}
-
 }

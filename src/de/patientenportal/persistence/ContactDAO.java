@@ -4,10 +4,11 @@ import org.hibernate.Session;
 import de.patientenportal.entities.Contact;
 
 public class ContactDAO {
+	
 	/**
 	 * Datenbankzugriff zum: Ändern eines Kontakts
 	 * @param Contact der geänderte Contact
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateContact(Contact updatedcontact){
 		int id = updatedcontact.getContactID();
@@ -44,7 +45,7 @@ public class ContactDAO {
 	/**
 	 * Datenbankzugriff zum: Löschen eines Kontakts
 	 * @param contactID
-	 * @return String "success"
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteContact(int contactID){
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -64,5 +65,4 @@ public class ContactDAO {
 
 		return "success";
 	}
-	
 }
