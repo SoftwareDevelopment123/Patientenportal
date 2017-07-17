@@ -193,7 +193,5 @@ public class MedicationWSImpl implements MedicationWS {
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
 		}
-
 	}
-
 }

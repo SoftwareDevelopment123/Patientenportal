@@ -24,5 +24,4 @@ public interface OfficeWS {
 	
 	@WebMethod
 	public String updateOffice	(@WebParam (name="Office") Accessor accessor);
-
 }

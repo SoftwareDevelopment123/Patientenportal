@@ -8,8 +8,6 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.MessageContext;
 
-
-
 public class HTTPHeaderService {
 
 	private static final String WS_URL = "http://localhost:8080/authentication?wsdl";

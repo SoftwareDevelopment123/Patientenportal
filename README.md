@@ -146,6 +146,11 @@ bis 16.07. (alle)
 
 - Superklasse für die Dokumente wieder einfügen?
 
+- inDoc und medDoc - WS (inkl. Impl.) überprüfen
+	- inDocWS ist noch leer - dementsprechend müsste hier auch der Test noch fehlen
+	- in beiden Impl fehlt noch der tokenRoleAccessCheck (sollte Jan machen, er weiß genau was da stehen muss)
+	
+
 - Token- und Role-Check (soweit nötig) in die Methoden einfüge
 	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
 	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen
