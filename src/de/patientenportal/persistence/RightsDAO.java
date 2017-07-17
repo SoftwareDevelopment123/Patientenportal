@@ -7,13 +7,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-//import org.hibernate.PropertyValueException;
 import org.hibernate.Session;
-
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.Case;
-import de.patientenportal.entities.Doctor;
-import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.Rights;
 
 public class RightsDAO {
