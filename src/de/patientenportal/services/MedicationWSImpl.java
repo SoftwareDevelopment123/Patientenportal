@@ -153,6 +153,7 @@ public class MedicationWSImpl implements MedicationWS {
 		if (id == 0) 		{System.err.println("Id null"); 		return "Keine ID angegeben";}
 		
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		accessor.setObject(MedicationDAO.getMedication(id).getPcase().getCaseID());
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 		if (authResponse != null) {
 			System.err.println(authResponse);
