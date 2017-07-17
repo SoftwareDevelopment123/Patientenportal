@@ -212,47 +212,73 @@ public class DBCreator {
 		}
 		
 		//XXX
-				URL urlMedicine = new URL("http://localhost:8080/medicine?wsdl");
-				QName qnameMed = new QName("http://services.patientenportal.de/", "MedicineWSImplService");
-				Service serviceMed = Service.create(urlMedicine, qnameMed);
-				MedicineWS medws = serviceMed.getPort(MedicineWS.class);
+		//Medikamente + Medikation
+			URL urlMedicine = new URL("http://localhost:8080/medicine?wsdl");
+			QName qnameMed = new QName("http://services.patientenportal.de/", "MedicineWSImplService");
+			Service serviceMed = Service.create(urlMedicine, qnameMed);
+			MedicineWS medws = serviceMed.getPort(MedicineWS.class);
+			
+			URL urlMedication = new URL("http://localhost:8080/medication?wsdl");
+			QName qnameMedica = new QName("http://services.patientenportal.de/", "MedicationWSImplService");
+			Service serviceMedica = Service.create(urlMedication, qnameMedica);
+			MedicationWS medicaws = serviceMedica.getPort(MedicationWS.class);
+			
+			Accessor createMedication = new Accessor(token);
+			Accessor createMedicine = new Accessor(token);
+			System.err.println("Develop Medicine ...");
+			
+			for(int zahl = 1 ; zahl<=6 ; zahl++){
+			Medicine medicine = new Medicine();
+				medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
+				medicine.setActiveIngredient("Krankium"+zahl);
+				medicine.setName("InnovativerName"+zahl);
+				createMedicine.setObject(medicine);
+				medws.createMedicine(createMedicine);
+				System.out.println("Medicines added: " + medicine.getName());
 				
-				URL urlMedication = new URL("http://localhost:8080/medication?wsdl");
-				QName qnameMedica = new QName("http://services.patientenportal.de/", "MedicationWSImplService");
-				Service serviceMedica = Service.create(urlMedication, qnameMedica);
-				MedicationWS medicaws = serviceMedica.getPort(MedicationWS.class);
 				
-				Accessor createMedication = new Accessor(token);
-				Accessor createMedicine = new Accessor(token);
-				System.err.println("Develop Medicine ...");
-				
-				for(int zahl = 1 ; zahl<=6 ; zahl++){
-				Medicine medicine = new Medicine();
-					medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
-					medicine.setActiveIngredient("Krankium"+zahl);
-					medicine.setName("InnovativerName"+zahl);
-					createMedicine.setObject(medicine);
-					medws.createMedicine(createMedicine);
-					System.out.println("Medicines added: " + medicine.getName());
+				for (int zahli = 6; zahli>=1 ; zahli--){
+					Medication medication1 = new Medication();
+					medication1.setDosage("212"+zahl);
+					medication1.setDuration("extremslange Stunden:"+zahl);
+					medication1.setPcase(CaseDAO.getCase(zahl));
+					medication1.setMedicine(MedicineDAO.getMedicine(zahl));
 					
-					
-					for (int zahli = 6; zahli>=1 ; zahli--){
-						Medication medication1 = new Medication();
-						medication1.setDosage("212"+zahl);
-						medication1.setDuration("extremslange Stunden:"+zahl);
-						medication1.setPcase(CaseDAO.getCase(zahl));
-						medication1.setMedicine(MedicineDAO.getMedicine(zahl));
-						
-						createMedication.setObject(medication1);
-						medicaws.createMedication(createMedication);
-						System.out.println("Medicationes added: " + medication1.getDosage());
-					}
-					
+					createMedication.setObject(medication1);
+					medicaws.createMedication(createMedication);
+					System.out.println("Medicationes added: " + medication1.getDosage());
 				}
 				
-					
+			}
 				
-				//XXX	
+		//Vitaldaten
+			URL urlVitalData = new URL("http://localhost:8080/vitaldata?wsdl");
+			QName qnameVD = new QName("http://services.patientenportal.de/", "VitalDataWSImplService");
+			Service serviceVD = Service.create(urlVitalData, qnameVD);
+			VitalDataWS vitaldataws = serviceVD.getPort(VitalDataWS.class);
+			
+			System.err.println("Creating Vitaldata ...");
+			
+			Accessor createVitalData = new Accessor(token);
+			Date timestamp = new Date();
+			
+			for(int j = 1 ; j<=6 ; j++){
+				VitalData vitaldata = new VitalData();
+				
+				vitaldata.setPcase(CaseDAO.getCase(j));
+				
+				for(int j2 = 1; j2<=6; j2++){
+				timestamp = ClientHelper.parseStringtoTimeStamp("07."+j2+".2017 1"+j2+":05");
+				vitaldata.setTimestamp(timestamp);
+				vitaldata.setValue(80.2+j);
+				vitaldata.setVitalDataType(VitalDataType.WEIGHT);
+				
+				createVitalData.setObject(vitaldata);
+				vitaldataws.createVitalData(createVitalData);
+				System.out.println("Vitaldata added: " +vitaldata.getTimestamp());
+				}
+			}
+			//XXX	
 		
 		
 		

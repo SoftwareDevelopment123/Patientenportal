@@ -54,6 +54,9 @@ public class WSPublisher {
 		Endpoint.publish(URI + "/medication", new MedicationWSImpl());
 		System.out.println(" Medication-WebService : 			/medication?wsdl");
 		
+		Endpoint.publish(URI + "/vitaldata", new VitalDataWSImpl());
+		System.out.println(" VitalData-WebService : 			/vitaldata?wsdl");
+		
 		} catch (Exception e) {
 			System.err.println("Error - " + e);
 			System.err.println("Shutting down WS (for testing only)...");
