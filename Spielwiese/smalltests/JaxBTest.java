@@ -7,6 +7,7 @@ import javax.xml.bind.Marshaller;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.CaseListResponse;
+import de.patientenportal.entities.response.MedicationListResponse;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.entities.response.RightsListResponse;
 import de.patientenportal.persistence.*;
@@ -100,7 +101,7 @@ public class JaxBTest {
 			
 		marshaller.marshal(response, System.out);*/
 		
-		JAXBContext jc = JAXBContext.newInstance(Medication.class);
+	/*	JAXBContext jc = JAXBContext.newInstance(Medication.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
@@ -113,7 +114,17 @@ public class JaxBTest {
 			
 		marshaller.marshal(m, System.out);
         
-		MedicationDAO.createMedication(m);
+		MedicationDAO.createMedication(m);*/
+		
+		JAXBContext jc = JAXBContext.newInstance(MedicationListResponse.class);
+        Marshaller marshaller = jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		
+		List<Medication> mlist =  CaseDAO.getCase(1).getMedication();
+		MedicationListResponse med = new MedicationListResponse();
+		med.setResponseList(mlist);
+		
+		marshaller.marshal(med, System.out);
 		
         System.exit(0);
         

@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -81,6 +82,7 @@ public class Medication {
 
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="case_fk", nullable=false)
+	@XmlTransient
 	public Case getPcase() {
 		return pcase;
 	}
