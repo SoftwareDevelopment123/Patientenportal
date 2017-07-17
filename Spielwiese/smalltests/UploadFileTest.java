@@ -15,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.mysql.jdbc.log.Log;
 
+@SuppressWarnings("unused")
 public class UploadFileTest {
 
 	

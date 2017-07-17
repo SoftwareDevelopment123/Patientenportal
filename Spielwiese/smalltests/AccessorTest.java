@@ -2,14 +2,15 @@ package smalltests;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.response.Accessor;
 
+@SuppressWarnings("unused")
 public class AccessorTest {
 
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws Exception {
 		
 		/*User user = new User();

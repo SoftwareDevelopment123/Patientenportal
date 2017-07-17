@@ -19,6 +19,7 @@ import de.patientenportal.services.HTTPHeaderService;
 import de.patientenportal.services.PatientWS;
 import de.patientenportal.services.RelativeWS;
 
+@SuppressWarnings("unused")
 public class TestFehlerbehebung {
 
 	public static void main(String[] args) throws MalformedURLException {

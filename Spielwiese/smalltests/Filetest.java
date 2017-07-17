@@ -17,6 +17,7 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import de.patientenportal.entities.MedicalDoc;
 
+@SuppressWarnings("unused")
 public class Filetest {
 	
 	public static void main(String[] args) {
