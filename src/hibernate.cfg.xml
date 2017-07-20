@@ -22,7 +22,7 @@
   <!-- Auto-Tabelle ggf. wieder mit reinnehmen - sobald z.b. neue Entities hinzukommen  -->
 
   <!-- <property name="hbm2ddl.auto">create</property> -->
-
+	<property name="hbm2ddl.auto">create</property>
   <!-- Auflistung der gemappten Klassen -->
   <mapping class="de.patientenportal.entities.User"/>
   <mapping class="de.patientenportal.entities.Doctor"/>
