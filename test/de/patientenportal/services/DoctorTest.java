@@ -5,8 +5,14 @@ import java.net.URL;
 import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import de.patienportal.demo.ClientHelper;
+import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.DoctorListResponse;
@@ -15,6 +21,33 @@ import de.patientenportal.persistence.DoctorDAO;
 
 public class DoctorTest {
 
+private String token;
+
+	@Before
+	public void login() throws MalformedURLException{
+		String username = "user10";
+		String password = "pass10";
+		
+		URL url = new URL("http://localhost:8080/authentication?wsdl");
+        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+        Service service = Service.create(url, qname);
+        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+        
+        ClientHelper.putUsernamePassword(username, password, authWS);
+        authWS.authenticateUser(ActiveRole.Doctor);
+        token = authWS.getSessionToken(username);
+	}
+	
+	@After
+	public void logout() throws MalformedURLException{
+		URL url = new URL("http://localhost:8080/authentication?wsdl");
+        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+        Service service = Service.create(url, qname);
+        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+		
+        authWS.logout(token);
+	}
+	
 	@Test
 	public void main () throws MalformedURLException{
 	
@@ -29,6 +62,8 @@ public class DoctorTest {
 	Doctor comparedoc = DoctorDAO.getDoctor(1);
 	Accessor getdoc = new Accessor();
 		getdoc.setObject(1);
+		getdoc.setToken(token);
+		
 	Doctor doctor = doc.getDoctor(getdoc);
 
 		Assert.assertEquals(comparedoc.getDoctorID() 			, doctor.getDoctorID());
@@ -39,6 +74,7 @@ public class DoctorTest {
 	List<Doctor> compareDocList = CaseDAO.getCase(3).getDoctors();
 	Accessor getDocList = new Accessor();
 	getDocList.setObject(3);
+	getDocList.setToken(token);
 	DoctorListResponse docListResponse = doc.getDoctorsByC(getDocList);
 	List<Doctor> docList = docListResponse.getResponseList();
 	
