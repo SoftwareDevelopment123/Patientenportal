@@ -20,6 +20,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		RightsTest.class,					// x
 		AccessTest.class})					// x				
 
-public class TestSuite {
+public class TestSuitePersistence {
 
 }
