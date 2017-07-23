@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.patienportal.demo.ClientHelper;
+import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.PatientListResponse;

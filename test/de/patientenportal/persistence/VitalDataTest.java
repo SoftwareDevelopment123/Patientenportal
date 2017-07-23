@@ -3,7 +3,7 @@ package de.patientenportal.persistence;
 import org.junit.Test;
 import org.junit.Assert;
 
-import de.patienportal.demo.ClientHelper;
+import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;

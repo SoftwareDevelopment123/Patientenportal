@@ -7,7 +7,7 @@ import java.util.Date;
 
 import org.junit.Assert;
 
-import de.patienportal.demo.ClientHelper;
+import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;

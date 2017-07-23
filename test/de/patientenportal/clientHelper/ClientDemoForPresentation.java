@@ -1,4 +1,4 @@
-package de.patienportal.demo;
+package de.patientenportal.clientHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;

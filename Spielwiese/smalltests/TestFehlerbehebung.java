@@ -8,7 +8,7 @@ import javax.swing.plaf.synth.SynthPasswordFieldUI;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-import de.patienportal.demo.ClientHelper;
+import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;

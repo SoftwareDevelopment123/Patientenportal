@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import de.patienportal.demo.ClientHelper;
+import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
