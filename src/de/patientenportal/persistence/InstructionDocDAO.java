@@ -124,7 +124,6 @@ public class InstructionDocDAO {
 
 	/**
 	 * Datenbankzugriff zum: Aufrufen aller Instruction-Documents
-	 * @param 
 	 * @return  <code>List (InstructionDoc)</code> , alle InstructionDocuments
 	 */
 	@SuppressWarnings("unchecked")

@@ -20,7 +20,7 @@ public class AuthenticationTest {
 	//public static void main(String[] args) throws Exception {
 	   
 		//Vor Test:
-/*	@Before
+	@Before
 	public void setUp(){
 		User neu = new User();
 		
@@ -37,7 +37,7 @@ public class AuthenticationTest {
 		neu.setPatient(patient);
 		
 		RegistrationDAO.createUser(neu);
-	}*/
+	}
 		
 	
 	//eigentlicher Test

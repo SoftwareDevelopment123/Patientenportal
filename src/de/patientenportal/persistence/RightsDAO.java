@@ -138,7 +138,7 @@ public class RightsDAO {
 	 * Datenbankzugriff zum: Abruf aller Fälle, bei denen ein Doktor Leserechte hat.<br>
 	 * Da hier oft eine große Menge an Daten abgerufen wird, werden primär nicht benötigte Informationen auf <code>null</code>
 	 * gesetzt und können mit getCase dann vollständig abgerufen werden, falls benötigt.
-	 * @param
+	 * @param doctorID
 	 * @return <code> List Case </code>
 	 */
 	public static List<Case> getDocRCases(int doctorID){
@@ -183,7 +183,7 @@ public class RightsDAO {
 	 * Datenbankzugriff zum: Abruf aller Fälle, bei denen ein Verwandter Leserechte hat. <br>
 	 * Da hier oft eine große Menge an Daten abgerufen wird, werden primär nicht benötigte Informationen auf <code>null</code>
 	 * gesetzt und können mit getCase dann vollständig abgerufen werden, falls benötigt.
-	 * @param
+	 * @param relativeID
 	 * @return <code> List Case </code>
 	 */
 	public static List<Case> getRelRCases(int relativeID){

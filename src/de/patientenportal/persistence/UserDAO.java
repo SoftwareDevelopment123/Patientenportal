@@ -69,7 +69,7 @@ public class UserDAO {
 	/**
 	 * Datenbankzugriff zum: Ändern eines Users
 	 * @param User, das vollständige geänderte User Objekt
-	 * @return code>String</code> mit Erfolgsmeldung oder Fehler
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */	
 	public static String updateUser(User updateduser){
 		int id = updateduser.getUserId();

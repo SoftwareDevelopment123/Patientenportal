@@ -135,7 +135,7 @@ public class MDocDAO {
 	/**
 	* Datenbankzugriff zum: Aufrufen meherer Medical-Documents anhand einer Doctor ID
 	* @param doctorID, des Arztes
-	* @return List<MedicalDoc>
+	* @return List MedicalDoc
 	*/
 		public static List<MedicalDoc> getMDocs(int doctorID){
 			

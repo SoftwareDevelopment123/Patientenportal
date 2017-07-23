@@ -123,8 +123,7 @@ public class MedicineDAO {
 
 		/**
 		 * Datenbankzugriff zum: Aufrufen aller Medicine Objekte
-		 * @param 
-		 * @return List<Medicine>
+		 * @return List Medicine
 		 */
 		@SuppressWarnings("unchecked")
 		public static List<Medicine> getAllMedicine(){
