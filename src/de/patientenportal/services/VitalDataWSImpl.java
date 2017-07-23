@@ -19,6 +19,16 @@ import de.patientenportal.persistence.VitalDataDAO;
 @WebService (endpointInterface = "de.patientenportal.services.VitalDataWS")
 public class VitalDataWSImpl implements VitalDataWS {
 
+	/**
+	 * <b>Alle einem Behandlungsfall zugeordneten Vitaldaten nach Datentyp abrufen</b><br>
+	 * Über das Token werden zu dem entsprechendem User die Leserechte abgefragt und die einsehbaren VitalDaten angezeigt.<br>
+	 * 
+	 * Zugriffsbeschränkung: keine
+	 * 
+	 * @param accessor mit <code>String</code> token und <code>int</code> caseID
+	 * @param vDataType (HEARTRATE, BLOODPRESSURE, BLOODSUGAR, WEIGHT)
+	 * @return <code>VitalDataListResponse</code> mit den abgefragten Vitaldaten
+	 */
 	@Transactional
 	public VitalDataListResponse getVitalDatabyC(Accessor accessor, VitalDataType vDataType) {
 		VitalDataListResponse response = new VitalDataListResponse();
@@ -57,6 +67,16 @@ public class VitalDataWSImpl implements VitalDataWS {
 		}
 	}
 
+	/**
+	 * <b>Vitaldaten hinzufügen</b><br>
+	 * Über das Token wird überprüft, ob der User über die entsprechenden Schreibrechte verfügt.<br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Doctor, Patient</code>
+	 * 
+	 * @param accessor mit <code>String</code> token und den anzulegenden Vitaldaten
+	 * @param VitalDataType vDataType
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String createVitalData(Accessor accessor) {
 		VitalData vitalData = new VitalData();
@@ -91,6 +111,14 @@ public class VitalDataWSImpl implements VitalDataWS {
 		}
 	}
 
+	/**
+	 * <b>Vitaldaten löschen</b><br>
+	 * Über das token wird sichergestellt, dass nur Daten gelöscht werden können, 
+	 * welche einem Fall mit Schreibrecht zugeordnet sind.<br>
+	 * 
+	 * @param accessor mit <code>String</code> token und <code>int</code> VitalDataID der zu löschenden VitalDaten
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String deleteVitalData(Accessor accessor) {
 		int id;
@@ -118,6 +146,14 @@ public class VitalDataWSImpl implements VitalDataWS {
 		}
 	}
 
+	/**
+	 * <b>Vitaldaten ändern</b><br>
+	 * Über das token wird sichergestellt, dass nur Daten geändert werden können, 
+	 * welche einem Fall mit Schreibrecht zugeordnet sind.<br>
+	 * 
+	 * @param accessor mit <code>String</code> token und der zu ändernden <code>VitalData</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String updateVitalData(Accessor accessor) {
 		VitalData vitalData = new VitalData();

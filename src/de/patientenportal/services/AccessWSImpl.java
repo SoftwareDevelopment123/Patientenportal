@@ -25,7 +25,7 @@ public class AccessWSImpl implements AccessWS {
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor, Relative</code>
 	 * 
-	 * @param Accessor mit <code>String</code> token und <code>boolean</code> status
+	 * @param accessor mit <code>String</code> token und <code>boolean</code> status
 	 * @return <code>CaseListResponse</code> mit allen Fällen mit entsprechendem Status
 	 */
 	@Transactional
@@ -79,7 +79,7 @@ public class AccessWSImpl implements AccessWS {
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor, Relative</code>
 	 * 
-	 * @param Accessor mit <code>String</code> token und <code>int</code> patientID
+	 * @param accessor mit <code>String</code> token und <code>int</code> patientID
 	 * @return <code>CaseListResponse</code> mit allen Fällen mit entsprechendem Status
 	 */
 	@Transactional
@@ -135,7 +135,7 @@ public class AccessWSImpl implements AccessWS {
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor, Relative</code>
 	 * 
-	 * @param Accessor mit <code>String</code> token und <code>int</code> caseID
+	 * @param accessor mit <code>String</code> token und <code>int</code> caseID
 	 * @return <code>boolean</code>
 	 */
 	@Transactional

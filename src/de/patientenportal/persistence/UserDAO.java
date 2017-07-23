@@ -120,7 +120,7 @@ public class UserDAO {
 	
 	/**
 	 * Datenbankzugriff zum: Löschen eines Users
-	 * @param userID, des zu löschenden Users
+	 * @param userID - des zu löschenden Users
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String deleteUser(int userID){

@@ -11,12 +11,14 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import de.patientenportal.entities.WebSession;
 
+
 public class WebSessionDAO  {
 	
 
 	/**
-	 * Anlegen einer Websession
-	 * @param Websession, die anzulegende Websession
+	 * Datenbankzugriff zum: Anlegen einer Websession.
+	 *
+	 * @param websession the websession
 	 * @return WebSession
 	 * @since Beta 1.2
 	 */
@@ -43,6 +45,11 @@ public class WebSessionDAO  {
 		return ws;
 		}	
 	
+	/**
+	 * Datenbankzugriff zum: Abrufen der abgelaufenen Websessions.
+	 *
+	 * @return abgelaufene Websessions
+	 */
 	public static List<WebSession> getExpiredWebSessions(){
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -70,6 +77,12 @@ public class WebSessionDAO  {
 		return result;
 	}
 		
+	/**
+	 * Datenbankzugriff zum: Abrufen der Websessions über einen Token.
+	 *
+	 * @param token
+	 * @return Websessions
+	 */
 	public static List<WebSession> getWebSessionByToken(String token){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -98,16 +111,17 @@ public class WebSessionDAO  {
 	}
 	
 	/**
-	 * Löschen einer Websession
-	 * @param WebSession, die zu löschende Websession
+	 * Datenbankzugriff zum: Löschen einer Websession.
+	 *
+	 * @param websession
 	 * @return String <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
-	public static String deleteWS(WebSession ws){
+	public static String deleteWS(WebSession websession){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try{
 		session.beginTransaction();
-		session.delete(ws);
+		session.delete(websession);
 		session.getTransaction().commit();
 		
 		} catch (Exception e) {
@@ -120,16 +134,17 @@ public class WebSessionDAO  {
 	}
 	
 	/**
-	 * Ändern einer Websession
-	 * @param WebSession, die zu löschende Websession
+	 * Datenbankzugriff zum: Ändern einer Websession.
+	 *
+	 * @param websession
 	 * @return String <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */	
-	public static String updateWS(WebSession ws){
+	public static String updateWS(WebSession websession){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try{
 		session.beginTransaction();				
-		session.saveOrUpdate(ws);
+		session.saveOrUpdate(websession);
 		session.getTransaction().commit();
 		
 		} catch (Exception e) {

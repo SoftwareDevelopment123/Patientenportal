@@ -24,6 +24,13 @@ import de.patientenportal.persistence.UserDAO;
 @WebService (endpointInterface = "de.patientenportal.services.MedicationWS")
 public class MedicationWSImpl implements MedicationWS {
 
+	/**
+	 * <b>Einem Behandlungsfall zugeordnete Medikation abrufen</b><br>
+	 * Über das Token wird überprüft, ob der User über die entsprechenden Leserechte verfügt.<br>
+	 * 
+	 * @param accessor mit <code>String</code> token und <code>int</code> caseID
+	 * @return <code>MedicationListResponse</code> mit der dem Fall zugeordneten Medikation
+	 */
 	@Transactional
 	public MedicationListResponse getMedicationbyC(Accessor accessor) {
 		MedicationListResponse response = new MedicationListResponse();
@@ -61,6 +68,15 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 	}
 
+	/**
+	 * <b>Die gesamte, einem Patienten zugeordnete, Medikation abrufen</b><br>
+	 * Über das Token wird überprüft, ob der User über die entsprechenden Leserechte verfügt.<br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Patient</code>
+	 *  
+	 * @param accessor mit <code>String</code> token 
+	 * @return <code>MedicationListResponse</code> mit der dem Patienten zugeordneten Medikation
+	 */
 	@Transactional
 	public MedicationListResponse getMedicationbyP(Accessor accessor) {
 		MedicationListResponse response = new MedicationListResponse();
@@ -100,6 +116,15 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 	}
 	
+	/**
+	 * <b>Medikation hinzufügen</b><br>
+	 * Über das Token wird überprüft, ob der Doktor über die entsprechenden Schreibrechte verfügt.<br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Doctor</code>
+	 * 
+	 * @param accessor mit <code>String</code> token und den anzulegenden Medikation
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String createMedication(Accessor accessor) {
 		Medication medication = new Medication();
@@ -139,6 +164,15 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 	}
 
+	/**
+	 * <b>Medikation löschen</b><br>
+	 * Über das Token wird überprüft, ob der Doktor über die entsprechenden Schreibrechte verfügt.<br>
+	 *
+	 * Zugriffsbeschränkung: <code>Doctor</code>
+	 * 
+	 * @param accessor mit <code>String</code> token und <code>int</code> MedicationID der zu löschenden Medikation.
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String deleteMedication(Accessor accessor) {
 		int id;
@@ -168,6 +202,15 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 	}
 
+	/**
+	 * <b>Medikation ändern</b><br>
+	 * Über das Token wird überprüft, ob der Doktor über die entsprechenden Schreibrechte verfügt.<br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Doctor</code> 
+	 * 
+	 * @param accessor mit <code>String</code> token und der zu ändernden <code>Medication</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String updateMedication(Accessor accessor) {
 		Medication medication = new Medication();

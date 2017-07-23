@@ -16,7 +16,7 @@ public class RightsDAO {
 	
 	/**
 	 * Datenbankzugriff zum: Abruf aller Rechte zu einem Fall
-	 * @param <code>int</code> caseID des betroffenen Falls
+	 * @param  caseID des betroffenen Falls
 	 * @return <code>List Rights</code>
 	 */
 	public static List<Rights> getRights(int caseID){

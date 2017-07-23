@@ -20,7 +20,7 @@ public class AddressWSImpl implements AddressWS {
 	 * <b>Adressdaten ändern</b><br>
 	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden können.<br>
 	 * 
-	 * @param Accessor mit <code>String</code> token und der zu ändernden <code>Address</code>
+	 * @param accessor mit <code>String</code> token und der zu ändernden <code>Address</code>
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
 	 */
 	@Transactional
