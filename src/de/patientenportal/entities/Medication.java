@@ -73,6 +73,7 @@ public class Medication {
 
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="doctor_fk", nullable=false)
+	@XmlTransient
 	public Doctor getPrescribedBy() {
 		return prescribedBy;
 	}
@@ -82,7 +83,7 @@ public class Medication {
 
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="case_fk", nullable=false)
-	@XmlTransient
+	//@XmlTransient
 	public Case getPcase() {
 		return pcase;
 	}

@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
+import org.junit.Test;
+
 import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.*;
 import de.patientenportal.entities.response.Accessor;
@@ -16,8 +19,8 @@ import de.patientenportal.persistence.*;
 
 public class DBCreator {
 
-
-	public static void main(String[] args) throws MalformedURLException, ParseException {
+	@Test
+	public void createDatabase() throws ParseException, MalformedURLException{// main(String[] args) throws MalformedURLException, ParseException {
 
 		
 		System.out.println("Creating DB-Entries ...");
@@ -237,17 +240,18 @@ public class DBCreator {
 				System.out.println("Medicines added: " + medicine.getName());
 				
 				
-			/*	for (int zahli = 6; zahli>=1 ; zahli--){
+			//	for (int zahli = 6; zahli>=1 ; zahli--){
 					Medication medication1 = new Medication();
 					medication1.setDosage("212"+zahl);
-					medication1.setDuration("extremslange Stunden:"+zahl);
+					medication1.setDuration("extremslange Stunden:"+zahl);			
 					medication1.setPcase(CaseDAO.getCase(zahl));
 					medication1.setMedicine(MedicineDAO.getMedicine(zahl));
-					
+					medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
 					createMedication.setObject(medication1);
+					
 					medicaws.createMedication(createMedication);
 					System.out.println("Medicationes added: " + medication1.getDosage());
-				}*/
+			//	}
 				
 			}
 				

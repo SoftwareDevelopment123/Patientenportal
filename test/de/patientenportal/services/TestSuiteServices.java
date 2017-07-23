@@ -5,11 +5,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 
-
-
 @RunWith(Suite.class)
 @SuiteClasses({
-		AccessWSTest.class,				// x
+		AccessWSTest.class,				
 		AuthenticationTest.class,
 		CaseWSTest.class,
 		OfficeWSTest.class,
@@ -17,10 +15,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		VitalDataWSTest.class,
 		DoctorTest.class,
 		RightsWSTest.class,
-
-		
-		
-		})					// x				
+		//MedicationWSTest.class,
+		})								
 
 
 public class TestSuiteServices {

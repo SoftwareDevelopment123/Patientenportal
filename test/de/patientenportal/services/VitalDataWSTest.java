@@ -70,11 +70,6 @@ private String token;
 		
 		int i = 0;
 		for (VitalData vd : compareVDList){
-			System.out.println(compareVDList.size());
-			System.out.println(vd.getVitalDataID());
-			System.out.println(ergebnis.get(i).getVitalDataID());
-			System.out.println(vd.getVitalDataType());
-			
 			Assert.assertEquals(vd.getVitalDataID()		, ergebnis.get(i).getVitalDataID());
 			Assert.assertEquals(vd.getValue()			, ergebnis.get(i).getValue());
 			Assert.assertEquals(vd.getVitalDataType()	, ergebnis.get(i).getVitalDataType());

@@ -142,7 +142,9 @@ bis 16.07. (alle)
 	- beim WebSessionDAO sollte Jascha nochmal drüberschauen, ob alles passt (auch JavaDoc)
 	- JavaDoc beim RightsDAO eingefügt (hatte noch gefehlt)
 
+
 ## To-Do
+- Problem mit MedicationWSImpl beheben: Ohne die Annotation @XmlTransient in der Enity Medication läuft der DB-Creator - der Test aber nicht mehr - erst nach wieder reinnehmen + Puplisher Relaunch
 
 - Login-Daten abschneiden oder in eigene Entity (weeschn dor Sischerheid!)
 

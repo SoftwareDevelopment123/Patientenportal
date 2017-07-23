@@ -119,6 +119,7 @@ public class MedicationWSImpl implements MedicationWS {
 	/**
 	 * <b>Medikation hinzufügen</b><br>
 	 * Über das Token wird überprüft, ob der Doktor über die entsprechenden Schreibrechte verfügt.<br>
+	 * Außerdem wird der anlegende Doktor automatisch der Medikation hinzugefügt.
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor</code>
 	 * 
@@ -154,9 +155,12 @@ public class MedicationWSImpl implements MedicationWS {
 			try {
 				User creatinguser = AuthenticationWSImpl.getUserByToken(token);
 				Doctor creatingdoctor = UserDAO.getUser(creatinguser.getUserId()).getDoctor();
-
+				
+				if (creatingdoctor != null){
 				medication.setPrescribedBy(creatingdoctor);
 				response = MedicationDAO.createMedication(medication);
+				}
+				else return "Fehler";
 			} catch (Exception e) {
 				System.err.println("Error: " + e); return "Error: " + e;
 			}
