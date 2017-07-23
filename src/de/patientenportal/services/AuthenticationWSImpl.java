@@ -82,7 +82,8 @@ import de.patientenportal.persistence.WebSessionDAO;
   
 
 	  /**Gibt den aktuellen Token des Users zurück.
-	   * @param
+	   * @param username
+	   * @return token
 	   */
 	  @Override
 	  public String getSessionToken(String username){
@@ -98,7 +99,7 @@ import de.patientenportal.persistence.WebSessionDAO;
 	   * Token-Überprüfung. Abgelaufene Token werden zunächst gelöscht,
 	   * anschließend werden die vom Client übergebenen Token mit der Datenbank abgeglichen.
 	   * Ist der Token noch vorhanden, so wird die zugehörige Websession verlängert und True zurückgegeben.
-	   *@param
+	   *@param token
 	   *@return Boolean
 	   */
 	  @Transactional
@@ -246,7 +247,7 @@ import de.patientenportal.persistence.WebSessionDAO;
 	  /**Diese Methode gibt die aktuelle Rolle des angemeldeten Users zurück.
 	   * 
 	   * @param token
-	   * @return
+	   * @return ActiveRole
 	   */
 	  public static ActiveRole getActiveRole(String token){
 		  List<WebSession> sessions = WebSessionDAO.getWebSessionByToken(token);
@@ -262,7 +263,7 @@ import de.patientenportal.persistence.WebSessionDAO;
    * @param accessor	token und (falls benätigt) CaseID
    * @param expected	erlaubte Rollen für die Methode
    * @param wRightcheck true, wenn für die Methode Schreibrechte zum Fall gefordert sind
-   * @return
+   * @return Fehlermeldung
    */
   
   public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, Access access){
