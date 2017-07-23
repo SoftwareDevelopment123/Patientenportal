@@ -6,6 +6,8 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
@@ -13,7 +15,7 @@ import de.patientenportal.entities.User;
 import de.patientenportal.persistence.RegistrationDAO;
 
 
-@SuppressWarnings("unused")
+
 public class AuthenticationTest {
 	private static final String WS_URL = "http://localhost:8080/authentication?wsdl";
 	
@@ -55,7 +57,7 @@ public class AuthenticationTest {
         AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
        
     	//mit richtigem PW
-        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        ClientHelper.putUsernamePassword(username, password, authWS);
 
      
         System.out.println("Begrüßung: " +authWS.authenticateUser(ActiveRole.Patient));
@@ -70,7 +72,7 @@ public class AuthenticationTest {
         
         //mit falschem Usernamen
         username = "Unbekannt";
-        HTTPHeaderService.putUsernamePassword(username, password,authWS);
+        ClientHelper.putUsernamePassword(username, password,authWS);
         
         System.out.println("Anmeldung mit nicht vorhandenem Username: " +authWS.authenticateUser(ActiveRole.Patient));
         

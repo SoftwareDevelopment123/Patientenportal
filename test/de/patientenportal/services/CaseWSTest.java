@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
 import de.patientenportal.entities.response.Accessor;
@@ -32,7 +34,7 @@ public class CaseWSTest {
         Service service = Service.create(url, qname);
         AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
         
-        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        ClientHelper.putUsernamePassword(username, password, authWS);
         authWS.authenticateUser(ActiveRole.Patient);
         token = authWS.getSessionToken(username);
 	}

@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;
@@ -33,7 +34,7 @@ private String token;
         Service service = Service.create(url, qname);
         AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
         
-        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        ClientHelper.putUsernamePassword(username, password, authWS);
         authWS.authenticateUser(ActiveRole.Patient);
         token = authWS.getSessionToken(username);
 	}

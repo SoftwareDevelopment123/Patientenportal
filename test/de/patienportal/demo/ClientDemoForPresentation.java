@@ -3,7 +3,6 @@ package de.patienportal.demo;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -18,13 +17,11 @@ import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
-import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.UserListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWS;
 import de.patientenportal.services.DoctorWS;
-import de.patientenportal.services.HTTPHeaderService;
 import de.patientenportal.services.RegistrationWS;
 
 public class ClientDemoForPresentation {
@@ -96,7 +93,7 @@ public class ClientDemoForPresentation {
         Service service2 = Service.create(url2, qname2);
         AuthenticationWS authWS = service2.getPort(AuthenticationWS.class);
         
-        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        ClientHelper.putUsernamePassword(username, password, authWS);
         System.out.println(authWS.authenticateUser(ActiveRole.Doctor)); 
         token = authWS.getSessionToken(username);
         System.out.println(token);

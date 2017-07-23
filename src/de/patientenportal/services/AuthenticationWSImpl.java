@@ -23,67 +23,66 @@ import de.patientenportal.persistence.RightsDAO;
 import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.persistence.WebSessionDAO;
 
-  /**Autentifizierungsservice: Überprüft die über den HTTP übergebenen Usernamen und Passwort
-  * und gleicht diese mit den Datenbankeinträgen ab. Bei erfolgreichem Login wird eine Websession 
-  * mit Token erstellt. 
-  *@param Username (über HTTP-Header)
-  *@param Password (über HTTP-Header)
-  *@return Begrüßung/ Information als <code>String</code>  und Token
-  */
+  /**
+   * Autentifizierungsservice: Stellt sämtliche 
+   * für die Authentifizierungs- und Authorisierungprozesse benötigeten Methoden bereit
+   */
   @WebService(endpointInterface = "de.patientenportal.services.AuthenticationWS")
   public class AuthenticationWSImpl implements AuthenticationWS {
-
 
   @Resource
   static WebServiceContext wsctx;
 
-
-  /**Login: Gleicht Username und Passwort mit der Datenbank ab. Außerdem wird überprüft, 
-   * ob der User auch über die angeforderte Rolle einnehmen darf. 
-   * Bei erfolgreichem Login wird eine Begrüßung zurück gegeben.
-   */
-  @SuppressWarnings("rawtypes")
-  @Transactional
-  public String authenticateUser(ActiveRole activeRole){ //(String username, String password) {
+	  /**
+	   * <b>Benutzer-Authentifizierung mit gewünschter Benutzer-Rolle</b><br>
+	   * Gleicht den über den HTTP-Header übermittelten Username, sowie das Passwort mit der Datenbank ab. 
+	   * Außerdem wird überprüft, ob der User auch über die angeforderte Benutzer-Rolle einnehmen darf. 
+	   *
+	   * @return <code>String</code> response mit Begrüßung oder Fehlermeldung
+	   */
+	  @SuppressWarnings("rawtypes")
+	  @Transactional
+	  public String authenticateUser(ActiveRole activeRole){
+		
+		MessageContext mctx = wsctx.getMessageContext();
+		
+		//Auslesen der HTTP-Header
+	    Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
+	    List userList = (List) http_headers.get("Username");
+	    List passList = (List) http_headers.get("Password");
 	
-	MessageContext mctx = wsctx.getMessageContext();
-	
-	//get detail from request headers
-    Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
-    List userList = (List) http_headers.get("Username");
-    List passList = (List) http_headers.get("Password");
-
-    String username = "";
-    String password = "";
-    
-    if(userList!=null){
-    	//get username
-    	username = userList.get(0).toString();
-    }	
-    if(passList!=null){
-    	//get password
-    	password = passList.get(0).toString();
-    }
-    //User und Passwort-Überprüfung
-    if (checkUsernamePassword(username, password) == true){
-    	if((UserDAO.getUserByUsername(username).getPatient() != null && activeRole == ActiveRole.Patient)||
-    	   (UserDAO.getUserByUsername(username).getDoctor() != null	&& activeRole == ActiveRole.Doctor)||
-    	   (UserDAO.getUserByUsername(username).getRelative() != null && activeRole == ActiveRole.Relative))
-    	
-    		//if(UserDAO.getUserByUsername(username).getWebSession()== null){
-    		createSessionToken(UserDAO.getUserByUsername(username), activeRole);
-    		//}
-    	else{ return "Keine Berechtigung für die gewünschte Rolle";}
-    	return getGreeting(username);
-    	
-    }
-    return "Benutzer nicht vorhanden oder Passwort falsch! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!";
-  }
+	    String username = "";
+	    String password = "";
+	    
+	    if(userList!=null){
+	    	//get username
+	    	username = userList.get(0).toString();
+	    }	
+	    if(passList!=null){
+	    	//get password
+	    	password = passList.get(0).toString();
+	    }
+	    //User und Passwort-Überprüfung
+	    if (checkUsernamePassword(username, password) == true){
+	    	if((UserDAO.getUserByUsername(username).getPatient() != null && activeRole == ActiveRole.Patient)||
+	    	   (UserDAO.getUserByUsername(username).getDoctor() != null	&& activeRole == ActiveRole.Doctor)||
+	    	   (UserDAO.getUserByUsername(username).getRelative() != null && activeRole == ActiveRole.Relative))
+	    	
+	    		//if(UserDAO.getUserByUsername(username).getWebSession()== null){
+	    		createSessionToken(UserDAO.getUserByUsername(username), activeRole);
+	    		//}
+	    	else{ return "Keine Berechtigung für die gewünschte Rolle";}
+	    	return getGreeting(username);
+	    	
+	    }
+	    return "Benutzer nicht vorhanden oder Passwort falsch! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!";
+	  }
   
-
-	  /**Gibt den aktuellen Token des Users zurück.
+	  /**
+	   * <b>Gibt den aktuellen Token des Users zurück</b><br>
+	   * 
 	   * @param username
-	   * @return token
+	   * @return <code>String</code> token oder Fehlermeldung
 	   */
 	  @Override
 	  public String getSessionToken(String username){
@@ -96,9 +95,11 @@ import de.patientenportal.persistence.WebSessionDAO;
 	  }
   
 	  /**
-	   * Token-Überprüfung. Abgelaufene Token werden zunächst gelöscht,
-	   * anschließend werden die vom Client übergebenen Token mit der Datenbank abgeglichen.
+	   * <b>Token-Überprüfung</b><br>
+	   * Abgelaufene Token werden zunächst gelöscht,
+	   * anschließend wird der vom Client übergebene Token mit der Datenbank abgeglichen.
 	   * Ist der Token noch vorhanden, so wird die zugehörige Websession verlängert und True zurückgegeben.
+	   *
 	   *@param token
 	   *@return Boolean
 	   */
@@ -106,13 +107,18 @@ import de.patientenportal.persistence.WebSessionDAO;
 	  public boolean authenticateToken(String token){	
 		  deleteExpiredWebSession();
 		  List<WebSession> sessions = WebSessionDAO.getWebSessionByToken(token);
-		if (sessions.size() != 1) return false; //throw new HTTPException(401);
+		if (sessions.size() != 1) return false; 
 		extendWebSession(sessions.get(0));
 		return true;
 	  }
 	  
-	  
-	  
+	  /**
+	   * <b>Userabruf über Token</b><br>
+	   * Gibt den Besitzer des Tokens zurück.
+	   * 
+	   *@param token
+	   *@return User
+	   */
 	  @Transactional
 	  public static User getUserByToken(String token) {
 		List<WebSession> sessions = WebSessionDAO.getWebSessionByToken(token);
@@ -120,6 +126,13 @@ import de.patientenportal.persistence.WebSessionDAO;
 		return sessions.get(0).getUser();
 	  } 
 	  
+	  /**
+	   * <b>Logout</b><br>
+	   * Meldet den User über den Token ab, indem die entsprechende WebSession des Users gelöscht wird.
+	   * 
+	   *@param token
+	   * @return <code>String</code> response mit Erfolgsmeldung oder Fehlermeldung
+	   */
 	  @Transactional
 	  public String logout(String token){
 		List<WebSession> sessions = WebSessionDAO.getWebSessionByToken(token);
@@ -129,14 +142,10 @@ import de.patientenportal.persistence.WebSessionDAO;
 	  }
 
 	  //Alle benötigten privaten Methoden:  
-
   
-  //Alle benötigten Methoden:  
-  
-  //Gleicht Username und Passwort mit der Datenbank ab und erstellt bei Übereinstimmung
-  //einen Token. Dieser wird mit zurückgegeben --> anpassen!
-  
-	  /**Gleicht Username und Passwort mit der Datenbank ab.
+	  /**
+	   * <b>Passwortüberprüfung</b><br>
+	   * Gleicht Username und Passwort mit der Datenbank ab.
 	   * 
 	   * @param username
 	   * @param password
@@ -153,12 +162,14 @@ import de.patientenportal.persistence.WebSessionDAO;
 	  }
 
     
-	  /**Gibt je nach Geschlecht des Users die Begrüßung "Herzlich willkommen Herr/Frau..." zurück.
-	  * 
-	  * @param username Benutzername
-	  * @return Begrüßung
-	  * 
-	  */
+	  /**
+	   * <b>Begrüßung</b><br>
+	   * Gibt je nach Geschlecht des Users die Begrüßung "Herzlich willkommen Herr/Frau..." zurück.
+	   * 
+	   * @param username
+	   * @return <code>String</code> Begrüßung
+	   * 
+	   */
 	  private String getGreeting(String username){
 		  if (UserDAO.getUserByUsername(username).getGender() != null)
 		  {
@@ -172,15 +183,18 @@ import de.patientenportal.persistence.WebSessionDAO;
 			}
 		  }
 		  return "Herzlich willkommen "+username +"!";	
-  }
+	  }
   
   
 	  //SessionService: --> alle Methoden für die Verwaltung der Sessions:
 	  
-	  /**Erstellt eine Websession und gibt einen zufällig generierten Token zurück.
+	  /**
+	   * Erstellt eine Websession und gibt einen zufällig generierten Token zurück.
 	   * Die Session ist 15 Minuten gültig.
-	   * @param
-	   * @return Token
+	   * 
+	   * @param user
+	   * @param activeRole
+	   * @return <code>String</code> Token
 	   */
 	  private String createSessionToken(User user, ActiveRole activeRole){
 		WebSession wss = new WebSession();
@@ -193,13 +207,17 @@ import de.patientenportal.persistence.WebSessionDAO;
 		return (WebSessionDAO.createWebSession(wss)).getToken();
 	  }
 	  
-	  //Erstellt einen zufällig generierten Token
+	  /**
+	   * Erstellt einen zufällig generierten Token
+	   * 
+	   */
 	  private String getNewToken() {
 			Random random = new SecureRandom();
 			return new BigInteger(130, random).toString(32);
 	  }
 	  
-	  /**Löscht abgelaufene Websessions.
+	  /**
+	   * Löscht abgelaufene Websessions.
 	   * 
 	   */
 	  private void deleteExpiredWebSession() {
@@ -211,7 +229,8 @@ import de.patientenportal.persistence.WebSessionDAO;
 		}
 	  }
 	  
-	  /**Verlängert die Gültigkeit der übergebenen Websession um 15 min.
+	  /**
+	   * Verlängert die Gültigkeit der übergebenen Websession um 15 min.
 	   * 
 	   * @param ws Websession
 	   */
@@ -222,29 +241,8 @@ import de.patientenportal.persistence.WebSessionDAO;
 		WebSessionDAO.updateWS(ws);
 	  } 
 	
-	  /**Liest den vom Client über den HTTP-Header übermittelten Token aus.
-	   *        
-	   * @return Token
-	   */
-	  @SuppressWarnings("rawtypes")
-	  public static String getToken(){
-	
-			MessageContext mctx = wsctx.getMessageContext();
-			
-			//get detail from request headers
-		    Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
-		    List tokenList = (List) http_headers.get("Token");
-	
-		    String token = "";
-		    
-		    if(tokenList!=null){
-		    	token = tokenList.get(0).toString();
-		    return token;
-		    }
-		    return null;
-		}
-	
-	  /**Diese Methode gibt die aktuelle Rolle des angemeldeten Users zurück.
+	  /**
+	   * Diese Methode gibt die aktuelle Rolle des angemeldeten Users zurück.
 	   * 
 	   * @param token
 	   * @return ActiveRole
@@ -254,80 +252,77 @@ import de.patientenportal.persistence.WebSessionDAO;
 			if (sessions.size() != 1) return null;
 		  return sessions.get(0).getActiveRole();
 	  }
-	  
-
   
-  /**
-   * Diese Methode führt in 3 Stufen Authentifizierung, Authorisierung und Prüfung der Schreibrechte (falls benötigt) durch.
-   * 
-   * @param accessor	token und (falls benätigt) CaseID
-   * @param expected	erlaubte Rollen für die Methode
-   * @param wRightcheck true, wenn für die Methode Schreibrechte zum Fall gefordert sind
-   * @return Fehlermeldung
-   */
-  
-  public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, Access access){
-	  	String token = accessor.getToken();
-	  	int actorID = 0;
-	  
-	  	AuthenticationWSImpl auth = new AuthenticationWSImpl();
-		if (auth.authenticateToken(token) == false) {
-			System.err.println("Invalid token");
-				return "Authentifizierung fehlgeschlagen.";}
-		
-		ActiveRole role = AuthenticationWSImpl.getActiveRole(token);
-		if (expected.contains(role) == false) {
-			System.err.println("No Access for this role");
-				return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
-		
-		if (access == Access.WriteCase){
-			boolean wcheck = false;
-			User user = AuthenticationWSImpl.getUserByToken(token);
-			if (role == ActiveRole.Doctor){
-				Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
-				actorID = doctor.getDoctorID();
-
-				wcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
-				if (wcheck == false) {
-					System.err.println("No Access to this case");
-					return  "Kein Schreibzugriff für diesen Fall";}
-			}
+	  /**
+	   * Diese Methode führt in 3 Stufen Authentifizierung, Authorisierung und Prüfung der Schreibrechte (falls benötigt) durch.
+	   * 
+	   * @param accessor	token und (falls benätigt) CaseID
+	   * @param expected	erlaubte Rollen für die Methode
+	   * @param wRightcheck true, wenn für die Methode Schreibrechte zum Fall gefordert sind
+	   * @return <code>String</code> Fehlermeldung
+	   */
+	  public static String tokenRoleAccessCheck (Accessor accessor, List<ActiveRole> expected, Access access){
+		  	String token = accessor.getToken();
+		  	int actorID = 0;
+		  
+		  	AuthenticationWSImpl auth = new AuthenticationWSImpl();
+			if (auth.authenticateToken(token) == false) {
+				System.err.println("Invalid token");
+					return "Authentifizierung fehlgeschlagen.";}
 			
-			if (role == ActiveRole.Relative){
-				Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
-				actorID = relative.getRelativeID();
+			ActiveRole role = AuthenticationWSImpl.getActiveRole(token);
+			if (expected.contains(role) == false) {
+				System.err.println("No Access for this role");
+					return "Zugriff auf die Methode für diese Rolle nicht gestattet";}
+			
+			if (access == Access.WriteCase){
+				boolean wcheck = false;
+				User user = AuthenticationWSImpl.getUserByToken(token);
+				if (role == ActiveRole.Doctor){
+					Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
+					actorID = doctor.getDoctorID();
+	
+					wcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
+					if (wcheck == false) {
+						System.err.println("No Access to this case");
+						return  "Kein Schreibzugriff für diesen Fall";}
+				}
 				
-				wcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
-				if (wcheck == false) {
-					System.err.println("No Access to this case");
-					return  "Kein Schreibzugriff für diesen Fall";}
+				if (role == ActiveRole.Relative){
+					Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
+					actorID = relative.getRelativeID();
+					
+					wcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
+					if (wcheck == false) {
+						System.err.println("No Access to this case");
+						return  "Kein Schreibzugriff für diesen Fall";}
+				}
 			}
-		}
-			
-		if (access == Access.ReadCase){
-			boolean rcheck = false;
-			User user = AuthenticationWSImpl.getUserByToken(token);
-			if (role == ActiveRole.Doctor){
-				Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
-				actorID = doctor.getDoctorID();
-
-				rcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
-				if (rcheck == false) {
-					System.err.println("No Access to this case");
-					return  "Kein Lesezugriff für diesen Fall";}
-			}
-			
-			if (role == ActiveRole.Relative){
-				Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
-				actorID = relative.getRelativeID();
 				
-				rcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
-				if (rcheck == false) {
-					System.err.println("No Access to this case");
-					return  "Kein Lesezugriff für diesen Fall";}
+			if (access == Access.ReadCase){
+				boolean rcheck = false;
+				User user = AuthenticationWSImpl.getUserByToken(token);
+				if (role == ActiveRole.Doctor){
+					Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
+					actorID = doctor.getDoctorID();
+	
+					rcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
+					if (rcheck == false) {
+						System.err.println("No Access to this case");
+						return  "Kein Lesezugriff für diesen Fall";}
+				}
+				
+				if (role == ActiveRole.Relative){
+					Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
+					actorID = relative.getRelativeID();
+					
+					rcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
+					if (rcheck == false) {
+						System.err.println("No Access to this case");
+						return  "Kein Lesezugriff für diesen Fall";}
+				}
 			}
-		}
-	  return null;
-  }
+		  return null;
+	  }
 }
 		

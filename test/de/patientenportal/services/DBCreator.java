@@ -163,7 +163,7 @@ public class DBCreator {
 		Service serviceA = Service.create(urlA, qnameA);
 		AuthenticationWS auth = serviceA.getPort(AuthenticationWS.class);
 		
-        HTTPHeaderService.putUsernamePassword(username, password, auth);
+		ClientHelper.putUsernamePassword(username, password, auth);
         auth.authenticateUser(ActiveRole.Doctor);
         String token = auth.getSessionToken(username);
 		System.out.println("Success!");
@@ -237,7 +237,7 @@ public class DBCreator {
 				System.out.println("Medicines added: " + medicine.getName());
 				
 				
-				for (int zahli = 6; zahli>=1 ; zahli--){
+			/*	for (int zahli = 6; zahli>=1 ; zahli--){
 					Medication medication1 = new Medication();
 					medication1.setDosage("212"+zahl);
 					medication1.setDuration("extremslange Stunden:"+zahl);
@@ -247,7 +247,7 @@ public class DBCreator {
 					createMedication.setObject(medication1);
 					medicaws.createMedication(createMedication);
 					System.out.println("Medicationes added: " + medication1.getDosage());
-				}
+				}*/
 				
 			}
 				

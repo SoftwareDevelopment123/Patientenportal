@@ -25,7 +25,7 @@ import de.patientenportal.persistence.UserDAO;
 public class MedicationWSImpl implements MedicationWS {
 
 	/**
-	 * <b>Einem Behandlungsfall zugeordnete Medikation abrufen</b><br>
+	 * <b>Einem Behandlungsfall zugeordnete Medikationen abrufen</b><br>
 	 * Über das Token wird überprüft, ob der User über die entsprechenden Leserechte verfügt.<br>
 	 * 
 	 * @param accessor mit <code>String</code> token und <code>int</code> caseID
@@ -69,7 +69,7 @@ public class MedicationWSImpl implements MedicationWS {
 	}
 
 	/**
-	 * <b>Die gesamte, einem Patienten zugeordnete, Medikation abrufen</b><br>
+	 * <b>Alle, einem Patienten zugeordneten, Medikationen abrufen</b><br>
 	 * Über das Token wird überprüft, ob der User über die entsprechenden Leserechte verfügt.<br>
 	 * 
 	 * Zugriffsbeschränkung: <code>Patient</code>

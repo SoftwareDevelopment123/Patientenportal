@@ -8,6 +8,7 @@ import javax.swing.plaf.synth.SynthPasswordFieldUI;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import de.patienportal.demo.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
@@ -15,7 +16,6 @@ import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.services.AuthenticationWS;
-import de.patientenportal.services.HTTPHeaderService;
 import de.patientenportal.services.PatientWS;
 import de.patientenportal.services.RelativeWS;
 
@@ -38,7 +38,7 @@ public class TestFehlerbehebung {
         Service service = Service.create(url, qname);
         AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
  
-        HTTPHeaderService.putUsernamePassword(username, password, authWS);
+        ClientHelper.putUsernamePassword(username, password, authWS);
         System.out.println(authWS.authenticateUser(ActiveRole.Patient));
         System.out.println(authWS.getSessionToken(username));
         
