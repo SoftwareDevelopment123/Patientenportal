@@ -246,7 +246,7 @@ public class DBCreator {
 					medication1.setDuration("extremslange Stunden:"+zahl);			
 					medication1.setPcase(CaseDAO.getCase(zahl));
 					medication1.setMedicine(MedicineDAO.getMedicine(zahl));
-					medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
+					//medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
 					createMedication.setObject(medication1);
 					
 					medicaws.createMedication(createMedication);

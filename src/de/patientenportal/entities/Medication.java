@@ -82,8 +82,8 @@ public class Medication {
 	}
 
 	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="case_fk", nullable=false)
-	//@XmlTransient
+	@JoinColumn(name="case_fk")
+	@XmlTransient
 	public Case getPcase() {
 		return pcase;
 	}

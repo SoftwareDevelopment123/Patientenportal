@@ -71,7 +71,10 @@ public class RightsWSImpl  implements RightsWS {
 		Rights right = new Rights();
 		String token;
 		
-		try {token = (String) accessor.getToken();}
+		try {
+			right = (Rights) accessor.getObject();
+			token = (String) accessor.getToken();
+			}
 		catch (Exception e) 												{System.err.println("Invalid access"); 	return null;}
 		if (token == null) 													{System.err.println("No token");		return null;}
 		if (right.getPcase()	== null									)	{return "Bitte einen Patientencase mit angeben.";}
@@ -102,8 +105,8 @@ public class RightsWSImpl  implements RightsWS {
 		try {
 			right = (Rights) accessor.getObject();
 			token = (String) accessor.getToken();}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		if (token == null) 													{System.err.println("No token");		return null;}
+		catch (Exception e) 	{System.err.println("Invalid access"); return null;}
+		if (token == null) 		{System.err.println("No token");		return null;}
 		//TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das Recht ändert
 		String response = null;
 		try {response = RightsDAO.updateRight(right);}
