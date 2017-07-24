@@ -4,7 +4,7 @@ public class Accessor {
 
 	private String token;
 	private Object object;
-	
+	private int id;
 	public Accessor(){
 	}
 	
@@ -15,6 +15,12 @@ public class Accessor {
 	public Accessor(String token, Object object){
 		this.token = token;
 		this.object = object;
+	}
+	
+	public Accessor(String token, Object object, int id){
+		this.token = token;
+		this.object = object;
+		this.id = id;
 	}
 	
 	public String getToken() {
@@ -29,6 +35,14 @@ public class Accessor {
 	}
 	public void setObject(Object object) {
 		this.object = object;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "VitalData", catalog = "patientenportal")
@@ -77,6 +78,7 @@ public class VitalData  {
 	
 	@ManyToOne
 	@JoinColumn(name="case_fk")
+	@XmlTransient
 	public Case getPcase() {
 		return pcase;
 	}

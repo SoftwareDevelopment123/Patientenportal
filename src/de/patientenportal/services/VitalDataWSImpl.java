@@ -43,6 +43,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 		if (token == null) 	{System.err.println("No token");		return null;}
 		if (id == 0) 		{System.err.println("Id null"); 		return null;}
 		
+		
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
 		if (authResponse != null) {
@@ -91,10 +92,10 @@ public class VitalDataWSImpl implements VitalDataWS {
 		if (vitalData.getValue()		== null)	{return "Bitte eine Wert angeben.";}
 		if (vitalData.getVitalDataType()== null)	{return "Kein Vitaldatentyp zugeordnet.";}
 		if (vitalData.getTimestamp()	== null)	{return "Kein Zeitstempel angegeben.";}
-		if (vitalData.getPcase()		== null)	{return "Kein Behandlungsfall zugeordnet";}
+		//if (vitalData.getPcase()		== null)	{return "Kein Behandlungsfall zugeordnet";}
 	
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
-		accessor.setObject(vitalData.getPcase().getCaseID());
+		accessor.setObject(accessor.getId());
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 		if (authResponse != null) {
 			System.err.println(authResponse);

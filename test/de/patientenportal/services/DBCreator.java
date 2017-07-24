@@ -244,10 +244,10 @@ public class DBCreator {
 					Medication medication1 = new Medication();
 					medication1.setDosage("212"+zahl);
 					medication1.setDuration("extremslange Stunden:"+zahl);			
-					medication1.setPcase(CaseDAO.getCase(zahl));
 					medication1.setMedicine(MedicineDAO.getMedicine(zahl));
-					//medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
+					
 					createMedication.setObject(medication1);
+					createMedication.setId(CaseDAO.getCase(zahl).getCaseID());
 					
 					medicaws.createMedication(createMedication);
 					System.out.println("Medicationes added: " + medication1.getDosage());
@@ -269,7 +269,7 @@ public class DBCreator {
 			for(int j = 1 ; j<=6 ; j++){
 				VitalData vitaldata = new VitalData();
 				
-				vitaldata.setPcase(CaseDAO.getCase(j));
+				
 				
 				for(int j2 = 1; j2<=6; j2++){
 				timestamp = ClientHelper.parseStringtoTimeStamp("07."+j2+".2017 1"+j2+":05");
@@ -278,6 +278,7 @@ public class DBCreator {
 				vitaldata.setVitalDataType(VitalDataType.WEIGHT);
 				
 				createVitalData.setObject(vitaldata);
+				createVitalData.setId(CaseDAO.getCase(j).getCaseID());
 				vitaldataws.createVitalData(createVitalData);
 				System.out.println("Vitaldata added: " +vitaldata.getTimestamp());
 				}

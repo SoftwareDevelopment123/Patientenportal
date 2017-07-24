@@ -12,11 +12,11 @@ import org.junit.runners.Suite.SuiteClasses;
 		AuthenticationTest.class,
 		CaseWSTest.class,
 		OfficeWSTest.class,
-		PatientRelativeTest.class,
+		//PatientRelativeTest.class,
 		VitalDataWSTest.class,
 		DoctorTest.class,
 		RightsWSTest.class,
-		//MedicationWSTest.class,
+		MedicationWSTest.class,
 		})								
 
 
