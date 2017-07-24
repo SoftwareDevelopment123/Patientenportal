@@ -18,6 +18,15 @@ public class RegistrationWSImpl implements RegistrationWS {
  * Hier keine Token-Checks durchführen
  */
 	
+	/**
+	 * <b>Neuen Benutzer anlegen</b><br>
+	 * Sollten kein Username, Passwort, Vor-/Nachname, Geburtsdatum angegeben sein, so wird eine 
+	 * entsprechende Fehlermeldung ausgegeben. Ebenso wird überprüft, ob der Benutzername schon 
+	 * vergeben ist.<br>
+	 * 
+	 * @param  <code>User</code> 
+	 * @return <code>UserListResponse</code>  mit angelegtem Benutzer und Erfolgsmeldung oder Fehlermeldung.
+	 */
 	@Transactional
 	public UserListResponse createUser(User user) {
 		UserListResponse response = new UserListResponse();
@@ -51,6 +60,15 @@ public class RegistrationWSImpl implements RegistrationWS {
 		}
 	}
 
+	/**
+	 * <b>Neuen Patienten anlegen</b><br>
+	 * Sollten kein UserID oder Blutgruppe angegeben sein, so wird eine 
+	 * entsprechende Fehlermeldung ausgegeben.<br>
+	 * 
+	 * @param  <code>Patient</code> 
+	 * @param  <code>int</code> userID
+	 * @return <code>String</code>  mit Erfolgsmeldung oder Fehlermeldung.
+	 */
 	@Transactional
 	public String createPatient(Patient patient, int userID) {
 	
@@ -70,6 +88,15 @@ public class RegistrationWSImpl implements RegistrationWS {
 		}
 	}
 
+	/**
+	 * <b>Neuen Doktor anlegen</b><br>
+	 * Sollten kein UserID oder Spezialisierung angegeben sein, so wird eine 
+	 * entsprechende Fehlermeldung ausgegeben.<br>
+	 * 
+	 * @param  <code>Doctor</code> doctor
+	 * @param  <code>int</code> userID
+	 * @return <code>String</code>  mit Erfolgsmeldung oder Fehlermeldung.
+	 */
 	@Transactional
 	public String createDoctor(Doctor doctor, int userID) {
 		
@@ -89,6 +116,15 @@ public class RegistrationWSImpl implements RegistrationWS {
 		}
 	}
 
+	/**
+	 * <b>Neuen Verwandten anlegen</b><br>
+	 * Sollten kein UserID angegeben sein, so wird eine 
+	 * entsprechende Fehlermeldung ausgegeben.<br>
+	 * 
+	 * @param  <code>Relative</code> relative
+	 * @param  <code>int</code> userID
+	 * @return <code>String</code>  mit Erfolgsmeldung oder Fehlermeldung.
+	 */
 	@Transactional
 	public String createRelative(Relative relative, int userID) {
 		

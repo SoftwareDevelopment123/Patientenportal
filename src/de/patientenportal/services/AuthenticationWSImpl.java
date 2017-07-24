@@ -84,7 +84,7 @@ import de.patientenportal.persistence.WebSessionDAO;
 	   * @param username
 	   * @return <code>String</code> token oder Fehlermeldung
 	   */
-	  @Override
+	  @Transactional
 	  public String getSessionToken(String username){
 		  if(UserDAO.getUserByUsername(username) != null){
 			if(UserDAO.getUserByUsername(username).getWebSession()!= null){

@@ -15,7 +15,14 @@ import de.patientenportal.persistence.RightsDAO;
 @WebService (endpointInterface = "de.patientenportal.services.RightsWS")
 public class RightsWSImpl  implements RightsWS {
 	
-	//List Response ENtity anlegen wenn Superklasse erstellt wurde
+	/**
+	 * <b>Alle Rechte zu einem Fall abrufen</b><br>
+	 * Über das Token und die caseID wird das Schreibrecht abgefragt. Dient nur zur Anzeige der Information.<br>
+	 * Die Schreibrechtprüfung findet bei den entsprechenden Methoden individuell statt.
+	 *  
+	 * @param accessor mit <code>String</code> token und <code>int</code> caseID
+	 * @return <code>RightsListResponse</code> mit Liste der Rechte und Erfolgsmeldung oder Fehlermeldung.
+	 */
 	@Transactional
 	public RightsListResponse getRights(Accessor accessor) {
 		RightsListResponse response = new RightsListResponse();
@@ -32,6 +39,7 @@ public class RightsWSImpl  implements RightsWS {
 		
 		AuthenticationWSImpl auth = new AuthenticationWSImpl();
 		if (auth.authenticateToken(token) == false)	{System.err.println("Invalid token"); 	return null;}
+		//TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das Recht abruft
 		else{
 		
 		List<Rights> rights = new ArrayList<Rights>();
@@ -46,6 +54,18 @@ public class RightsWSImpl  implements RightsWS {
 		return response;
 		}
 	}
+	
+	/**
+	 * <b>Erstellen eines Rechts</b>
+	 * 
+	 * @param accessor mit <code>String</code> Token und Rights-Entity mit dem zu erstellenden Recht <br>
+	 * Parameter : 	<code>int</code> rightID <br>
+					<code>Case</code> pcase <br>
+					<code>Doctor</code> doctor ODER <code>Relative</code> relative <br>
+					<code>boolean</code> rRight <br>
+					<code>boolean</code> wRight <br>
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String createRight(Accessor accessor) {
 		Rights right = new Rights();
@@ -59,7 +79,7 @@ public class RightsWSImpl  implements RightsWS {
 		
 		AuthenticationWSImpl auth = new AuthenticationWSImpl();
 		if (auth.authenticateToken(token) == false){System.err.println("Invalid token"); 	return null;}
-		
+		//TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das Recht anlegt
 		else{
 			String response = null;
 			try {response = RightsDAO.createRight(right);}
@@ -68,6 +88,12 @@ public class RightsWSImpl  implements RightsWS {
 		}
 	}
 	
+	/**
+	 *<b>Ändern eines Rechts</b><br>
+	 *
+	 * @param  accessor mit <code>String</code> Token und Rights-Entity des betroffenen Rechts
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String updateRight(Accessor accessor) {
 		Rights right = new Rights();
@@ -78,14 +104,20 @@ public class RightsWSImpl  implements RightsWS {
 			token = (String) accessor.getToken();}
 		catch (Exception e) {System.err.println("Invalid access"); return null;}
 		if (token == null) 													{System.err.println("No token");		return null;}
-		
+		//TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das Recht ändert
 		String response = null;
 		try {response = RightsDAO.updateRight(right);}
 		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
 		return response;
 		
 	}
-		
+	
+	/**
+	 * Entfernen eines Rechts <br>
+	 * 
+	 * @param accessor mit <code>String</code> Token und <code>int</code> rightID des betroffenen Rechts
+	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String deleteRight(Accessor accessor) {
 		int id;

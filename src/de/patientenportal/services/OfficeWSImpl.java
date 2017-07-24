@@ -9,6 +9,7 @@ import de.patientenportal.persistence.OfficeDAO;
 @WebService (endpointInterface = "de.patientenportal.services.OfficeWS")
 public class OfficeWSImpl implements OfficeWS {
 
+	
 	@Transactional
 	public Office getOffice(Accessor accessor) {
 		int id;

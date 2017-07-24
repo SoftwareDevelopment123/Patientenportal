@@ -3,25 +3,20 @@ package de.patientenportal.clientHelper;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import org.junit.Test;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Address;
-import de.patientenportal.entities.Case;
+
 import de.patientenportal.entities.Contact;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Gender;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.User;
 import de.patientenportal.entities.response.UserListResponse;
-import de.patientenportal.persistence.CaseDAO;
-import de.patientenportal.persistence.UserDAO;
 import de.patientenportal.services.AuthenticationWS;
-import de.patientenportal.services.DoctorWS;
 import de.patientenportal.services.RegistrationWS;
 
 public class ClientDemoForPresentation {
@@ -97,31 +92,9 @@ public class ClientDemoForPresentation {
         System.out.println(authWS.authenticateUser(ActiveRole.Doctor)); 
         token = authWS.getSessionToken(username);
         System.out.println(token);
-	/*}
 	
-	@Test
-	public void createCase() throws MalformedURLException {*/
-		URL url3 = new URL("http://localhost:8080/doctor?wsdl");
-        QName qname3 = new QName("http://services.patientenportal.de/", "DoctorWSImplService");
-        Service service3 = Service.create(url3, qname3);
-        DoctorWS docWS = service3.getPort(DoctorWS.class);
+	
 
-        //getAllPatients
-        //selectPatient
-        Case newCase	= new Case();
-        newCase.setTitle("Herzmuskelentzündung");
-        newCase.setPatient(UserDAO.getUserByUsername(neu.getUsername()).getPatient());
-        List<Doctor> ldoc  = Arrays.asList(UserDAO.getUserByUsername(neu.getUsername()).getDoctor());
-        newCase.setDoctors(ldoc);
-        newCase.setDescription("Verusacht durch Virusinfektion...");
-        //FIXME
-        //XXX
-        CaseDAO.createCase(newCase);
-        
-       /* Accessor acc = new Accessor();
-		acc.setToken(token);
-		acc.setObject(1);
-		System.out.println(docWS.createCase(acc));*/
         
 	}
 }

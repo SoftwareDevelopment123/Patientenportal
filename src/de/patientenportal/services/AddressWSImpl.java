@@ -63,7 +63,7 @@ public class AddressWSImpl implements AddressWS {
 	 * <b>Adressdaten löschen</b><br>
 	 * Über das token wird sichergestellt, dass nur eigene Daten gelöscht werden können.<br>
 	 * 
-	 * @param Accessor mit <code>String</code> token und <code>int</code> addressID der zu löschenden Adresse
+	 * @param accessor mit <code>String</code> token und <code>int</code> addressID der zu löschenden Adresse
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
 	 */
 	@Transactional

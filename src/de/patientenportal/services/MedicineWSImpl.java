@@ -14,7 +14,16 @@ import de.patientenportal.persistence.MedicineDAO;
 
 @WebService (endpointInterface = "de.patientenportal.services.MedicineWS")
 public class MedicineWSImpl implements MedicineWS {
-
+	
+	
+	/**
+	 * <b>Medikament über die ID abrufen</b><br>
+	 * 
+	 * Zugriffsbeschränkung: keine
+	 * 
+	 * @param accessor mit <code>String</code> token und <code>int</code> medicineID
+	 * @return <code>MedicationListResponse</code> mit der dem Patienten zugeordneten Medikation
+	 */
 	@Transactional
 	public Medicine getMedicine(Accessor accessor) {
 		int id;
@@ -45,6 +54,14 @@ public class MedicineWSImpl implements MedicineWS {
 		}
 	}
 
+	/**
+	 * <b>Medikament hinzufügen</b><br>
+	 * 
+	 * Zugriffsbeschränkung: <code>Doctor</code>
+	 * 
+	 * @param accessor mit <code>String</code> token und dem anzulegenden Medikament
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String createMedicine(Accessor accessor) {
 		Medicine medi = new Medicine();
@@ -78,6 +95,14 @@ public class MedicineWSImpl implements MedicineWS {
 		}
 	}
 
+	/**
+	 * <b>Medikament löschen</b><br>
+	 *
+	 * Zugriffsbeschränkung: <code>Doctor</code>
+	 * 
+	 * @param accessor mit <code>String</code> token und <code>int</code> MedicineID des zu löschenden Medikaments.
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String deleteMedicine(Accessor accessor) {
 		int id;
@@ -106,6 +131,14 @@ public class MedicineWSImpl implements MedicineWS {
 		}
 	}
 
+	/**
+	 * <b>Medikament ändern</b><br>
+	 *  
+	 * Zugriffsbeschränkung: <code>Doctor</code> 
+	 * 
+	 * @param accessor mit <code>String</code> token und dem zu ändernden <code>Medicine</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String updateMedicine(Accessor accessor) {
 		Medicine medi = new Medicine();
@@ -133,6 +166,14 @@ public class MedicineWSImpl implements MedicineWS {
 		}
 	}
 
+	/**
+	 * <b>Alle Medikamente abrufen</b><br>
+	 *
+	 * Zugriffsbeschränkung: keine 
+	 * 
+	 * @param accessor mit <code>String</code> token 
+	 * @return <code>MedicineListResponse</code> mit allen in der Datenbank vorhandenen Medikamenten
+	 */
 	@Transactional
 	public MedicineListResponse getAllMedicine(Accessor accessor) {
 		MedicineListResponse response = new MedicineListResponse();

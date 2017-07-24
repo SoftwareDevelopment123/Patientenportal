@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="de.patientenportal.persistence.WebSessionDAO" project="Patientenportal" 
     file="/Patientenportal/src/de/patientenportal/persistence/WebSessionDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="538" y="654"/>    
+    <position height="-1" width="-1" x="584" y="661"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="false" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -137,16 +137,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="de.patientenportal.persistence.FTPVerbindung" project="Patientenportal" 
-    file="/Patientenportal/src/de/patientenportal/persistence/FTPVerbindung.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="755" y="627"/>    
-    <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
-      sort-features="false" accessors="false" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <class id="17" language="java" name="de.patientenportal.persistence.RightsDAO" project="Patientenportal" 
+  <class id="16" language="java" name="de.patientenportal.persistence.RightsDAO" project="Patientenportal" 
     file="/Patientenportal/src/de/patientenportal/persistence/RightsDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="296" y="690"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -155,7 +146,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="de.patientenportal.persistence.VitalDataDAO" project="Patientenportal" 
+  <class id="17" language="java" name="de.patientenportal.persistence.VitalDataDAO" project="Patientenportal" 
     file="/Patientenportal/src/de/patientenportal/persistence/VitalDataDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="505" y="474"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -164,7 +155,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="de.patientenportal.persistence.MedicineDAO" project="Patientenportal" 
+  <class id="18" language="java" name="de.patientenportal.persistence.MedicineDAO" project="Patientenportal" 
     file="/Patientenportal/src/de/patientenportal/persistence/MedicineDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="86" y="654"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 

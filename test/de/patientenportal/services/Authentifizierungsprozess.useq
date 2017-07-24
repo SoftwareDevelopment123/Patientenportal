@@ -5,7 +5,7 @@
     label="authenticationTest" type="class" autoSize="true">    
     <position height="-1" width="-1" x="207" y="0"/>    
     <execution id="2">      
-      <position height="1010" width="129" x="5" y="151"/>    
+      <position height="1016" width="129" x="5" y="151"/>    
     </execution>    
     <execution id="11">      
       <position height="21" width="7" x="66" y="329"/>    
@@ -14,7 +14,7 @@
       <position height="21" width="7" x="66" y="586"/>    
     </execution>    
     <execution id="13">      
-      <position height="21" width="7" x="66" y="1077"/>    
+      <position height="21" width="7" x="66" y="1083"/>    
     </execution>  
   </object>  
   <object id="14" language="java" name="de.patientenportal.services.AuthenticationWS" project="Patientenportal" 
@@ -31,7 +31,7 @@
       <position height="243" width="7" x="200" y="718"/>    
     </execution>    
     <execution id="10">      
-      <position height="166" width="125" x="138" y="974"/>    
+      <position height="172" width="125" x="138" y="974"/>    
     </execution>  
   </object>  
   <object id="23" language="java" name="de.patientenportal.services.AuthenticationWSImpl" project="Patientenportal" 
@@ -60,7 +60,7 @@
       <position height="84" width="7" x="341" y="286"/>    
     </execution>    
     <execution id="22">      
-      <position height="115" width="149" x="267" y="1004"/>    
+      <position height="121" width="149" x="267" y="1004"/>    
     </execution>    
     <execution id="46">      
       <position height="21" width="7" x="338" y="1035"/>    
@@ -155,8 +155,7 @@
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="28"/>  
   </message>  
-  <message id="29" operation="findByCriteria(org.hibernate.criterion.Criterion[]):java.util.List&lt;WebSession&gt;" 
-    asynchronous="false">    
+  <message id="29" asynchronous="false">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="30"/>  
   </message>  
@@ -164,8 +163,7 @@
     <end type="SOURCE" refId="31"/>    
     <end type="TARGET" refId="12"/>  
   </message>  
-  <message id="33" operation="findByCriteria(org.hibernate.criterion.Criterion[]):java.util.List&lt;WebSession&gt;" 
-    asynchronous="false">    
+  <message id="33" asynchronous="false">    
     <end type="SOURCE" refId="20"/>    
     <end type="TARGET" refId="34"/>  
   </message>  
@@ -202,7 +200,7 @@
     <end type="SOURCE" refId="30"/>    
     <end type="TARGET" refId="51"/>  
   </message>  
-  <message id="56" operation="deleteInvalidTokens():void" asynchronous="false">    
+  <message id="56" asynchronous="false">    
     <end type="SOURCE" refId="30"/>    
     <end type="TARGET" refId="47"/>  
   </message>  

@@ -101,8 +101,7 @@ public class RightsDAO {
 			} finally {
 				session.close();
 			}
-			return "success";
-			
+			return "success";	
 		}
 		else {
 			return "noID";
@@ -111,7 +110,7 @@ public class RightsDAO {
 	
 	/**
 	 * Datenbankzugriff zum: Entfernen eines Rechts <br>
-
+	 * 
 	 * @param <code>int</code> rightID des betroffenen Rechts
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
@@ -170,11 +169,6 @@ public class RightsDAO {
 			c.setMedication(null);
 			c.setVitaldata(null);
 			cases.add(c);
-			
-			/*
-			 *  -- old Version --
-			 * cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
-			 */
 		}
 		return cases;	
 	}
@@ -215,11 +209,6 @@ public class RightsDAO {
 			c.setMedication(null);
 			c.setVitaldata(null);
 			cases.add(c);
-			
-			/*
-			 *  -- old Version --
-			 * cases.add(CaseDAO.getCase(it.getPcase().getCaseID()));
-			 */
 		}
 		return cases;	
 	}

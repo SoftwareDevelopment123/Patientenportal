@@ -16,7 +16,7 @@ import de.patientenportal.entities.Medication;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MedicationListResponse;
 import de.patientenportal.persistence.CaseDAO;
-import de.patientenportal.persistence.PatientDAO;
+
 
 public class MedicationWSTest {
 
@@ -52,7 +52,7 @@ public class MedicationWSTest {
 	
 		//TEst get MEdicationbyC
 		int caseid =1;
-		int patientid=1;
+		//int patientid=1;
 		URL url = new URL("http://localhost:8080/medication?wsdl");
 		QName qname = new QName("http://services.patientenportal.de/", "MedicationWSImplService");
 		Service service = Service.create(url, qname);
