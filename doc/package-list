@@ -1,8 +1,5 @@
-de.patienportal.demo
 de.patientenportal.entities
 de.patientenportal.entities.response
 de.patientenportal.persistence
 de.patientenportal.services
 de.patientenpotal.ftpconnection
-loginservice.old
-smalltests
