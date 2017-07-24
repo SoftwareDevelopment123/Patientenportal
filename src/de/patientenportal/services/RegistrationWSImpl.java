@@ -24,7 +24,7 @@ public class RegistrationWSImpl implements RegistrationWS {
 	 * entsprechende Fehlermeldung ausgegeben. Ebenso wird überprüft, ob der Benutzername schon 
 	 * vergeben ist.<br>
 	 * 
-	 * @param  <code>User</code> 
+	 * @param  user
 	 * @return <code>UserListResponse</code>  mit angelegtem Benutzer und Erfolgsmeldung oder Fehlermeldung.
 	 */
 	@Transactional
@@ -62,11 +62,11 @@ public class RegistrationWSImpl implements RegistrationWS {
 
 	/**
 	 * <b>Neuen Patienten anlegen</b><br>
-	 * Sollten kein UserID oder Blutgruppe angegeben sein, so wird eine 
+	 * Sollten keine UserID oder Blutgruppe angegeben sein, so wird eine 
 	 * entsprechende Fehlermeldung ausgegeben.<br>
 	 * 
-	 * @param  <code>Patient</code> 
-	 * @param  <code>int</code> userID
+	 * @param  Patient
+	 * @param  userID
 	 * @return <code>String</code>  mit Erfolgsmeldung oder Fehlermeldung.
 	 */
 	@Transactional
@@ -90,11 +90,11 @@ public class RegistrationWSImpl implements RegistrationWS {
 
 	/**
 	 * <b>Neuen Doktor anlegen</b><br>
-	 * Sollten kein UserID oder Spezialisierung angegeben sein, so wird eine 
+	 * Sollten keine UserID oder Spezialisierung angegeben sein, so wird eine 
 	 * entsprechende Fehlermeldung ausgegeben.<br>
 	 * 
-	 * @param  <code>Doctor</code> doctor
-	 * @param  <code>int</code> userID
+	 * @param  doctor
+	 * @param  userID
 	 * @return <code>String</code>  mit Erfolgsmeldung oder Fehlermeldung.
 	 */
 	@Transactional
@@ -118,11 +118,11 @@ public class RegistrationWSImpl implements RegistrationWS {
 
 	/**
 	 * <b>Neuen Verwandten anlegen</b><br>
-	 * Sollten kein UserID angegeben sein, so wird eine 
+	 * Sollte keine UserID angegeben sein, so wird eine 
 	 * entsprechende Fehlermeldung ausgegeben.<br>
 	 * 
-	 * @param  <code>Relative</code> relative
-	 * @param  <code>int</code> userID
+	 * @param  relative
+	 * @param  userID
 	 * @return <code>String</code>  mit Erfolgsmeldung oder Fehlermeldung.
 	 */
 	@Transactional

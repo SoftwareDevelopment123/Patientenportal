@@ -10,6 +10,12 @@ import de.patientenportal.persistence.OfficeDAO;
 public class OfficeWSImpl implements OfficeWS {
 
 	
+	/**
+	 * <b>Arztpraxis über officeID abrufen</b><br>
+	 * 
+	 * @param accessor mit <code>int</code> officeID
+	 * @return <code>Office</code> office
+	 */
 	@Transactional
 	public Office getOffice(Accessor accessor) {
 		int id;
@@ -26,6 +32,12 @@ public class OfficeWSImpl implements OfficeWS {
 		}
 	}
 
+	/**
+	 * <b>Neue Arztpraxis anlegen</b><br>
+	 * 
+	 * @param accessor mit <code>Office</code> office 
+	 * @return  <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String createOffice(Accessor accessor) {
 		Office office = new Office();
@@ -45,6 +57,13 @@ public class OfficeWSImpl implements OfficeWS {
 		}
 	}
 	
+	/**
+	 * <b>Arztpraxis löschen</b><br>
+	 * 
+	 * @param accessor mit <code>int</code> officeID
+	 * @return  <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
+	//TODO Sicherstellen, dass ein Arzt nur seine eigene Praxis löschen kann?
 	@Transactional
 	public String deleteOffice(Accessor accessor) {
 		int id;
@@ -66,7 +85,12 @@ public class OfficeWSImpl implements OfficeWS {
 	 * Bei der Update-Methode ist sicherzustellen, dass das vollständig Objekte mitgegeben wird,
 	 * zum Beispiel durch Abruf des Offices aus der Datenbank und Änderung einzelner Attribute
 	 */
-	
+	/**
+	 * <b>Arztpraxis ändern</b><br>
+	 * 
+	 * @param accessor mit <code>Office</code> office 
+	 * @return  <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 */
 	@Transactional
 	public String updateOffice(Accessor accessor) {
 		Office office = new Office();

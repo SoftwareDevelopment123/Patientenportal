@@ -50,9 +50,9 @@ public class MedicationWSTest {
 	@Test
 	public void main() throws MalformedURLException {
 	
-		//TEst get MEdicationbyC
+		//Test get MedicationbyC
 		int caseid =1;
-		//int patientid=1;
+		//
 		URL url = new URL("http://localhost:8080/medication?wsdl");
 		QName qname = new QName("http://services.patientenportal.de/", "MedicationWSImplService");
 		Service service = Service.create(url, qname);
@@ -71,12 +71,14 @@ public class MedicationWSTest {
 		for (Medication m : compareMedList){
 			Assert.assertEquals(m.getDosage()						, ergebnis.get(i).getDosage());
 			Assert.assertEquals(m.getDuration()						, ergebnis.get(i).getDuration());
+			//TODO 
 			//Assert.assertEquals(m.getPrescribedBy()				, ergebnis.get(i).getPrescribedBy());
 			i++;
 		}
 		
 		//Neuen Login mit User4 erstellen oder rausnehmen
 /*		//Get MedicationbyP
+		int patientid=1;
 		List<Medication> compareMedList2 = PatientDAO.getPatient(patientid).getCases().get(0).getMedication();
 		Accessor getMedListbyP = new Accessor();
 		
