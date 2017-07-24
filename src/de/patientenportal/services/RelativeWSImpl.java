@@ -17,7 +17,7 @@ import de.patientenportal.persistence.RelativeDAO;
 public class RelativeWSImpl implements RelativeWS {
 	
 	/**
-	 * <b>Verwandten zu einem Patienten abrufen</b><br>
+	 * <b>Einen Verwandten zu einem Patienten abrufen</b><br>
 	 * 
 	 * @param accessor mit <code>String</code> token und <code>int</code> relativID
 	 * @return <code>Relative</code> 

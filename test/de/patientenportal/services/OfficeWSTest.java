@@ -47,6 +47,7 @@ public class OfficeWSTest {
 		 * Bitte bedenken, dass im DBCreator nur 3 Doktoren dem Office hinzugefügt werden
 		 * falls man den Test mehr als 3-Mal ausführt, funktioniert er nicht mehr (sollte ohnehin nicht vorkommen)
 		 */
+		//TODO so anpassen, dass der Test beliebig oft ausgeführt werden kann
 		
 		office.setName("Testoffice 2.0");
 		office.getDoctors().remove(0);
