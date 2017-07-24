@@ -123,7 +123,7 @@ public class MedicationWSImpl implements MedicationWS {
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor</code>
 	 * 
-	 * @param accessor mit <code>String</code> token und den anzulegenden Medikation
+	 * @param accessor mit <code>String</code> token, <code>int </code> caseId und der anzulegenden Medikation
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
 	 */
 	@Transactional

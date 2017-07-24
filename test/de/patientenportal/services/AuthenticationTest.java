@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,9 +21,6 @@ import de.patientenportal.persistence.RegistrationDAO;
 public class AuthenticationTest {
 	private static final String WS_URL = "http://localhost:8080/authentication?wsdl";
 	
-	//public static void main(String[] args) throws Exception {
-	   
-		//Vor Test:
 	@Before
 	public void setUp(){
 		User neu = new User();
@@ -41,10 +40,6 @@ public class AuthenticationTest {
 		RegistrationDAO.createUser(neu);
 	}
 		
-	
-	//eigentlicher Test
-	//Rolle Doctor
-	
 	@Test
 	public void testAuthentication() throws MalformedURLException{
 		String username = "Jonny";
@@ -59,15 +54,14 @@ public class AuthenticationTest {
     	//mit richtigem PW
         ClientHelper.putUsernamePassword(username, password, authWS);
 
-     
         System.out.println("Begrüßung: " +authWS.authenticateUser(ActiveRole.Patient));
         System.out.println("Token: " + authWS.getSessionToken(username));
         String tokenTest = authWS.getSessionToken(username);
        
         System.out.println("Tokenauthentifizierung: " + authWS.authenticateToken(tokenTest));
-      //  Assert.assertEquals(true, authWS.authenticateToken(authWS.getSessionToken(username)));
-       
- 
+        
+        Assert.assertEquals(true, authWS.authenticateToken(tokenTest));
+
         System.out.println("Anmeldung mit nicht zugeordneter Rolle: " + authWS.authenticateUser(ActiveRole.Doctor));
         
         //mit falschem Usernamen
@@ -75,8 +69,5 @@ public class AuthenticationTest {
         ClientHelper.putUsernamePassword(username, password,authWS);
         
         System.out.println("Anmeldung mit nicht vorhandenem Username: " +authWS.authenticateUser(ActiveRole.Patient));
-        
-  
     }
-
 }

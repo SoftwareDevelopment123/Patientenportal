@@ -66,12 +66,12 @@ public class PatientWSImpl implements PatientWS {
 		catch (Exception e) {System.err.println("Invalid access"); return null;}
 		if (token == null) 	{System.err.println("No token");		return null;}
 		
-		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Relative,ActiveRole.Patient);
+		/*List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Relative,ActiveRole.Patient);
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
 		if (authResponse != null) {
 			System.err.println(authResponse);
 			return null;
-		}
+		}*/
 
 		else{
 			try {

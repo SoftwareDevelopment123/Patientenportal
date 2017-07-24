@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,16 +55,14 @@ private String token;
 		Accessor getRCases = new Accessor(token,true);
 		List<Case> clist = acc.getRCases(getRCases).getResponseList();
 		
+		int i = 1;
 		for (Case c : clist) {
-			System.out.print(c.getCaseID() + " - ");
+			/*System.out.print(c.getCaseID() + " - ");
 			System.out.println(c.getTitle());
 			System.out.println(c.getPatient().getUser().getEmail());
-			System.out.println(c.getDoctors().get(0).getUser().getUsername());
-		}
-		
-		
-		
-	}
-	
-	
+			System.out.println(c.getDoctors().get(0).getUser().getUsername());*/
+			Assert.assertEquals(c.getCaseID(), i);
+			i++;
+		}	
+	}	
 }
