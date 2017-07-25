@@ -13,6 +13,12 @@ import org.junit.Test;
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Medication;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MedicationListResponse;
 import de.patientenportal.persistence.CaseDAO;
@@ -48,7 +54,7 @@ public class MedicationWSTest {
         authWS.logout(token);
 	}
 	@Test
-	public void main() throws MalformedURLException {
+	public void main() throws MalformedURLException, InvalidParamException, AccessorException, PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 	
 		//Test get MedicationbyC
 		int caseid =1;
