@@ -4,25 +4,50 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import org.junit.Test;
 
 import de.patientenportal.clientHelper.ClientHelper;
-import de.patientenportal.entities.*;
+import de.patientenportal.entities.ActiveRole;
+import de.patientenportal.entities.Address;
+import de.patientenportal.entities.Case;
+import de.patientenportal.entities.Contact;
+import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.Gender;
+import de.patientenportal.entities.Insurance;
+import de.patientenportal.entities.Medication;
+import de.patientenportal.entities.Medicine;
+import de.patientenportal.entities.Office;
+import de.patientenportal.entities.Patient;
+import de.patientenportal.entities.Relative;
+import de.patientenportal.entities.User;
+import de.patientenportal.entities.VitalData;
+import de.patientenportal.entities.VitalDataType;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
 import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
-import de.patientenportal.persistence.*;
+import de.patientenportal.persistence.CaseDAO;
+import de.patientenportal.persistence.DoctorDAO;
+import de.patientenportal.persistence.InsuranceDAO;
+import de.patientenportal.persistence.MedicineDAO;
+import de.patientenportal.persistence.PatientDAO;
+import de.patientenportal.persistence.RegistrationDAO;
+import de.patientenportal.persistence.UserDAO;
 
 
 public class DBCreator {
 
 	@Test
-	public void createDatabase() throws ParseException, MalformedURLException{// main(String[] args) throws MalformedURLException, ParseException {
+	public void createDatabase() throws ParseException, MalformedURLException, InvalidParamException, AccessorException, PersistenceException, AuthenticationException, AccessException, AuthorizationException{// main(String[] args) throws MalformedURLException, ParseException {
 
 		
 		System.out.println("Creating DB-Entries ...");
@@ -173,7 +198,7 @@ public class DBCreator {
         String token = auth.getSessionToken(username);
 		System.out.println("Success!");
 				
-		// Fälle anlegen
+	/*	// Fälle anlegen
 		URL urlC = new URL("http://localhost:8080/case?wsdl");
 		QName qnameC = new QName("http://services.patientenportal.de/", "CaseWSImplService");
 		Service serviceC = Service.create(urlC, qnameC);
@@ -214,7 +239,7 @@ public class DBCreator {
 			casews.createCase(accessor);
 
 			System.out.println("Case for Patient " + pat.getPatientID() + " created");
-		}
+		}*/
 		
 		//XXX
 		//Medikamente + Medikation
@@ -228,15 +253,15 @@ public class DBCreator {
 			Service serviceMedica = Service.create(urlMedication, qnameMedica);
 			MedicationWS medicaws = serviceMedica.getPort(MedicationWS.class);
 			
-			Accessor createMedication = new Accessor();
+			Accessor createMedication = new Accessor(token);
 			Accessor createMedicine = new Accessor(token);
 			System.err.println("Develop Medicine ...");
 			
 			for(int zahl = 1 ; zahl<=6 ; zahl++){
 			Medicine medicine = new Medicine();
-				//medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
-				//medicine.setActiveIngredient("Krankium"+zahl);
-				//medicine.setName("InnovativerName"+zahl);
+				medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
+				medicine.setActiveIngredient("Krankium"+zahl);
+				medicine.setName("InnovativerName"+zahl);
 				createMedicine.setObject(medicine);
 				try {
 					medws.createMedicine(createMedicine);
@@ -269,14 +294,8 @@ public class DBCreator {
 					createMedication.setId(CaseDAO.getCase(zahl).getCaseID());
 
 					medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
-					try {
-						createMedication.setObject(medication1);
+					createMedication.setObject(medication1);
 
-					
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 					
 					try {
 						medicaws.createMedication(createMedication);
