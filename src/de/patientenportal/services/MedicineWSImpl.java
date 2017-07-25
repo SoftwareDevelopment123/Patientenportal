@@ -11,6 +11,8 @@ import de.patientenportal.entities.Medicine;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MedicineListResponse;
 import de.patientenportal.persistence.MedicineDAO;
+import smalltests.InvalidParamException;
+import smalltests.TokenException;
 
 @WebService (endpointInterface = "de.patientenportal.services.MedicineWS")
 public class MedicineWSImpl implements MedicineWS {
@@ -61,6 +63,8 @@ public class MedicineWSImpl implements MedicineWS {
 	 * 
 	 * @param accessor mit <code>String</code> token und dem anzulegenden Medikament
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws TokenException 
+	 * @throws InvalidParamException 
 	 */
 	@Transactional
 	public String createMedicine(Accessor accessor) {
@@ -72,10 +76,10 @@ public class MedicineWSImpl implements MedicineWS {
 			token = (String) accessor.getToken();
 		} 
 		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (medi.getName()	== null)			{return "Bitte einen Namen angeben.";}
-		if (medi.getDrugmaker()	== null)		{return "Kein Hersteller angegeben.";}
-		if (medi.getActiveIngredient()	== null){return "Keine Angaben zu den Inhaltsstoffen.";}
+		if (token == null) 	{throw new TokenException("No Token found");}
+		if (medi.getName()	== null)			{throw new InvalidParamException("No Name found");}
+		if (medi.getDrugmaker()	== null)		{throw new InvalidParamException("No Drugmaker found");}
+		if (medi.getActiveIngredient()	== null){throw new InvalidParamException("No Active Ingredient found");}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
 		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
@@ -91,6 +95,7 @@ public class MedicineWSImpl implements MedicineWS {
 			} catch (Exception e) {
 				System.err.println("Error: " + e); return "Error: " + e;
 			}
+			
 			return response;
 		}
 	}

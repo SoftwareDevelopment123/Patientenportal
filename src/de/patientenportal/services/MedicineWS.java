@@ -14,17 +14,17 @@ import de.patientenportal.entities.response.MedicineListResponse;
 public interface MedicineWS {
 
 	@WebMethod
-	public Medicine getMedicine		(@WebParam (name="Token--MedicineID") Accessor accessor);
-	
-	@WebMethod
-	public String createMedicine	(@WebParam (name="Token--Medicine") Accessor accessor);
-	
-	@WebMethod
-	public String deleteMedicine	(@WebParam (name="Token--MedicineID") Accessor accessor);
-	
-	@WebMethod
-	public String updateMedicine	(@WebParam (name="Token--Medicine") Accessor accessor);
+	public Medicine getMedicine(@WebParam(name = "Token--MedicineID") Accessor accessor);
 
 	@WebMethod
-	public MedicineListResponse getAllMedicine (@WebParam (name="Token") Accessor accessor);
+	public String createMedicine(@WebParam(name = "Token--Medicine") Accessor accessor);
+
+	@WebMethod
+	public String deleteMedicine(@WebParam(name = "Token--MedicineID") Accessor accessor);
+
+	@WebMethod
+	public String updateMedicine(@WebParam(name = "Token--Medicine") Accessor accessor);
+
+	@WebMethod
+	public MedicineListResponse getAllMedicine(@WebParam(name = "Token") Accessor accessor);
 }
