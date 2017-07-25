@@ -1,13 +1,18 @@
-package smalltests;
+package de.patientenportal.entities.exceptions;
 
 import javax.xml.ws.WebFault;
 
-@WebFault(name="WebServiceFault")
+/**
+ * Wird geworfen, wenn an eine Methode ein Objekt mit unvollständigen Parametern
+ * übergeben wurde.
+ * 
+ * @param message
+ *            Fehlermeldung
+ */
+
+@WebFault(name = "InvalidParamException")
 public class InvalidParamException extends Exception {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6818177939168541553L;
 
 	public InvalidParamException() {
@@ -17,5 +22,4 @@ public class InvalidParamException extends Exception {
 	public InvalidParamException(String message) {
 		super(message);
 	}
-
 }

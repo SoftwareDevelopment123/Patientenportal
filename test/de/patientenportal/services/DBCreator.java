@@ -14,9 +14,9 @@ import org.junit.Test;
 
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.*;
+import de.patientenportal.entities.exceptions.InvalidParamException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.*;
-import smalltests.InvalidParamException;
 
 
 public class DBCreator {

@@ -4,58 +4,66 @@ import java.util.Arrays;
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
-
-import org.hibernate.dialect.identity.SybaseAnywhereIdentityColumnSupport;
-
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Medicine;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MedicineListResponse;
 import de.patientenportal.persistence.MedicineDAO;
-import smalltests.InvalidParamException;
-import smalltests.TokenException;
 
-@WebService (endpointInterface = "de.patientenportal.services.MedicineWS")
+@WebService(endpointInterface = "de.patientenportal.services.MedicineWS")
 public class MedicineWSImpl implements MedicineWS {
-	
-	
+
 	/**
 	 * <b>Medikament über die ID abrufen</b><br>
 	 * 
 	 * Zugriffsbeschränkung: keine
 	 * 
-	 * @param accessor mit <code>String</code> token und <code>int</code> medicineID
-	 * @return <code>MedicationListResponse</code> mit der dem Patienten zugeordneten Medikation
+	 * @param accessor
+	 *            mit <code>String</code> token und <code>int</code> medicineID
+	 * @return <code>Medicine</code>
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public Medicine getMedicine(Accessor accessor) {
+	public Medicine getMedicine(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, InvalidParamException, AccessorException, PersistenceException {
 		int id;
 		String token;
-		
+
 		try {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
 		}
-		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (id == 0) 		{System.err.println("Id null"); 		return null;}
-		
-		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return null;
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (id == 0) {
+			throw new InvalidParamException("No ID found");
 		}
 
-		else {
-			Medicine medi = new Medicine();
-			try {
-				medi = MedicineDAO.getMedicine(id);
-			}
-			catch (Exception e) {	System.err.println("Error: " + e);		return null;}
-			return medi;
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
+		Medicine medi = new Medicine();
+		try {
+			medi = MedicineDAO.getMedicine(id);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
+		return medi;
 	}
 
 	/**
@@ -63,43 +71,54 @@ public class MedicineWSImpl implements MedicineWS {
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor</code>
 	 * 
-	 * @param accessor mit <code>String</code> token und dem anzulegenden Medikament
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
-	 * @throws TokenException 
-	 * @throws InvalidParamException 
+	 * @param accessor
+	 *            mit <code>String</code> token und dem anzulegenden Medikament:
+	 *            {@link Medicine}
+	 * @return <code>String</code> response mit Erfolgsmeldung 'success'
+	 * @throws TokenException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
-	public String createMedicine(Accessor accessor) throws InvalidParamException  {
+	public String createMedicine(Accessor accessor) throws InvalidParamException, AccessorException,
+			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		Medicine medi = new Medicine();
 		String token;
-		
+
 		try {
 			medi = (Medicine) accessor.getObject();
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{throw new TokenException("No Token found");}
-		if (medi.getName()	== null)			{throw new InvalidParamException("No Name found Hallo");}
-		if (medi.getDrugmaker()	== null)		{throw new InvalidParamException("No Drugmaker found");}
-		if (medi.getActiveIngredient()	== null){throw new InvalidParamException("No Active Ingredient found");}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (medi.getName() == null) {
+			throw new InvalidParamException("No Name found");
+		}
+		if (medi.getDrugmaker() == null) {
+			throw new InvalidParamException("No Drugmaker found");
+		}
+		if (medi.getActiveIngredient() == null) {
+			throw new InvalidParamException("No Active Ingredient found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
+		String response = null;
+		try {
+			response = MedicineDAO.createMedicine(medi);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
-		
-		else { 
-			String response = null;
-			try {
-				response = MedicineDAO.createMedicine(medi);
-			} catch (Exception e) {
-				System.err.println("Error: " + e); return "Error: " + e;
-			}
-			
-			return response;
-		}
+		return response;
+
 	}
 
 	/**
@@ -107,109 +126,137 @@ public class MedicineWSImpl implements MedicineWS {
 	 *
 	 * Zugriffsbeschränkung: <code>Doctor</code>
 	 * 
-	 * @param accessor mit <code>String</code> token und <code>int</code> MedicineID des zu löschenden Medikaments.
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @param accessor
+	 *            mit <code>String</code> token und <code>int</code> MedicineID
+	 *            des zu löschenden Medikaments.
+	 * @return <code>String</code> response mit Erfolgsmeldung 'success'
+	 * @throws AuthorizationException,
+	 *             AccessorException, InvalidParamException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String deleteMedicine(Accessor accessor) {
+	public String deleteMedicine(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		int id;
 		String token;
-		
+
 		try {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
 		}
-		catch (Exception e) {System.err.println("Invalid access"); 	return "Falscher Input";}
-		if (token == null) 	{System.err.println("No token");		return "Kein Token angegeben";}
-		if (id == 0) 		{System.err.println("Id null"); 		return "Keine ID angegeben";}
-		
-		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (id == 0) {
+			throw new InvalidParamException("No ID found");
 		}
 
-		else{
-			String response = null;
-			try {response = MedicineDAO.deleteMedicine(id);}
-			catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
-		return response;
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
+		String response = null;
+		try {
+			response = MedicineDAO.deleteMedicine(id);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
+		return response;
 	}
 
 	/**
 	 * <b>Medikament ändern</b><br>
-	 *  
-	 * Zugriffsbeschränkung: <code>Doctor</code> 
 	 * 
-	 * @param accessor mit <code>String</code> token und dem zu ändernden <code>Medicine</code>
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * Zugriffsbeschränkung: <code>Doctor</code>
+	 * 
+	 * @param accessor
+	 *            mit <code>String</code> token und dem zu ändernden Medikament:
+	 *            {@link Medicine}
+	 * @return <code>String</code> response mit Erfolgsmeldung 'success'
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updateMedicine(Accessor accessor) {
+	public String updateMedicine(Accessor accessor) throws AccessorException, InvalidParamException,
+			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		Medicine medi = new Medicine();
 		String token;
-		
+
 		try {
 			medi = (Medicine) accessor.getObject();
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (medi.getName() == null) {
+			throw new InvalidParamException("No Name found");
+		}
+		if (medi.getDrugmaker() == null) {
+			throw new InvalidParamException("No Drugmaker found");
+		}
+		if (medi.getActiveIngredient() == null) {
+			throw new InvalidParamException("No Active Ingredient found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
-		
-		else {
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
 		String response = null;
-		try {response = MedicineDAO.updateMedicine(medi);}
-		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
-		return response;
+		try {
+			response = MedicineDAO.updateMedicine(medi);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
+		return response;
 	}
 
 	/**
 	 * <b>Alle Medikamente abrufen</b><br>
 	 *
-	 * Zugriffsbeschränkung: keine 
+	 * Zugriffsbeschränkung: keine
 	 * 
-	 * @param accessor mit <code>String</code> token 
-	 * @return <code>MedicineListResponse</code> mit allen in der Datenbank vorhandenen Medikamenten
+	 * @param accessor
+	 *            mit <code>String</code> token
+	 * @return <code>MedicineListResponse</code> mit allen in der Datenbank
+	 *         vorhandenen Medikamenten
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AccessorException,
+	 *             InvalidParamException, AuthenticationException
 	 */
 	@Transactional
-	public MedicineListResponse getAllMedicine(Accessor accessor) {
+	public MedicineListResponse getAllMedicine(Accessor accessor) throws AccessorException, InvalidParamException,
+			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		MedicineListResponse response = new MedicineListResponse();
 		String token;
-		
+
 		try {
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			response.setResponseCode(authResponse);
-			return response;
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
+		try {
+			response.setResponseList(MedicineDAO.getAllMedicine());
+			response.setResponseCode("success");
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
-		
-		else {
-			try {
-				response.setResponseList(MedicineDAO.getAllMedicine());
-				response.setResponseCode("success");
-			}
-			catch (Exception e) {
-				System.err.println("Error: " + e);
-				response.setResponseCode("Error: " + e);
-				return response;}
 		return response;
-		}
 	}
 }
