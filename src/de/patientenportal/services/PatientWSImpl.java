@@ -1,12 +1,10 @@
 package de.patientenportal.services;
 
-import java.util.Arrays;
+
 import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 
-import de.patientenportal.entities.Access;
-import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.PatientListResponse;
@@ -65,13 +63,6 @@ public class PatientWSImpl implements PatientWS {
 		}
 		catch (Exception e) {System.err.println("Invalid access"); return null;}
 		if (token == null) 	{System.err.println("No token");		return null;}
-		
-		/*List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Relative,ActiveRole.Patient);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return null;
-		}*/
 
 		else{
 			try {
