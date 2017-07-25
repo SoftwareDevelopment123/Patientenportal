@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "MedicalDoc", catalog = "patientenportal")
@@ -23,7 +24,6 @@ public class MedicalDoc {
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;
-	
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -86,6 +86,4 @@ public class MedicalDoc {
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
 	}
-
-	
 }

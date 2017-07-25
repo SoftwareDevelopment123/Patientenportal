@@ -158,6 +158,7 @@ public class MedicationWSImpl implements MedicationWS {
 				
 				if (creatingdoctor != null){
 				medication.setPrescribedBy(creatingdoctor);
+				medication.setPcase(CaseDAO.getCase(id));
 				response = MedicationDAO.createMedication(medication);
 				}
 				else return "Fehler";
