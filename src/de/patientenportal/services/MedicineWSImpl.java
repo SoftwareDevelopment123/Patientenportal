@@ -5,6 +5,8 @@ import java.util.List;
 import javax.jws.WebService;
 import javax.transaction.Transactional;
 
+import org.hibernate.dialect.identity.SybaseAnywhereIdentityColumnSupport;
+
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Medicine;
@@ -77,7 +79,7 @@ public class MedicineWSImpl implements MedicineWS {
 		} 
 		catch (Exception e) {System.err.println("Invalid access");	return null;}
 		if (token == null) 	{throw new TokenException("No Token found");}
-		if (medi.getName()	== null)			{throw new InvalidParamException("No Name found");}
+		if (medi.getName()	== null)			{InvalidParamException ex = new InvalidParamException("No Name was given") ; return ex.getMessage();}
 		if (medi.getDrugmaker()	== null)		{throw new InvalidParamException("No Drugmaker found");}
 		if (medi.getActiveIngredient()	== null){throw new InvalidParamException("No Active Ingredient found");}
 
