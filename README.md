@@ -144,26 +144,25 @@ bis 16.07. (alle)
 
 
 ## To-Do
-- Problem mit MedicationWSImpl beheben: Ohne die Annotation @XmlTransient in der Enity Medication läuft der DB-Creator - der Test aber nicht mehr - erst nach wieder reinnehmen + Puplisher Relaunch
-
-- Login-Daten abschneiden oder in eigene Entity (weeschn dor Sischerheid!)
-
-- Superklasse für die Dokumente wieder einfügen?
-
 - inDoc und medDoc - WS (inkl. Impl.) überprüfen
-	- inDocWS ist noch leer - dementsprechend müsste hier auch der Test noch fehlen
-	- in beiden Impl fehlt noch der tokenRoleAccessCheck (sollte Jan machen, er weiß genau was da stehen muss)
+- RightsWS aktualisieren (Rollenbegrenzung unt auth)
+- OfficeWS leicht beschränken (nur Doctor oder so)
 	
-- Token- und Role-Check (soweit nötig) in die Methoden einfüge
-	- Tests anpassen, sodass das Token in den Accessor mitgegeben wir
-	- Tests (min. 1-2 Mal) auf die Verschiedenen Outputs (InvalidToken, NoToken, ...) per AssertEquals testen
-	
-- restliche WS anlegen
-- RightsWSTest delete ergänzen
+- die restlichen WS am Beispiel MedicineWS / MedicineWSImpl aktualisieren
 
+- 1 Mal alle Throwables testen, egal wo
+	
 - javadoc
 
-- Suchfunktionen
+- Wiki
+
+- Copy your whole Project from GitHub
+
+- Change Authors
+
+- ???
+
+- Profit
 
 ## Anmerkungen
 - Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
