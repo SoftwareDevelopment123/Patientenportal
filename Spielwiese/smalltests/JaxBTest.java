@@ -101,7 +101,7 @@ public class JaxBTest {
 			
 		marshaller.marshal(response, System.out);*/
 		
-	/*	JAXBContext jc = JAXBContext.newInstance(Medication.class);
+		JAXBContext jc = JAXBContext.newInstance(Medication.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
@@ -114,9 +114,9 @@ public class JaxBTest {
 			
 		marshaller.marshal(m, System.out);
         
-		MedicationDAO.createMedication(m);*/
+		MedicationDAO.createMedication(m);
 		
-		JAXBContext jc = JAXBContext.newInstance(MedicationListResponse.class);
+		/*JAXBContext jc = JAXBContext.newInstance(MedicationListResponse.class);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		
@@ -124,7 +124,33 @@ public class JaxBTest {
 		MedicationListResponse med = new MedicationListResponse();
 		med.setResponseList(mlist);
 		
-		marshaller.marshal(med, System.out);
+		marshaller.marshal(med, System.out);*/
+		
+		/*JAXBContext jc = JAXBContext.newInstance(Accessor.class);
+        Marshaller marshaller = jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		
+        Accessor createMedication = new Accessor("asaf322354253asd");
+        
+        User user = new User();
+        	user.setFirstname("asd");
+        	user.setPassword("3123");
+        	user.setUsername("asd");
+        
+        Medicine medicine = new Medicine();
+			medicine.setDrugmaker("Böser Pharmakonzern");
+			medicine.setActiveIngredient("Krankium");
+			medicine.setName("InnovativerName");
+
+		Medication medication1 = new Medication();
+		medication1.setDosage("212");
+		medication1.setDuration("extremslange Stunden:");			
+		medication1.setPcase(CaseDAO.getCase(1));
+		medication1.setMedicine(medicine);
+		medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
+			createMedication.setObject(user);
+			
+		marshaller.marshal(createMedication, System.out);*/
 		
         System.exit(0);
         

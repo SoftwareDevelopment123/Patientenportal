@@ -6,8 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import de.patientenportal.entities.VitalData;
 
-
-@XmlRootElement (name="userListResponse")
+@XmlRootElement (name="vitalDataListResponse")
 public class VitalDataListResponse extends ListResponse{
 
 	private List<VitalData> responseList;
