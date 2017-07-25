@@ -69,7 +69,7 @@ public class MedicineWSImpl implements MedicineWS {
 	 * @throws InvalidParamException 
 	 */
 	@Transactional
-	public String createMedicine(Accessor accessor) {
+	public String createMedicine(Accessor accessor) throws InvalidParamException  {
 		Medicine medi = new Medicine();
 		String token;
 		
@@ -79,7 +79,7 @@ public class MedicineWSImpl implements MedicineWS {
 		} 
 		catch (Exception e) {System.err.println("Invalid access");	return null;}
 		if (token == null) 	{throw new TokenException("No Token found");}
-		if (medi.getName()	== null)			{InvalidParamException ex = new InvalidParamException("No Name was given") ; return ex.getMessage();}
+		if (medi.getName()	== null)			{throw new InvalidParamException("No Name found Hallo");}
 		if (medi.getDrugmaker()	== null)		{throw new InvalidParamException("No Drugmaker found");}
 		if (medi.getActiveIngredient()	== null){throw new InvalidParamException("No Active Ingredient found");}
 
