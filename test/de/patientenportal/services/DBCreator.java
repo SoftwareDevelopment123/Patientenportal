@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.xml.namespace.QName;
@@ -13,6 +14,7 @@ import org.junit.Test;
 
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.*;
+import de.patientenportal.entities.exceptions.InvalidParamException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.*;
 
@@ -226,17 +228,33 @@ public class DBCreator {
 			Service serviceMedica = Service.create(urlMedication, qnameMedica);
 			MedicationWS medicaws = serviceMedica.getPort(MedicationWS.class);
 			
-			Accessor createMedication = new Accessor(token);
+			Accessor createMedication = new Accessor();
 			Accessor createMedicine = new Accessor(token);
 			System.err.println("Develop Medicine ...");
 			
 			for(int zahl = 1 ; zahl<=6 ; zahl++){
 			Medicine medicine = new Medicine();
-				medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
-				medicine.setActiveIngredient("Krankium"+zahl);
-				medicine.setName("InnovativerName"+zahl);
+				//medicine.setDrugmaker("Böser Pharmakonzern"+zahl);
+				//medicine.setActiveIngredient("Krankium"+zahl);
+				//medicine.setName("InnovativerName"+zahl);
 				createMedicine.setObject(medicine);
-				medws.createMedicine(createMedicine);
+				try {
+					medws.createMedicine(createMedicine);
+				} catch (InvalidParamException ipe)
+				{
+					// TODO Auto-generated catch block
+					System.out.println(ipe);
+				}
+				  catch (Exception e2) {
+					// TODO Auto-generated catch block
+					  System.out.println(e2.getClass());
+					  System.out.println(e2.getLocalizedMessage());
+					  System.out.println(e2.getCause());
+				
+					  
+					 
+	
+				}
 				System.out.println("Medicines added: " + medicine.getName());
 				
 				
@@ -245,11 +263,27 @@ public class DBCreator {
 					medication1.setDosage("212"+zahl);
 					medication1.setDuration("extremslange Stunden:"+zahl);			
 					medication1.setMedicine(MedicineDAO.getMedicine(zahl));
+
 					
 					createMedication.setObject(medication1);
 					createMedication.setId(CaseDAO.getCase(zahl).getCaseID());
+
+					medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
+					try {
+						createMedication.setObject(medication1);
+
 					
-					medicaws.createMedication(createMedication);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					try {
+						medicaws.createMedication(createMedication);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					System.out.println("Medicationes added: " + medication1.getDosage());
 			//	}
 				

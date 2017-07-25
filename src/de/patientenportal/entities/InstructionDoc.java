@@ -1,9 +1,7 @@
 package de.patientenportal.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "InstructionDoc", catalog = "patientenportal")
@@ -80,5 +78,4 @@ public class InstructionDoc {
 	public void setPcase(List<Case> cases) {
 		this.cases = cases;
 	}
-
 }

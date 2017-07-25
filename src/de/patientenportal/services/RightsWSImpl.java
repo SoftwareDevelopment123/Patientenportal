@@ -83,6 +83,13 @@ public class RightsWSImpl  implements RightsWS {
 		AuthenticationWSImpl auth = new AuthenticationWSImpl();
 		if (auth.authenticateToken(token) == false){System.err.println("Invalid token"); 	return null;}
 		//TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das Recht anlegt
+		/*
+		 * CaseDAO.getCase(right.getPcase.getCaseID).getPatient.getPatientID != UserbyToken --> Patient.getPatientID
+		 * --> AccessException
+		 * 
+		 */
+		
+		
 		else{
 			String response = null;
 			try {response = RightsDAO.createRight(right);}
