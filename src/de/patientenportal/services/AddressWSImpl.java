@@ -8,6 +8,12 @@ import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Address;
 import de.patientenportal.entities.User;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.AddressDAO;
 import de.patientenportal.persistence.UserDAO;
@@ -22,9 +28,16 @@ public class AddressWSImpl implements AddressWS {
 	 * 
 	 * @param accessor mit <code>String</code> token und der zu ändernden <code>Address</code>
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws AccessorException 
+	 * @throws InvalidParamException 
+	 * @throws AuthorizationException 
+	 * @throws AccessException 
+	 * @throws AuthenticationException 
+	 * @throws PersistenceException 
 	 */
 	@Transactional
-	public String updateAddress(Accessor accessor) {
+	public String updateAddress(Accessor accessor) throws AccessorException, InvalidParamException,
+			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		Address address = new Address();
 		String token;
 		
@@ -32,16 +45,18 @@ public class AddressWSImpl implements AddressWS {
 			address = (Address) accessor.getObject();
 			token = (String) accessor.getToken();
 		} 
-		catch (Exception e) 	{System.err.println("Invalid access");	return null;}
-		if (token == null) 		{System.err.println("No token");		return null;}
-		if (address == null)	{System.err.println("No address");		return null;}
+		catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (address == null) {
+			throw new InvalidParamException("No Address found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		
 		User activeuser = AuthenticationWSImpl.getUserByToken(token);
 		Address useraddress = UserDAO.getUser(activeuser.getUserId()).getAddress();
@@ -54,7 +69,9 @@ public class AddressWSImpl implements AddressWS {
 		else {
 		String response = null;
 		try {response = AddressDAO.updateAddress(address);}
-		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
+		catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
+		}
 		return response;
 		}
 	}
@@ -65,9 +82,15 @@ public class AddressWSImpl implements AddressWS {
 	 * 
 	 * @param accessor mit <code>String</code> token und <code>int</code> addressID der zu löschenden Adresse
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws AccessorException 
+	 * @throws InvalidParamException 
+	 * @throws AuthorizationException 
+	 * @throws AccessException 
+	 * @throws AuthenticationException 
+	 * @throws PersistenceException 
 	 */
 	@Transactional
-	public String deleteAddress(Accessor accessor) {
+	public String deleteAddress(Accessor accessor) throws AccessorException, InvalidParamException, AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		int id;
 		String token;
 		
@@ -75,16 +98,18 @@ public class AddressWSImpl implements AddressWS {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
 		}
-		catch (Exception e) {System.err.println("Invalid access"); 	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (id == 0) 		{System.err.println("Id null"); 		return null;}
+		catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (id == 0) {
+			throw new InvalidParamException("No ID found");
+		}
 		
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 		
 		User activeuser = AuthenticationWSImpl.getUserByToken(token);
 		Address useraddress = UserDAO.getUser(activeuser.getUserId()).getAddress();
@@ -97,7 +122,9 @@ public class AddressWSImpl implements AddressWS {
 		else {
 			String response = null;
 			try {response = AddressDAO.deleteAddress(id);}
-			catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
+			catch (Exception e) {
+				throw new PersistenceException("Error 404: Database not found");
+			}
 			return response;
 		}
 	}
