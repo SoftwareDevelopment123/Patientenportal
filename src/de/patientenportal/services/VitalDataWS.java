@@ -22,16 +22,20 @@ public interface VitalDataWS {
 
 	@WebMethod
 	public VitalDataListResponse getVitalDatabyC(@WebParam(name = "Token--CaseID") Accessor accessor,
-			@WebParam(name = "VitalDataType") VitalDataType vDtype);
+			@WebParam(name = "VitalDataType") VitalDataType vDtype) throws PersistenceException, AccessorException, InvalidParamException, AuthenticationException, AccessException, AuthorizationException;
 
 	@WebMethod
 	public String createVitalData(@WebParam(name = "Token--VitalData") Accessor accessor) throws InvalidParamException,
 			AccessorException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
 	@WebMethod
-	public String deleteVitalData(@WebParam(name = "Token--VitalDataID") Accessor accessor);
+	public String deleteVitalData(@WebParam(name = "Token--VitalDataID") Accessor accessor)
+			throws AuthenticationException, AccessException, AuthorizationException, AccessorException,
+			InvalidParamException, PersistenceException;
 
 	@WebMethod
-	public String updateVitalData(@WebParam(name = "Token--VitalData") Accessor accessor);
+	public String updateVitalData(@WebParam(name = "Token--VitalData") Accessor accessor)
+			throws AccessorException, InvalidParamException, AuthenticationException, AccessException,
+			AuthorizationException, PersistenceException;
 
 }

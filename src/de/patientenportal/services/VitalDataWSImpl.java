@@ -38,9 +38,17 @@ public class VitalDataWSImpl implements VitalDataWS {
 	 * @param vDataType
 	 *            (HEARTRATE, BLOODPRESSURE, BLOODSUGAR, WEIGHT)
 	 * @return <code>VitalDataListResponse</code> mit den abgefragten Vitaldaten
+	 * @throws PersistenceException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
-	public VitalDataListResponse getVitalDatabyC(Accessor accessor, VitalDataType vDataType) {
+	public VitalDataListResponse getVitalDatabyC(Accessor accessor, VitalDataType vDataType)
+			throws PersistenceException, AccessorException, InvalidParamException, AuthenticationException,
+			AccessException, AuthorizationException {
 		VitalDataListResponse response = new VitalDataListResponse();
 		int id;
 		String token;
@@ -49,40 +57,32 @@ public class VitalDataWSImpl implements VitalDataWS {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
-			System.err.println("Invalid access");
-			return null;
+			throw new AccessorException("Incorrect Accessor");
 		}
 		if (token == null) {
-			System.err.println("No token");
-			return null;
+			throw new InvalidParamException("No Token found");
 		}
 		if (id == 0) {
-			System.err.println("Id null");
-			return null;
+			throw new InvalidParamException("No ID found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return null;
-		} else {
-			try {
-				List<VitalData> vdlist = new ArrayList<VitalData>();
-				List<VitalData> allVDlist = CaseDAO.getCase(id).getVitaldata();
-				for (VitalData vd : allVDlist) {
-					if (vd.getVitalDataType() == vDataType) {
-						vdlist.add(vd);
-					}
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
+		try {
+			List<VitalData> vdlist = new ArrayList<VitalData>();
+			List<VitalData> allVDlist = CaseDAO.getCase(id).getVitaldata();
+			for (VitalData vd : allVDlist) {
+				if (vd.getVitalDataType() == vDataType) {
+					vdlist.add(vd);
 				}
-
-				response.setResponseCode("success");
-				response.setResponseList(vdlist);
-			} catch (Exception e) {
-				response.setResponseCode("Error: " + e);
 			}
-			return response;
+
+			response.setResponseCode("success");
+			response.setResponseList(vdlist);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
+		return response;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 	 */
 	@Transactional
 	public String createVitalData(Accessor accessor) throws InvalidParamException, AccessorException,
-	PersistenceException, AuthenticationException, AccessException, AuthorizationException {
+			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		VitalData vitalData = new VitalData();
 		String token;
 		int id;
@@ -109,7 +109,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();
 			id = accessor.getId();
-			
+
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
@@ -117,7 +117,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 			throw new InvalidParamException("No Token found");
 		}
 		if (vitalData.getValue() == null) {
-			throw new InvalidParamException("No Value found");	
+			throw new InvalidParamException("No Value found");
 		}
 		if (vitalData.getVitalDataType() == null) {
 			throw new InvalidParamException("No VitalDataType found");
@@ -149,9 +149,16 @@ public class VitalDataWSImpl implements VitalDataWS {
 	 *            mit <code>String</code> token und <code>int</code> VitalDataID
 	 *            der zu löschenden VitalDaten
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String deleteVitalData(Accessor accessor) {
+	public String deleteVitalData(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		int id;
 		String token;
 
@@ -159,33 +166,26 @@ public class VitalDataWSImpl implements VitalDataWS {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
-			System.err.println("Invalid access");
-			return "Falscher Input";
+			throw new AccessorException("Incorrect Accessor");
 		}
 		if (token == null) {
-			System.err.println("No token");
-			return "Kein Token angegeben";
+			throw new InvalidParamException("No Token found");
 		}
 		if (id == 0) {
-			System.err.println("Id null");
-			return "Keine ID angegeben";
+			throw new InvalidParamException("No ID found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		} else {
-			String response = null;
-			try {
-				response = VitalDataDAO.deleteVitalData(id);
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return "Error: " + e;
-			}
-			return response;
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
+
+		String response = null;
+		try {
+			response = VitalDataDAO.deleteVitalData(id);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
+		return response;
+
 	}
 
 	/**
@@ -197,9 +197,16 @@ public class VitalDataWSImpl implements VitalDataWS {
 	 *            mit <code>String</code> token und der zu ändernden
 	 *            <code>VitalData</code>
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updateVitalData(Accessor accessor) {
+	public String updateVitalData(Accessor accessor) throws AccessorException, InvalidParamException,
+			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		VitalData vitalData = new VitalData();
 		String token;
 
@@ -207,30 +214,22 @@ public class VitalDataWSImpl implements VitalDataWS {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
-			System.err.println("Invalid access");
-			return "Falscher Input";
+			throw new AccessorException("Incorrect Accessor");
 		}
 		if (token == null) {
-			System.err.println("No token");
-			return "Kein Token angegeben";
+			throw new InvalidParamException("No Token found");
 		}
-
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
 		accessor.setObject(vitalData.getPcase().getCaseID());
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		} else {
-			String response = null;
-			try {
-				response = VitalDataDAO.updateVitalData(vitalData);
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return "Error: " + e;
-			}
-			return response;
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
+
+		String response = null;
+		try {
+			response = VitalDataDAO.updateVitalData(vitalData);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
+		return response;
 
 	}
 
