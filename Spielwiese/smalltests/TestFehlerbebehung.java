@@ -8,6 +8,12 @@ import javax.xml.ws.Service;
 
 import de.patientenportal.entities.Medication;
 import de.patientenportal.entities.Medicine;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.MedicineDAO;
@@ -18,7 +24,7 @@ import de.patientenportal.services.MedicineWS;
 
 public class TestFehlerbebehung {
 
-	public static void main(String[] args) throws MalformedURLException {
+	public static void main(String[] args) throws MalformedURLException, InvalidParamException, AccessorException, PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		
 		URL urlA = new URL("http://localhost:8080/authentication?wsdl");
 		QName qnameA = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
