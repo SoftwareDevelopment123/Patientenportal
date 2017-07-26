@@ -7,6 +7,12 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
 import de.patientenportal.entities.MedicalDoc;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MDocListResponse;
 
@@ -15,22 +21,26 @@ import de.patientenportal.entities.response.MDocListResponse;
 public interface MedDocWS {
 
 	@WebMethod
-	public MedicalDoc getMDoc					(@WebParam (name="MDocID")Accessor accessor);
-	
-	public MDocListResponse getMDocsbyC			(@WebParam (name="CaseID")Accessor accessor);
-	
-	public MDocListResponse getMDocsbyP			(@WebParam (name="PatientID")Accessor accessor);
-	
-	public MDocListResponse getMDocsbyD			(@WebParam (name="DoctorID")Accessor accessor);
-	
-	public String createMedicalDoc				(@WebParam (name="Medicaldocument") MedicalDoc medicaldoc);
-	
-	public String updateMDoc					(@WebParam (name="Medicaldocument") MedicalDoc medicaldoc);
-	
-	public String deleteMDoc					(@WebParam (name="MDocID") int MDocID);
-	
-	
-	
-	
-	
+	public MedicalDoc getMDoc(@WebParam(name = "MDocID") Accessor accessor)
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException,
+			AccessException, AuthorizationException;
+
+	public MDocListResponse getMDocsbyC(@WebParam(name = "CaseID") Accessor accessor)
+			throws AccessorException, InvalidParamException, PersistenceException;
+
+	public MDocListResponse getMDocsbyP(@WebParam(name = "PatientID") Accessor accessor)
+			throws AccessorException, InvalidParamException, PersistenceException;
+
+	public MDocListResponse getMDocsbyD(@WebParam(name = "DoctorID") Accessor accessor)
+			throws AccessorException, InvalidParamException, PersistenceException;
+
+	public String createMedicalDoc(@WebParam(name = "Medicaldocument") Accessor accessor)
+			throws AccessorException, InvalidParamException, PersistenceException;
+
+	public String updateMDoc(@WebParam(name = "Medicaldocument") Accessor accessor)
+			throws AccessorException, InvalidParamException, PersistenceException;
+
+	public String deleteMDoc(@WebParam(name = "MDocID") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+
 }
