@@ -8,87 +8,112 @@ import javax.transaction.Transactional;
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Relative;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RelativeDAO;
 
-@WebService (endpointInterface = "de.patientenportal.services.RelativeWS")
+@WebService(endpointInterface = "de.patientenportal.services.RelativeWS")
 public class RelativeWSImpl implements RelativeWS {
-	
+
 	/**
 	 * <b>Einen Verwandten zu einem Patienten abrufen</b><br>
 	 * 
-	 * @param accessor mit <code>String</code> token und <code>int</code> relativID
-	 * @return <code>Relative</code> 
+	 * @param accessor
+	 *            mit <code>String</code> token und <code>int</code> relativID
+	 * @return <code>Relative</code>
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public Relative getRelative(Accessor accessor) {
+	public Relative getRelative(Accessor accessor) throws AccessorException, InvalidParamException,
+			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		int id;
 		String token;
-		
+
 		try {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
-			}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (id == 0) 		{System.err.println("Id null"); return null;}
-		
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (id == 0) {
+			throw new InvalidParamException("No ID found");
+		}
+
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return null;
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
+		Relative relative = new Relative();
+		try {
+			relative = RelativeDAO.getRelative(id);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
-		
-		else{
-			Relative relative = new Relative();
-			try {relative = RelativeDAO.getRelative(id);}
-			catch (Exception e) {System.err.println("Error: " + e);}
 		return relative;
-		}
 	}
 
 	/**
 	 * <b>Alle Verwandten zu einem Patienten abrufen</b><br>
 	 * 
-	 * Zugriffsbeschränkung: Doctor, Relative mit Leserecht beim betroffenen Fall<br>
-	 * (Patienten können ohnehin ihre Fälle vollständig einsehen - siehe CaseWS) 
+	 * Zugriffsbeschränkung: Doctor, Relative mit Leserecht beim betroffenen
+	 * Fall<br>
+	 * (Patienten können ohnehin ihre Fälle vollständig einsehen - siehe CaseWS)
 	 * 
-	 * @param accessor mit <code>String</code> token und <code>int</code> patientID
-	 * @return <code>RelativeListResponse</code> mit allen Verwandten und Erfolgsmeldung oder Fehlermeldung.
+	 * @param accessor
+	 *            mit <code>String</code> token und <code>int</code> patientID
+	 * @return <code>RelativeListResponse</code> mit allen Verwandten und
+	 *         Erfolgsmeldung oder Fehlermeldung.
+	 * @throws PersistenceException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
-	public RelativeListResponse getRelativesByP(Accessor accessor) {
+	public RelativeListResponse getRelativesByP(Accessor accessor) throws PersistenceException, AccessorException,
+			InvalidParamException, AuthenticationException, AccessException, AuthorizationException {
 		RelativeListResponse response = new RelativeListResponse();
 		int id;
 		String token;
-		
+
 		try {
 			id = (int) accessor.getObject();
 			token = (String) accessor.getToken();
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
 		}
-		catch (Exception e) {System.err.println("Invalid access"); return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (id == 0) 		{System.err.println("Id null"); return null;}
-		
-		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			response.setResponseCode(authResponse);
-			return response;
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
 		}
-		else{
-			try {
-			List<Relative> rlist = PatientDAO.getPatient(id).getRelatives();
-				response.setResponseCode("success");
-				response.setResponseList(rlist);
-			} catch (Exception e) {
-				response.setResponseCode("Error: " + e);
-			} return response;
+		if (id == 0) {
+			throw new InvalidParamException("No ID found");
 		}
-	}
 
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
+		try {
+			List<Relative> rlist = PatientDAO.getPatient(id).getRelatives();
+			response.setResponseCode("success");
+			response.setResponseList(rlist);
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
+		}
+		return response;
+	}
 }
