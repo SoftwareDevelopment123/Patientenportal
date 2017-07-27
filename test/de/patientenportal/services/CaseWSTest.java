@@ -15,6 +15,12 @@ import org.junit.Test;
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.CaseListResponse;
 import de.patientenportal.persistence.CaseDAO;
@@ -50,7 +56,7 @@ public class CaseWSTest {
 	}
 	
 	@Test
-	public void getCase() throws MalformedURLException{
+	public void getCase() throws MalformedURLException, AuthenticationException, AccessException, AuthorizationException, InvalidParamException, AccessorException, PersistenceException{
 		
 		URL urlC = new URL("http://localhost:8080/case?wsdl");
 		QName qnameC = new QName("http://services.patientenportal.de/", "CaseWSImplService");
@@ -76,7 +82,7 @@ public class CaseWSTest {
 	}
 	
 	@Test
-	public void getCases() throws MalformedURLException{
+	public void getCases() throws MalformedURLException, InvalidParamException, AccessorException, PersistenceException, AuthenticationException, AccessException, AuthorizationException{
 		
 		URL urlC = new URL("http://localhost:8080/case?wsdl");
 		QName qnameC = new QName("http://services.patientenportal.de/", "CaseWSImplService");
