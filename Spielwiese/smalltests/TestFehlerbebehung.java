@@ -52,7 +52,7 @@ public class TestFehlerbebehung {
 			medicine.setName("InnovativerName");
 			createMedicine.setObject(medicine);
 		
-		//medws.createMedicine(createMedicine);
+		medws.createMedicine(createMedicine);
 
 			
 		Medication medication1 = new Medication();
