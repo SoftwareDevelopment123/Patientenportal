@@ -67,7 +67,7 @@ public class MedicationWSTest {
 		List<Medication> compareMedList = CaseDAO.getCase(caseid).getMedication();
 		Accessor getMedList = new Accessor();
 		
-		getMedList.setObject(caseid);
+		getMedList.setId(caseid);;
 		getMedList.setToken(token);
 		MedicationListResponse medlistresp = med.getMedicationbyC(getMedList);
 		List <Medication> ergebnis = medlistresp.getResponseList();

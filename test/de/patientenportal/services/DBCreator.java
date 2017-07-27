@@ -198,7 +198,7 @@ public class DBCreator {
         String token = auth.getSessionToken(username);
 		System.out.println("Success!");
 				
-	/*	// Fälle anlegen
+		// Fälle anlegen
 		URL urlC = new URL("http://localhost:8080/case?wsdl");
 		QName qnameC = new QName("http://services.patientenportal.de/", "CaseWSImplService");
 		Service serviceC = Service.create(urlC, qnameC);
@@ -239,7 +239,7 @@ public class DBCreator {
 			casews.createCase(accessor);
 
 			System.out.println("Case for Patient " + pat.getPatientID() + " created");
-		}*/
+		}
 		
 		//XXX
 		//Medikamente + Medikation

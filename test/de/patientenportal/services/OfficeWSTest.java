@@ -9,13 +9,16 @@ import org.junit.Assert;
 import org.junit.Test;
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Office;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.OfficeDAO;
 
 public class OfficeWSTest {
 
 	@Test
-	public void main() throws MalformedURLException {
+	public void main() throws MalformedURLException, AccessorException, PersistenceException, InvalidParamException {
 	
 		URL url = new URL("http://localhost:8080/office?wsdl");
 		QName qname = new QName("http://services.patientenportal.de/", "OfficeWSImplService");
