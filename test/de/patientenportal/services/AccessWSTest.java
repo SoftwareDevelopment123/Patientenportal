@@ -13,6 +13,12 @@ import org.junit.Test;
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Case;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 
 public class AccessWSTest {
@@ -45,7 +51,7 @@ private String token;
 	}
 	
 	@Test
-	public void getRCases() throws MalformedURLException{
+	public void getRCases() throws MalformedURLException, AuthenticationException, AccessException, AuthorizationException, InvalidParamException, AccessorException, PersistenceException{
 				
 		URL urlA = new URL("http://localhost:8080/access?wsdl");
 		QName qnameA = new QName("http://services.patientenportal.de/", "AccessWSImplService");

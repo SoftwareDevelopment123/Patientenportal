@@ -16,6 +16,12 @@ import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.VitalData;
 import de.patientenportal.entities.VitalDataType;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.VitalDataListResponse;
 import de.patientenportal.persistence.CaseDAO;
@@ -50,7 +56,7 @@ private String token;
         authWS.logout(token);
 	}
 	@Test
-	public void main() throws MalformedURLException {
+	public void main() throws MalformedURLException, PersistenceException, AccessorException, InvalidParamException, AuthenticationException, AccessException, AuthorizationException {
 	
 		//Test getVitalDatabyC
 		int caseid =1;

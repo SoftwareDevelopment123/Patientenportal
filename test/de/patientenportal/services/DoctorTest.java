@@ -14,6 +14,12 @@ import org.junit.Test;
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Doctor;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.DoctorListResponse;
 import de.patientenportal.persistence.CaseDAO;
@@ -49,7 +55,7 @@ private String token;
 	}
 	
 	@Test
-	public void main () throws MalformedURLException{
+	public void main () throws MalformedURLException, AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException{
 	
 	System.out.print("Testing Doctor WebService ...");
 	
