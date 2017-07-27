@@ -72,13 +72,11 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 					|| (UserDAO.getUserByUsername(username).getDoctor() != null && activeRole == ActiveRole.Doctor)
 					|| (UserDAO.getUserByUsername(username).getRelative() != null && activeRole == ActiveRole.Relative))
 
-				// if(UserDAO.getUserByUsername(username).getWebSession()==
-				// null){
-				createSessionToken(UserDAO.getUserByUsername(username), activeRole);
-			// }
-			else {
-				return "Keine Berechtigung für die gewünschte Rolle";
-			}
+				if (UserDAO.getUserByUsername(username).getWebSession() == null) {
+					createSessionToken(UserDAO.getUserByUsername(username), activeRole);
+				} else {
+					return "Keine Berechtigung für die gewünschte Rolle";
+				}
 			return getGreeting(username);
 
 		}

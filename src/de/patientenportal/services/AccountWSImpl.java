@@ -10,21 +10,28 @@ import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.DoctorDAO;
 import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.RelativeDAO;
 import de.patientenportal.persistence.UserDAO;
 
-@WebService (endpointInterface = "de.patientenportal.services.AccountWS")
+@WebService(endpointInterface = "de.patientenportal.services.AccountWS")
 public class AccountWSImpl implements AccountWS {
 
 	/*
-	 * Die Delete-Methoden sind eher für die Bereinigung der Datenbank von fehlerhaften Einträgen (insofern vorhanden)
-	 * gedacht und sollten nicht genutzt werden, um aktive Nutzer zu löschen.
-	 * Dementsprechend sind sie auch nicht über das Interface abrufbar.
+	 * Die Delete-Methoden sind eher für die Bereinigung der Datenbank von
+	 * fehlerhaften Einträgen (insofern vorhanden) gedacht und sollten nicht
+	 * genutzt werden, um aktive Nutzer zu löschen. Dementsprechend sind sie
+	 * auch nicht über das Interface abrufbar.
 	 */
-	
+
 	@Transactional
 	public String deleteUser(int userID) {
 		String response = UserDAO.deleteUser(userID);
@@ -50,183 +57,236 @@ public class AccountWSImpl implements AccountWS {
 	}
 
 	/*
-	 * Hinweis für die Präsentationsschicht
-	 * Bei den Update-Methoden ist sicherzustellen, dass vollständige Objekte mitgegeben werden,
-	 * zum Beispiel durch Abruf des Users aus der Datenbank und Änderung einzelner Attribute
+	 * Hinweis für die Präsentationsschicht Bei den Update-Methoden ist
+	 * sicherzustellen, dass vollständige Objekte mitgegeben werden, zum
+	 * Beispiel durch Abruf des Users aus der Datenbank und Änderung einzelner
+	 * Attribute
 	 * 
-	 * Infos zum Aufbau:
-	 * Die User-Actor, Beziehungen werden beim Erstellen festgelegt und können nicht geändert werden
-	 * Patient-Relative-Beziehungen werden von der Patientenseite aus festgelegt
-	 * Address - und Contact - Infos werden direkt über den User mitgegeben und können danach
-	 * mit den jeweiligen Services geändert werden.
+	 * Infos zum Aufbau: Die User-Actor, Beziehungen werden beim Erstellen
+	 * festgelegt und können nicht geändert werden Patient-Relative-Beziehungen
+	 * werden von der Patientenseite aus festgelegt Address - und Contact -
+	 * Infos werden direkt über den User mitgegeben und können danach mit den
+	 * jeweiligen Services geändert werden.
 	 */
-	
+
 	/**
 	 * <b>Userdaten ändern</b><br>
-	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden können.
+	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden
+	 * können.
 	 * 
-	 * @param Accessor mit <code>String</code> token und dem zu ändernden <code>User</code>
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @param Accessor
+	 *            mit <code>String</code> token und dem zu ändernden
+	 *            <code>User</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updateUser(Accessor accessor) {
+	public String updateUser(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
+			InvalidParamException, AccessorException, PersistenceException {
 		User user = new User();
 		String token;
-		
+
 		try {
 			user = (User) accessor.getObject();
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (user == null)	{System.err.println("No user");			return null;}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (user == null) {
+			throw new InvalidParamException("No User found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
-		
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
 		User activeuser = AuthenticationWSImpl.getUserByToken(token);
-		if (activeuser.getUserId() != user.getUserId()){
-			System.err.println("No Access to this User");
-			return "Kein Zugriff auf diesen Nutzer. Man kann nur eigene Daten ändern!";
+		if (activeuser.getUserId() != user.getUserId()) {
+			throw new AccessException("No Access to this User!");
 		}
-		
+
 		else {
-		String response = null;
-		try {response = UserDAO.updateUser(user);}
-		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
-		return response;
+			String response = null;
+			try {
+				response = UserDAO.updateUser(user);
+			} catch (Exception e) {
+				throw new PersistenceException("Error 404: Database not found");
+			}
+			return response;
 		}
 	}
-	
+
 	/**
 	 * <b>Doktordaten ändern</b><br>
-	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden können.
+	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden
+	 * können.
 	 * 
-	 * @param Accessor mit <code>String</code> token und dem zu ändernden <code>Doctor</code>
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @param Accessor
+	 *            mit <code>String</code> token und dem zu ändernden
+	 *            <code>Doctor</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updateDoctor(Accessor accessor) {
+	public String updateDoctor(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, InvalidParamException, AccessorException, PersistenceException {
 		Doctor doctor = new Doctor();
 		String token;
-		
+
 		try {
 			doctor = (Doctor) accessor.getObject();
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (doctor == null)	{System.err.println("No doctor");		return null;}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (doctor == null) {
+			throw new InvalidParamException("No Doctor found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
-		
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
 		User activeuser = AuthenticationWSImpl.getUserByToken(token);
 		Doctor activeDoctor = UserDAO.getUser(activeuser.getUserId()).getDoctor();
-		if (activeDoctor.getDoctorID() != doctor.getDoctorID()){
-			System.err.println("No Access to this User");
-			return "Kein Zugriff auf diesen Nutzer. Man kann nur eigene Daten ändern!";
+		if (activeDoctor.getDoctorID() != doctor.getDoctorID()) {
+			throw new AccessException("No Access to this User!");
 		}
-		
+
 		else {
-		String response = null;
-		try {response = DoctorDAO.updateDoctor(doctor);}
-		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
-		return response;
+			String response = null;
+			try {
+				response = DoctorDAO.updateDoctor(doctor);
+			} catch (Exception e) {
+				throw new PersistenceException("Error 404: Database not found");
+			}
+			return response;
 		}
 	}
 
 	/**
 	 * <b>Patientendaten ändern</b><br>
-	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden können.
+	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden
+	 * können.
 	 * 
-	 * @param Accessor mit <code>String</code> token und dem zu ändernden <code>Patient</code>
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @param Accessor
+	 *            mit <code>String</code> token und dem zu ändernden
+	 *            <code>Patient</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updatePatient(Accessor accessor) {
+	public String updatePatient(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, InvalidParamException, AccessorException, PersistenceException {
 		Patient patient = new Patient();
 		String token;
-		
+
 		try {
 			patient = (Patient) accessor.getObject();
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (patient == null){System.err.println("No patient");		return null;}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (patient == null) {
+			throw new InvalidParamException("No Patient found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
-		
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
 		User activeuser = AuthenticationWSImpl.getUserByToken(token);
 		Patient activePatient = UserDAO.getUser(activeuser.getUserId()).getPatient();
-		if (activePatient.getPatientID() != patient.getPatientID()){
-			System.err.println("No Access to this User");
-			return "Kein Zugriff auf diesen Nutzer. Man kann nur eigene Daten ändern!";
+		if (activePatient.getPatientID() != patient.getPatientID()) {
+			throw new AccessException("No Access to this User!");
 		}
-		
+
 		else {
-		String response = null;
-		try {response = PatientDAO.updatePatient(patient);}
-		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
-		return response;
+			String response = null;
+			try {
+				response = PatientDAO.updatePatient(patient);
+			} catch (Exception e) {
+				throw new PersistenceException("Error 404: Database not found");
+			}
+			return response;
 		}
 	}
 
 	/**
 	 * <b>Verwandtendaten ändern</b><br>
-	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden können.<br>
-	 * Da die <code>Relative</code>-Entity aktuell keine anderen Attribute außer der ID besitzt,
-	 * ist diese Methode unnötig und dient als Platzhalter.
+	 * Über das token wird sichergestellt, dass nur eigene Daten geändert werden
+	 * können.<br>
+	 * Da die <code>Relative</code>-Entity aktuell keine anderen Attribute außer
+	 * der ID besitzt, ist diese Methode unnötig und dient als Platzhalter.
 	 * 
-	 * @param Accessor mit <code>String</code> token und dem zu ändernden <code>Relative</code>
-	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @param Accessor
+	 *            mit <code>String</code> token und dem zu ändernden
+	 *            <code>Relative</code>
+	 * @return <code>String</code> response mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updateRelative(Accessor accessor) {
+	public String updateRelative(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, InvalidParamException, AccessorException, PersistenceException {
 		Relative relative = new Relative();
 		String token;
-		
+
 		try {
 			relative = (Relative) accessor.getObject();
 			token = (String) accessor.getToken();
-		} 
-		catch (Exception e) {System.err.println("Invalid access");	return null;}
-		if (token == null) 	{System.err.println("No token");		return null;}
-		if (relative == null){System.err.println("No relative");	return null;}
+		} catch (Exception e) {
+			throw new AccessorException("Incorrect Accessor");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+		if (relative == null) {
+			throw new InvalidParamException("No Patient found");
+		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
-		String authResponse = AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		if (authResponse != null) {
-			System.err.println(authResponse);
-			return authResponse;
-		}
-		
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
+
 		User activeuser = AuthenticationWSImpl.getUserByToken(token);
 		Relative activeRelative = UserDAO.getUser(activeuser.getUserId()).getRelative();
-		if (activeRelative.getRelativeID() != relative.getRelativeID()){
-			System.err.println("No Access to this User");
-			return "Kein Zugriff auf diesen Nutzer. Man kann nur eigene Daten ändern!";
+		if (activeRelative.getRelativeID() != relative.getRelativeID()) {
+			throw new AccessException("No Access to this User!");
 		}
-		
+
 		else {
-		String response = null;
-		try {response = RelativeDAO.updateRelative(relative);}
-		catch (Exception e) {System.err.println("Error: " + e); return "Error: " + e;}
-		return response;
+			String response = null;
+			try {
+				response = RelativeDAO.updateRelative(relative);
+			} catch (Exception e) {
+				throw new PersistenceException("Error 404: Database not found");
+			}
+			return response;
 		}
 	}
 }
