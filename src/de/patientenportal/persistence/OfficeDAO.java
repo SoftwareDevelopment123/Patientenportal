@@ -78,6 +78,7 @@ public class OfficeDAO {
 			
 			try{
 			session.beginTransaction();				
+			session.saveOrUpdate(updatedoffice);
 			Office officetoupdate = session.get(Office.class, id);
 				officetoupdate.setName(name);
 				officetoupdate.setDoctors(dlist);

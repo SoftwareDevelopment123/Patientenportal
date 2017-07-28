@@ -39,6 +39,13 @@ public class MedicationWSImpl implements MedicationWS {
 	 *            mit <code>String</code> token und <code>int</code> caseID
 	 * @return <code>MedicationListResponse</code> mit der dem Fall zugeordneten
 	 *         Medikation
+	 * @throws TokenException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
 	public MedicationListResponse getMedicationbyC(Accessor accessor) throws InvalidParamException, AccessorException,
@@ -91,7 +98,13 @@ public class MedicationWSImpl implements MedicationWS {
 	 *            mit <code>String</code> token
 	 * @return <code>MedicationListResponse</code> mit der dem Patienten
 	 *         zugeordneten Medikation
+	 * @throws TokenException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
 	 * @throws PersistenceException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
 	public MedicationListResponse getMedicationbyP(Accessor accessor) throws InvalidParamException, AccessorException,
@@ -145,7 +158,13 @@ public class MedicationWSImpl implements MedicationWS {
 	 *            mit <code>String</code> token, <code>int </code> caseId und
 	 *            der anzulegenden Medikation
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws TokenException
+	 * @throws InvalidParamException
 	 * @throws AccessorException
+	 * @throws PersistenceException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
 	public String createMedication(Accessor accessor) throws InvalidParamException, AccessorException,
@@ -167,7 +186,7 @@ public class MedicationWSImpl implements MedicationWS {
 			throw new InvalidParamException("No Token found");
 		}
 		if (id == 0) {
-			throw new InvalidParamException("No CaseID found");	
+			throw new InvalidParamException("No CaseID found");
 		}
 		if (medication.getMedicine() == null) {
 			throw new InvalidParamException("No Medicine found");
@@ -180,7 +199,7 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		//XXX
+		// XXX
 		accessor.setObject(accessor.getId());
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 
@@ -210,6 +229,10 @@ public class MedicationWSImpl implements MedicationWS {
 	 *            mit <code>String</code> token und <code>int</code>
 	 *            MedicationID der zu löschenden Medikation.
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws TokenException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
 	 * @throws AuthorizationException
 	 * @throws AccessException
 	 * @throws AuthenticationException
@@ -258,6 +281,13 @@ public class MedicationWSImpl implements MedicationWS {
 	 *            mit <code>String</code> token und der zu ändernden
 	 *            <code>Medication</code>
 	 * @return <code>String</code> response mit Erfolgsmeldung oder Fehler
+	 * @throws TokenException
+	 * @throws InvalidParamException
+	 * @throws AccessorException
+	 * @throws PersistenceException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
 	public String updateMedication(Accessor accessor) throws InvalidParamException, AccessorException,
