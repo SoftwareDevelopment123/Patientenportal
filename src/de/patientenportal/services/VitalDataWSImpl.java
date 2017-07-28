@@ -50,11 +50,11 @@ public class VitalDataWSImpl implements VitalDataWS {
 			throws PersistenceException, AccessorException, InvalidParamException, AuthenticationException,
 			AccessException, AuthorizationException {
 		VitalDataListResponse response = new VitalDataListResponse();
-		int id;
+		int caseId;
 		String token;
 
 		try {
-			id = (int) accessor.getObject();
+			caseId = accessor.getId();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
@@ -62,15 +62,15 @@ public class VitalDataWSImpl implements VitalDataWS {
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
 		}
-		if (id == 0) {
-			throw new InvalidParamException("No ID found");
+		if (caseId == 0) {
+			throw new InvalidParamException("No CaseID found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
 		try {
 			List<VitalData> vdlist = new ArrayList<VitalData>();
-			List<VitalData> allVDlist = CaseDAO.getCase(id).getVitaldata();
+			List<VitalData> allVDlist = CaseDAO.getCase(caseId).getVitaldata();
 			for (VitalData vd : allVDlist) {
 				if (vd.getVitalDataType() == vDataType) {
 					vdlist.add(vd);
@@ -103,15 +103,18 @@ public class VitalDataWSImpl implements VitalDataWS {
 			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		VitalData vitalData = new VitalData();
 		String token;
-		int id;
+		int caseId;
 
 		try {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();
-			id = accessor.getId();
+			caseId = accessor.getId();
 
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
+		}
+		if (caseId == 0) {
+			throw new InvalidParamException("No CaseID found");
 		}
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
@@ -127,12 +130,11 @@ public class VitalDataWSImpl implements VitalDataWS {
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
-		accessor.setObject(accessor.getId());
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 
 		String response = null;
 		try {
-			vitalData.setPcase(CaseDAO.getCase(id));
+			vitalData.setPcase(CaseDAO.getCase(caseId));
 			response = VitalDataDAO.add(vitalData);
 		} catch (Exception e) {
 			throw new PersistenceException("Error 404: Database not found");
@@ -159,20 +161,26 @@ public class VitalDataWSImpl implements VitalDataWS {
 	@Transactional
 	public String deleteVitalData(Accessor accessor) throws AuthenticationException, AccessException,
 			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
-		int id;
+		int vitalDataId;
+		int caseId;
 		String token;
 
 		try {
-			id = (int) accessor.getObject();
+			vitalDataId = (int) accessor.getObject();
 			token = (String) accessor.getToken();
+			caseId = accessor.getId();
+
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
+		}
+		if (caseId == 0) {
+			throw new InvalidParamException("No CaseID found");
 		}
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
 		}
-		if (id == 0) {
-			throw new InvalidParamException("No ID found");
+		if (vitalDataId == 0) {
+			throw new InvalidParamException("No VitalDataID found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
@@ -180,7 +188,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 
 		String response = null;
 		try {
-			response = VitalDataDAO.deleteVitalData(id);
+			response = VitalDataDAO.deleteVitalData(vitalDataId);
 		} catch (Exception e) {
 			throw new PersistenceException("Error 404: Database not found");
 		}
@@ -209,7 +217,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		VitalData vitalData = new VitalData();
 		String token;
-
+		
 		try {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();

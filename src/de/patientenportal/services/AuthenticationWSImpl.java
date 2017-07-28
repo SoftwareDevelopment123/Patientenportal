@@ -266,7 +266,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	 * Prüfung der Schreibrechte (falls benötigt) durch.
 	 * 
 	 * @param accessor
-	 *            token und (falls benätigt) CaseID
+	 *            token und (falls benötigt) CaseID
 	 * @param expected
 	 *            erlaubte Rollen für die Methode
 	 * @param wRightcheck
@@ -301,7 +301,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 				Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
 				actorID = doctor.getDoctorID();
 
-				wcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
+				wcheck = RightsDAO.checkDocRight(actorID, accessor.getId(), access);
 				if (wcheck == false) {
 					System.err.println("Error: No Access to this case");
 					throw new AccessException("No Access to this Case!");
@@ -312,7 +312,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 				Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
 				actorID = relative.getRelativeID();
 
-				wcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
+				wcheck = RightsDAO.checkRelRight(actorID, accessor.getId(), access);
 				if (wcheck == false) {
 					System.err.println("Error: No Access to this case");
 					throw new AccessException("No Access to this Case!");
@@ -327,7 +327,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 				Doctor doctor = UserDAO.getUser(user.getUserId()).getDoctor();
 				actorID = doctor.getDoctorID();
 
-				rcheck = RightsDAO.checkDocRight(actorID, (int) accessor.getObject(), access);
+				rcheck = RightsDAO.checkDocRight(actorID, accessor.getId(), access);
 				if (rcheck == false) {
 					System.err.println("Error: No Access to this case");
 					throw new AccessException("No Access to this Case!");
@@ -338,7 +338,7 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 				Relative relative = UserDAO.getUser(user.getUserId()).getRelative();
 				actorID = relative.getRelativeID();
 
-				rcheck = RightsDAO.checkRelRight(actorID, (int) accessor.getObject(), access);
+				rcheck = RightsDAO.checkRelRight(actorID, accessor.getId(), access);
 				if (rcheck == false) {
 					System.err.println("Error: No Access to this case");
 					throw new AccessException("No Access to this Case!");

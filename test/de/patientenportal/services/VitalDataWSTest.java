@@ -68,7 +68,7 @@ private String token;
 		List<VitalData> compareVDList = CaseDAO.getCase(caseid).getVitaldata();
 		Accessor getVDList = new Accessor();
 		
-		getVDList.setObject(caseid);
+		getVDList.setId(caseid);
 		getVDList.setToken(token);
 		VitalDataListResponse vdlistresp = vdws.getVitalDatabyC(getVDList, VitalDataType.WEIGHT);
 		List <VitalData> ergebnis = vdlistresp.getResponseList();

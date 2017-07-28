@@ -171,12 +171,12 @@ public class MedicationWSImpl implements MedicationWS {
 			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		Medication medication = new Medication();
 		String token;
-		int id;
+		int caseId;
 
 		try {
 			medication = (Medication) accessor.getObject();
 			token = (String) accessor.getToken();
-			id = accessor.getId();
+			caseId = accessor.getId();
 		}
 
 		catch (Exception e) {
@@ -185,7 +185,7 @@ public class MedicationWSImpl implements MedicationWS {
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
 		}
-		if (id == 0) {
+		if (caseId == 0) {
 			throw new InvalidParamException("No CaseID found");
 		}
 		if (medication.getMedicine() == null) {
@@ -199,8 +199,6 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		// XXX
-		accessor.setObject(accessor.getId());
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 
 		String response = null;
@@ -209,7 +207,7 @@ public class MedicationWSImpl implements MedicationWS {
 			Doctor creatingdoctor = UserDAO.getUser(creatinguser.getUserId()).getDoctor();
 
 			medication.setPrescribedBy(creatingdoctor);
-			medication.setPcase(CaseDAO.getCase(id));
+			medication.setPcase(CaseDAO.getCase(caseId));
 			response = MedicationDAO.createMedication(medication);
 
 		} catch (Exception e) {
@@ -240,11 +238,11 @@ public class MedicationWSImpl implements MedicationWS {
 	@Transactional
 	public String deleteMedication(Accessor accessor) throws InvalidParamException, AccessorException,
 			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
-		int id;
+		int medId;
 		String token;
 
 		try {
-			id = (int) accessor.getObject();
+			medId = (int) accessor.getObject();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
@@ -253,17 +251,17 @@ public class MedicationWSImpl implements MedicationWS {
 			throw new InvalidParamException("No Token found");
 
 		}
-		if (id == 0) {
+		if (medId == 0) {
 			throw new InvalidParamException("No MedicationID found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		accessor.setObject(MedicationDAO.getMedication(id).getPcase().getCaseID());
+		accessor.setId(MedicationDAO.getMedication(medId).getPcase().getCaseID());
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 
 		String response = null;
 		try {
-			response = MedicationDAO.deleteMedication(id);
+			response = MedicationDAO.deleteMedication(medId);
 		} catch (Exception e) {
 			throw new PersistenceException("Error 404: Database not found");
 		}
@@ -294,15 +292,20 @@ public class MedicationWSImpl implements MedicationWS {
 			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		Medication medication = new Medication();
 		String token;
-
+		int caseID;
+		
 		try {
 			medication = (Medication) accessor.getObject();
 			token = (String) accessor.getToken();
+			caseID = accessor.getId();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
+		}
+		if (caseID == 0) {
+			throw new InvalidParamException("No CasID found");
 		}
 		if (medication.getMedicine() == null) {
 			throw new InvalidParamException("No Medicine found");
@@ -315,7 +318,6 @@ public class MedicationWSImpl implements MedicationWS {
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
-		accessor.setObject(medication.getPcase().getCaseID());
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
 
 		String response = null;
