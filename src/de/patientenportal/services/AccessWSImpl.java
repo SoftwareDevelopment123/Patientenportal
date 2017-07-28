@@ -36,6 +36,12 @@ public class AccessWSImpl implements AccessWS {
 	 *            mit <code>String</code> token und <code>boolean</code> status
 	 * @return <code>CaseListResponse</code> mit allen Fällen mit entsprechendem
 	 *         Status
+	 * @throws PersistenceException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
 	public CaseListResponse getRCases(Accessor accessor) throws AuthenticationException, AccessException,
@@ -98,30 +104,35 @@ public class AccessWSImpl implements AccessWS {
 	 *            mit <code>String</code> token und <code>int</code> patientID
 	 * @return <code>CaseListResponse</code> mit allen Fällen mit entsprechendem
 	 *         Status
+	 * @throws PersistenceException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
 	public CaseListResponse getRPatientCases(Accessor accessor) throws AuthenticationException, AccessException,
-	AuthorizationException, InvalidParamException, AccessorException, PersistenceException {
+			AuthorizationException, InvalidParamException, AccessorException, PersistenceException {
 		CaseListResponse response = new CaseListResponse();
 		String token;
 		int id;
 
 		try {
 			token = (String) accessor.getToken();
-			id =  accessor.getId();
+			id = accessor.getId();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
 		if (id == 0) {
-			throw new InvalidParamException("No Token found");
+			throw new InvalidParamException("No ID found");
 		}
 		if (token == null) {
-			throw new InvalidParamException("No ID found");
+			throw new InvalidParamException("No Token found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Relative);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		
 
 		User user = AuthenticationWSImpl.getUserByToken(token);
 		List<Case> caselist = new ArrayList<Case>();
@@ -163,20 +174,23 @@ public class AccessWSImpl implements AccessWS {
 	 * @param accessor
 	 *            mit <code>String</code> token und <code>int</code> caseID
 	 * @return <code>boolean</code>
-	 * @throws AuthenticationException 
-	 * @throws InvalidParamException 
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
 	 */
 	@Transactional
-	public boolean checkWRight(Accessor accessor) throws AuthenticationException, AccessException, 
-	AuthorizationException, InvalidParamException {
+	public boolean checkWRight(Accessor accessor)
+			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException, AccessorException {
 		String token;
 		int id;
 
 		try {
 			token = (String) accessor.getToken();
-			id =  accessor.getId();
+			id = accessor.getId();
 		} catch (Exception e) {
-			throw new AuthenticationException("Authentication failed! Invalid token.");
+			throw new AccessorException("Incorrect Accessor");
 		}
 		if (id == 0) {
 			throw new InvalidParamException("No caseID found");
@@ -187,7 +201,7 @@ public class AccessWSImpl implements AccessWS {
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Relative);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.WriteCase);
-		
+
 		return true;
 	}
 }

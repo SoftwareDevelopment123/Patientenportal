@@ -31,5 +31,6 @@ public interface AccessWS {
 			
 	@WebMethod
 	public boolean checkWRight(@WebParam(name = "Token--Case-ID") Accessor accessor)
-			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException;
+			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException,
+			AccessorException;
 }
