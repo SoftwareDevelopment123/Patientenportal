@@ -94,11 +94,11 @@ public class DoctorWSImpl implements DoctorWS {
 	public DoctorListResponse getDoctorsByC(Accessor accessor) throws AccessorException, InvalidParamException,
 			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		DoctorListResponse response = new DoctorListResponse();
-		int id;
+		int caseId;
 		String token;
 
 		try {
-			id = (int) accessor.getObject();
+			caseId =  accessor.getId();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
@@ -106,7 +106,7 @@ public class DoctorWSImpl implements DoctorWS {
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
 		}
-		if (id == 0) {
+		if (caseId == 0) {
 			throw new InvalidParamException("No ID found");
 		}
 
@@ -114,7 +114,7 @@ public class DoctorWSImpl implements DoctorWS {
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
 
 		try {
-			List<Doctor> rlist = CaseDAO.getCase(id).getDoctors();
+			List<Doctor> rlist = CaseDAO.getCase(caseId).getDoctors();
 			response.setResponseCode("success");
 			response.setResponseList(rlist);
 		} catch (Exception e) {

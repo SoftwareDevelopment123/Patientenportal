@@ -79,7 +79,7 @@ private String token;
 	// Get DoctorList by Case	
 	List<Doctor> compareDocList = CaseDAO.getCase(3).getDoctors();
 	Accessor getDocList = new Accessor();
-	getDocList.setObject(3);
+	getDocList.setId(3);
 	getDocList.setToken(token);
 	DoctorListResponse docListResponse = doc.getDoctorsByC(getDocList);
 	List<Doctor> docList = docListResponse.getResponseList();
