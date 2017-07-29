@@ -9,7 +9,10 @@ import javax.transaction.Transactional;
 
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
+import de.patientenportal.entities.Case;
+import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Rights;
+import de.patientenportal.entities.User;
 import de.patientenportal.entities.exceptions.AccessException;
 import de.patientenportal.entities.exceptions.AccessorException;
 import de.patientenportal.entities.exceptions.AuthenticationException;
@@ -18,7 +21,9 @@ import de.patientenportal.entities.exceptions.InvalidParamException;
 import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RightsListResponse;
+import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.RightsDAO;
+import de.patientenportal.persistence.UserDAO;
 
 @WebService(endpointInterface = "de.patientenportal.services.RightsWS")
 public class RightsWSImpl implements RightsWS {
@@ -33,17 +38,23 @@ public class RightsWSImpl implements RightsWS {
 	 * @param accessor
 	 *            mit <code>String</code> token und <code>int</code> caseID
 	 * @return <code>RightsListResponse</code> mit Liste der Rechte und
-	 *         Erfolgsmeldung oder Fehlermeldung.
+	 *         Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public RightsListResponse getRights(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
-	AccessorException, InvalidParamException, PersistenceException {
+	public RightsListResponse getRights(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		RightsListResponse response = new RightsListResponse();
-		int id;
+		int caseId;
 		String token;
 
 		try {
-			id = (int) accessor.getId();
+			caseId = accessor.getId();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
@@ -51,18 +62,31 @@ public class RightsWSImpl implements RightsWS {
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
 		}
-		if (id == 0) {
+		if (caseId == 0) {
 			throw new InvalidParamException("No ID found");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		// TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das
-		// Recht abruft
 
+		// Überprüfung, ob Fall zum Patienten gehört, welcher das Recht abruft
+		Case pcase = new Case();
+		Patient patient = new Patient();
+		try {
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			patient = UserDAO.getUser(user.getUserId()).getPatient();
+			pcase = CaseDAO.getCase(caseId);
+		} catch (Exception e1) {
+			throw new PersistenceException("Error 404: Database not found");
+		}
+		if (pcase.getPatient().getPatientID() != patient.getPatientID()) {
+			throw new AccessException("No Access to this Case!");
+		}
+
+		// Get
 		List<Rights> rights = new ArrayList<Rights>();
 		try {
-			rights = RightsDAO.getRights(id);
+			rights = RightsDAO.getRights(caseId);
 			response.setResponseList(rights);
 			response.setResponseCode("success");
 		} catch (Exception e) {
@@ -84,11 +108,17 @@ public class RightsWSImpl implements RightsWS {
 	 *            <br>
 	 *            <code>boolean</code> rRight <br>
 	 *            <code>boolean</code> wRight <br>
-	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 * @return <code>String</code> mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String createRight(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
-	AccessorException, InvalidParamException, PersistenceException {
+	public String createRight(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		Rights right = new Rights();
 		String token;
 
@@ -102,22 +132,30 @@ public class RightsWSImpl implements RightsWS {
 			throw new InvalidParamException("No Token found");
 		}
 		if (right.getPcase() == null) {
-			return "Bitte einen Patientencase mit angeben.";
+			throw new InvalidParamException("No PatientCase found");
 		}
 		if (right.getDoctor() == null && right.getRelative() == null) {
-			return "Bitte geben Sie an für wen das Recht erteilt werden soll";
+			throw new InvalidParamException("Wrong Parameter Input");
 		}
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		// TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das
-		// Recht anlegt
-		/*
-		 * CaseDAO.getCase(right.getPcase.getCaseID).getPatient.getPatientID !=
-		 * UserbyToken --> Patient.getPatientID --> AccessException
-		 * 
-		 */
 
+		// Überprüfung, ob Fall zum Patienten gehört, welcher das Recht abruft
+		Case pcase = new Case();
+		Patient patient = new Patient();
+		try {
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			patient = UserDAO.getUser(user.getUserId()).getPatient();
+			pcase = right.getPcase();
+		} catch (Exception e1) {
+			throw new PersistenceException("Error 404: Database not found");
+		}
+		if (pcase.getPatient().getPatientID() != patient.getPatientID()) {
+			throw new AccessException("No Access to this Case!");
+		}
+
+		// Create
 		String response = null;
 		try {
 			response = RightsDAO.createRight(right);
@@ -133,11 +171,17 @@ public class RightsWSImpl implements RightsWS {
 	 * @param accessor
 	 *            mit <code>String</code> Token und Rights-Entity des
 	 *            betroffenen Rechts
-	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 * @return <code>String</code> mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String updateRight(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
-	AccessorException, InvalidParamException, PersistenceException {
+	public String updateRight(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		Rights right = new Rights();
 		String token;
 
@@ -152,8 +196,22 @@ public class RightsWSImpl implements RightsWS {
 		}
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		// TODO Sicherstellen, dass der Fall zum Patienten gehört, welcher das
-		// Recht ändert
+
+		// Überprüfung, ob Fall zum Patienten gehört, welcher das Recht abruft
+		Case pcase = new Case();
+		Patient patient = new Patient();
+		try {
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			patient = UserDAO.getUser(user.getUserId()).getPatient();
+			pcase = right.getPcase();
+		} catch (Exception e1) {
+			throw new PersistenceException("Error 404: Database not found");
+		}
+		if (pcase.getPatient().getPatientID() != patient.getPatientID()) {
+			throw new AccessException("No Access to this Case!");
+		}
+
+		// Update
 		String response = null;
 		try {
 			response = RightsDAO.updateRight(right);
@@ -170,22 +228,29 @@ public class RightsWSImpl implements RightsWS {
 	 * @param accessor
 	 *            mit <code>String</code> Token und <code>int</code> rightID des
 	 *            betroffenen Rechts
-	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
+	 * @return <code>String</code> mit Erfolgsmeldung
+	 * @throws AuthorizationException
+	 * @throws AccessException
+	 * @throws AuthenticationException
+	 * @throws AccessorException
+	 * @throws InvalidParamException
+	 * @throws PersistenceException
 	 */
+	
 	@Transactional
-	public String deleteRight(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
-	AccessorException, InvalidParamException, PersistenceException {
-		int id;
+	public String deleteRight(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
+		Rights right = new Rights();
 		String token;
 
 		try {
-			id = (int) accessor.getObject();
+			right =  (Rights) accessor.getObject();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
-		if (id == 0) {
-			throw new InvalidParamException("No ID found");
+		if (right == null) {
+			throw new InvalidParamException("No Right found");
 		}
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
@@ -193,9 +258,26 @@ public class RightsWSImpl implements RightsWS {
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 
+		// Überprüfung, ob Fall zum Patienten gehört, welcher das Recht abruft
+		Case pcase = new Case();
+		Patient patient = new Patient();
+		try {
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			patient = UserDAO.getUser(user.getUserId()).getPatient();
+			pcase = right.getPcase();
+		} catch (Exception e1) {
+			throw new PersistenceException("Error 404: Database not found");
+		}
+		if (pcase.getPatient().getPatientID() != patient.getPatientID()) {
+			throw new AccessException("No Access to this Case!");
+		}
+
+		// Delete
+		int rightId;
 		String response = null;
 		try {
-			response = RightsDAO.removeRight(id);
+			rightId = right.getRightID();
+			response = RightsDAO.removeRight(rightId);
 		} catch (Exception e) {
 			throw new PersistenceException("Error 404: Database not found");
 		}

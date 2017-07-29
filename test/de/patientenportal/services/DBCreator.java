@@ -47,12 +47,7 @@ public class DBCreator {
 
 	@Test
 	public void createDatabase() throws ParseException, MalformedURLException, InvalidParamException, AccessorException,
-			PersistenceException, AuthenticationException, AccessException, AuthorizationException {// main(String[]
-																									// args)
-																									// throws
-																									// MalformedURLException,
-																									// ParseException
-																									// {
+			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 
 		System.out.println("Creating DB-Entries ...");
 
@@ -238,7 +233,6 @@ public class DBCreator {
 			System.out.println("Case for Patient " + pat.getPatientID() + " created");
 		}
 
-		// XXX
 		// Medikamente + Medikation
 		URL urlMedicine = new URL("http://localhost:8080/medicine?wsdl");
 		QName qnameMed = new QName("http://services.patientenportal.de/", "MedicineWSImplService");
@@ -260,41 +254,28 @@ public class DBCreator {
 			medicine.setActiveIngredient("Krankium" + zahl);
 			medicine.setName("InnovativerName" + zahl);
 			createMedicine.setObject(medicine);
-			try {
-				medws.createMedicine(createMedicine);
-			} catch (InvalidParamException ipe) {
-				// TODO Auto-generated catch block
-				System.out.println(ipe);
-			} catch (Exception e2) {
-				// TODO Auto-generated catch block
-				System.out.println(e2.getClass());
-				System.out.println(e2.getLocalizedMessage());
-				System.out.println(e2.getCause());
 
-			}
+			medws.createMedicine(createMedicine);
+
 			System.out.println("Medicines added: " + medicine.getName());
 
-			// for (int zahli = 6; zahli>=1 ; zahli--){
-			Medication medication1 = new Medication();
-			medication1.setDosage("212" + zahl);
-			medication1.setDuration("extremslange Stunden:" + zahl);
-			medication1.setMedicine(MedicineDAO.getMedicine(zahl));
-
-			createMedication.setObject(medication1);
-			createMedication.setId(CaseDAO.getCase(zahl).getCaseID());
-
-			medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
-			createMedication.setObject(medication1);
-
-			try {
+			for (int zahli = 6; zahli>=1 ; zahli--){
+				Medication medication1 = new Medication();
+				medication1.setDosage("212" + zahl);
+				medication1.setDuration("extremslange Stunden:" + zahl);
+				medication1.setMedicine(MedicineDAO.getMedicine(zahl));
+	
+				createMedication.setObject(medication1);
+				createMedication.setId(CaseDAO.getCase(zahl).getCaseID());
+	
+				medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
+				createMedication.setObject(medication1);
+	
+	
 				medicaws.createMedication(createMedication);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Medicationes added: " + medication1.getDosage());
 			}
-			System.out.println("Medicationes added: " + medication1.getDosage());
-			// }
-
 		}
 
 		// Vitaldaten
@@ -323,8 +304,6 @@ public class DBCreator {
 				System.out.println("Vitaldata added: " + vitaldata.getTimestamp());
 			}
 		}
-		// XXX
-
 		System.exit(0);
 	}
 }
