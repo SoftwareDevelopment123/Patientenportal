@@ -16,6 +16,12 @@ import de.patientenportal.entities.Case;
 import de.patientenportal.entities.Office;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.Rights;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RightsListResponse;
 import de.patientenportal.persistence.CaseDAO;
@@ -53,7 +59,7 @@ public class RightsWSTest {
 	}*/
 	
 	@Test
-	public void main() throws MalformedURLException {
+	public void main() throws MalformedURLException, AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		
 		URL urlR = new URL("http://localhost:8080/rights?wsdl");
 		QName qnameR = new QName("http://services.patientenportal.de/", "RightsWSImplService");
@@ -61,8 +67,8 @@ public class RightsWSTest {
 		RightsWS rightsws = serviceR.getPort(RightsWS.class);
 		
 		List <Rights> compareme = RightsDAO.getRights(3);
-		Accessor getRights = new Accessor(token, 3);
-		
+		Accessor getRights = new Accessor(token);
+				getRights.setId(3);
 		RightsListResponse response = rightsws.getRights(getRights);
 		int compare1 = response.getResponseList().size();
 		Assert.assertEquals("success", response.getResponseCode());

@@ -12,6 +12,12 @@ import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.ActiveRole;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.RelativeListResponse;
 import de.patientenportal.persistence.PatientDAO;
@@ -22,7 +28,7 @@ import de.patientenportal.services.RelativeWS;
 @SuppressWarnings("unused")
 public class TestFehlerbehebung {
 
-	public static void main(String[] args) throws MalformedURLException {
+	public static void main(String[] args) throws MalformedURLException, AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		
 		System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
 		System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");

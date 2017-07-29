@@ -66,8 +66,6 @@ public class MedicationWSImpl implements MedicationWS {
 		if (id == 0) {
 			throw new InvalidParamException("No CaseID found");
 		}
-		// XXX
-		accessor.setObject(accessor.getId());
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient, ActiveRole.Doctor, ActiveRole.Relative);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
 
@@ -293,7 +291,7 @@ public class MedicationWSImpl implements MedicationWS {
 		Medication medication = new Medication();
 		String token;
 		int caseID;
-		
+
 		try {
 			medication = (Medication) accessor.getObject();
 			token = (String) accessor.getToken();

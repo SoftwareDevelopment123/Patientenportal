@@ -15,6 +15,12 @@ import org.junit.Test;
 
 import de.patientenportal.clientHelper.ClientHelper;
 import de.patientenportal.entities.*;
+import de.patientenportal.entities.exceptions.AccessException;
+import de.patientenportal.entities.exceptions.AccessorException;
+import de.patientenportal.entities.exceptions.AuthenticationException;
+import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.PatientListResponse;
 import de.patientenportal.persistence.PatientDAO;
@@ -53,7 +59,7 @@ public class PatientRelativeTest {
 	// Info: manuell vorher DBCreator ausführen
 	
 	@Test
-	public void main() throws MalformedURLException{
+	public void main() throws MalformedURLException, AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException{
 		System.out.print("Testing Patient and Relative WebServices ...");
 		
 		// Zu Testzwecken Auskommentierung entfernen
@@ -102,7 +108,7 @@ public class PatientRelativeTest {
 		Accessor getpat = new Accessor();
 			getpat.setToken(token);
 			getpat.setObject(1);
-		System.out.println(pat.getPatient(getpat));		
+		//System.out.println(pat.getPatient(getpat));		
 		Patient patient = pat.getPatient(getpat);
 			Assert.assertEquals(comparepat.getPatientID() 			, patient.getPatientID());
 			Assert.assertEquals(comparepat.getBloodtype() 			, patient.getBloodtype());
