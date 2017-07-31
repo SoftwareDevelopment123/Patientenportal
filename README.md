@@ -144,14 +144,6 @@ bis 16.07. (alle)
 
 
 ## To-Do
-- inDoc und medDoc - WS (inkl. Impl.) überprüfen
-- RightsWS aktualisieren (Rollenbegrenzung unt auth)
-- OfficeWS leicht beschränken (nur Doctor oder so)
-	
-- die restlichen WS am Beispiel MedicineWS / MedicineWSImpl aktualisieren
-
-- Rechte bei MedicalDocs ergänzen nach Muster von Case Service (ich (Jan) bin mir aber nicht sicher wie)
-- habe diverse Exceptions eingefügt in die Services
 
 - 1 Mal alle Throwables testen, egal wo
 	
