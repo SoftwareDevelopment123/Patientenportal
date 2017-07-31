@@ -122,7 +122,6 @@ public class InDocWSImpl implements InDocWS {
 			throw new InvalidParamException("No Instructiontyp found");
 		}
 
-		// XXX Nur Doctor kann Indocs updatenlegen ja?!
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 
@@ -189,7 +188,6 @@ public class InDocWSImpl implements InDocWS {
 		if (indoc.getInstructionType() == null) {
 			throw new InvalidParamException("No Instructiontyp found");
 		}
-		// XXX so können nur Doktoren auf die InstructiuonDocs zugreifen
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 
@@ -200,7 +198,5 @@ public class InDocWSImpl implements InDocWS {
 			throw new PersistenceException("Error 404: Database not found");
 		}
 		return response;
-
 	}
-
 }
