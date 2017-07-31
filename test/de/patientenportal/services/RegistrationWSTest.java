@@ -22,7 +22,7 @@ import de.patientenportal.persistence.UserDAO;
 
 public class RegistrationWSTest {
 
-	//private static String token;
+	// private static String token;
 
 	@Test
 	public void registerUser() throws MalformedURLException, ParseException, InvalidParamException {
@@ -65,7 +65,7 @@ public class RegistrationWSTest {
 		Doctor neuD = new Doctor();
 		neuD.setSpecialization("Kardiologe");
 		int userID = UserDAO.getUserByUsername(neu.getUsername()).getUserId();
-		
+
 		if (UserDAO.getUserByUsername("Tommy").getDoctor() == null) {
 			regWS.createDoctor(neuD, userID);
 		}
@@ -74,8 +74,9 @@ public class RegistrationWSTest {
 
 		Patient neuP = new Patient();
 		neuP.setBloodtype("B");
-		System.out.println(regWS.createPatient(neuP, userID));
-		
-		
+		if (UserDAO.getUserByUsername("Tommy").getPatient() == null) {
+			regWS.createPatient(neuP, userID);
+		}
+
 	}
 }

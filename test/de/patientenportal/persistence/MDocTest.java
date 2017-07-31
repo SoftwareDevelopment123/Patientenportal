@@ -38,8 +38,7 @@ public class MDocTest {
 		mdoc2.setmDocTitle("beinbruch");
 		mdoc2.setPatient(pat);
 		mdoc2.setmDocDescription("Dieses Dokument ist schon einem Fall hinzugefügt");
-		mdoc2.setPcase(case1); // wird nicht mit eingefügt, ich weiß noch nicht
-								// warum
+		mdoc2.setPcase(case1); 
 		mdoc2.setFileType("txt");
 
 		MedicalDoc mdoc3 = new MedicalDoc();

@@ -17,12 +17,7 @@ import de.patientenportal.entities.MedicalDoc;
 
 public class FtpMethodenMDocs {
 
-	public static void uploadMDoc(MedicalDoc mdoc)
-	// in Beta muss Logik eingeführt werden die zwei gleiche Dateinamen zulässt
-	// oder Ids vergibt
-	// über mdoc file und id geben dann setid name und get name den Namen in
-	// Hibernate speichern
-	{
+	public static void uploadMDoc(MedicalDoc mdoc) {
 		String server = "127.0.0.1";
 		int port = 21;
 		String user = "admin";

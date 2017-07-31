@@ -131,8 +131,9 @@ public class MedicationWSImpl implements MedicationWS {
 			List<Case> cList = PatientDAO.getPatient(patient.getPatientID()).getCases();
 
 			for (Case c : cList) {
-				for (Medication m : c.getMedication()) {
-					mlist.add(m);
+				for (Medication m : CaseDAO.getCase(c.getCaseID()).getMedication()) {
+					Medication me = MedicationDAO.getMedication(m.getMedicationID());
+					mlist.add(me);
 				}
 			}
 			response.setResponseCode("success");

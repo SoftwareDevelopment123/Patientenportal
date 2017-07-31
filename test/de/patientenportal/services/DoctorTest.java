@@ -108,7 +108,5 @@ public class DoctorTest {
 		 * d.getDoctorID()); System.out.println(" - " + d.getSpecialization());
 		 * }
 		 */
-
-		System.out.println("Success!");
 	}
 }

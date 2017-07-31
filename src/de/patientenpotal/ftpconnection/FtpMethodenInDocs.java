@@ -17,12 +17,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import de.patientenportal.entities.InstructionDoc;
 
 public class FtpMethodenInDocs {
-	public static void uploadInstructionDoc(InstructionDoc indoc)
-	// in Beta muss Logik eingeführt werden die zwei gleiche Dateinamen zulässt
-	// oder Ids vergibt
-	// über mdoc file und id geben dann setid name und get name den Namen in
-	// Hibernate speichern
-	{
+	public static void uploadInstructionDoc(InstructionDoc indoc) {
 		String server = "127.0.0.1";
 		int port = 21;
 		String user = "admin";

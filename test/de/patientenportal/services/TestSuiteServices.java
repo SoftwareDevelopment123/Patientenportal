@@ -15,7 +15,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		VitalDataWSTest.class, 
 		DoctorTest.class, 
 		RightsWSTest.class, 
-		MedicationWSTest.class, })
+		MedicationWSTest.class, 
+		RegistrationWSTest.class})
 
 public class TestSuiteServices {
 

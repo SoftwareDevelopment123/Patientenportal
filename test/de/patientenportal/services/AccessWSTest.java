@@ -64,13 +64,6 @@ public class AccessWSTest {
 
 		int i = 1;
 		for (Case c : clist) {
-			/*
-			 * System.out.print(c.getCaseID() + " - ");
-			 * System.out.println(c.getTitle());
-			 * System.out.println(c.getPatient().getUser().getEmail());
-			 * System.out.println(c.getDoctors().get(0).getUser().getUsername())
-			 * ;
-			 */
 			Assert.assertEquals(c.getCaseID(), i);
 			i++;
 		}
