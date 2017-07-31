@@ -30,7 +30,7 @@ public class OfficeWSTest {
 	private String token;
 
 	@Before
-	public void login() throws MalformedURLException {
+	public void login() throws MalformedURLException, PersistenceException, AccessException, InvalidParamException {
 		String username = "user10";
 		String password = "pass10";
 
