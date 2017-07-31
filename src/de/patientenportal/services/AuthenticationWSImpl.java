@@ -21,6 +21,8 @@ import de.patientenportal.entities.WebSession;
 import de.patientenportal.entities.exceptions.AccessException;
 import de.patientenportal.entities.exceptions.AuthenticationException;
 import de.patientenportal.entities.exceptions.AuthorizationException;
+import de.patientenportal.entities.exceptions.InvalidParamException;
+import de.patientenportal.entities.exceptions.PersistenceException;
 import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.persistence.RightsDAO;
 import de.patientenportal.persistence.UserDAO;
@@ -43,17 +45,27 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	 * über die angeforderte Benutzer-Rolle einnehmen darf.
 	 *
 	 * @return <code>String</code> response mit Begrüßung oder Fehlermeldung
+	 * @throws PersistenceException
+	 * @throws AccessException
+	 * @throws InvalidParamException
 	 */
 	@SuppressWarnings("rawtypes")
 	@Transactional
-	public String authenticateUser(ActiveRole activeRole) {
+	public String authenticateUser(ActiveRole activeRole)
+			throws PersistenceException, AccessException, InvalidParamException {
 
 		MessageContext mctx = wsctx.getMessageContext();
 
 		// Auslesen der HTTP-Header
 		Map http_headers = (Map) mctx.get(MessageContext.HTTP_REQUEST_HEADERS);
-		List userList = (List) http_headers.get("Username");
-		List passList = (List) http_headers.get("Password");
+		List userList;
+		List passList;
+		try {
+			userList = (List) http_headers.get("Username");
+			passList = (List) http_headers.get("Password");
+		} catch (Exception e) {
+			throw new InvalidParamException("No Username or Password in HTTP-Header found");
+		}
 
 		String username = "";
 		String password = "";
@@ -74,13 +86,11 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 
 				if (UserDAO.getUserByUsername(username).getWebSession() == null) {
 					createSessionToken(UserDAO.getUserByUsername(username), activeRole);
-				} else {
-					return "Keine Berechtigung für die gewünschte Rolle";
-				}
+				} //else throw new AccessException("No Access with this role!");
 			return getGreeting(username);
+		} else
+			throw new AccessException("Wrong username or password! Please check your input and try again.");
 
-		}
-		return "Benutzer nicht vorhanden oder Passwort falsch! Überprüfen Sie Ihre Eingaben oder registrieren Sich sich!";
 	}
 
 	/**
@@ -88,13 +98,18 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	 * 
 	 * @param username
 	 * @return <code>String</code> token oder Fehlermeldung
+	 * @throws PersistenceException
 	 */
 	@Transactional
-	public String getSessionToken(String username) {
-		if (UserDAO.getUserByUsername(username) != null) {
-			if (UserDAO.getUserByUsername(username).getWebSession() != null) {
-				return UserDAO.getUserByUsername(username).getWebSession().getToken();
+	public String getSessionToken(String username) throws PersistenceException {
+		try {
+			if (UserDAO.getUserByUsername(username) != null) {
+				if (UserDAO.getUserByUsername(username).getWebSession() != null) {
+					return UserDAO.getUserByUsername(username).getWebSession().getToken();
+				}
 			}
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
 		return "Zugriffsehler";
 	}
@@ -161,13 +176,18 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 	 * @param username
 	 * @param password
 	 * @return Boolean
+	 * @throws PersistenceException
 	 */
-	private boolean checkUsernamePassword(String username, String password) {
-		if (UserDAO.getUserByUsername(username) != null) {
-			if (username.equals(UserDAO.getUserByUsername(username).getUsername())
-					&& password.equals(UserDAO.getUserByUsername(username).getPassword())) {
-				return true;
+	private boolean checkUsernamePassword(String username, String password) throws PersistenceException {
+		try {
+			if (UserDAO.getUserByUsername(username) != null) {
+				if (username.equals(UserDAO.getUserByUsername(username).getUsername())
+						&& password.equals(UserDAO.getUserByUsername(username).getPassword())) {
+					return true;
+				}
 			}
+		} catch (Exception e) {
+			throw new PersistenceException("Error 404: Database not found");
 		}
 		return false;
 	}

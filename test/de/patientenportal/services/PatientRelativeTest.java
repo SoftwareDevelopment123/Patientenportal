@@ -32,7 +32,7 @@ public class PatientRelativeTest {
 	private String token;
 
 	@Before
-	public void login() throws MalformedURLException {
+	public void login() throws MalformedURLException, PersistenceException, AccessException, InvalidParamException {
 		String username = "user4";
 		String password = "pass4";
 
