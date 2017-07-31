@@ -12,10 +12,9 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @Entity
 @Table(name = "Medication", catalog = "patientenportal")
-@XmlRootElement (name="medication")
+@XmlRootElement(name = "medication")
 public class Medication {
 
 	private int medicationID;
@@ -24,8 +23,8 @@ public class Medication {
 	private String duration;
 	private Doctor prescribedBy;
 	private Case pcase;
-	
-	public Medication(){
+
+	public Medication() {
 	}
 
 	public Medication(Medicine medicine, String dosage, String duration, Doctor prescribedBy, Case pcase) {
@@ -42,15 +41,17 @@ public class Medication {
 	public int getMedicationID() {
 		return medicationID;
 	}
+
 	public void setMedicationID(int medicationID) {
 		this.medicationID = medicationID;
 	}
 
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="medicine_fk")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "medicine_fk")
 	public Medicine getMedicine() {
 		return medicine;
 	}
+
 	public void setMedicine(Medicine medicine) {
 		this.medicine = medicine;
 	}
@@ -59,6 +60,7 @@ public class Medication {
 	public String getDosage() {
 		return dosage;
 	}
+
 	public void setDosage(String dosage) {
 		this.dosage = dosage;
 	}
@@ -67,26 +69,29 @@ public class Medication {
 	public String getDuration() {
 		return duration;
 	}
+
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="doctor_fk", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctor_fk", nullable = false)
 	@XmlTransient
 	public Doctor getPrescribedBy() {
 		return prescribedBy;
 	}
+
 	public void setPrescribedBy(Doctor prescribedBy) {
 		this.prescribedBy = prescribedBy;
 	}
 
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="case_fk")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "case_fk")
 	@XmlTransient
 	public Case getPcase() {
 		return pcase;
 	}
+
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}

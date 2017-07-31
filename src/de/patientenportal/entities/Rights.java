@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "Rights", catalog = "patientenportal")
-@XmlRootElement (name="rights")
+@XmlRootElement(name = "rights")
 public class Rights {
 
 	private int rightID;
@@ -24,10 +24,10 @@ public class Rights {
 	private boolean rRight;
 	private boolean wRight;
 
-	public Rights(){
+	public Rights() {
 	}
-	
-	public Rights(Case pcase, Doctor doctor, Relative relative, boolean rRight, boolean wRight){
+
+	public Rights(Case pcase, Doctor doctor, Relative relative, boolean rRight, boolean wRight) {
 		this.pcase = pcase;
 		this.doctor = doctor;
 		this.relative = relative;
@@ -41,6 +41,7 @@ public class Rights {
 	public int getRightID() {
 		return rightID;
 	}
+
 	public void setRightID(int rightID) {
 		this.rightID = rightID;
 	}
@@ -50,6 +51,7 @@ public class Rights {
 	public Case getPcase() {
 		return pcase;
 	}
+
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}
@@ -58,6 +60,7 @@ public class Rights {
 	public Doctor getDoctor() {
 		return doctor;
 	}
+
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
@@ -66,6 +69,7 @@ public class Rights {
 	public Relative getRelative() {
 		return relative;
 	}
+
 	public void setRelative(Relative relative) {
 		this.relative = relative;
 	}
@@ -74,6 +78,7 @@ public class Rights {
 	public boolean isrRight() {
 		return rRight;
 	}
+
 	public void setrRight(boolean rRight) {
 		this.rRight = rRight;
 	}
@@ -82,6 +87,7 @@ public class Rights {
 	public boolean iswRight() {
 		return wRight;
 	}
+
 	public void setwRight(boolean wRight) {
 		this.wRight = wRight;
 	}

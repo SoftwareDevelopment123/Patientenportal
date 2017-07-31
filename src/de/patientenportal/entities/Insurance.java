@@ -16,16 +16,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "Insurance", catalog = "patientenportal")
-@XmlRootElement (name="insurance")
+@XmlRootElement(name = "insurance")
 public class Insurance {
-	
+
 	private int insuranceID;
 	private int insuranceNr;
 	private String name;
 	private List<Patient> patients;
-	
-	public Insurance(){
-	
+
+	public Insurance() {
+
 	}
 
 	@Id
@@ -38,7 +38,7 @@ public class Insurance {
 	public void setInsuranceID(int insuranceID) {
 		this.insuranceID = insuranceID;
 	}
-	
+
 	@Column(name = "INSURANCENR", length = 30)
 	public int getInsuranceNr() {
 		return insuranceNr;
@@ -47,7 +47,7 @@ public class Insurance {
 	public void setInsuranceNr(int insuranceNr) {
 		this.insuranceNr = insuranceNr;
 	}
-	
+
 	@Column(name = "NAME", length = 30)
 	public String getName() {
 		return name;
@@ -57,7 +57,7 @@ public class Insurance {
 		this.name = name;
 	}
 
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "insurance")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "insurance")
 	@XmlTransient
 	public List<Patient> getPatients() {
 		return patients;
@@ -66,5 +66,5 @@ public class Insurance {
 	public void setPatients(List<Patient> patient) {
 		this.patients = patient;
 	}
-	
+
 }

@@ -11,10 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @Entity
 @Table(name = "MedicalDoc", catalog = "patientenportal")
-@XmlRootElement (name="medicalDoc")
+@XmlRootElement(name = "medicalDoc")
 public class MedicalDoc {
 
 	private int medDocID;
@@ -24,45 +23,48 @@ public class MedicalDoc {
 	private Doctor createdBy;
 	private Patient patient;
 	private Case pcase;
-	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "MDOC_ID", unique = true, nullable = false)
 	public int getMedDocID() {
 		return medDocID;
 	}
-	
+
 	public void setMedDocID(int medDocID) {
 		this.medDocID = medDocID;
 	}
 
 	@ManyToOne
-	@JoinColumn(name="doctor_fk")
+	@JoinColumn(name = "doctor_fk")
 	public Doctor getCreatedBy() {
 		return createdBy;
 	}
+
 	public void setCreatedBy(Doctor createdBy) {
 		this.createdBy = createdBy;
 	}
 
 	@ManyToOne
-	@JoinColumn(name="patient_fk")
+	@JoinColumn(name = "patient_fk")
 	public Patient getPatient() {
 		return patient;
 	}
+
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 
 	@ManyToOne
-	@JoinColumn(name="case_fk")
+	@JoinColumn(name = "case_fk")
 	public Case getPcase() {
 		return pcase;
 	}
+
 	public void setPcase(Case pcase) {
 		this.pcase = pcase;
 	}
-	
+
 	public String getmDocTitle() {
 		return mDocTitle;
 	}
@@ -78,7 +80,7 @@ public class MedicalDoc {
 	public void setmDocDescription(String mDocDescription) {
 		this.mDocDescription = mDocDescription;
 	}
-	
+
 	public String getFileType() {
 		return fileType;
 	}

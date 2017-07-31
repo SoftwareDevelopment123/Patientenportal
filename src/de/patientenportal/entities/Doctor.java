@@ -20,18 +20,18 @@ import java.util.List;
 @Entity
 @Table(name = "Doctor", catalog = "patientenportal")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlRootElement (name="doctor")
+@XmlRootElement(name = "doctor")
 public class Doctor {
 
 	private int doctorID;
 	private String specialization;
 	private User user;
 	private Office office;
-	private List <Case> cases;
-	
+	private List<Case> cases;
+
 	public Doctor() {
 	}
-	
+
 	public Doctor(String spec) {
 		this.specialization = spec;
 	}
@@ -42,6 +42,7 @@ public class Doctor {
 	public int getDoctorID() {
 		return doctorID;
 	}
+
 	public void setDoctorID(int doctorID) {
 		this.doctorID = doctorID;
 	}
@@ -50,6 +51,7 @@ public class Doctor {
 	public String getSpecialization() {
 		return specialization;
 	}
+
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
 	}
@@ -58,25 +60,28 @@ public class Doctor {
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="office_fk")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "office_fk")
 	@XmlTransient
 	public Office getOffice() {
 		return office;
 	}
+
 	public void setOffice(Office office) {
 		this.office = office;
 	}
-	
-	@ManyToMany(mappedBy="doctors")
+
+	@ManyToMany(mappedBy = "doctors")
 	@XmlTransient
 	public List<Case> getCases() {
 		return cases;
 	}
+
 	public void setCases(List<Case> cases) {
 		this.cases = cases;
 	}

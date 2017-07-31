@@ -6,22 +6,21 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 
 @Entity
 @Table(name = "Relative", catalog = "patientenportal")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlRootElement (name="relative")
+@XmlRootElement(name = "relative")
 
 public class Relative {
-	
+
 	private int relativeID;
 	private User user;
 	private List<Patient> patients;
-	
-	public Relative(){
+
+	public Relative() {
 	}
 
 	@Id
@@ -30,6 +29,7 @@ public class Relative {
 	public int getRelativeID() {
 		return relativeID;
 	}
+
 	public void setRelativeID(int relativeID) {
 		this.relativeID = relativeID;
 	}
@@ -38,15 +38,17 @@ public class Relative {
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="relatives") 
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "relatives")
 	@XmlTransient
 	public List<Patient> getPatients() {
 		return patients;
 	}
+
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
 	}

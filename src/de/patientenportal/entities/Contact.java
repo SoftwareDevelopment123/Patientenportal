@@ -16,7 +16,7 @@ public class Contact {
 	private String phone;
 	private String mobile;
 	private String email;
-	
+
 	public Contact() {
 	}
 
@@ -26,6 +26,7 @@ public class Contact {
 	public int getContactID() {
 		return contactID;
 	}
+
 	public void setContactID(int contactID) {
 		this.contactID = contactID;
 	}
@@ -34,6 +35,7 @@ public class Contact {
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
@@ -42,14 +44,16 @@ public class Contact {
 	public String getMobile() {
 		return mobile;
 	}
+
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+
 	@Column(name = "EMAIL", length = 60)
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}

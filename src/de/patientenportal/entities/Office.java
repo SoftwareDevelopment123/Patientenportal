@@ -19,17 +19,16 @@ import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "Office", catalog = "patientenportal")
-@XmlRootElement (name="office")
+@XmlRootElement(name = "office")
 public class Office {
-	
-	
+
 	private int officeID;
 	private String name;
 	private Contact contact;
 	private Address address;
 	private List<Doctor> doctors;
-	
-	public Office(){
+
+	public Office() {
 	}
 
 	@Id
@@ -38,6 +37,7 @@ public class Office {
 	public int getOfficeID() {
 		return officeID;
 	}
+
 	public void setOfficeID(int officeID) {
 		this.officeID = officeID;
 	}
@@ -46,35 +46,39 @@ public class Office {
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Contact getContact() {
 		return contact;
 	}
+
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Address getAddress() {
 		return address;
 	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 
-	@OneToMany (fetch = FetchType.LAZY)
-	@JoinColumn(name="office_fk")
-	@XmlElementWrapper(name="doctors")
-	@XmlElement(name="doctor")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "office_fk")
+	@XmlElementWrapper(name = "doctors")
+	@XmlElement(name = "doctor")
 	public List<Doctor> getDoctors() {
 		return doctors;
 	}
+
 	public void setDoctors(List<Doctor> doctors) {
 		this.doctors = doctors;
 	}
-	
+
 }

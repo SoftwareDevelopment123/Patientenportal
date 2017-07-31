@@ -23,7 +23,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "User", catalog = "patientenportal", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
-@XmlRootElement (name="user")
+@XmlRootElement(name = "user")
 public class User {
 
 	private int userID;
@@ -33,24 +33,24 @@ public class User {
 	private String lastname;
 	private String firstname;
 	private Date birthdate;
-	private Gender gender;	
-	private	Doctor doctor;
-	private	Patient patient;
-	private	Relative relative;
+	private Gender gender;
+	private Doctor doctor;
+	private Patient patient;
+	private Relative relative;
 	private Address address;
 	private Contact contact;
-	private WebSession webSession;	
-		
+	private WebSession webSession;
+
 	public User() {
 	}
-	
-	public User(String username, String password, String firstname, String lastname){
+
+	public User(String username, String password, String firstname, String lastname) {
 		this.username = username;
 		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "USER_ID", unique = true, nullable = false)
@@ -115,9 +115,9 @@ public class User {
 
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
-		
+
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "GENDER", length = 10)
 	public Gender getGender() {
@@ -127,8 +127,8 @@ public class User {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@XmlTransient
 	public Doctor getDoctor() {
 		return doctor;
@@ -138,7 +138,7 @@ public class User {
 		this.doctor = doctor;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@XmlTransient
 	public Patient getPatient() {
 		return patient;
@@ -148,16 +148,17 @@ public class User {
 		this.patient = patient;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@XmlTransient
 	public Relative getRelative() {
 		return relative;
 	}
+
 	public void setRelative(Relative relative) {
 		this.relative = relative;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Address getAddress() {
 		return address;
 	}
@@ -166,7 +167,7 @@ public class User {
 		this.address = address;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Contact getContact() {
 		return contact;
 	}
@@ -186,5 +187,4 @@ public class User {
 		this.webSession = webSession;
 	}
 
-	
 }
