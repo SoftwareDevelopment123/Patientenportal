@@ -24,6 +24,9 @@ public class RelativeWSImpl implements RelativeWS {
 
 	/**
 	 * <b>Einen Verwandten zu einem Patienten abrufen</b><br>
+	 * Diese Methode wird im üblichen Use-Case wahrscheinlich nicht benötigt. Je
+	 * nach Nutzung sollte die Methode auskommentiert oder angepasst werden, um
+	 * nicht authorisierten Zugriff auf die Relatives zu vermeiden.
 	 * 
 	 * Zugriffsbeschränkung: <code>Doctor, Patient</code>
 	 * 
@@ -58,7 +61,6 @@ public class RelativeWSImpl implements RelativeWS {
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-		// TODO Autorisierung?
 		Relative relative = new Relative();
 		try {
 			relative = RelativeDAO.getRelative(id);

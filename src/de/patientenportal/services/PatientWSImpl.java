@@ -22,10 +22,11 @@ import de.patientenportal.persistence.RelativeDAO;
 @WebService(endpointInterface = "de.patientenportal.services.PatientWS")
 public class PatientWSImpl implements PatientWS {
 
-	// TODO Überprüfen ob Relative auch wirklich Verwandter des Patienten ist?
-	// Methode überaupt notwendig?
 	/**
 	 * <b>Patienten abrufen</b><br>
+	 * Diese Methode wird im üblichen Use-Case wahrscheinlich nicht benötigt. Je
+	 * nach Nutzung sollte die Methode auskommentiert oder angepasst werden, um
+	 * nicht authorisierten Zugriff auf die Patienten zu vermeiden.
 	 * 
 	 * @param accessor
 	 *            mit <code>String</code> token und <code>int</code> patientID
@@ -66,7 +67,6 @@ public class PatientWSImpl implements PatientWS {
 			throw new PersistenceException("Error 404: Database not found");
 		}
 		return patient;
-
 	}
 
 	/**
