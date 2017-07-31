@@ -89,33 +89,29 @@ public class RightsWSTest {
 			Assert.assertEquals(r.getRightID(), rights.get(i).getRightID());
 			i++;
 		}
-		// TODO so anpassen, dass der Test beliebig oft ausgeführt werden kann
 
-		/*
-		 * Rights righttoupdate = rights.get(0); righttoupdate.setwRight(false);
-		 * 
-		 * Accessor updateRight = new Accessor(token);
-		 * updateRight.setObject(righttoupdate); String feedbackUR =
-		 * rightsws.updateRight(updateRight); Assert.assertEquals("success",
-		 * feedbackUR);
-		 * 
-		 * Accessor updatedRights = new Accessor(token, 3); RightsListResponse
-		 * updatedRight = rightsws.getRights(updatedRights); Rights rightupdated
-		 * = updatedRight.getResponseList().get(0); //Rights daoright
-		 * =RightsDAO.getRights(3).get(1);
-		 * 
-		 * Assert.assertEquals(false, rightupdated.iswRight());
-		 * 
-		 * 
-		 * Accessor deleteright = new Accessor(token, 3); String feedbackDR =
-		 * rightsws.deleteRight(deleteright); Assert.assertEquals("success",
-		 * feedbackDR); Accessor Rightsafterdelete = new Accessor(token, 3);
-		 * 
-		 * RightsListResponse response1 = rightsws.getRights(Rightsafterdelete);
-		 * int compare2 = response1.getResponseList().size();
-		 * Assert.assertEquals(compare1-1, compare2);
-		 */
+		Rights righttoupdate = rights.get(0);
+		righttoupdate.setwRight(false);
 
+		Accessor updateRight = new Accessor(token);
+		updateRight.setObject(righttoupdate);
+		String feedbackUR = rightsws.updateRight(updateRight);
+		Assert.assertEquals("success", feedbackUR);
+
+		Accessor updatedRights = new Accessor(token, 3);
+		RightsListResponse updatedRight = rightsws.getRights(updatedRights);
+		Rights rightupdated = updatedRight.getResponseList().get(0);
+		Rights daoright = RightsDAO.getRights(3).get(1);
+
+		Assert.assertEquals(false, rightupdated.iswRight());
+
+		Accessor deleteright = new Accessor(token, 3);
+		String feedbackDR = rightsws.deleteRight(deleteright);
+		Assert.assertEquals("success", feedbackDR);
+		Accessor Rightsafterdelete = new Accessor(token, 3);
+
+		RightsListResponse response1 = rightsws.getRights(Rightsafterdelete);
+		int compare2 = response1.getResponseList().size();
+		Assert.assertEquals(compare1 - 1, compare2);
 	}
-
 }
