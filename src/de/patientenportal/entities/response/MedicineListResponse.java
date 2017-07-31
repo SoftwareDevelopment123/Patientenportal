@@ -6,23 +6,24 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import de.patientenportal.entities.Medicine;
 
-@XmlRootElement (name="medicineListResponse")
+@XmlRootElement(name = "medicineListResponse")
 public class MedicineListResponse extends ListResponse {
 
 	private List<Medicine> responseList;
 
-	public MedicineListResponse(){
+	public MedicineListResponse() {
 	}
-	
-	public MedicineListResponse(List<Medicine> responseList){
+
+	public MedicineListResponse(List<Medicine> responseList) {
 		this.responseList = responseList;
 	}
-		
-	@XmlElementWrapper(name="medicines")
-	@XmlElement(name="medicine")
+
+	@XmlElementWrapper(name = "medicines")
+	@XmlElement(name = "medicine")
 	public List<Medicine> getResponseList() {
 		return responseList;
 	}
+
 	public void setResponseList(List<Medicine> responseList) {
 		this.responseList = responseList;
 	}

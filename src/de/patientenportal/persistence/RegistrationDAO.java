@@ -12,17 +12,19 @@ public class RegistrationDAO {
 
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Users
-	 * @param User, das anzulegende Office
+	 * 
+	 * @param User,
+	 *            das anzulegende Office
 	 * @return der erzeugte <code>User</code>
 	 */
-	public static User createUser(User user){
+	public static User createUser(User user) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try {
-		session.beginTransaction();
-		session.save(user);
-		session.getTransaction().commit();
-		
+			session.beginTransaction();
+			session.save(user);
+			session.getTransaction().commit();
+
 		} catch (PropertyValueException e) {
 			System.err.println("Error: " + e);
 			return null;
@@ -37,17 +39,19 @@ public class RegistrationDAO {
 
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Doctors
-	 * @param Doctor, der anzulegende Doctor
+	 * 
+	 * @param Doctor,
+	 *            der anzulegende Doctor
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createDoctor(Doctor doctor) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try {
-		session.beginTransaction();
-		session.save(doctor);
-		session.getTransaction().commit();
-		
+			session.beginTransaction();
+			session.save(doctor);
+			session.getTransaction().commit();
+
 		} catch (PropertyValueException e) {
 			System.err.println("Error: " + e);
 			return "NotNullError";
@@ -59,20 +63,22 @@ public class RegistrationDAO {
 		}
 		return "success";
 	}
-	
+
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Patient
-	 * @param Patient, der anzulegende Patient
+	 * 
+	 * @param Patient,
+	 *            der anzulegende Patient
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createPatient(Patient patient) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try {
-		session.beginTransaction();
-		session.save(patient);
-		session.getTransaction().commit();
-		
+			session.beginTransaction();
+			session.save(patient);
+			session.getTransaction().commit();
+
 		} catch (PropertyValueException e) {
 			System.err.println("Error: " + e);
 			return "NotNullError";
@@ -84,20 +90,22 @@ public class RegistrationDAO {
 		}
 		return "success";
 	}
-		
+
 	/**
 	 * Datenbankzugriff zum: Anlegen eines Relative
-	 * @param Relative, der anzulegende Relative
+	 * 
+	 * @param Relative,
+	 *            der anzulegende Relative
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createRelative(Relative relative) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		try {
-		session.beginTransaction();
-		session.save(relative);
-		session.getTransaction().commit();
-		
+			session.beginTransaction();
+			session.save(relative);
+			session.getTransaction().commit();
+
 		} catch (PropertyValueException e) {
 			System.err.println("Error: " + e);
 			return "NotNullError";
@@ -112,34 +120,37 @@ public class RegistrationDAO {
 
 	/**
 	 * Datenbankzugriff zum: Überprüfen ob der Username schon vorhanden ist
-	 * @param Patient, der anzulegende Patient
+	 * 
+	 * @param Patient,
+	 *            der anzulegende Patient
 	 * @return <code>boolean</code> true, wenn der Username bereits vergeben ist
 	 */
-	public static boolean checkUsername(String username){
-			
-			Session session = HibernateUtil.getSessionFactory().openSession();
-						
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery <User> query = builder.createQuery(User.class);
-			
-			Root<User> user = 	query.from(User.class);
-									Predicate nameP = builder.equal(user.get("username"), username);
-								query.select(user).where(nameP).distinct(true);
-			
-			User result;					
-			try {
+	public static boolean checkUsername(String username) {
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<User> query = builder.createQuery(User.class);
+
+		Root<User> user = query.from(User.class);
+		Predicate nameP = builder.equal(user.get("username"), username);
+		query.select(user).where(nameP).distinct(true);
+
+		User result;
+		try {
 			result = session.createQuery(query).getSingleResult();
-			} catch (Exception e) {
-				return false;
-			} finally {
-				session.close();
-			}
-			
-			System.out.println("------- Hello! This is your RegistrationDAO, I found the User!  ------");
-			System.out.println("Username:   " + result.getUsername());
-			System.out.println("Short-Data: " + result.getFirstname() + " / " +  result.getLastname() + " / " + result.getEmail());	
-			System.out.println("------------------------------ See Ya! -------------------------------");
-			
-		return true;	
+		} catch (Exception e) {
+			return false;
+		} finally {
+			session.close();
+		}
+
+		System.out.println("------- Hello! This is your RegistrationDAO, I found the User!  ------");
+		System.out.println("Username:   " + result.getUsername());
+		System.out.println(
+				"Short-Data: " + result.getFirstname() + " / " + result.getLastname() + " / " + result.getEmail());
+		System.out.println("------------------------------ See Ya! -------------------------------");
+
+		return true;
 	}
 }

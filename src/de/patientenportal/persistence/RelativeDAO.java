@@ -9,22 +9,24 @@ public class RelativeDAO {
 
 	/**
 	 * Datenbankzugriff zum: Aufrufen eines Relative
-	 * @param relativeID, des aufzurufenden Relatives
+	 * 
+	 * @param relativeID,
+	 *            des aufzurufenden Relatives
 	 * @return Relative
 	 */
-	public static Relative getRelative(int relativeID){
+	public static Relative getRelative(int relativeID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Relative relative = new Relative();
-		
-		try{
-		session.beginTransaction();		
-		relative = (Relative)session.get(Relative.class, relativeID);
-		
-			if (relative != null){
+
+		try {
+			session.beginTransaction();
+			relative = (Relative) session.get(Relative.class, relativeID);
+
+			if (relative != null) {
 				Hibernate.initialize(relative.getPatients());
 			}
-			
-		session.getTransaction().commit();
+
+			session.getTransaction().commit();
 
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
@@ -32,56 +34,58 @@ public class RelativeDAO {
 		} finally {
 			session.close();
 		}
-			
+
 		return relative;
 	}
-	
+
 	/**
 	 * Datenbankzugriff zum: Ändern eines Relatives
-	 * @param Relative, das vollständige geänderte Relative Objekt
+	 * 
+	 * @param Relative,
+	 *            das vollständige geänderte Relative Objekt
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
-	 */	
-	public static String updateRelative (Relative updatedrelative){
+	 */
+	public static String updateRelative(Relative updatedrelative) {
 		int id = updatedrelative.getRelativeID();
-		if(id!=0){
-		
-		/*
-		 * 	Platzhalter, da der Relative aktuell keine Attribute besitzt, die geändert werden müssen/können
-		 *  
-		 * 	Session session = HibernateUtil.getSessionFactory().openSession();
-		
-			try{
-				session.beginTransaction();				
-				Relative relativetoupdate = session.get(Relative.class, id);
+		if (id != 0) {
 
-				session.getTransaction().commit();
-		
-			} catch (Exception e) {
-				System.err.println("Error: " + e);
-				return "error";
-			} finally {
-				session.close();
-			}*/
+			/*
+			 * Platzhalter, da der Relative aktuell keine Attribute besitzt, die
+			 * geändert werden müssen/können
+			 * 
+			 * Session session =
+			 * HibernateUtil.getSessionFactory().openSession();
+			 * 
+			 * try{ session.beginTransaction(); Relative relativetoupdate =
+			 * session.get(Relative.class, id);
+			 * 
+			 * session.getTransaction().commit();
+			 * 
+			 * } catch (Exception e) { System.err.println("Error: " + e); return
+			 * "error"; } finally { session.close(); }
+			 */
 			return "success";
 		} else {
 			return "noID";
 		}
 	}
-	
+
 	/**
 	 * Datenbankzugriff zum: Löschen eines Relatives
-	 * @param relativeID, des zu löschenden Relatives
+	 * 
+	 * @param relativeID,
+	 *            des zu löschenden Relatives
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
-	public static String deleteRelative (int relativeID) {
+	public static String deleteRelative(int relativeID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-			
-		try{
-		session.beginTransaction();
-		Relative relative = (Relative)session.get(Relative.class, relativeID);
-		session.delete(relative);
-		session.getTransaction().commit();	
-		
+
+		try {
+			session.beginTransaction();
+			Relative relative = (Relative) session.get(Relative.class, relativeID);
+			session.delete(relative);
+			session.getTransaction().commit();
+
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
 			return "error";

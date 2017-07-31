@@ -11,17 +11,19 @@ public class MedicationDAO {
 
 	/**
 	 * Datenbankzugriff zum: Anlegen einer Medication
-	 * @param Medication, die anzulegende Medication
+	 * 
+	 * @param Medication,
+	 *            die anzulegende Medication
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String createMedication(Medication newMedication) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
-		try{
-		session.beginTransaction();
-		session.save(newMedication);
-		session.getTransaction().commit();
-		
+		try {
+			session.beginTransaction();
+			session.save(newMedication);
+			session.getTransaction().commit();
+
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
 			return "error";
@@ -33,25 +35,27 @@ public class MedicationDAO {
 
 	/**
 	 * Datenbankzugriff zum: Aufrufen einer Medication
-	 * @param medicationID, der aufzurufenden Medication
+	 * 
+	 * @param medicationID,
+	 *            der aufzurufenden Medication
 	 * @return Medication
 	 */
-	public static Medication getMedication (int medicationID){
+	public static Medication getMedication(int medicationID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Medication medication = new Medication();
-		
-		try{
-		session.beginTransaction();		
-		medication = (Medication)session.get(Medication.class, medicationID);
-		
-		if (medication != null){
-			Hibernate.initialize(medication.getMedicine());
-			Hibernate.initialize(medication.getPrescribedBy());
-			Hibernate.initialize(medication.getPcase());
-		}
-		
-		session.getTransaction().commit();
-		session.close();
+
+		try {
+			session.beginTransaction();
+			medication = (Medication) session.get(Medication.class, medicationID);
+
+			if (medication != null) {
+				Hibernate.initialize(medication.getMedicine());
+				Hibernate.initialize(medication.getPrescribedBy());
+				Hibernate.initialize(medication.getPcase());
+			}
+
+			session.getTransaction().commit();
+			session.close();
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
 			return null;
@@ -59,18 +63,20 @@ public class MedicationDAO {
 			session.close();
 		}
 		return medication;
-		
+
 	}
-	
+
 	/**
 	 * Datenbankzugriff zum: Ändern einer Medication
-	 * @param Medication, das vollständige geänderte Medication Objekt
+	 * 
+	 * @param Medication,
+	 *            das vollständige geänderte Medication Objekt
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
-	public static String updateMedication(Medication updatedmedication){
+	public static String updateMedication(Medication updatedmedication) {
 		int id = updatedmedication.getMedicationID();
-		if(id!=0){
-		
+		if (id != 0) {
+
 			Medicine medicine = updatedmedication.getMedicine();
 			String dosage = updatedmedication.getDosage();
 			String duration = updatedmedication.getDuration();
@@ -78,9 +84,9 @@ public class MedicationDAO {
 			Case pcase = updatedmedication.getPcase();
 
 			Session session = HibernateUtil.getSessionFactory().openSession();
-		
-			try{
-			session.beginTransaction();				
+
+			try {
+				session.beginTransaction();
 				Medication medicationtoupdate = session.get(Medication.class, id);
 				medicationtoupdate.setMedicine(medicine);
 				medicationtoupdate.setDosage(dosage);
@@ -88,7 +94,7 @@ public class MedicationDAO {
 				medicationtoupdate.setPrescribedBy(prescribedBy);
 				medicationtoupdate.setPcase(pcase);
 				session.getTransaction().commit();
-		
+
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
 				return "error";
@@ -96,32 +102,33 @@ public class MedicationDAO {
 				session.close();
 			}
 			return "success";
-			}
-		else {
+		} else {
 			return "noID";
-		}	
-	}		
-		
+		}
+	}
+
 	/**
 	 * Datenbankzugriff zum: Löschen eines Instruction-Documents
-	 * @param medicationID, die ID der zu löschende Medication
+	 * 
+	 * @param medicationID,
+	 *            die ID der zu löschende Medication
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
-	 */	
-	public static String deleteMedication(int medicationID){
+	 */
+	public static String deleteMedication(int medicationID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
-		try{	
-		session.beginTransaction();
-		Medication medication = (Medication)session.get(Medication.class, medicationID);
-		session.delete(medication);
-		session.getTransaction().commit();
-		
+		try {
+			session.beginTransaction();
+			Medication medication = (Medication) session.get(Medication.class, medicationID);
+			session.delete(medication);
+			session.getTransaction().commit();
+
 		} catch (Exception e) {
-		System.err.println("Error: " + e);
-		return "error";
+			System.err.println("Error: " + e);
+			return "error";
 		} finally {
-		session.close();
+			session.close();
 		}
 		return "success";
-	}		
+	}
 }

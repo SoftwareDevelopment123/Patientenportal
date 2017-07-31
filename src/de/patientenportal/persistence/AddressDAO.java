@@ -7,29 +7,31 @@ public class AddressDAO {
 
 	/**
 	 * Datenbankzugriff zum: Ändern einer Adresse
-	 * @param updatedaddress Parameter: postalCode, street, number, City
+	 * 
+	 * @param updatedaddress
+	 *            Parameter: postalCode, street, number, City
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
-	public static String updateAddress(Address updatedaddress){
+	public static String updateAddress(Address updatedaddress) {
 		int id = updatedaddress.getAddressID();
-		if(id!=0){
-				
+		if (id != 0) {
+
 			String postalCode = updatedaddress.getPostalCode();
 			String street = updatedaddress.getStreet();
 			String number = updatedaddress.getNumber();
 			String city = updatedaddress.getCity();
-						
+
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			
-			try{
-			session.beginTransaction();				
-			Address addresstoupdate = session.get(Address.class, id);
+
+			try {
+				session.beginTransaction();
+				Address addresstoupdate = session.get(Address.class, id);
 				addresstoupdate.setPostalCode(postalCode);
 				addresstoupdate.setStreet(street);
 				addresstoupdate.setNumber(number);
-				addresstoupdate.setCity(city);		
-			session.getTransaction().commit();
-			
+				addresstoupdate.setCity(city);
+				session.getTransaction().commit();
+
 			} catch (Exception e) {
 				System.err.println("Error: " + e);
 				return "error";
@@ -37,26 +39,28 @@ public class AddressDAO {
 				session.close();
 			}
 			return "success";
-			
+
 		} else {
 			return "noID";
 		}
 	}
-	
+
 	/**
 	 * Datenbankzugriff zum: Löschen einer Adresse
-	 * @param addressID from Address to delete 
+	 * 
+	 * @param addressID
+	 *            from Address to delete
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
-	public static String deleteAddress(int addressID){
+	public static String deleteAddress(int addressID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
-		try{
-		session.beginTransaction();
-		Address address = (Address)session.get(Address.class, addressID);
-		session.delete(address);
-		session.getTransaction().commit();
-		
+		try {
+			session.beginTransaction();
+			Address address = (Address) session.get(Address.class, addressID);
+			session.delete(address);
+			session.getTransaction().commit();
+
 		} catch (Exception e) {
 			System.err.println("Error: " + e);
 			return "error";

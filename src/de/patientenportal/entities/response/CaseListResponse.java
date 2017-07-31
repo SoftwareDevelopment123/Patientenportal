@@ -6,23 +6,24 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import de.patientenportal.entities.Case;
 
-@XmlRootElement (name="caseListResponse")
+@XmlRootElement(name = "caseListResponse")
 public class CaseListResponse extends ListResponse {
-	
+
 	private List<Case> responseList;
 
-	public CaseListResponse(){
+	public CaseListResponse() {
 	}
-	
-	public CaseListResponse(List<Case> caseList){
+
+	public CaseListResponse(List<Case> caseList) {
 		this.responseList = caseList;
 	}
-		
-	@XmlElementWrapper(name="cases")
-	@XmlElement(name="case")
+
+	@XmlElementWrapper(name = "cases")
+	@XmlElement(name = "case")
 	public List<Case> getResponseList() {
 		return responseList;
 	}
+
 	public void setResponseList(List<Case> responseList) {
 		this.responseList = responseList;
 	}
