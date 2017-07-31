@@ -227,7 +227,7 @@ public class MedDocWSImpl implements MedDocWS {
 		if (id == 0) {
 			throw new InvalidParamException("No ID found");
 		}
-		
+
 		String response = null;
 		try {
 			response = MDocDAO.deleteMedicalDoc(id);
@@ -237,5 +237,3 @@ public class MedDocWSImpl implements MedDocWS {
 		return response;
 	}
 }
-
-

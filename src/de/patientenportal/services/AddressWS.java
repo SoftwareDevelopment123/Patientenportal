@@ -19,9 +19,10 @@ import de.patientenportal.entities.response.Accessor;
 public interface AddressWS {
 
 	@WebMethod
-	public String updateAddress(@WebParam(name = "Token--Address") Accessor accessor) throws AccessorException,
-			InvalidParamException, AuthenticationException, AccessException, AuthorizationException, PersistenceException;
-	
+	public String updateAddress(@WebParam(name = "Token--Address") Accessor accessor)
+			throws AccessorException, InvalidParamException, AuthenticationException, AccessException,
+			AuthorizationException, PersistenceException;
+
 	@WebMethod
 	public String deleteAddress(@WebParam(name = "Token--AddressID") Accessor accessor)
 			throws AccessorException, InvalidParamException, AuthenticationException, AccessException,

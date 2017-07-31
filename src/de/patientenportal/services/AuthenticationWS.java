@@ -11,13 +11,22 @@ import de.patientenportal.entities.ActiveRole;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface AuthenticationWS {
-	
-	@WebMethod String authenticateUser		(@WebParam (name="ActiveRole")ActiveRole activeRole); //(@WebParam (name="username")String username, @WebParam (name="password")String password);
 
-	@WebMethod boolean authenticateToken	(@WebParam (name="Token")String token);
+	@WebMethod
+	String authenticateUser(@WebParam(name = "ActiveRole") ActiveRole activeRole); // (@WebParam
+																					// (name="username")String
+																					// username,
+																					// @WebParam
+																					// (name="password")String
+																					// password);
 
-	@WebMethod String getSessionToken		(@WebParam (name="Username")String username);
-	
-	@WebMethod public String logout(String token);
-	
+	@WebMethod
+	boolean authenticateToken(@WebParam(name = "Token") String token);
+
+	@WebMethod
+	String getSessionToken(@WebParam(name = "Username") String username);
+
+	@WebMethod
+	public String logout(String token);
+
 }

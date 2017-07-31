@@ -22,7 +22,8 @@ public interface VitalDataWS {
 
 	@WebMethod
 	public VitalDataListResponse getVitalDatabyC(@WebParam(name = "Token--CaseID") Accessor accessor,
-			@WebParam(name = "VitalDataType") VitalDataType vDtype) throws PersistenceException, AccessorException, InvalidParamException, AuthenticationException, AccessException, AuthorizationException;
+			@WebParam(name = "VitalDataType") VitalDataType vDtype) throws PersistenceException, AccessorException,
+			InvalidParamException, AuthenticationException, AccessException, AuthorizationException;
 
 	@WebMethod
 	public String createVitalData(@WebParam(name = "Token--VitalData") Accessor accessor) throws InvalidParamException,

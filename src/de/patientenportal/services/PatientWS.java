@@ -18,12 +18,14 @@ import de.patientenportal.entities.response.PatientListResponse;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface PatientWS {
-		
+
 	@WebMethod
-	public Patient getPatient(@WebParam(name = "Patient-ID") Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
-	
+	public Patient getPatient(@WebParam(name = "Patient-ID") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+
 	@WebMethod
 	public PatientListResponse getPatientsByR(@WebParam(name = "Relative-ID") Accessor accessor)
-			throws AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+			throws AuthenticationException, AccessException, AuthorizationException, AccessorException,
+			InvalidParamException, PersistenceException;
 
 }

@@ -21,7 +21,7 @@ public interface MedicationWS {
 
 	@WebMethod
 	public MedicationListResponse getMedicationbyC(@WebParam(name = "Token--CaseID") Accessor accessor)
-			throws InvalidParamException, AccessorException, PersistenceException, AuthenticationException, 
+			throws InvalidParamException, AccessorException, PersistenceException, AuthenticationException,
 			AccessException, AuthorizationException;
 
 	@WebMethod
@@ -36,11 +36,11 @@ public interface MedicationWS {
 
 	@WebMethod
 	public String deleteMedication(@WebParam(name = "Token--MedicationID") Accessor accessor)
-			throws InvalidParamException, AccessorException, PersistenceException, AuthenticationException, 
+			throws InvalidParamException, AccessorException, PersistenceException, AuthenticationException,
 			AccessException, AuthorizationException;
 
 	@WebMethod
 	public String updateMedication(@WebParam(name = "Token--Medication") Accessor accessor)
-			throws InvalidParamException, AccessorException, PersistenceException, AuthenticationException, 
+			throws InvalidParamException, AccessorException, PersistenceException, AuthenticationException,
 			AccessException, AuthorizationException;
 }

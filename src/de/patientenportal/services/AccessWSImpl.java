@@ -181,8 +181,8 @@ public class AccessWSImpl implements AccessWS {
 	 * @throws AuthenticationException
 	 */
 	@Transactional
-	public boolean checkWRight(Accessor accessor)
-			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException, AccessorException {
+	public boolean checkWRight(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, InvalidParamException, AccessorException {
 		String token;
 		int id;
 

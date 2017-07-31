@@ -25,16 +25,15 @@ public interface OfficeWS {
 
 	@WebMethod
 	public String createOffice(@WebParam(name = "Office") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException, 
-			AuthenticationException, AccessException, AuthorizationException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException,
+			AccessException, AuthorizationException;
 
 	@WebMethod
-	public String deleteOffice(@WebParam(name = "Office-ID") Accessor accessor)
-			throws PersistenceException, InvalidParamException, AccessorException, 
-			AuthenticationException, AccessException, AuthorizationException;
+	public String deleteOffice(@WebParam(name = "Office-ID") Accessor accessor) throws PersistenceException,
+			InvalidParamException, AccessorException, AuthenticationException, AccessException, AuthorizationException;
 
 	@WebMethod
 	public String updateOffice(@WebParam(name = "Office") Accessor accessor)
-			throws AccessorException, PersistenceException, InvalidParamException, 
-			AuthenticationException, AccessException, AuthorizationException;
+			throws AccessorException, PersistenceException, InvalidParamException, AuthenticationException,
+			AccessException, AuthorizationException;
 }

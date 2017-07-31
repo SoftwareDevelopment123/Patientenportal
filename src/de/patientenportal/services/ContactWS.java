@@ -21,8 +21,9 @@ public interface ContactWS {
 	@WebMethod
 	public String updateContact(@WebParam(name = "Token--Contact") Accessor accessor) throws AuthenticationException,
 			AccessException, AuthorizationException, InvalidParamException, AccessorException, PersistenceException;
-	
+
 	@WebMethod
-	public String deleteContact(@WebParam(name = "Token--ContactID") Accessor accessor) throws AccessorException,
-			InvalidParamException, AuthenticationException, AccessException, AuthorizationException, PersistenceException;
+	public String deleteContact(@WebParam(name = "Token--ContactID") Accessor accessor)
+			throws AccessorException, InvalidParamException, AuthenticationException, AccessException,
+			AuthorizationException, PersistenceException;
 }

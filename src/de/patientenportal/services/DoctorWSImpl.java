@@ -98,7 +98,7 @@ public class DoctorWSImpl implements DoctorWS {
 		String token;
 
 		try {
-			caseId =  accessor.getId();
+			caseId = accessor.getId();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");

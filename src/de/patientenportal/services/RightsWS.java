@@ -25,14 +25,14 @@ public interface RightsWS {
 			InvalidParamException, PersistenceException;
 
 	@WebMethod
-	public String createRight(@WebParam(name = "Token--Right") Accessor accessor) 
-			throws AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+	public String createRight(@WebParam(name = "Token--Right") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
 
 	@WebMethod
-	public String updateRight(@WebParam(name = "Token--Right") Accessor accessor) 
-			throws AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+	public String updateRight(@WebParam(name = "Token--Right") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
 
 	@WebMethod
-	public String deleteRight(@WebParam(name = "Token--Right--ID") Accessor accessor) 
-			throws AuthenticationException, AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+	public String deleteRight(@WebParam(name = "Token--Right--ID") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
 }

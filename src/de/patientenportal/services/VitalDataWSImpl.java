@@ -217,7 +217,7 @@ public class VitalDataWSImpl implements VitalDataWS {
 			AuthenticationException, AccessException, AuthorizationException, PersistenceException {
 		VitalData vitalData = new VitalData();
 		String token;
-		
+
 		try {
 			vitalData = (VitalData) accessor.getObject();
 			token = (String) accessor.getToken();

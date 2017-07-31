@@ -21,16 +21,15 @@ public interface AccessWS {
 
 	@WebMethod
 	public CaseListResponse getRCases(@WebParam(name = "Token--Status") Accessor accessor)
-			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException, 
+			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException,
 			AccessorException, PersistenceException;
-	
+
 	@WebMethod
 	public CaseListResponse getRPatientCases(@WebParam(name = "Token--PatientID") Accessor accessor)
-			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException, 
-			AccessorException, PersistenceException;
-			
-	@WebMethod
-	public boolean checkWRight(@WebParam(name = "Token--Case-ID") Accessor accessor)
 			throws AuthenticationException, AccessException, AuthorizationException, InvalidParamException,
-			AccessorException;
+			AccessorException, PersistenceException;
+
+	@WebMethod
+	public boolean checkWRight(@WebParam(name = "Token--Case-ID") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, InvalidParamException, AccessorException;
 }

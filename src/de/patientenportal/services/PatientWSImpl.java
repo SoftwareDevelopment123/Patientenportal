@@ -38,8 +38,8 @@ public class PatientWSImpl implements PatientWS {
 	 * @throws PersistenceException
 	 */
 	@Transactional
-	public Patient getPatient(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
-	AccessorException, InvalidParamException, PersistenceException {
+	public Patient getPatient(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		int id;
 		String token;
 
@@ -78,8 +78,8 @@ public class PatientWSImpl implements PatientWS {
 	 *         zugeordneten Patienten.
 	 */
 	@Transactional
-	public PatientListResponse getPatientsByR(Accessor accessor) throws AuthenticationException, AccessException, AuthorizationException,
-	AccessorException, InvalidParamException, PersistenceException {
+	public PatientListResponse getPatientsByR(Accessor accessor) throws AuthenticationException, AccessException,
+			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
 		PatientListResponse response = new PatientListResponse();
 		int relativeId;
 		String token;

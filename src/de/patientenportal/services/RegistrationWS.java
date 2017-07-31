@@ -14,19 +14,17 @@ import de.patientenportal.entities.Relative;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface RegistrationWS {
-	
+
 	@WebMethod
-	public UserListResponse createUser	(@WebParam (name="User") User user);
-		
+	public UserListResponse createUser(@WebParam(name = "User") User user);
+
 	@WebMethod
-	public String createPatient	(@WebParam (name="Patient") Patient patient,
-								 @WebParam (name="User-ID")	int userID);
-	
+	public String createPatient(@WebParam(name = "Patient") Patient patient, @WebParam(name = "User-ID") int userID);
+
 	@WebMethod
-	public String createDoctor	(@WebParam (name="Doctor")	Doctor doctor,
-								 @WebParam (name="User-ID")	int userID);
-	
+	public String createDoctor(@WebParam(name = "Doctor") Doctor doctor, @WebParam(name = "User-ID") int userID);
+
 	@WebMethod
-	public String createRelative(@WebParam (name="Relative")Relative relative,
-								 @WebParam (name="User-ID")	int userID);
+	public String createRelative(@WebParam(name = "Relative") Relative relative,
+			@WebParam(name = "User-ID") int userID);
 }

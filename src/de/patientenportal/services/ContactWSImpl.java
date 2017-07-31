@@ -92,7 +92,7 @@ public class ContactWSImpl implements ContactWS {
 	 * @throws AuthorizationException
 	 * @throws AccessException
 	 * @throws AuthenticationException
-	 * @throws PersistenceException 
+	 * @throws PersistenceException
 	 */
 	@Transactional
 	public String deleteContact(Accessor accessor) throws AccessorException, InvalidParamException,

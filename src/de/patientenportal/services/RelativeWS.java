@@ -23,8 +23,9 @@ public interface RelativeWS {
 	public Relative getRelative(@WebParam(name = "relativeID") Accessor accessor)
 			throws AccessorException, InvalidParamException, AuthenticationException, AccessException,
 			AuthorizationException, PersistenceException;
-	
+
 	@WebMethod
 	public RelativeListResponse getRelativesByP(@WebParam(name = "patientID") Accessor accessor)
-			throws PersistenceException, AccessorException, InvalidParamException, AuthenticationException, AccessException, AuthorizationException;
+			throws PersistenceException, AccessorException, InvalidParamException, AuthenticationException,
+			AccessException, AuthorizationException;
 }
