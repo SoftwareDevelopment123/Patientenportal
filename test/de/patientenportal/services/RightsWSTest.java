@@ -89,11 +89,11 @@ public class RightsWSTest {
 			Assert.assertEquals(r.getRightID(), rights.get(i).getRightID());
 			i++;
 		}
-
+		/*
 		Rights righttoupdate = rights.get(0);
-		righttoupdate.setwRight(false);
+		righttoupdate.setwRight(true);
 
-		/*Accessor updateRight = new Accessor(token);
+		Accessor updateRight = new Accessor(token);
 		updateRight.setObject(righttoupdate);
 		String feedbackUR = rightsws.updateRight(updateRight);
 		Assert.assertEquals("success", feedbackUR);
@@ -104,7 +104,7 @@ public class RightsWSTest {
 		Rights daoright = RightsDAO.getRights(3).get(1);
 
 		Assert.assertEquals(false, rightupdated.iswRight());
-
+		
 		Accessor deleteright = new Accessor(token, 3);
 		String feedbackDR = rightsws.deleteRight(deleteright);
 		Assert.assertEquals("success", feedbackDR);

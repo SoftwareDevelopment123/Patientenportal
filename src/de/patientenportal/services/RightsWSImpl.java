@@ -200,6 +200,9 @@ public class RightsWSImpl implements RightsWS {
 		if (token == null) {
 			throw new InvalidParamException("No Token found");
 		}
+		if (right == null) {
+			throw new InvalidParamException("No Right found");
+		}
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 

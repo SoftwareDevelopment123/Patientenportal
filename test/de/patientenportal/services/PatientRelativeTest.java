@@ -129,19 +129,19 @@ public class PatientRelativeTest {
 		Assert.assertEquals(comparepat.getUser().getLastname(), patient.getUser().getLastname());
 
 		/*
-		 * // Get PatientList by Relative //Hierfür muss User als Relative
-		 * eingeloggt sein List<Patient> comparePatList =
-		 * RelativeDAO.getRelative(3).getPatients(); Accessor getPatList = new
-		 * Accessor(); getPatList.setObject(3); getPatList.setToken(token);
+		 * // Get PatientList by Relative 
+		 * //Hierfür muss User als Relative eingeloggt sein 
+		 * List<Patient> comparePatList = RelativeDAO.getRelative(3).getPatients(); 
+		 * Accessor getPatList = new Accessor(); 
+		 * getPatList.setObject(3); 
+		 * getPatList.setToken(token);
 		 * PatientListResponse patListResponse = pat.getPatientsByR(getPatList);
 		 * List<Patient> patList = patListResponse.getResponseList();
 		 * 
-		 * int i = 0; for (Patient p : comparePatList){
-		 * Assert.assertEquals(p.getPatientID() ,
-		 * patList.get(i).getPatientID()); Assert.assertEquals(p.getBloodtype()
-		 * , patList.get(i).getBloodtype());
-		 * Assert.assertEquals(p.getUser().getLastname() ,
-		 * patList.get(i).getUser().getLastname()); i++; }
+		 * int i = 0; 
+		 * for (Patient p : comparePatList){Assert.assertEquals(p.getPatientID() ,
+		 * patList.get(i).getPatientID()); Assert.assertEquals(p.getBloodtype(), patList.get(i).getBloodtype());
+		 * Assert.assertEquals(p.getUser().getLastname(),patList.get(i).getUser().getLastname()); i++; }
 		 */
 
 		System.out.println("Success!");
