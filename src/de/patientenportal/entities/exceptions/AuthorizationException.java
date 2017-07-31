@@ -3,7 +3,8 @@ package de.patientenportal.entities.exceptions;
 import javax.xml.ws.WebFault;
 
 /**
- * Wird geworfen, wenn für die aktive Rolle kein Zugriff auf die Methode gestattet ist.
+ * Wird geworfen, wenn für die aktive Rolle kein Zugriff auf die Methode
+ * gestattet ist.
  * 
  * @param message
  *            Fehlermeldung

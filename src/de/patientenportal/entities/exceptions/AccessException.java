@@ -3,7 +3,8 @@ package de.patientenportal.entities.exceptions;
 import javax.xml.ws.WebFault;
 
 /**
- * Wird geworfen, wenn der Lese-/bzw. Schreibzugriff auf den Fall verweigert wird.
+ * Wird geworfen, wenn der Lese-/bzw. Schreibzugriff auf den Fall verweigert
+ * wird.
  * 
  * @param message
  *            Fehlermeldung
