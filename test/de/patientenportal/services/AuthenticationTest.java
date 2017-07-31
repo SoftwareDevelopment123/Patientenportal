@@ -42,7 +42,8 @@ public class AuthenticationTest {
 	}
 
 	@Test
-	public void testAuthentication() throws MalformedURLException, PersistenceException, AccessException, InvalidParamException {
+	public void testAuthentication()
+			throws MalformedURLException, PersistenceException, AccessException, InvalidParamException {
 		String username = "Jonny";
 		String password = "123456";
 
@@ -63,12 +64,38 @@ public class AuthenticationTest {
 
 		Assert.assertEquals(true, authWS.authenticateToken(tokenTest));
 
-		//System.out.println("Anmeldung mit nicht zugeordneter Rolle: " + authWS.authenticateUser(ActiveRole.Doctor));
+	}
 
+	@Test(expected = AccessException.class)
+	public void testAccessExceptionRole()
+			throws PersistenceException, AccessException, InvalidParamException, MalformedURLException {
+		String username = "Jonny";
+		String password = "123456";
+
+		URL url = new URL(WS_URL);
+		QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+
+		Service service = Service.create(url, qname);
+		AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+		ClientHelper.putUsernamePassword(username, password, authWS);
+		// mit falscher Rolle
+		authWS.authenticateUser(ActiveRole.Doctor);
+	}
+	
+	@Test(expected = AccessException.class)
+	public void testAccessExceptionUsername()
+			throws PersistenceException, AccessException, InvalidParamException, MalformedURLException {
+		String username = "Jonny";
+		String password = "123456";
+
+		URL url = new URL(WS_URL);
+		QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+
+		Service service = Service.create(url, qname);
+		AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
 		// mit falschem Usernamen
 		username = "Unbekannt";
 		ClientHelper.putUsernamePassword(username, password, authWS);
-
-		//System.out.println("Anmeldung mit nicht vorhandenem Username: " + authWS.authenticateUser(ActiveRole.Patient));
+		authWS.authenticateUser(ActiveRole.Patient);
 	}
 }

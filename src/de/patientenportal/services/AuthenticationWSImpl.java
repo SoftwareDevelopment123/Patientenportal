@@ -82,11 +82,13 @@ public class AuthenticationWSImpl implements AuthenticationWS {
 		if (checkUsernamePassword(username, password) == true) {
 			if ((UserDAO.getUserByUsername(username).getPatient() != null && activeRole == ActiveRole.Patient)
 					|| (UserDAO.getUserByUsername(username).getDoctor() != null && activeRole == ActiveRole.Doctor)
-					|| (UserDAO.getUserByUsername(username).getRelative() != null && activeRole == ActiveRole.Relative))
-
+					|| (UserDAO.getUserByUsername(username).getRelative() != null
+							&& activeRole == ActiveRole.Relative)) {
 				if (UserDAO.getUserByUsername(username).getWebSession() == null) {
 					createSessionToken(UserDAO.getUserByUsername(username), activeRole);
-				} //else throw new AccessException("No Access with this role!");
+				}
+			} else
+				throw new AccessException("No Access with this role!");
 			return getGreeting(username);
 		} else
 			throw new AccessException("Wrong username or password! Please check your input and try again.");
