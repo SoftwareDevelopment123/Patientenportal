@@ -22,15 +22,15 @@ public interface InDocWS {
 
 	@WebMethod
 	public InstructionDoc getInDoc(@WebParam(name = "InDoc-ID") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
 	@WebMethod
 	public InDocListResponse getInDocssbyC(@WebParam(name = "Case-ID") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
 	@WebMethod
 	public InDocListResponse getAllInDocs(@WebParam(name = "") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 	// XXX WebParam?!
 
 	@WebMethod

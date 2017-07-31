@@ -8,7 +8,10 @@ import javax.transaction.Transactional;
 
 import de.patientenportal.entities.Access;
 import de.patientenportal.entities.ActiveRole;
+import de.patientenportal.entities.Case;
 import de.patientenportal.entities.InstructionDoc;
+import de.patientenportal.entities.Patient;
+import de.patientenportal.entities.User;
 import de.patientenportal.entities.exceptions.AccessException;
 import de.patientenportal.entities.exceptions.AccessorException;
 import de.patientenportal.entities.exceptions.AuthenticationException;
@@ -19,26 +22,37 @@ import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.InDocListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.InstructionDocDAO;
+import de.patientenportal.persistence.PatientDAO;
+import de.patientenportal.persistence.UserDAO;
 
 @WebService(endpointInterface = "de.patientenportal.services.InDocWS")
 public class InDocWSImpl implements InDocWS {
 
 	@Transactional
-	public InstructionDoc getInDoc(Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException {
+	public InstructionDoc getInDoc(Accessor accessor) throws AccessorException, InvalidParamException,
+			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 
+		String token;
 		int id;
 		try {
-			id = (int) accessor.getObject();
+			id = (int) accessor.getId();
+			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
 		if (id == 0) {
 			throw new InvalidParamException("No ID found");
 		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 
 		InstructionDoc indoc = new InstructionDoc();
 		try {
+
 			indoc = InstructionDocDAO.getInstructionDoc(id);
 		} catch (Exception e) {
 			throw new PersistenceException("Error 404: Database not found");
@@ -48,18 +62,37 @@ public class InDocWSImpl implements InDocWS {
 	}
 
 	@Transactional
-	public InDocListResponse getInDocssbyC(Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException {
+	public InDocListResponse getInDocssbyC(Accessor accessor) throws AccessorException, InvalidParamException,
+			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		InDocListResponse response = new InDocListResponse();
 
+		String token;
 		int id;
 		try {
-			id = (int) accessor.getObject();
+			id = (int) accessor.getId();
+			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
 		if (id == 0) {
 			throw new InvalidParamException("No ID found");
+		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.ReadCase);
+
+		if (AuthenticationWSImpl.getActiveRole(token) == ActiveRole.Patient) {
+
+			User user = AuthenticationWSImpl.getUserByToken(token);
+			Patient patient = UserDAO.getUser(user.getUserId()).getPatient();
+			Case pcase = CaseDAO.getCase(id);
+
+			if (pcase.getPatient().getPatientID() != patient.getPatientID()) {
+				throw new AccessException("Access denied");
+			}
 		}
 
 		try {
@@ -73,22 +106,29 @@ public class InDocWSImpl implements InDocWS {
 	}
 
 	@Transactional
-	public InDocListResponse getAllInDocs(Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException {
+	public InDocListResponse getAllInDocs(Accessor accessor) throws AccessorException, InvalidParamException,
+			PersistenceException, AuthenticationException, AccessException, AuthorizationException {
 		InDocListResponse response = new InDocListResponse();
-
+		String token;
 		int id;
 		try {
-			id = (int) accessor.getObject();
+			id = (int) accessor.getId();
+			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
 		}
 		if (id == 0) {
 			throw new InvalidParamException("No ID found");
 		}
+		if (token == null) {
+			throw new InvalidParamException("No Token found");
+		}
+
+		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient, ActiveRole.Relative);
+		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
 
 		try {
-			// mit while Schleife alle ids durchgehen?
+
 			List<InstructionDoc> rlist = InstructionDocDAO.getAllIDocs();
 			response.setResponseCode("success");
 			response.setResponseList(rlist);
@@ -141,7 +181,7 @@ public class InDocWSImpl implements InDocWS {
 		String token;
 
 		try {
-			id = (int) accessor.getObject();
+			id = (int) accessor.getId();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");
