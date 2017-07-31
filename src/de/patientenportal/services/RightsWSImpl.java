@@ -35,6 +35,8 @@ public class RightsWSImpl implements RightsWS {
 	 * Die Schreibrechtprüfung findet bei den entsprechenden Methoden
 	 * individuell statt.
 	 * 
+	 * Zugriffsbeschränkung: <code> Patient</code>
+	 * 
 	 * @param accessor
 	 *            mit <code>String</code> token und <code>int</code> caseID
 	 * @return <code>RightsListResponse</code> mit Liste der Rechte und
@@ -98,6 +100,8 @@ public class RightsWSImpl implements RightsWS {
 
 	/**
 	 * <b>Erstellen eines Rechts</b>
+	 * 
+	 * Zugriffsbeschränkung: <code> Patient</code>
 	 * 
 	 * @param accessor
 	 *            mit <code>String</code> Token und Rights-Entity mit dem zu
@@ -167,6 +171,8 @@ public class RightsWSImpl implements RightsWS {
 
 	/**
 	 * <b>Ändern eines Rechts</b><br>
+	 * 
+	 * Zugriffsbeschränkung: <code> Patient</code>
 	 *
 	 * @param accessor
 	 *            mit <code>String</code> Token und Rights-Entity des
@@ -225,6 +231,8 @@ public class RightsWSImpl implements RightsWS {
 	/**
 	 * Entfernen eines Rechts <br>
 	 * 
+	 * Zugriffsbeschränkung: <code> Patient</code>
+	 * 
 	 * @param accessor
 	 *            mit <code>String</code> Token und <code>int</code> rightID des
 	 *            betroffenen Rechts
@@ -236,7 +244,7 @@ public class RightsWSImpl implements RightsWS {
 	 * @throws InvalidParamException
 	 * @throws PersistenceException
 	 */
-	
+
 	@Transactional
 	public String deleteRight(Accessor accessor) throws AuthenticationException, AccessException,
 			AuthorizationException, AccessorException, InvalidParamException, PersistenceException {
@@ -244,7 +252,7 @@ public class RightsWSImpl implements RightsWS {
 		String token;
 
 		try {
-			right =  (Rights) accessor.getObject();
+			right = (Rights) accessor.getObject();
 			token = (String) accessor.getToken();
 		} catch (Exception e) {
 			throw new AccessorException("Incorrect Accessor");

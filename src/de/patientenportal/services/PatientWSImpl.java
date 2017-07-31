@@ -70,7 +70,7 @@ public class PatientWSImpl implements PatientWS {
 	}
 
 	/**
-	 * <b>Alle zugeordneten Patienten zu einem Verwandten abrufen</b><br>
+	 * <b>Alle zu einem Verwandten zugeordneten Patienten abrufen</b><br>
 	 * 
 	 * @param accessor
 	 *            mit <code>String</code> token

@@ -25,6 +25,8 @@ public class RelativeWSImpl implements RelativeWS {
 	/**
 	 * <b>Einen Verwandten zu einem Patienten abrufen</b><br>
 	 * 
+	 * Zugriffsbeschränkung: <code>Doctor, Patient</code>
+	 * 
 	 * @param accessor
 	 *            mit <code>String</code> token und <code>int</code> relativID
 	 * @return <code>Relative</code>
@@ -56,7 +58,7 @@ public class RelativeWSImpl implements RelativeWS {
 
 		List<ActiveRole> accesslist = Arrays.asList(ActiveRole.Doctor, ActiveRole.Patient);
 		AuthenticationWSImpl.tokenRoleAccessCheck(accessor, accesslist, Access.Default);
-
+		// TODO Autorisierung?
 		Relative relative = new Relative();
 		try {
 			relative = RelativeDAO.getRelative(id);
@@ -69,14 +71,13 @@ public class RelativeWSImpl implements RelativeWS {
 	/**
 	 * <b>Alle Verwandten zu einem Patienten abrufen</b><br>
 	 * 
-	 * Zugriffsbeschränkung: Doctor, Relative mit Leserecht beim betroffenen
-	 * Fall<br>
+	 * Zugriffsbeschränkung: Doctor, Patient<br>
 	 * (Patienten können ohnehin ihre Fälle vollständig einsehen - siehe CaseWS)
 	 * 
 	 * @param accessor
 	 *            mit <code>String</code> token und <code>int</code> patientID
 	 * @return <code>RelativeListResponse</code> mit allen Verwandten und
-	 *         Erfolgsmeldung oder Fehlermeldung.
+	 *         Erfolgsmeldung.
 	 * @throws PersistenceException
 	 * @throws AccessorException
 	 * @throws InvalidParamException
