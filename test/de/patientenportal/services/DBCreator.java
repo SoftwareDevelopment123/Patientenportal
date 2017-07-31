@@ -259,21 +259,20 @@ public class DBCreator {
 
 			System.out.println("Medicines added: " + medicine.getName());
 
-			for (int zahli = 6; zahli>=1 ; zahli--){
+			for (int zahli = 6; zahli >= 1; zahli--) {
 				Medication medication1 = new Medication();
 				medication1.setDosage("212" + zahl);
 				medication1.setDuration("extremslange Stunden:" + zahl);
 				medication1.setMedicine(MedicineDAO.getMedicine(zahl));
-	
+
 				createMedication.setObject(medication1);
 				createMedication.setId(CaseDAO.getCase(zahl).getCaseID());
-	
+
 				medication1.setPrescribedBy(UserDAO.getUser(10).getDoctor());
 				createMedication.setObject(medication1);
-	
-	
+
 				medicaws.createMedication(createMedication);
-				
+
 				System.out.println("Medicationes added: " + medication1.getDosage());
 			}
 		}

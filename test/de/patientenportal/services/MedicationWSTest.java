@@ -23,86 +23,86 @@ import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.MedicationListResponse;
 import de.patientenportal.persistence.CaseDAO;
 
-
 public class MedicationWSTest {
 
 	private String token;
-	
+
 	@Before
-	public void login() throws MalformedURLException{
+	public void login() throws MalformedURLException {
 		String username = "user10";
 		String password = "pass10";
-		
+
 		URL url = new URL("http://localhost:8080/authentication?wsdl");
-        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
-        Service service = Service.create(url, qname);
-        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
-        
-        ClientHelper.putUsernamePassword(username, password, authWS);
-        authWS.authenticateUser(ActiveRole.Doctor);
-        token = authWS.getSessionToken(username);
+		QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+		Service service = Service.create(url, qname);
+		AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+
+		ClientHelper.putUsernamePassword(username, password, authWS);
+		authWS.authenticateUser(ActiveRole.Doctor);
+		token = authWS.getSessionToken(username);
 	}
-	
 
 	@After
-	public void logout() throws MalformedURLException{
+	public void logout() throws MalformedURLException {
 		URL url = new URL("http://localhost:8080/authentication?wsdl");
-        QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
-        Service service = Service.create(url, qname);
-        AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
-		
-        authWS.logout(token);
+		QName qname = new QName("http://services.patientenportal.de/", "AuthenticationWSImplService");
+		Service service = Service.create(url, qname);
+		AuthenticationWS authWS = service.getPort(AuthenticationWS.class);
+
+		authWS.logout(token);
 	}
+
 	@Test
-	public void main() throws MalformedURLException, InvalidParamException, AccessorException, PersistenceException, AuthenticationException, AccessException, AuthorizationException {
-	
-		//Test get MedicationbyC
-		int caseid =1;
+	public void main() throws MalformedURLException, InvalidParamException, AccessorException, PersistenceException,
+			AuthenticationException, AccessException, AuthorizationException {
+
+		// Test get MedicationbyC
+		int caseid = 1;
 		//
 		URL url = new URL("http://localhost:8080/medication?wsdl");
 		QName qname = new QName("http://services.patientenportal.de/", "MedicationWSImplService");
 		Service service = Service.create(url, qname);
 		MedicationWS med = service.getPort(MedicationWS.class);
-		
+
 		List<Medication> compareMedList = CaseDAO.getCase(caseid).getMedication();
 		Accessor getMedList = new Accessor();
-		
-		getMedList.setId(caseid);;
+
+		getMedList.setId(caseid);
+		;
 		getMedList.setToken(token);
 		MedicationListResponse medlistresp = med.getMedicationbyC(getMedList);
-		List <Medication> ergebnis = medlistresp.getResponseList();
+		List<Medication> ergebnis = medlistresp.getResponseList();
 		Assert.assertEquals("success", medlistresp.getResponseCode());
-		
+
 		int i = 0;
-		for (Medication m : compareMedList){
-			Assert.assertEquals(m.getDosage()						, ergebnis.get(i).getDosage());
-			Assert.assertEquals(m.getDuration()						, ergebnis.get(i).getDuration());
-			//TODO 
-			//Assert.assertEquals(m.getPrescribedBy()				, ergebnis.get(i).getPrescribedBy());
+		for (Medication m : compareMedList) {
+			Assert.assertEquals(m.getDosage(), ergebnis.get(i).getDosage());
+			Assert.assertEquals(m.getDuration(), ergebnis.get(i).getDuration());
+			// TODO
+			// Assert.assertEquals(m.getPrescribedBy() ,
+			// ergebnis.get(i).getPrescribedBy());
 			i++;
 		}
-		
-		//Neuen Login mit User4 erstellen oder rausnehmen
-/*		//Get MedicationbyP
-		int patientid=1;
-		List<Medication> compareMedList2 = PatientDAO.getPatient(patientid).getCases().get(0).getMedication();
-		Accessor getMedListbyP = new Accessor();
-		
-		getMedListbyP.setObject(patientid);
-		getMedListbyP.setToken(token);
-		MedicationListResponse medlistrespfromcase = med.getMedicationbyP(getMedListbyP);
-		List <Medication> ergebnis2 = medlistrespfromcase.getResponseList();
-		Assert.assertEquals("success", medlistrespfromcase.getResponseCode());
-		
-		int a = 0;
-		for (Medication m : compareMedList2){
-			Assert.assertEquals(m.getDosage()						, ergebnis2.get(a).getDosage());
-			Assert.assertEquals(m.getDuration()						, ergebnis2.get(a).getDuration());
-			Assert.assertEquals(m.getPrescribedBy().getDoctorID()	, ergebnis2.get(a).getPrescribedBy().getDoctorID());
-			a++;
-		}*/
 
-		
-		
+		// Neuen Login mit User4 erstellen oder rausnehmen
+		/*
+		 * //Get MedicationbyP int patientid=1; List<Medication> compareMedList2
+		 * = PatientDAO.getPatient(patientid).getCases().get(0).getMedication();
+		 * Accessor getMedListbyP = new Accessor();
+		 * 
+		 * getMedListbyP.setObject(patientid); getMedListbyP.setToken(token);
+		 * MedicationListResponse medlistrespfromcase =
+		 * med.getMedicationbyP(getMedListbyP); List <Medication> ergebnis2 =
+		 * medlistrespfromcase.getResponseList(); Assert.assertEquals("success",
+		 * medlistrespfromcase.getResponseCode());
+		 * 
+		 * int a = 0; for (Medication m : compareMedList2){
+		 * Assert.assertEquals(m.getDosage() , ergebnis2.get(a).getDosage());
+		 * Assert.assertEquals(m.getDuration() ,
+		 * ergebnis2.get(a).getDuration());
+		 * Assert.assertEquals(m.getPrescribedBy().getDoctorID() ,
+		 * ergebnis2.get(a).getPrescribedBy().getDoctorID()); a++; }
+		 */
+
 	}
 }

@@ -86,7 +86,7 @@ public class OfficeWSTest {
 		// Update Office
 		office.setName("Testoffice 2.0");
 		int officeId = office.getOfficeID();
-		
+
 		Accessor updateOffice = new Accessor();
 		updateOffice.setObject(office);
 		updateOffice.setToken(token);
