@@ -26,21 +26,21 @@ public interface MedDocWS {
 			AccessException, AuthorizationException;
 
 	public MDocListResponse getMDocsbyC(@WebParam(name = "CaseID") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
 	public MDocListResponse getMDocsbyP(@WebParam(name = "PatientID") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
 	public MDocListResponse getMDocsbyD(@WebParam(name = "DoctorID") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
 	public String createMedicalDoc(@WebParam(name = "Medicaldocument") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AccessException, AuthenticationException, AuthorizationException;
 
 	public String updateMDoc(@WebParam(name = "Medicaldocument") Accessor accessor)
-			throws AccessorException, InvalidParamException, PersistenceException;
+			throws AccessorException, InvalidParamException, PersistenceException, AuthenticationException, AccessException, AuthorizationException;
 
-	public String deleteMDoc(@WebParam(name = "MDocID") Accessor accessor) throws AuthenticationException,
-			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;
+	/*public String deleteMDoc(@WebParam(name = "MDocID") Accessor accessor) throws AuthenticationException,
+			AccessException, AuthorizationException, AccessorException, InvalidParamException, PersistenceException;*/
 
 }
