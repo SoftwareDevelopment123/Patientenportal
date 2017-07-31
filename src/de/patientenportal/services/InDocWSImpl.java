@@ -22,7 +22,6 @@ import de.patientenportal.entities.response.Accessor;
 import de.patientenportal.entities.response.InDocListResponse;
 import de.patientenportal.persistence.CaseDAO;
 import de.patientenportal.persistence.InstructionDocDAO;
-import de.patientenportal.persistence.PatientDAO;
 import de.patientenportal.persistence.UserDAO;
 
 @WebService(endpointInterface = "de.patientenportal.services.InDocWS")

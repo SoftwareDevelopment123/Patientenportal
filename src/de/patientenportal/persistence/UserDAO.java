@@ -1,13 +1,14 @@
 package de.patientenportal.persistence;
 
-import java.util.Date;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
-import de.patientenportal.entities.*;
+
+import de.patientenportal.entities.User;
 
 public class UserDAO {
 
@@ -77,36 +78,11 @@ public class UserDAO {
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehler
 	 */
 	public static String updateUser(User updateduser) {
-		int id = updateduser.getUserId();
-		if (id != 0) {
-
-			String username = updateduser.getUsername();
-			String password = updateduser.getPassword();
-			String email = updateduser.getEmail();
-			String lastname = updateduser.getLastname();
-			String firstname = updateduser.getFirstname();
-			Date birthdate = updateduser.getBirthdate();
-			Gender gender = updateduser.getGender();
-			Doctor doctor = updateduser.getDoctor();
-
-			System.out.println("Updating User /w ID " + id + " ... please calm your tits ...");
 			Session session = HibernateUtil.getSessionFactory().openSession();
 
 			try {
 				session.beginTransaction();
-				User usertoupdate = session.get(User.class, id);
-				usertoupdate.setUsername(username);
-				usertoupdate.setPassword(password);
-				usertoupdate.setEmail(email);
-				usertoupdate.setLastname(lastname);
-				usertoupdate.setFirstname(firstname);
-				usertoupdate.setBirthdate(birthdate);
-
-				usertoupdate.setGender(gender);
-				usertoupdate.setDoctor(doctor);
-
-				usertoupdate.setGender(gender);
-
+				session.saveOrUpdate(updateduser);
 				session.getTransaction().commit();
 
 			} catch (Exception e) {
@@ -116,10 +92,6 @@ public class UserDAO {
 				session.close();
 			}
 			return "success";
-
-		} else {
-			return "noID";
-		}
 	}
 
 	/**

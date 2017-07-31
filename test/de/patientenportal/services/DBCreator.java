@@ -90,15 +90,10 @@ public class DBCreator {
 			user.setContact(contact);
 			user.setAddress(address);
 
-			// User created = WS.createUser
-
 			if (s >= 10) {
 				Relative relative = new Relative();
-				// int userID = created.getID
-				// string feedback = registrationWS.createRelative(relative, id)
-
-				RegistrationDAO.createRelative(relative); // kommt weg
-				user.setRelative(relative); // kommt weg
+				RegistrationDAO.createRelative(relative);
+				user.setRelative(relative);
 
 				relatives.add(relative);
 				System.out.println("User-ID " + i + " - Relative created");
@@ -122,7 +117,7 @@ public class DBCreator {
 				System.out.println("User-ID " + i + " - Patient created");
 
 			}
-			RegistrationDAO.createUser(user); // kommt weg
+			RegistrationDAO.createUser(user);
 		}
 
 		System.err.println("Creating Patient-Relative-Relations ...");
