@@ -105,6 +105,5 @@ public class PatientWSImpl implements PatientWS {
 			throw new PersistenceException("Error 404: Database not found");
 		}
 		return response;
-
 	}
 }

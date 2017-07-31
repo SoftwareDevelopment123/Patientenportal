@@ -2,11 +2,12 @@ package de.patientenportal.services;
 
 import javax.jws.WebService;
 import javax.transaction.Transactional;
+
 import de.patientenportal.entities.Doctor;
 import de.patientenportal.entities.Patient;
 import de.patientenportal.entities.Relative;
 import de.patientenportal.entities.User;
-import de.patientenportal.entities.response.UserListResponse;
+import de.patientenportal.entities.exceptions.InvalidParamException;
 import de.patientenportal.persistence.RegistrationDAO;
 import de.patientenportal.persistence.UserDAO;
 
@@ -27,43 +28,35 @@ public class RegistrationWSImpl implements RegistrationWS {
 	 * @param user
 	 * @return <code>UserListResponse</code> mit angelegtem Benutzer und
 	 *         Erfolgsmeldung oder Fehlermeldung.
+	 * @throws InvalidParamException
 	 */
 	@Transactional
-	public UserListResponse createUser(User user) {
-		UserListResponse response = new UserListResponse();
+	public User createUser(User user) throws InvalidParamException {
 
 		if (user.getUsername() == null) {
-			response.setResponseCode("Bitte einen Username angeben.");
-			return response;
+			throw new InvalidParamException("No username found");
 		}
 		if (user.getPassword() == null) {
-			response.setResponseCode("Kein Passwort angegeben.");
-			return response;
+			throw new InvalidParamException("No password found");
 		}
 		if (user.getFirstname() == null) {
-			response.setResponseCode("Kein Vorname angegeben.");
-			return response;
+			throw new InvalidParamException("No firstname found");
 		}
 		if (user.getLastname() == null) {
-			response.setResponseCode("Kein Nachname angegeben.");
-			return response;
+			throw new InvalidParamException("No lastname found");
 		}
 		if (user.getBirthdate() == null) {
-			response.setResponseCode("Kein Geburtsdatum angegeben.");
-			return response;
+			throw new InvalidParamException("No birthdate found");
 		}
 
 		else {
 			boolean usercheck = RegistrationDAO.checkUsername(user.getUsername());
 			if (usercheck == true) {
-				response.setResponseCode("Username schon vergeben.");
-				return response;
+				throw new InvalidParamException("Username already in use");
 			}
 
 			User newuser = RegistrationDAO.createUser(user);
-			response.getResponseList().add(newuser);
-			response.setResponseCode("success");
-			return response;
+			return newuser;
 		}
 	}
 
@@ -75,20 +68,21 @@ public class RegistrationWSImpl implements RegistrationWS {
 	 * @param Patient
 	 * @param userID
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehlermeldung.
+	 * @throws InvalidParamException
 	 */
 	@Transactional
-	public String createPatient(Patient patient, int userID) {
+	public String createPatient(Patient patient, int userID) throws InvalidParamException {
 
 		if (userID == 0) {
-			return "Keine User-ID mitgegeben";
-		} // Sollte in der Client-Logik ausgeschlossen sein
+			throw new InvalidParamException("No userID given");
+		}
 		if (patient.getBloodtype() == null) {
-			return "Keine Blutgruppe angegeben.";
+			throw new InvalidParamException("No bloodtype found");
 		}
 
 		User toupdate = UserDAO.getUser(userID);
 		if (toupdate.getPatient() != null) {
-			return "Zu diesem User ist schon ein Patient eingetragen";
+			throw new InvalidParamException("This user has already set a Patient");
 		}
 
 		else {
@@ -111,20 +105,21 @@ public class RegistrationWSImpl implements RegistrationWS {
 	 * @param doctor
 	 * @param userID
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehlermeldung.
+	 * @throws InvalidParamException
 	 */
 	@Transactional
-	public String createDoctor(Doctor doctor, int userID) {
+	public String createDoctor(Doctor doctor, int userID) throws InvalidParamException {
 
 		if (userID == 0) {
-			return "Keine User-ID mitgegeben";
-		} // Sollte in der Client-Logik ausgeschlossen sein
+			throw new InvalidParamException("No userID given");
+		}
 		if (doctor.getSpecialization() == null) {
-			return "Kein Fachgebiet angegeben.";
+			throw new InvalidParamException("No specialization found");
 		}
 
 		User toupdate = UserDAO.getUser(userID);
 		if (toupdate.getDoctor() != null) {
-			return "Zu diesem User ist schon ein Doktor eingetragen";
+			throw new InvalidParamException("This user has already set a Doctor");
 		}
 
 		else {
@@ -147,17 +142,18 @@ public class RegistrationWSImpl implements RegistrationWS {
 	 * @param relative
 	 * @param userID
 	 * @return <code>String</code> mit Erfolgsmeldung oder Fehlermeldung.
+	 * @throws InvalidParamException
 	 */
 	@Transactional
-	public String createRelative(Relative relative, int userID) {
+	public String createRelative(Relative relative, int userID) throws InvalidParamException {
 
 		if (userID == 0) {
-			return "Keine User-ID mitgegeben";
-		} // Sollte in der Client-Logik ausgeschlossen sein
+			throw new InvalidParamException("No userID given");
+		}
 
 		User toupdate = UserDAO.getUser(userID);
 		if (toupdate.getRelative() != null) {
-			return "Zu diesem User ist schon ein Doktor eingetragen";
+			throw new InvalidParamException("This user has already set a Relative");
 		}
 
 		else {

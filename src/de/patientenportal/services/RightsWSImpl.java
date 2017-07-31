@@ -291,5 +291,4 @@ public class RightsWSImpl implements RightsWS {
 		}
 		return response;
 	}
-
 }
