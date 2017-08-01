@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import de.patientenportal.clientHelper.ClientHelper;
@@ -21,8 +22,6 @@ import de.patientenportal.entities.exceptions.InvalidParamException;
 import de.patientenportal.persistence.UserDAO;
 
 public class RegistrationWSTest {
-
-	// private static String token;
 
 	@Test
 	public void registerUser() throws MalformedURLException, ParseException, InvalidParamException {
@@ -60,18 +59,18 @@ public class RegistrationWSTest {
 		if (UserDAO.getUserByUsername("Tommy") == null) {
 			regWS.createUser(neu);
 		}
-
+		Assert.assertEquals(UserDAO.getUserByUsername("Tommy").getUsername(), "Tommy");
+		
 		// Doctor anlegen
 		Doctor neuD = new Doctor();
 		neuD.setSpecialization("Kardiologe");
 		int userID = UserDAO.getUserByUsername(neu.getUsername()).getUserId();
-
+		
 		if (UserDAO.getUserByUsername("Tommy").getDoctor() == null) {
 			regWS.createDoctor(neuD, userID);
 		}
-
+				
 		// Patient anlegen
-
 		Patient neuP = new Patient();
 		neuP.setBloodtype("B");
 		if (UserDAO.getUserByUsername("Tommy").getPatient() == null) {
