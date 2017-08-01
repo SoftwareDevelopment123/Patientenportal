@@ -1,4 +1,5 @@
 de.patientenportal.entities
+de.patientenportal.entities.exceptions
 de.patientenportal.entities.response
 de.patientenportal.persistence
 de.patientenportal.services
