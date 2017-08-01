@@ -3,34 +3,32 @@
 **Automatische Tabellen-Generierung für Hibernate ist in der Konfig momentan deaktiviert!**  
   --> einfach wieder bei Bedarf einkommentieren!
 
+
 Nicht im Development-Branch arbeiten!
+
 
 - Wenn ihr mit Programmieren startet, checked euren Branch und merged dann von "Development"
 - Nach dem Commit und Push in eurem eigenen Branch checked ihr Development und merged von dort dann euren eigenen Branch (da sollte möglichst alles funktionieren dann)
+
+
+
 
 ## Fortschrittsstand
 
 Fertig und überprüft:
 DAO	-	User, Patient, Doctor, Relative, Registration, Office, Address, Contact, Insurance, Rights, Medication, Medicine, VitalData, InstructionalDoc und MedicalDoc
-WS	-	Access, Account, Address, Case, Contact, Doctor
-
-Fertig:
-
-
-in Arbeit:
+WS	-	Access, Account, Address, Case, Contact, Doctor,
 WS	- MedicationWS, VitalDataWS
-TokenRoleAccessCheck - ab InDoc bis VitalData noch vervollständigen und überprüfen
-
-Fehlt noch:
+TokenRoleAccessCheck,
 WS	- JavaDoc für alle WS ab InDoc, Überprüfung InDocWS und beide Doc-Impl
-Tests - WS-Tests vervollständigen, einen Test für die Funktion des tokenRoleAccesscheck Schreiben
-Wiki -  ;)
+Tests - WS-Tests vervollständigen, einen Test für die Funktion des tokenRoleAccesscheck 
 
 
 ## Dokumentation
 
 06.06. (Stefan)
 - Entities (User, Doctor, Patient, Address, Contact) angelegt, fehlende Verknüpfungen sind auskommentiert
+
 
 07.06. (Jan/Stefan)
 - UserCRUDTest angelegt (Kompletter Unit-Test des UserDAOs avisiert)
@@ -119,13 +117,14 @@ Wiki -  ;)
 - durch das Attribut FileType können nur verschiedene Dateien abgespeichert werden
 
 06.07 Jascha
-- AuthenticationWS läuft - jedoch immer erst richtig nach dem 2. Mal - kp. warum
+- Token-Authentifizierung/AuthenticationWS läuft - jedoch immer erst richtig nach dem 2. Mal - kp. warum
  hierfür wurde u.a. UserDao und hibernate.cfg angepasst
 - Libary Ordner entfernt --> werden nur noch über Maven gemanaged!
 - alles erfolgreich gemerged
 
 07.07. Jascha
-* Alles erfolgreich gemerged, Gender-Enum eingefügt und alles entsprechend angepasst
+-  Gender-Enum eingefügt und alles entsprechend angepasst
+-  AuthenticationWSTest
 
 bis 09.07. (alle)
 - DAOs und Case-Verknüpfungen weitgehend Fertig
@@ -134,30 +133,6 @@ bis 09.07. (alle)
 - Token / Authentication / Authorization / Login / Logout funktioniert
 - DateiServerZugriff funktioniert (bei Jan, hier vllt noch eine Anleitung einfügen)
 
-bis 16.07. (alle)
-- Finalisierung
-
-18.07. (Stefan)
-- Alle DAOs überprüft, anpassungen in den JavaDocs gemacht (@return war falsch)
-	- beim WebSessionDAO sollte Jascha nochmal drüberschauen, ob alles passt (auch JavaDoc)
-	- JavaDoc beim RightsDAO eingefügt (hatte noch gefehlt)
-
-
-## To-Do
-
-- 1 Mal alle Throwables testen, egal wo
-	
-- javadoc
-
-- Wiki
-
-- Copy your whole Project from GitHub
-
-- Change Authors
-
-- ???
-
-- Profit
 
 ## Anmerkungen
 - Bidirektionale OneToMany anpassen (soweit abgeschlossen, siehe Unteraufgabe)
